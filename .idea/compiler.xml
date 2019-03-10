@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="array" />
         <module name="binary_search" />
+        <module name="binary_search_tree" />
         <module name="linked" />
         <module name="queue" />
         <module name="skipList" />
@@ -15,6 +16,16 @@
         <module name="stack" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8" />
+    <bytecodeTargetLevel target="8">
+      <module name="array" target="1.5" />
+      <module name="binary_search" target="1.5" />
+      <module name="binary_search_tree" target="1.5" />
+      <module name="data-structure" target="1.5" />
+      <module name="linked" target="1.5" />
+      <module name="queue" target="1.5" />
+      <module name="skipList" target="1.5" />
+      <module name="sort" target="1.5" />
+      <module name="stack" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -16,6 +16,7 @@
         <module>sort</module>
         <module>binary_search</module>
         <module>skipList</module>
+        <module>binary_search_tree</module>
     </modules>
 
 
