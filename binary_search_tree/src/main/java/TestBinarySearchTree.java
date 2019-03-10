@@ -27,21 +27,21 @@ public class TestBinarySearchTree {
         // 后序遍历 3 2 22 10 5先打印左节点,再打印右节点,最后打印本身
         System.out.println(binarySearchTree.postorderPrint());
 
-        // 查找
+        // 查找  Node{data=3}
         System.out.println(binarySearchTree.find(3));
         // 删除节点
-        //binarySearchTree.delete(2);
-        // 前序遍历
+        binarySearchTree.delete(2);
+        // 前序遍历 [5, 3, 10, 22]
         System.out.println(binarySearchTree.preorderPrint());
         // null
         System.out.println(binarySearchTree.find(2));
-        // 高度
+        // 高度 3
         System.out.println(binarySearchTree.getHeight());
-        // 宽度
+        // 宽度 2
         System.out.println(binarySearchTree.getWeight());
         // 反转二叉树
         binarySearchTree.reversalTree();
-        // 中序遍历
+        // 中序遍历 [10, 22, 5, 3]
         System.out.println(binarySearchTree.inorderPrint());
     }
 
