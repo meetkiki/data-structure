@@ -1,23 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search/binary_search.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/binary_search_tree.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/skipList/skipList.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sort/sort.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/stack/stack.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+    <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="Default Changelist">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/array/array.iml" afterPath="$PROJECT_DIR$/array/array.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data-structure.iml" afterPath="$PROJECT_DIR$/data-structure.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/linked/linked.iml" afterPath="$PROJECT_DIR$/linked/linked.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/queue/queue.iml" afterPath="$PROJECT_DIR$/queue/queue.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -65,14 +51,14 @@
       <file leaf-file-name="BinarySearchTree.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="316">
-              <caret line="216" column="31" lean-forward="true" selection-start-line="216" selection-start-column="31" selection-end-line="216" selection-end-column="31" />
+            <state relative-caret-position="484">
+              <caret line="233" column="27" lean-forward="false" selection-start-line="233" selection-start-column="27" selection-end-line="233" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3346#3347#0" expanded="true" />
                 <element signature="e#3376#3377#0" expanded="true" />
-                <element signature="e#6285#6286#0" expanded="true" />
-                <element signature="e#6325#6326#0" expanded="true" />
+                <element signature="e#6375#6376#0" expanded="true" />
+                <element signature="e#6415#6416#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -825,12 +811,20 @@
       <workItem from="1551707124842" duration="8846000" />
       <workItem from="1551854621473" duration="19759000" />
       <workItem from="1551959765142" duration="2015000" />
-      <workItem from="1552203835950" duration="14686000" />
+      <workItem from="1552203835950" duration="14973000" />
     </task>
+    <task id="LOCAL-00001" summary="Default Changelist">
+      <created>1552223314753</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1552223314753</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156966000" />
+    <option name="totallyTimeSpent" value="157253000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -887,6 +881,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Default Changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1278,14 +1276,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="216" column="31" lean-forward="true" selection-start-line="216" selection-start-column="31" selection-end-line="216" selection-end-column="31" />
+        <state relative-caret-position="484">
+          <caret line="233" column="27" lean-forward="false" selection-start-line="233" selection-start-column="27" selection-end-line="233" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3346#3347#0" expanded="true" />
             <element signature="e#3376#3377#0" expanded="true" />
-            <element signature="e#6285#6286#0" expanded="true" />
-            <element signature="e#6325#6326#0" expanded="true" />
+            <element signature="e#6375#6376#0" expanded="true" />
+            <element signature="e#6415#6416#0" expanded="true" />
           </folding>
         </state>
       </provider>

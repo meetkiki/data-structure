@@ -208,7 +208,7 @@ public class BinarySearchTree {
      * @param node
      * @return
      */
-    public int weith(Node node){
+    private int weith(Node node){
         if (node == null) return 0;
         Stack<Node> stack = new Stack();
         stack.push(node);
@@ -227,6 +227,11 @@ public class BinarySearchTree {
             max = Math.max(max,deep);
         }
         return max;
+    }
+
+    public int getWeight(){
+        Node temp = tree;
+        return weith(temp);
     }
 
     public int getHeight(){
