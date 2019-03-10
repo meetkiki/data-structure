@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="array" />
         <module name="binary_search" />
+        <module name="binary_search_tree" />
         <module name="hashtable" />
         <module name="linked" />
         <module name="queue" />
@@ -16,8 +17,6 @@
         <module name="stack" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8">
-      <module name="hashtable" target="1.8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="8" />
   </component>
 </project>

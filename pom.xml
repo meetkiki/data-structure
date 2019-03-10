@@ -18,6 +18,7 @@
         <module>skipList</module>
         <module>hash-table</module>
         <module>hash-table</module>
+        <module>binary_search_tree</module>
     </modules>
 
 

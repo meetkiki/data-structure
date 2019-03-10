@@ -3,6 +3,15 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/hash-table/hashtable.iml" filepath="$PROJECT_DIR$/hash-table/hashtable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/array/array.iml" filepath="$PROJECT_DIR$/array/array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/binary_search/binary_search.iml" filepath="$PROJECT_DIR$/binary_search/binary_search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/binary_search_tree/binary_search_tree.iml" filepath="$PROJECT_DIR$/binary_search_tree/binary_search_tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/data-structure.iml" filepath="$PROJECT_DIR$/data-structure.iml" />
+      <module fileurl="file://$PROJECT_DIR$/linked/linked.iml" filepath="$PROJECT_DIR$/linked/linked.iml" />
+      <module fileurl="file://$PROJECT_DIR$/queue/queue.iml" filepath="$PROJECT_DIR$/queue/queue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/skipList/skipList.iml" filepath="$PROJECT_DIR$/skipList/skipList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sort/sort.iml" filepath="$PROJECT_DIR$/sort/sort.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stack/stack.iml" filepath="$PROJECT_DIR$/stack/stack.iml" />
     </modules>
   </component>
 </project>
