@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="Default Changelist">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -51,8 +51,8 @@
       <file leaf-file-name="BinarySearchTree.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="484">
-              <caret line="233" column="27" lean-forward="false" selection-start-line="233" selection-start-column="27" selection-end-line="233" selection-end-column="27" />
+            <state relative-caret-position="421">
+              <caret line="220" column="17" lean-forward="true" selection-start-line="220" selection-start-column="17" selection-end-line="220" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3346#3347#0" expanded="true" />
@@ -67,8 +67,8 @@
       <file leaf-file-name="TestBinarySearchTree.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="395">
-              <caret line="40" column="31" lean-forward="true" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+            <state relative-caret-position="256">
+              <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -107,6 +107,9 @@
     <option name="externalProjectsViewState">
       <projects_view />
     </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -150,8 +153,8 @@
         <option value="$PROJECT_DIR$/skipList/src/main/java/SkipList.java" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/binary_search_tree/src/main/java/Node.java" />
-        <option value="$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java" />
         <option value="$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" />
+        <option value="$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java" />
       </list>
     </option>
   </component>
@@ -811,7 +814,7 @@
       <workItem from="1551707124842" duration="8846000" />
       <workItem from="1551854621473" duration="19759000" />
       <workItem from="1551959765142" duration="2015000" />
-      <workItem from="1552203835950" duration="14973000" />
+      <workItem from="1552203835950" duration="15331000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1552223314753</created>
@@ -820,11 +823,18 @@
       <option name="project" value="LOCAL" />
       <updated>1552223314753</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Default Changelist">
+      <created>1552223598492</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1552223598492</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="157253000" />
+    <option name="totallyTimeSpent" value="157611000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1268,16 +1278,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="395">
-          <caret line="40" column="31" lean-forward="true" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
+        <state relative-caret-position="256">
+          <caret line="39" column="13" lean-forward="true" selection-start-line="39" selection-start-column="13" selection-end-line="39" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="484">
-          <caret line="233" column="27" lean-forward="false" selection-start-line="233" selection-start-column="27" selection-end-line="233" selection-end-column="27" />
+        <state relative-caret-position="421">
+          <caret line="220" column="17" lean-forward="true" selection-start-line="220" selection-start-column="17" selection-end-line="220" selection-end-column="17" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3346#3347#0" expanded="true" />

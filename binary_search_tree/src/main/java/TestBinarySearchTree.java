@@ -37,6 +37,8 @@ public class TestBinarySearchTree {
         System.out.println(binarySearchTree.find(2));
         // 高度
         System.out.println(binarySearchTree.getHeight());
+        // 宽度
+        System.out.println(binarySearchTree.getWeight());
         // 反转二叉树
         binarySearchTree.reversalTree();
         // 中序遍历
