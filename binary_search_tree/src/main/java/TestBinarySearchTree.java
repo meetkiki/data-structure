@@ -40,9 +40,15 @@ public class TestBinarySearchTree {
         // 宽度 2
         System.out.println(binarySearchTree.getWeight());
         // 反转二叉树
-        binarySearchTree.reversalTree();
+        //binarySearchTree.reversalTree();
         // 中序遍历 [10, 22, 5, 3]
         System.out.println(binarySearchTree.inorderPrint());
+
+        // 向下取整
+        System.out.println(binarySearchTree.floor(6));
+        // 最大最小键
+        System.out.println(binarySearchTree.min());
+        System.out.println(binarySearchTree.max());
     }
 
 }

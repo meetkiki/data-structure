@@ -125,6 +125,103 @@ public class BinarySearchTree {
     }
 
     /**
+     * 查找最小键
+     *  1.向左查找，如果当前节点的左节点为空则为最小节点 ，最大节点于此同理
+     * @return
+     */
+    public Node min(){
+        return min(tree);
+    }
+
+    private Node min(Node node){
+        if (node.left == null) return node;
+        return min(node.left);
+    }
+
+    /**
+     * 查找最大键
+     *  1.向右查找，如果当前节点的右节点为空则为最大节点 ，最小节点于此同理
+     * @return
+     */
+    public Node max(){
+        return max(tree);
+    }
+
+    private Node max(Node node){
+        if (node.right == null) return node;
+        return max(node.right);
+    }
+
+    /**
+     * 向下取整
+     *  即取不大于x的最大整数
+     *  （与“四舍五入”不同，下取整是直接取按照数轴上最接近要求值的左边值，即不大于要求值的最大的那个值）
+     *  (向上取整于此同理)
+     * @param key
+     * @return
+     */
+    public Node floor(int key){
+        return floor(tree,key);
+    }
+
+    /**
+     * 思路
+     *  1.如果给定的键key小于二叉查找树的根节点的键，那么小于等于key的最大键floor（key一定在根节点的左子树中）
+     *  2.如果给定的键key大于二叉查找树的根节点的键，那么只有当根节点右子树中存在小于等于key的结点时，小于等于key的最大键才存在于右子树中
+     *      否则根节点就是小于等于key的最大键。
+     * @param tree
+     * @param key
+     * @return
+     */
+    private Node floor(Node tree, int key) {
+        if (tree == null) return null;
+        if (tree.data == key) return tree;
+        if (tree.data > key) return floor(tree.left,key);
+        Node floor = floor(tree.right, key);
+        if (floor != null) return floor;
+        return tree;
+    }
+
+    /**
+     * 假设我们需要查找排名为k的结点，就需要实现select方法
+     *  1.如果左子树的结点数t大于k，那么我们就继续(递归地)在左子树中查找排名为k的键；如果t=k，那么我们就返回根节点中的键
+     *  2.如果t小于了k，我们就递归的从右子树中查找排名为k-t-1的键。
+     * @param key
+     * @return
+     */
+    public Node select(int key){
+        return select(tree,key);
+    }
+
+    private Node select(Node tree, int k) {
+        if (tree == null) return null;
+        if (k == size(tree)){
+            return tree;
+        }else{
+            int size = size(tree);
+            if (k > size(tree)){
+                return select(tree.right,k - size - 1);
+            }else {
+                return select(tree.left,k);
+            }
+        }
+    }
+
+    /**
+     * 返回当前节点的个数
+     * @return
+     */
+    public int size(){
+        return size(tree);
+    }
+
+    private int size(Node tree) {
+        if (tree == null) return 0;
+        //return tree.N;
+        return 0;
+    }
+
+    /**
      * 翻转二叉树
      *  1.判断当前根节点是否为空，为空不做操作
      *  2.根节点不为空交换左右子节点
