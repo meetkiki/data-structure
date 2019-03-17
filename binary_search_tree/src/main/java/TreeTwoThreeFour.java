@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * 2-3-4平衡查找树
  */
-public class Tree_Two_Three_Four<T> {
+public class TreeTwoThreeFour<T> {
 
     /**
      * 根节点

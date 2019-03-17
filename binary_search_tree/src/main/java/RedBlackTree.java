@@ -1,0 +1,120 @@
+/**
+ * 红黑树
+ *  红黑树的基本思想是用标准的二叉树（完全由2-结点构成）和一些额外的信息（替换3-结点）来表示2-3树
+ *  1.红黑树的所有红链接均为左链接
+ *  2.没有一个结点同时和两条红链接相连
+ *  3.该树是完全红黑平衡的，即任意空链接到根节点的路径上黑结点的个数一样
+ */
+public class RedBlackTree<K,V> {
+    /**
+     * 如果链接为红色则为true，黑色为false
+     */
+    public static final boolean RED = true;
+    public static final boolean BLACK = false;
+
+    private Node root = new Node();
+
+    class Node<K,V>{
+        /**
+         * 键和值
+         */
+        K key;
+        V value;
+        /**
+         * 左右子节点
+         */
+        Node left;
+        Node right;
+        /**
+         * 当前节点的子节点总个数
+         */
+        int N;
+        /**
+         * 由其父节点指向它的链接颜色
+         */
+        boolean color;
+
+        public Node() {}
+        public Node(K key, V value, int n, boolean color) {
+            this.key = key;
+            this.value = value;
+            N = n;
+            this.color = color;
+        }
+    }
+
+    /**
+     * 给定节点判断与其父链接是否为红色
+     * @param x
+     * @return
+     */
+    private boolean isRed(Node x){
+        if (x == null) return false;
+        return x.color == RED;
+    }
+
+    /**
+     * 返回当前容量
+     * @return
+     */
+    public int size(){
+        return size(root);
+    }
+
+    private int size(Node node){
+        if (node == null) return 0;
+        return node.N;
+    }
+
+    /**
+     *  左旋操作:将红色的右链接转化为红色的左链接过程
+     *     \                                        \
+     *      h                                        s
+     *    /  \ --- 红链接      --->     红链接  ---  / \
+     *   j    s                                    h   r
+     *       / \                                 /  \
+     *      l   r                               j   l
+     *   只是将用两个键中的较小者作为根节点变为较大者作为根节点
+     *    1.取出当前节点的右子节点s作为根节点，s根节点的右结点不变
+     *    2.原根节点的左结点数据不变，右结点为s的左结点
+     *    3.新根结点的父链接颜色为原节点的父链接颜色，原根节点的颜色变为红色
+     *    4.新节点子结点数为原节点的结点总数，原结点的子节点总数重新计算
+     *    5.右旋操作与此同理，只需要将left与right交换即可
+     * @param h
+     * @return
+     */
+    public Node rotateLeft(Node h){
+        Node s = h.right;
+        h.right = s.left;
+        s.left = h;
+        s.color = h.color;
+        h.color = RED;
+        s.N = h.N;
+        h.N = size(h.left) + size(h.right) + 1;
+        return s;
+    }
+    /**
+     *  右旋操作:将红色的左链接转化为红色的右链接过程
+     *               \                 \
+     *               s                 h
+     * 红链接  ---  /  \              /  \   --- 红链接
+     *             h   r            j    s
+     *           /  \                   / \
+     *          j    l                 l   r
+     *
+     * @param s
+     * @return
+     */
+    public Node rotateRight(Node s){
+        Node h = s.left;
+        s.left = h.right;
+        h.right = s;
+        h.color = s.color;
+        s.color = RED;
+        h.N = s.N;
+        s.N = size(s.right) + size(s.left) + 1;
+        return s;
+    }
+
+
+}
