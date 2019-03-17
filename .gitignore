@@ -4,3 +4,5 @@
 target
 /binary_search/target
 *.class
+*.iml
+/stack/stack.iml

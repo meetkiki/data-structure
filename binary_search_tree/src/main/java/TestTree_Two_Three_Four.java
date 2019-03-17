@@ -11,17 +11,19 @@ public class TestTree_Two_Three_Four {
         Tree_Two_Three_Four<Integer> twoThreeFour = new Tree_Two_Three_Four<Integer>();
 
         Random random = new Random();
-        for (int i = 0; i < 10000; i++) {
-            twoThreeFour.insert(new Tree_Two_Three_Four.DataItem(random.nextInt(10000)));
+        for (int i = 0; i < 10; i++) {
+            twoThreeFour.insert(new Tree_Two_Three_Four.DataItem(random.nextInt(100)));
         }
 
 
-        //twoThreeFour.displayTree();
+        twoThreeFour.displayTree();
 
 
         Tree_Two_Three_Four.DataItem dataItem = twoThreeFour.find(888);
 
         System.out.println(dataItem);
+
+        twoThreeFour.printTree();
     }
 
 

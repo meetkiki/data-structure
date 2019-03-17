@@ -1,3 +1,7 @@
+import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 2-3-4平衡查找树
  */
@@ -167,6 +171,95 @@ public class Tree_Two_Three_Four<T> {
 
 
     /**
+     * 绘制2-3-4树
+     */
+    public void printTree() {
+        MyWindow jf = new MyWindow();
+        jf.setSize(1000, 1000);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(3);
+        this.drawTree(root, jf, 395, 100, 1);
+    }
+
+    /**
+     * 绘制Node的数据节点矩形
+     * @param node 数据节点
+     * @param x    首节点坐标x
+     * @param y    首节点坐标y
+     * @return
+     */
+    public List<Area> nodoToArea(Node node,int x,int y){
+        List<Area> list = new ArrayList<>();
+        int numItems = node.getNumItems();
+        for (int i = 0; i < numItems; i++) {
+            list.add(new Area(x + (i - 1) * 30,y - 20, 30, 20));
+        }
+        return list;
+    }
+    /**
+     * 绘制Node的数据
+     * @param node 数据节点
+     * @param x    首节点坐标x
+     * @param y    首节点坐标y
+     * @return
+     */
+    public List<Word> nodoToWord(Node node,int x,int y){
+        List<Word> list = new ArrayList<>();
+        int numItems = node.getNumItems();
+        for (int i = 0; i < numItems; i++) {
+            list.add(new Word(String.valueOf(node.itemArray[i].key), x + 30 * i - 20, y - 5));
+        }
+        return list;
+    }
+
+    /**
+     * 画2-3-4搜索树
+     *  TODO 待改进
+     */
+    public void drawTree(Node node, MyWindow jf, int x, int y, int level) {
+        Graphics g = jf.getGraphics();
+        jf.getShapes().add(new Word("第"+level+"层",15,y));
+        level++;
+        if (node != null){
+            jf.getShapes().addAll(nodoToArea(node, x, y));
+            jf.getShapes().addAll(nodoToWord(node, x, y));
+        }
+        if (!node.isLeaf()) {
+            // 划线
+            int childSize = node.getChildSize(node),xl = 10,yl = -10;
+            switch (childSize){
+                case 1:
+                    // 只需要画左条链线
+                    jf.getShapes().add(new Line(x - xl, y, x - 150/level + xl, y + 10*level + yl));
+                    break;
+                case 2:
+                    // 只需要画左右链线
+                    jf.getShapes().add(new Line(x - xl, y, x - 150/level + xl, y + 10*level + yl));
+                    jf.getShapes().add(new Line(x + childSize * xl, y, x + 150/level + xl, y + 10*level + yl));
+                    break;
+                case 3:
+                    // 左右链线加中线
+                    jf.getShapes().add(new Line(x - xl, y, x - 150/level + xl, y + 10*level + yl));
+                    jf.getShapes().add(new Line(x, y, x, y + 10*level + yl));
+                    jf.getShapes().add(new Line(x + childSize * xl, y, x + 150/level + xl, y + 10*level + yl));
+                    break;
+                case 4:
+                    // 左右链线加两条中线
+                    jf.getShapes().add(new Line(x - 2*xl, y, x - 150/level + xl, y + 10*level + yl));
+                    jf.getShapes().add(new Line(x - xl, y, x- xl, y + 10*level + yl));
+                    jf.getShapes().add(new Line(x + xl, y, x+ xl, y + 10*level + yl));
+                    jf.getShapes().add(new Line(x + 2*xl, y, x + 150/level + xl, y + 10*level + yl));
+                    break;
+                default: break;
+            }
+            for (int i = 0; i < childSize; i++) {
+                drawTree(node.childArray[i], jf, x - (i) * 150/level - xl  , y + 10*level - yl, level);
+            }
+        }
+    }
+
+
+    /**
      * 存储的数据类型
      *  自定义对象
      *  key long 类型
@@ -266,6 +359,21 @@ public class Tree_Two_Three_Four<T> {
             return childArray[childIndex];
         }
 
+        /**
+         * 获取当前节点的子节点个数
+         * @param node
+         * @return
+         */
+        public int getChildSize(Node node){
+            Node[] childArray = node.childArray;
+            int i = 0;
+            for (; i < childArray.length; i++) {
+                if (childArray[i] == null){
+                    return i;
+                }
+            }
+            return i;
+        }
         /**
          * 获取父节点
          * @return

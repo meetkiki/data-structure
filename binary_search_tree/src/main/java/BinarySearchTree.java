@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
@@ -236,7 +237,7 @@ public class BinarySearchTree {
             // 继续交换左子树
             reversal(node.left);
             // 继续交换右子树
-            reversal(node.left);
+            reversal(node.right);
         }
     }
 
@@ -282,6 +283,42 @@ public class BinarySearchTree {
         if (node.right != null) postorderTraversal(node.right,list);
         list.add(node.data);
     }
+
+    /**
+     * 打印哈二叉搜索树
+     */
+    public void printTree() {
+        MyWindow jf = new MyWindow();
+        jf.setSize(800, 800);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(3);
+        drawTree(tree, jf, 395, 50, 1);
+    }
+
+    /**
+     * 画二叉搜索树
+     */
+    public void drawTree(Node a, MyWindow jf, int x, int y, int level) {
+        Graphics g = jf.getGraphics();
+        jf.getShapes().add(new Word("第"+level+"层",15,y));
+        level++;
+        if (a != null){
+            jf.getShapes().add(new Area(x - 10,y - 15,30,20));
+            jf.getShapes().add(new Word(String.valueOf(a.data), x, y));
+            System.out.println("画完节点" + a.data);
+        }
+        if (a.left != null) {
+            int xl = 10,yl = -10;
+            jf.getShapes().add(new Line(x - xl, y, x - 150/level + xl, y + 10*level + yl));
+            drawTree(a.left, jf, x - 150/level - xl, y + 10*level - yl, level);
+        }
+        if (a.right != null) {
+            int xl = 20,yl = -10;
+            jf.getShapes().add(new Line(x + xl, y, x + 150/level + xl, y + 10*level + yl));
+            drawTree(a.right, jf, x + 150/level + xl, y + 10*level - yl, level);
+        }
+    }
+
 
     /**
      * 二叉树的深度

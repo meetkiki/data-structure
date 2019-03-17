@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * @author ypt
  * @ClassName TestBinarySearchTree
@@ -40,7 +42,7 @@ public class TestBinarySearchTree {
         // 宽度 2
         System.out.println(binarySearchTree.getWeight());
         // 反转二叉树
-        //binarySearchTree.reversalTree();
+        binarySearchTree.reversalTree();
         // 中序遍历 [10, 22, 5, 3]
         System.out.println(binarySearchTree.inorderPrint());
 
@@ -49,6 +51,15 @@ public class TestBinarySearchTree {
         // 最大最小键
         System.out.println(binarySearchTree.min());
         System.out.println(binarySearchTree.max());
+
+
+        Random random = new Random();
+        for (int i = 0; i < 20; i++) {
+            binarySearchTree.insert(random.nextInt(10));
+        }
+
+        binarySearchTree.printTree();
+
     }
 
 }
