@@ -119,6 +119,10 @@ public class RedBlackTree<K extends Comparable<K>,V> {
     /**
      * 将左右子节点变为黑色
      * 根节点为红色
+     *                     \                                \ --- 红链接
+     *                     s                                 s
+     *       红链接  ---  /  \  --- 红链接      黑链接  ---  /  \ --- 黑链接
+     *                   h   r                             h   r
      * @param h
      */
     public void flipColors(Node h){
@@ -142,7 +146,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
      * 插入方法的递归实现
      * 1.如果当前根节点的右子链接为红色，左子链接为黑色，则执行右旋
      * 2.如果当前根节点的左子链接为红色，左子链接的左子链接，则执行右旋
-     * 3，如果当前根节点的左右子链接均为红色，则改变颜色
+     * 3.如果当前根节点的左右子链接均为红色，则改变颜色
      * @param root
      * @param key
      * @param val
@@ -159,8 +163,11 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         if (compare > 0) root.left = put(root.left,key,val);
         else if (compare < 0) root.right = put(root.right,key,val);
         else root.value = val;
+        // 如果当前根节点的右子链接为红色，左子链接为黑色，则执行右旋
         if (isRed(root.right) && !isRed(root.left)) root = rotateLeft(root);
+        // 如果当前根节点的左子链接为红色，左子链接的左子链接，则执行右旋
         if (isRed(root.left) && isRed(root.left.left)) root = rotateRight(root);
+        // 如果当前根节点的左右子链接均为红色，则改变颜色
         if (isRed(root.left) && isRed(root.right)) flipColors(root);
         root.N = size(root.right) + size(root.left) + 1;
         return root;
