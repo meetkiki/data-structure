@@ -5,7 +5,7 @@
  *  2.没有一个结点同时和两条红链接相连
  *  3.该树是完全红黑平衡的，即任意空链接到根节点的路径上黑结点的个数一样
  */
-public class RedBlackTree<K,V> {
+public class RedBlackTree<K extends Comparable<K>,V> {
     /**
      * 如果链接为红色则为true，黑色为false
      */
@@ -14,11 +14,11 @@ public class RedBlackTree<K,V> {
 
     private Node root = new Node();
 
-    class Node<K,V>{
+    class Node<Key extends Comparable<K>,V>{
         /**
          * 键和值
          */
-        K key;
+        Key key;
         V value;
         /**
          * 左右子节点
@@ -35,7 +35,7 @@ public class RedBlackTree<K,V> {
         boolean color;
 
         public Node() {}
-        public Node(K key, V value, int n, boolean color) {
+        public Node(Key key, V value, int n, boolean color) {
             this.key = key;
             this.value = value;
             N = n;
@@ -114,6 +114,56 @@ public class RedBlackTree<K,V> {
         h.N = s.N;
         s.N = size(s.right) + size(s.left) + 1;
         return s;
+    }
+
+    /**
+     * 将左右子节点变为黑色
+     * 根节点为红色
+     * @param h
+     */
+    public void flipColors(Node h){
+        h.color = RED;
+        h.left.color = BLACK;
+        h.right.color = BLACK;
+    }
+
+
+    /**
+     * 插入方法
+     * @param key
+     * @param val
+     */
+    public void put(K key,V val){
+        root = put(root,key,val);
+        root.color = BLACK;
+    }
+
+    /**
+     * 插入方法的递归实现
+     * 1.如果当前根节点的右子链接为红色，左子链接为黑色，则执行右旋
+     * 2.如果当前根节点的左子链接为红色，左子链接的左子链接，则执行右旋
+     * 3，如果当前根节点的左右子链接均为红色，则改变颜色
+     * @param root
+     * @param key
+     * @param val
+     * @return
+     */
+    private Node put(Node root, K key, V val) {
+        if (root == null) return new Node(key,val,1,RED);
+        /**
+         * root.key > key    1
+         * root.key < key    -1
+         * root.key > key    0
+         */
+        int compare = root.key.compareTo(key);
+        if (compare > 0) root.left = put(root.left,key,val);
+        else if (compare < 0) root.right = put(root.right,key,val);
+        else root.value = val;
+        if (isRed(root.right) && !isRed(root.left)) root = rotateLeft(root);
+        if (isRed(root.left) && isRed(root.left.left)) root = rotateRight(root);
+        if (isRed(root.left) && isRed(root.right)) flipColors(root);
+        root.N = size(root.right) + size(root.left) + 1;
+        return root;
     }
 
 
