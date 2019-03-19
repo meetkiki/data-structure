@@ -1,6 +1,8 @@
 import java.awt.Graphics;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -123,6 +125,92 @@ public class BinarySearchTree {
         }else{
             pp.right = child;
         }
+    }
+
+    /**
+     * 删除方法改进
+     * @param key
+     * @return
+     */
+    public void deleteMin(){
+        tree = deleteMin(tree);
+    }
+
+    /**
+     * 删除最小值
+     *  不断检索左结点遇到空的左结点链接返回右结点，左结点即会被垃圾回收掉
+     * @param tree
+     * @return
+     */
+    private Node deleteMin(Node tree) {
+        if (tree.left == null) return tree.right;
+        tree.left = deleteMin(tree.left);
+        return tree;
+    }
+
+    /**
+     * 删除方法改进
+     * @param key
+     * @return
+     */
+    public void deleteNew(int key){
+        tree = deleteNew(tree,key);
+    }
+
+    /**
+     * 删除方法改进
+     * @param tree
+     * @param key
+     * @return
+     */
+    private Node deleteNew(Node tree, int key) {
+        if (tree == null) return null;
+        if (tree.data > key) tree.left = deleteNew(tree.left,key);
+        if (tree.data < key) tree.right = deleteNew(tree.right,key);
+        else{
+            // 如果删除的结点的左（右）结点为空，我们只需要返回其右(左)结点，那么删除节点就会被当做垃圾回收掉
+            if (tree.left == null) return tree.right;
+            if (tree.right == null) return tree.left;
+            /**
+             * 根据Hibbard方法
+             *  1.将指向即将被删除的结点保存为t
+             *  2.将x指向它的后继结点min(t.right)
+             *  3.将x的右链接（原本指向一颗所有结点都大于x.key的二叉查找树）指向deleteMin(t.right),也就是在删除之后所有结点都仍然大于x的二叉树
+             *  4.将x的左链接（本为空）设置为t的left（其他所有的键都小于被删除的结点和它的后继节点）
+             */
+            Node x = tree;
+            tree = min(x.right);
+            tree.left = x.left;
+            tree.right = deleteMin(x.right);
+        }
+        return tree;
+    }
+
+    /**
+     * 返回查找函数
+     * @param l
+     * @param r
+     * @return
+     */
+    public Iterable<String> keys(int l,int r){
+        Queue<String> queue = new ArrayDeque<>();
+        keys(tree,queue,l,r);
+        return queue;
+    }
+
+    /**
+     * 返回查找方法
+     *  1.根据中序遍历的特性 返回有序的集合
+     * @param tree
+     * @param queue
+     * @param l
+     * @param r
+     */
+    private void keys(Node tree, Queue<String> queue, int l, int r) {
+        if (tree == null) return;
+        if (tree.data < l) keys(tree.right,queue,l,r);
+        if (tree.data > l && tree.data < r) queue.add(tree.toString());
+        if (tree.data > r) keys(tree.left,queue,l,r);
     }
 
     /**
