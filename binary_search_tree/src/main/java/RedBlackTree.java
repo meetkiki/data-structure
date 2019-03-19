@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 红黑树
  *  红黑树的基本思想是用标准的二叉树（完全由2-结点构成）和一些额外的信息（替换3-结点）来表示2-3树
@@ -12,7 +15,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
     public static final boolean RED = true;
     public static final boolean BLACK = false;
 
-    private Node root = new Node();
+    private Node root;
 
     class Node<Key extends Comparable<K>,V>{
         /**
@@ -40,6 +43,16 @@ public class RedBlackTree<K extends Comparable<K>,V> {
             this.value = value;
             N = n;
             this.color = color;
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "key=" + key +
+                    ", value=" + value +
+                    ", N=" + N +
+                    ", color=" + color +
+                    '}';
         }
     }
 
@@ -117,8 +130,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
     }
 
     /**
-     * 将左右子节点变为黑色
-     * 根节点为红色
+     * 将左右子节点变为黑色 * 根节点变为红色
      *                     \                                \ --- 红链接
      *                     s                                 s
      *       红链接  ---  /  \  --- 红链接      黑链接  ---  /  \ --- 黑链接
@@ -129,6 +141,33 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         h.color = RED;
         h.left.color = BLACK;
         h.right.color = BLACK;
+    }
+
+    /**
+     * 查询方法
+     * @param key
+     */
+    public V get(K key){
+        return get(root,key);
+    }
+
+    /**
+     * 获取方法 和二分查找一样
+     * @param root
+     * @param key
+     * @return
+     */
+    private V get(Node root, K key) {
+        if (root == null) return null;
+        /**
+         * root.key > key    1
+         * root.key < key    -1
+         * root.key > key    0
+         */
+        int compare = root.key.compareTo(key);
+        if (compare > 0) return (V)get(root.left,key);
+        else if (compare < 0) return (V)get(root.right,key);
+        else return (V)root.value;
     }
 
 
@@ -163,7 +202,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         if (compare > 0) root.left = put(root.left,key,val);
         else if (compare < 0) root.right = put(root.right,key,val);
         else root.value = val;
-        // 如果当前根节点的右子链接为红色，左子链接为黑色，则执行右旋
+        // 如果当前根节点的右子链接为红色，左子链接为黑色，则执行左旋
         if (isRed(root.right) && !isRed(root.left)) root = rotateLeft(root);
         // 如果当前根节点的左子链接为红色，左子链接的左子链接，则执行右旋
         if (isRed(root.left) && isRed(root.left.left)) root = rotateRight(root);
@@ -171,6 +210,40 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         if (isRed(root.left) && isRed(root.right)) flipColors(root);
         root.N = size(root.right) + size(root.left) + 1;
         return root;
+    }
+
+    /**
+     * 中序遍历
+     * @return
+     */
+    public String inorderTraversal(){
+        List<String> list = new ArrayList<>();
+        inorderTraversal(root,list);
+        return list.toString();
+    }
+
+    private void inorderTraversal(Node root, List<String> list) {
+        if (root == null) return;
+        inorderTraversal(root.left,  list);
+        list.add(root.toString());
+        inorderTraversal(root.right,  list);
+    }
+
+    /**
+     * 前序遍历
+     * @return
+     */
+    public String preorderTraversal(){
+        List<String> list = new ArrayList<>();
+        preorderTraversal(root,list);
+        return list.toString();
+    }
+
+    private void preorderTraversal(Node root, List<String> list) {
+        if (root == null) return;
+        list.add(root.toString());
+        inorderTraversal(root.left,  list);
+        inorderTraversal(root.right,  list);
     }
 
 
