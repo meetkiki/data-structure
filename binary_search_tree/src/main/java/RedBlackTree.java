@@ -202,15 +202,99 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         if (compare > 0) root.left = put(root.left,key,val);
         else if (compare < 0) root.right = put(root.right,key,val);
         else root.value = val;
-        // 如果当前根节点的右子链接为红色，左子链接为黑色，则执行左旋
+        return balance(root);
+    }
+
+    /**
+     * 是否为空
+     * @return
+     */
+    public boolean isEmpty(){
+        return size(root) == 0;
+    }
+
+    /**
+     * 删除最小键
+     *  如果左右子节点都为黑色，那么将这三个结点合并为4结点
+     */
+    public void deleteMin(){
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+        root = deleteMin(root);
+        if (!isEmpty()) root.color = BLACK;
+    }
+
+    /**
+     * 删除最小键
+     *  1.根节点的左结点为树的底部 直接删除它
+     *  2.删除的主要思想是从树底部的3-结点删除(参考2-3-4树)，而2-结点删除会破坏平衡性，所以有两种情况
+     *      1.如果根节点和它的两个子节点都为2-结点，我们可以把它变为临时的4-结点；
+     *      2.需要保证左结点不为2-结点，所以就需要从兄弟结点“借”过来作为左结点,将其变为3-或者临时的4-结点
+     *          ①如果当前结点的左子节点为2-结点而它的亲兄弟结点不是2-结点，则使用移动“借”其兄弟结点
+     *          ②如果当前结点和它的亲兄弟结点都为2-结点，将左子节点、
+     *          父结点中的最小键和左子节点最近的兄弟结点合并为一个4-结点，使父节由3-结点变为2-结点或者由4-结点变为3-结点
+     * @param root
+     * @return
+     */
+    private Node deleteMin(Node root) {
+        if (root.left == null) return null;
+        // 如果左子节点和它的左子节点都为黑结点 我们需要从它的右侧的兄弟节点中"借"来
+        if (!isRed(root.left) && !isRed(root.left.left))
+            root = moveRedLeft(root);
+        root.left = deleteMin(root.left);
+        // 维持平衡性
+        if (isRed(root.right)){
+            root = rotateLeft(root);
+        }
+        return balance(root);
+    }
+
+    /**
+     * 将节点的左结点或者左子结点变红
+     *  如果兄弟节点的左结点为红链接，则将其“借”过来作为左结点
+     * @param root
+     * @return
+     */
+    private Node moveRedLeft(Node root) {
+        flipColors2(root);
+        if (isRed(root.right.left)){
+            root.right = rotateRight(root.right);
+            root = rotateLeft(root);
+        }
+        return root;
+    }
+
+    /**
+     * 将左右子节点变为红色 * 根节点变为黑色 （删除）
+     *                     \                                \ --- 黑链接
+     *                     s                                 s
+     *       黑链接  ---  /  \  --- 黑链接      红链接  ---  /  \ --- 红链接
+     *                   h   r                             h   r
+     * @param h
+     */
+    public void flipColors2(Node h){
+        h.color = BLACK;
+        h.left.color = RED;
+        h.right.color = RED;
+    }
+
+
+    /**
+     * 插入或者删除调整结点的平衡性
+     * @param root
+     * @return
+     */
+    private Node balance(Node root) {
+        // ①如果当前根节点的右子链接为红色，左子链接为黑色，则执行左旋
         if (isRed(root.right) && !isRed(root.left)) root = rotateLeft(root);
-        // 如果当前根节点的左子链接为红色，左子链接的左子链接，则执行右旋
+        // ②如果当前根节点的左子链接为红色，左子链接的左子链接，则执行右旋
         if (isRed(root.left) && isRed(root.left.left)) root = rotateRight(root);
-        // 如果当前根节点的左右子链接均为红色，则改变颜色
+        // ③如果当前根节点的左右子链接均为红色，则改变颜色（将此步放在第①步则可以将2-3树红黑树变为2-3-4树插入的平衡调整）
         if (isRed(root.left) && isRed(root.right)) flipColors(root);
         root.N = size(root.right) + size(root.left) + 1;
         return root;
     }
+
 
     /**
      * 中序遍历

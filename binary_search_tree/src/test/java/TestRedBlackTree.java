@@ -11,7 +11,7 @@ public class TestRedBlackTree {
         RedBlackTree<Integer, Object> redBlackTree = new RedBlackTree<>();
 
 
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 3; i++) {
             redBlackTree.put(i,String.valueOf(i));
         }
 
@@ -20,6 +20,11 @@ public class TestRedBlackTree {
 
         System.out.println(redBlackTree.get(2));
         System.out.println(redBlackTree.get(20));
+
+        redBlackTree.deleteMin();
+        redBlackTree.deleteMin();
+        System.out.println(redBlackTree.preorderTraversal());
+
     }
 
 }
