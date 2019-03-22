@@ -123,10 +123,10 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         s.left = h.right;
         h.right = s;
         h.color = s.color;
-        s.color = RED;
+        h.color = RED;
         h.N = s.N;
         s.N = size(s.right) + size(s.left) + 1;
-        return s;
+        return h;
     }
 
     /**
@@ -250,6 +250,53 @@ public class RedBlackTree<K extends Comparable<K>,V> {
     }
 
     /**
+     * 删除最大键
+     *  思路和删除最小键一致，细节是由于红链接均为左链接
+     */
+    public void deleteMax(){
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+        root = deleteMax(root);
+        if (!isEmpty()) root.color = BLACK;
+    }
+
+    /**
+     * 将节点的右结点或者右子结点变红
+     * @param root
+     * @return
+     */
+    private Node moveRedRight(Node root) {
+        flipColors2(root);
+        if (root.left != null && !isRed(root.left.left)){
+            root = rotateRight(root);
+        }
+        return root;
+    }
+
+    /**
+     * 删除最大键
+     * @param root
+     * @return
+     */
+    private Node deleteMax(Node root) {
+        // 刪除最大值主要是删除右结点 如果左结点为红结点 则从左结点“借”
+        if (isRed(root.left)){
+            root = rotateRight(root);
+        }
+        if (root.right == null) return null;
+        // 如果右结点和它的子节点都为黑结点 那就从左子节点“借”一个节点
+        if (!isRed(root.right) && !isRed(root.right.left)){
+            root = moveRedRight(root);
+        }
+        root.right = deleteMax(root.right);
+        // 维持平衡性
+        if (isRed(root.right)){
+            root = rotateLeft(root);
+        }
+        return balance(root);
+    }
+
+    /**
      * 将节点的左结点或者左子结点变红
      *  如果兄弟节点的左结点为红链接，则将其“借”过来作为左结点
      * @param root
@@ -274,8 +321,8 @@ public class RedBlackTree<K extends Comparable<K>,V> {
      */
     public void flipColors2(Node h){
         h.color = BLACK;
-        h.left.color = RED;
-        h.right.color = RED;
+        if (h.left != null) h.left.color = RED;
+        if (h.right != null) h.right.color = RED;
     }
 
 
@@ -293,6 +340,73 @@ public class RedBlackTree<K extends Comparable<K>,V> {
         if (isRed(root.left) && isRed(root.right)) flipColors(root);
         root.N = size(root.right) + size(root.left) + 1;
         return root;
+    }
+
+    /**
+     *  删除
+     *      将删除最大最小合并就是删除方法
+     * @param key
+     */
+    public void delete(K key){
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+        root = delete(root,key);
+        if (!isEmpty()) root.color = BLACK;
+    }
+
+    /**
+     * 返回最小节点
+     * @return
+     */
+    public Node min(){
+        if (root == null) return null;
+        return min(root);
+    }
+
+    private Node min(Node root) {
+        if (root.left == null) return root;
+        return min(root.left);
+    }
+
+    /**
+     * 红黑树删除实现
+     * @param root
+     * @return
+     */
+    private Node delete(Node root,K key) {
+        if (root == null) return null;
+        if (root.key.compareTo(key) > 0){
+            // 向左查找 删除小键
+            // 如果左子节点和它的左子节点都为黑结点 我们需要从它的右侧的兄弟节点中"借"来
+            if (!isRed(root.left) && !isRed(root.left.left))
+                root = moveRedLeft(root);
+            root.left = delete(root.left,key);
+        }else{
+            // 向右查找 删除大键
+            // 刪除最大值主要是删除右结点 如果左结点为红结点 则从左结点“借”
+            if (isRed(root.left)){
+                root = rotateRight(root);
+            }
+            if (root.key.compareTo(key) == 0 && root.right == null) return null;
+            // 如果右结点和它的子节点都为黑结点 那就从左子节点“借”一个节点
+            if (!isRed(root.right) && !isRed(root.right.left)){
+                root = moveRedRight(root);
+            }
+            if (root.key.compareTo(key) == 0){
+                // 删除方法 找到当前右子树最小结点 作为替代结点
+                Node n = min(root.right);
+                root.value = n.value;
+                root.key = n.key;
+                root.right = deleteMin(root.right);
+            }else{
+                root.right = delete(root.right,key);
+            }
+        }
+        // 维持平衡性
+        if (isRed(root.right)){
+            root = rotateLeft(root);
+        }
+        return balance(root);
     }
 
 

@@ -21,9 +21,10 @@ public class TestRedBlackTree {
         System.out.println(redBlackTree.get(2));
         System.out.println(redBlackTree.get(20));
 
-        redBlackTree.deleteMin();
-        redBlackTree.deleteMin();
+        redBlackTree.delete(2);
         System.out.println(redBlackTree.preorderTraversal());
+
+
 
     }
 
