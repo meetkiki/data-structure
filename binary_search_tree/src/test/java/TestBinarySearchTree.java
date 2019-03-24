@@ -9,10 +9,10 @@ import java.util.Random;
 public class TestBinarySearchTree {
 
     public static void main(String[] args) {
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
+        BST bst = new BST();
         int[] arr = {5,2,10,22,3};
         for (int i = 0; i < arr.length; i++) {
-            binarySearchTree.insert(arr[i]);
+            bst.insert(arr[i]);
         }
 
         /**
@@ -23,42 +23,42 @@ public class TestBinarySearchTree {
          *        3     22
          */
         // 前序遍历 5 2 3 10 22 先打印本身,在打印左节点,最后打印右节点
-        System.out.println(binarySearchTree.preorderPrint());
+        System.out.println(bst.preorderPrint());
         // 中序遍历 2 3 5 10 22 先打印左节点,再打印本身,最后打印右节点
-        System.out.println(binarySearchTree.inorderPrint());
+        System.out.println(bst.inorderPrint());
         // 后序遍历 3 2 22 10 5先打印左节点,再打印右节点,最后打印本身
-        System.out.println(binarySearchTree.postorderPrint());
+        System.out.println(bst.postorderPrint());
 
         // 查找  Node{data=3}
-        System.out.println(binarySearchTree.find(3));
+        System.out.println(bst.find(3));
         // 删除节点
-        binarySearchTree.delete(2);
+        bst.delete(2);
         // 前序遍历 [5, 3, 10, 22]
-        System.out.println(binarySearchTree.preorderPrint());
+        System.out.println(bst.preorderPrint());
         // null
-        System.out.println(binarySearchTree.find(2));
+        System.out.println(bst.find(2));
         // 高度 3
-        System.out.println(binarySearchTree.getHeight());
+        System.out.println(bst.getHeight());
         // 宽度 2
-        System.out.println(binarySearchTree.getWeight());
+        System.out.println(bst.getWeight());
         // 反转二叉树
-        binarySearchTree.reversalTree();
+        bst.reversalTree();
         // 中序遍历 [10, 22, 5, 3]
-        System.out.println(binarySearchTree.inorderPrint());
+        System.out.println(bst.inorderPrint());
 
         // 向下取整
-        System.out.println(binarySearchTree.floor(6));
+        System.out.println(bst.floor(6));
         // 最大最小键
-        System.out.println(binarySearchTree.min());
-        System.out.println(binarySearchTree.max());
+        System.out.println(bst.min());
+        System.out.println(bst.max());
 
 
         Random random = new Random();
         for (int i = 0; i < 20; i++) {
-            binarySearchTree.insert(random.nextInt(10));
+            bst.insert(random.nextInt(10));
         }
 
-        binarySearchTree.printTree();
+        bst.printTree();
 
     }
 

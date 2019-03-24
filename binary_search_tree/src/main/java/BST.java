@@ -11,7 +11,7 @@ import java.util.Stack;
  * @Description 节点类
  * @date 2019/3/10 15:45
  */
-public class BinarySearchTree {
+public class BST {
 
     private Node tree;
 

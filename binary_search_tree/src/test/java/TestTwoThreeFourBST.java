@@ -1,6 +1,6 @@
 import java.util.Random;
 
-public class TestTreeTwoThreeFour {
+public class TestTwoThreeFourBST {
 
     /**
      * 测试2-3-4树
@@ -8,18 +8,18 @@ public class TestTreeTwoThreeFour {
      */
     public static void main(String[] args) {
 
-        TreeTwoThreeFour<Integer> twoThreeFour = new TreeTwoThreeFour<Integer>();
+        TwoThreeFourBST<Integer> twoThreeFour = new TwoThreeFourBST<Integer>();
 
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
-            twoThreeFour.insert(new TreeTwoThreeFour.DataItem(random.nextInt(100)));
+            twoThreeFour.insert(new TwoThreeFourBST.DataItem(random.nextInt(100)));
         }
 
 
         twoThreeFour.displayTree();
 
 
-        TreeTwoThreeFour.DataItem dataItem = twoThreeFour.find(888);
+        TwoThreeFourBST.DataItem dataItem = twoThreeFour.find(888);
 
         System.out.println(dataItem);
 

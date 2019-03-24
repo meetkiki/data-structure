@@ -1,6 +1,6 @@
 import org.junit.Test;
 
-public class TestRedBlackTree {
+public class TestRedBlackBST {
 
     /**
      * 测试红黑树
@@ -8,7 +8,7 @@ public class TestRedBlackTree {
      */
     @Test
     public void TestName() throws Exception{
-        RedBlackTree<Integer, Object> redBlackTree = new RedBlackTree<>();
+        RedBlackBST<Integer, Object> redBlackTree = new RedBlackBST<>();
 
 
         for (int i = 1; i <= 3; i++) {
@@ -23,8 +23,6 @@ public class TestRedBlackTree {
 
         redBlackTree.delete(2);
         System.out.println(redBlackTree.preorderTraversal());
-
-
 
     }
 

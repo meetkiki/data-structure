@@ -8,7 +8,7 @@ import java.util.List;
  *  2.没有一个结点同时和两条红链接相连
  *  3.该树是完全红黑平衡的，即任意空链接到根节点的路径上黑结点的个数一样
  */
-public class RedBlackTree<K extends Comparable<K>,V> {
+public class RedBlackBST<K extends Comparable<K>,V> {
     /**
      * 如果链接为红色则为true，黑色为false
      */
@@ -266,7 +266,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
      * @return
      */
     private Node moveRedRight(Node root) {
-        flipColors2(root);
+        moveflipColors(root);
         if (root.left != null && !isRed(root.left.left)){
             root = rotateRight(root);
         }
@@ -303,7 +303,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
      * @return
      */
     private Node moveRedLeft(Node root) {
-        flipColors2(root);
+        moveflipColors(root);
         if (isRed(root.right.left)){
             root.right = rotateRight(root.right);
             root = rotateLeft(root);
@@ -319,7 +319,7 @@ public class RedBlackTree<K extends Comparable<K>,V> {
      *                   h   r                             h   r
      * @param h
      */
-    public void flipColors2(Node h){
+    public void moveflipColors(Node h){
         h.color = BLACK;
         if (h.left != null) h.left.color = RED;
         if (h.right != null) h.right.color = RED;
