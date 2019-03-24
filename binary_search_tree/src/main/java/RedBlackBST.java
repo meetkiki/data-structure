@@ -304,6 +304,7 @@ public class RedBlackBST<K extends Comparable<K>,V> {
      */
     private Node moveRedLeft(Node root) {
         moveflipColors(root);
+        // 如果右键为3-结点，则借键给左孩子
         if (isRed(root.right.left)){
             root.right = rotateRight(root.right);
             root = rotateLeft(root);
