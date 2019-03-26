@@ -2,58 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="Default Changelist">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Shape/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Shape/src/main/java/Area.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Shape/src/main/java/Line.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Shape/src/main/java/MyWindow.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Shape/src/main/java/Shape.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Shape/src/main/java/Word.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/RedBlackBST.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/TwoThreeFourBST.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/src/test/java/TestBinarySearchTree.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/src/test/java/TestRedBlackBST.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/binary_search_tree/src/test/java/TestTwoThreeFourBST.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hash-table/hashtable.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hash-table/pom.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/hash-table/src/main/java/Hash01.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/sort/src/main/java/HeapSort.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/array/array.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/array/target/classes/Array.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/array/target/classes/List.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/array/target/classes/Test.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/binary_search.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/BranchSearch01.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/BranchSearch02.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/BranchSearch03.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/BranchSearch04.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/BranchSearch05.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/BranchSearch06.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/META-INF/binary_search.kotlin_module" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search/target/classes/SquareSearch.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search_tree/binary_search_tree.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/binary_search_tree/src/main/java/TestBinarySearchTree.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/data-structure.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/linked/linked.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/queue/queue.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/skipList/skipList.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/sort/sort.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stack/stack.iml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sort/target/classes/BucketSort.class" afterPath="$PROJECT_DIR$/sort/target/classes/BucketSort.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sort/target/classes/CountingSort.class" afterPath="$PROJECT_DIR$/sort/target/classes/CountingSort.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sort/target/classes/MergeSort.class" afterPath="$PROJECT_DIR$/sort/target/classes/MergeSort.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sort/target/classes/SortMethod.class" afterPath="$PROJECT_DIR$/sort/target/classes/SortMethod.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/binary_search_tree/pom.xml" afterPath="$PROJECT_DIR$/binary_search_tree/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sort/src/main/java/CountingSort.java" afterPath="$PROJECT_DIR$/sort/src/main/java/CountingSort.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/binary_search_tree/src/main/java/BinarySearchTree.java" afterPath="$PROJECT_DIR$/binary_search_tree/src/main/java/BST.java" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -93,7 +42,7 @@
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
-              <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+              <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -580,12 +529,20 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1553564376130</updated>
-      <workItem from="1553564377772" duration="92000" />
+      <workItem from="1553564377772" duration="158000" />
     </task>
+    <task id="LOCAL-00001" summary="Default Changelist">
+      <created>1553564515624</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1553564515624</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="135000" />
+    <option name="totallyTimeSpent" value="201000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -633,6 +590,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Default Changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -972,7 +933,7 @@
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
-          <caret line="5" column="8" lean-forward="true" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding />
         </state>
       </provider>
