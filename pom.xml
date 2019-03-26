@@ -20,6 +20,7 @@
         <module>hash-table</module>
         <module>binary_search_tree</module>
         <module>Shape</module>
+        <module>leetcode</module>
     </modules>
 
     <dependencies>
