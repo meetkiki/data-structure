@@ -16,8 +16,18 @@
         <module>sort</module>
         <module>binary_search</module>
         <module>skipList</module>
+        <module>hash-table</module>
+        <module>hash-table</module>
         <module>binary_search_tree</module>
+        <module>Shape</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+    </dependencies>
 
 </project>

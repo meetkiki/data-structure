@@ -1,5 +1,8 @@
+import java.awt.Graphics;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -8,7 +11,7 @@ import java.util.Stack;
  * @Description 节点类
  * @date 2019/3/10 15:45
  */
-public class BinarySearchTree {
+public class BST {
 
     private Node tree;
 
@@ -125,6 +128,189 @@ public class BinarySearchTree {
     }
 
     /**
+     * 删除方法改进
+     * @param key
+     * @return
+     */
+    public void deleteMin(){
+        tree = deleteMin(tree);
+    }
+
+    /**
+     * 删除最小值
+     *  不断检索左结点遇到空的左结点链接返回右结点，左结点即会被垃圾回收掉
+     * @param tree
+     * @return
+     */
+    private Node deleteMin(Node tree) {
+        if (tree.left == null) return tree.right;
+        tree.left = deleteMin(tree.left);
+        return tree;
+    }
+
+    /**
+     * 删除方法改进
+     * @param key
+     * @return
+     */
+    public void deleteNew(int key){
+        tree = deleteNew(tree,key);
+    }
+
+    /**
+     * 删除方法改进
+     * @param tree
+     * @param key
+     * @return
+     */
+    private Node deleteNew(Node tree, int key) {
+        if (tree == null) return null;
+        if (tree.data > key) tree.left = deleteNew(tree.left,key);
+        if (tree.data < key) tree.right = deleteNew(tree.right,key);
+        else{
+            // 如果删除的结点的左（右）结点为空，我们只需要返回其右(左)结点，那么删除节点就会被当做垃圾回收掉
+            if (tree.left == null) return tree.right;
+            if (tree.right == null) return tree.left;
+            /**
+             * 根据Hibbard方法
+             *  1.将指向即将被删除的结点保存为t
+             *  2.将x指向它的后继结点min(t.right)
+             *  3.将x的右链接（原本指向一颗所有结点都大于x.key的二叉查找树）指向deleteMin(t.right),也就是在删除之后所有结点都仍然大于x的二叉树
+             *  4.将x的左链接（本为空）设置为t的left（其他所有的键都小于被删除的结点和它的后继节点）
+             */
+            Node x = tree;
+            tree = min(x.right);
+            tree.left = x.left;
+            tree.right = deleteMin(x.right);
+        }
+        return tree;
+    }
+
+    /**
+     * 返回查找函数
+     * @param l
+     * @param r
+     * @return
+     */
+    public Iterable<String> keys(int l,int r){
+        Queue<String> queue = new ArrayDeque<>();
+        keys(tree,queue,l,r);
+        return queue;
+    }
+
+    /**
+     * 返回查找方法
+     *  1.根据中序遍历的特性 返回有序的集合
+     * @param tree
+     * @param queue
+     * @param l
+     * @param r
+     */
+    private void keys(Node tree, Queue<String> queue, int l, int r) {
+        if (tree == null) return;
+        if (tree.data < l) keys(tree.right,queue,l,r);
+        if (tree.data > l && tree.data < r) queue.add(tree.toString());
+        if (tree.data > r) keys(tree.left,queue,l,r);
+    }
+
+    /**
+     * 查找最小键
+     *  1.向左查找，如果当前节点的左节点为空则为最小节点 ，最大节点于此同理
+     * @return
+     */
+    public Node min(){
+        return min(tree);
+    }
+
+    private Node min(Node node){
+        if (node.left == null) return node;
+        return min(node.left);
+    }
+
+    /**
+     * 查找最大键
+     *  1.向右查找，如果当前节点的右节点为空则为最大节点 ，最小节点于此同理
+     * @return
+     */
+    public Node max(){
+        return max(tree);
+    }
+
+    private Node max(Node node){
+        if (node.right == null) return node;
+        return max(node.right);
+    }
+
+    /**
+     * 向下取整
+     *  即取不大于x的最大整数
+     *  （与“四舍五入”不同，下取整是直接取按照数轴上最接近要求值的左边值，即不大于要求值的最大的那个值）
+     *  (向上取整于此同理)
+     * @param key
+     * @return
+     */
+    public Node floor(int key){
+        return floor(tree,key);
+    }
+
+    /**
+     * 思路
+     *  1.如果给定的键key小于二叉查找树的根节点的键，那么小于等于key的最大键floor（key一定在根节点的左子树中）
+     *  2.如果给定的键key大于二叉查找树的根节点的键，那么只有当根节点右子树中存在小于等于key的结点时，小于等于key的最大键才存在于右子树中
+     *      否则根节点就是小于等于key的最大键。
+     * @param tree
+     * @param key
+     * @return
+     */
+    private Node floor(Node tree, int key) {
+        if (tree == null) return null;
+        if (tree.data == key) return tree;
+        if (tree.data > key) return floor(tree.left,key);
+        Node floor = floor(tree.right, key);
+        if (floor != null) return floor;
+        return tree;
+    }
+
+    /**
+     * 假设我们需要查找排名为k的结点，就需要实现select方法
+     *  1.如果左子树的结点数t大于k，那么我们就继续(递归地)在左子树中查找排名为k的键；如果t=k，那么我们就返回根节点中的键
+     *  2.如果t小于了k，我们就递归的从右子树中查找排名为k-t-1的键。
+     * @param key
+     * @return
+     */
+    public Node select(int key){
+        return select(tree,key);
+    }
+
+    private Node select(Node tree, int k) {
+        if (tree == null) return null;
+        if (k == size(tree)){
+            return tree;
+        }else{
+            int size = size(tree);
+            if (k > size(tree)){
+                return select(tree.right,k - size - 1);
+            }else {
+                return select(tree.left,k);
+            }
+        }
+    }
+
+    /**
+     * 返回当前节点的个数
+     * @return
+     */
+    public int size(){
+        return size(tree);
+    }
+
+    private int size(Node tree) {
+        if (tree == null) return 0;
+        //return tree.N;
+        return 0;
+    }
+
+    /**
      * 翻转二叉树
      *  1.判断当前根节点是否为空，为空不做操作
      *  2.根节点不为空交换左右子节点
@@ -139,7 +325,7 @@ public class BinarySearchTree {
             // 继续交换左子树
             reversal(node.left);
             // 继续交换右子树
-            reversal(node.left);
+            reversal(node.right);
         }
     }
 
@@ -185,6 +371,42 @@ public class BinarySearchTree {
         if (node.right != null) postorderTraversal(node.right,list);
         list.add(node.data);
     }
+
+    /**
+     * 打印哈二叉搜索树
+     */
+    public void printTree() {
+        MyWindow jf = new MyWindow();
+        jf.setSize(800, 800);
+        jf.setVisible(true);
+        jf.setDefaultCloseOperation(3);
+        drawTree(tree, jf, 395, 50, 1);
+    }
+
+    /**
+     * 画二叉搜索树
+     */
+    public void drawTree(Node a, MyWindow jf, int x, int y, int level) {
+        Graphics g = jf.getGraphics();
+        jf.getShapes().add(new Word("第"+level+"层",15,y));
+        level++;
+        if (a != null){
+            jf.getShapes().add(new Area(x - 10,y - 15,30,20));
+            jf.getShapes().add(new Word(String.valueOf(a.data), x, y));
+            System.out.println("画完节点" + a.data);
+        }
+        if (a.left != null) {
+            int xl = 10,yl = -10;
+            jf.getShapes().add(new Line(x - xl, y, x - 150/level + xl, y + 10*level + yl));
+            drawTree(a.left, jf, x - 150/level - xl, y + 10*level - yl, level);
+        }
+        if (a.right != null) {
+            int xl = 20,yl = -10;
+            jf.getShapes().add(new Line(x + xl, y, x + 150/level + xl, y + 10*level + yl));
+            drawTree(a.right, jf, x + 150/level + xl, y + 10*level - yl, level);
+        }
+    }
+
 
     /**
      * 二叉树的深度

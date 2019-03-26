@@ -2,6 +2,11 @@ import java.util.Arrays;
 
 public class CountingSort implements SortMethod {
 
+    /**
+     * 计数排序
+     * @param arr
+     * @return
+     */
     @Override
     public int[] sort(int[] arr) {
         if (arr.length <= 1) return arr;
