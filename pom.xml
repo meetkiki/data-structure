@@ -15,7 +15,7 @@
         <module>queue</module>
         <module>sort</module>
         <module>binary_search</module>
-        <module>skipList</module>
+        <module>skip-list</module>
         <module>hash-table</module>
         <module>hash-table</module>
         <module>binary_search_tree</module>
