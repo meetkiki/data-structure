@@ -7,3 +7,4 @@ target
 *.iml
 /stack/stack.iml
 /.idea/workspace.xml
+!/.idea/workspace.xml
