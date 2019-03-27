@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class SelectionSort implements SortMethod{
 
 
@@ -13,13 +11,16 @@ public class SelectionSort implements SortMethod{
      */
     public int[] sort(int[] arr){
         int temp;
+        // 从头扫描 即最小值逐渐递增
         for (int i = 0; i < arr.length; i++) {
             int j = i;
+            // 获取剩余数据的最小值
             for (int k = i + 1; k < arr.length; k++) {
                 if (arr[k] < arr[j]){
                     j = k;
                 }
             }
+            // 将最小值放在头部
             if (j != i){
                 temp = arr[i];
                 arr[i] = arr[j];
@@ -35,7 +36,7 @@ public class SelectionSort implements SortMethod{
         //System.out.println(Arrays.toString(new SelectionSort().sort(arr)));
 
         SelectionSort selectionSort = new SelectionSort();
-        long sort = selectionSort.testSort(selectionSort, 10000000);
+        long sort = selectionSort.testSort(selectionSort, 1000000);
         System.out.println("花费时间"+sort+"ms");
     }
 }
