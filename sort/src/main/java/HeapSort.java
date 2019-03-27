@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 /**
  * 堆排序
@@ -34,7 +33,7 @@ public class HeapSort implements SortMethod{
      */
     private void buildHeap(int[] arr) {
         for (int i = 0; i < (arr.length >> 1); i++) {
-            heapify(arr,arr.length - 1,i);
+            heapify(arr,arr.length - 1, i);
         }
     }
 
@@ -49,7 +48,7 @@ public class HeapSort implements SortMethod{
         while (true){
             int maxpos = i;
             if ((i<<1) <= length && arr[i<<1] > arr[i]) maxpos = (i<<1);
-            if ((maxpos+1)<=length && arr[maxpos+1] > arr[maxpos]) maxpos+=1;
+            if ((maxpos+1)<=length && arr[maxpos + 1] > arr[maxpos]) maxpos+=1;
             if (maxpos == i) return;
             swap(arr,maxpos,i);
             i = maxpos;
