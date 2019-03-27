@@ -10,6 +10,7 @@
         <module name="binary_search" />
         <module name="binary_search_tree" />
         <module name="hashtable" />
+        <module name="leet-code" />
         <module name="linked" />
         <module name="queue" />
         <module name="Shape" />
@@ -19,7 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
-      <module name="hashtable" target="1.8" />
+      <module name="hashtable" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
