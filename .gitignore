@@ -5,5 +5,3 @@ target
 *.class
 *.iml
 /stack/stack.iml
-/.idea/
-!/.idea/workspace.xml
