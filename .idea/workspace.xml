@@ -3,8 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/HeapSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/HeapSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/SelectionSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/SelectionSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/target/classes/SelectionSort.class" beforeDir="false" afterPath="$PROJECT_DIR$/sort/target/classes/SelectionSort.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/target/classes/SortMethod.class" beforeDir="false" afterPath="$PROJECT_DIR$/sort/target/classes/SortMethod.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -51,8 +51,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/SelectionSort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+            <state relative-caret-position="616">
+              <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -196,7 +196,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553699355125" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1553700430469" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/skip-list" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -407,7 +407,7 @@
       <updated>1553564376130</updated>
       <workItem from="1553564377772" duration="940000" />
       <workItem from="1553599184702" duration="1515000" />
-      <workItem from="1553690582737" duration="1969000" />
+      <workItem from="1553690582737" duration="3043000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1553564515624</created>
@@ -444,15 +444,21 @@
       <option name="project" value="LOCAL" />
       <updated>1553690786266</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="排序二探">
+      <created>1553699421638</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1553699421638</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4467000" />
+    <option name="totallyTimeSpent" value="5541000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11923689" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -467,7 +473,7 @@
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32960895" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29563183" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29563183" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.18882681" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -479,7 +485,7 @@
       <window_info anchor="bottom" id="Run with VisualVM" order="11" />
       <window_info anchor="bottom" id="JProfiler" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" />
-      <window_info anchor="bottom" id="Terminal" order="14" weight="0.32960895" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="14" visible="true" weight="0.32917318" />
       <window_info anchor="bottom" id="JRebel Executor" order="15" />
       <window_info anchor="bottom" id="Debug with VisualVM" order="16" />
       <window_info anchor="right" id="Maven" />
@@ -500,7 +506,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Default Changelist" />
-    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
+    <MESSAGE value="排序二探" />
+    <option name="LAST_COMMIT_MESSAGE" value="排序二探" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -817,8 +824,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/SelectionSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+        <state relative-caret-position="616">
+          <caret line="28" column="9" lean-forward="true" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="9" />
         </state>
       </provider>
     </entry>
