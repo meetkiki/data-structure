@@ -27,7 +27,7 @@ public class HeapSort implements SortMethod{
     }
 
     /**
-     * 构建堆 构建最大堆
+     * 构建堆 构建最大堆 
      *  1.只需要构造非叶子结点，即只需要构建0-n/2个结点
      *  2.对n/2个结点堆化,将最大值放在堆顶
      * @param arr
@@ -71,7 +71,7 @@ public class HeapSort implements SortMethod{
 
     public static void main(String[] args) {
         HeapSort heapSort = new HeapSort();
-        long sort = heapSort.testSort(heapSort, 1000000);
+        long sort = heapSort.testSort(heapSort, 100000);
         System.out.println("花费时间"+sort+"ms");
     }
 }
