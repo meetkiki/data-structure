@@ -6,3 +6,4 @@ target
 *.class
 *.iml
 /stack/stack.iml
+/.idea/workspace.xml
