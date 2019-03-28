@@ -21,6 +21,7 @@
         <module>binary_search_tree</module>
         <module>Shape</module>
         <module>leetcode</module>
+        <module>othre</module>
     </modules>
 
     <dependencies>

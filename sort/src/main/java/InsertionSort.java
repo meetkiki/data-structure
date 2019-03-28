@@ -1,10 +1,10 @@
 import java.util.Arrays;
 
-public class InsertionSort {
+public class InsertionSort implements SortMethod{
 
 
     /**
-     * 选择排序
+     * 插入排序
      *  我们将数组中的数据分为两个区间，已排序区间和未排序区间。
      *
      *  初始已排序区间只有一个元素，就是数组的第一个元素
@@ -17,8 +17,8 @@ public class InsertionSort {
             int j = i - 1;
             temp = arr[i];
             for (; j >= 0; j--) {
-                // 每回合从后面数据中寻找最小的索引
-                if (temp > arr[j]){
+                // 选取temp放在该放的位置上 这里是temp小于arr[j]时将arr[j]右移
+                if (temp < arr[j]){
                     arr[j + 1] = arr[j];
                 }else{
                     break;
@@ -31,7 +31,8 @@ public class InsertionSort {
 
 
     public static void main(String[] args) {
-        int[] arr = {22,2,3,42,4,23,12};
-        System.out.println(Arrays.toString(new InsertionSort().sort(arr)));
+        InsertionSort insertionSort = new InsertionSort();
+        long sort = insertionSort.testSort(insertionSort, 1000000);
+        System.out.println("花费时间"+sort+"ms");
     }
 }
