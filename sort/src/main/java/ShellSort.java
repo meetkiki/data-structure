@@ -9,6 +9,12 @@ public class ShellSort implements SortMethod {
      * 希尔排序 交换不相临的元素以对数组进行局部排序，并最终使用插入排序将局部有序的数组排序
      *  优化后的插入排序
      *   1.拆分待排序数组为h个子数组，对每个h数组进行插入排序
+     *
+     *   输入         122,123,11,332,22,334,545,65465
+     *                 |-------------|
+     *                      交换
+     *   4-sort       22,123,11,332,122,334,545,65465
+     *   1-sort       11,22,122,123,332,334,545,65465
      * @param arr
      * @return
      */
@@ -40,7 +46,7 @@ public class ShellSort implements SortMethod {
 
     public static void main(String[] args) {
 //        int[] arr = {22,123,11,332,122,334,545,65465,23,231,65,44,78,87,98,989,10};
-        int[] arr = {22,123,11,332,122,334,545,65465};
+        int[] arr = {122,123,11,332,22,334,545,65465};
         ShellSort shellSort = new ShellSort();
         shellSort.sort(arr);
         System.out.println(Arrays.toString(arr));
