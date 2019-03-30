@@ -94,7 +94,7 @@ public class AlgoFrame extends JFrame{
     public boolean less(int currentCompareIndex, int currentChangeIndex){
         // 设置指向
         updateData(currentCompareIndex,currentChangeIndex);
-        return data.get(currentCompareIndex) < data.get(currentChangeIndex);
+        return data.less(currentCompareIndex,currentChangeIndex);
     }
 
     /**

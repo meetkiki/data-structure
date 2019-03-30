@@ -27,8 +27,7 @@ public class Ordered {
     public Ordered(){}
 
     public Ordered(int orderedIndex) {
-        this.orderedstart = -1;
-        this.orderedIndex = orderedIndex;
+        this(-1,orderedIndex);
     }
 
     public Ordered(int orderedstart, int orderedIndex) {

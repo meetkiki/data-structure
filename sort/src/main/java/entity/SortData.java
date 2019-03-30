@@ -89,6 +89,16 @@ public class SortData {
     }
 
     /**
+     * 比较两个数的大小返回布尔型
+     * @param currentCompareIndex
+     * @param currentChangeIndex
+     * @return
+     */
+    public boolean less(int currentCompareIndex, int currentChangeIndex){
+        return numbers[currentCompareIndex] < numbers[currentChangeIndex];
+    }
+
+    /**
      * 添加排序区间
      * @param orderedstart
      * @param orderedIndex
