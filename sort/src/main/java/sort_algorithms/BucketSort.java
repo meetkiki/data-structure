@@ -10,7 +10,7 @@ import java.util.List;
 
 public class BucketSort implements SortMethod {
     @Override
-    public void sort(AlgoFrame frame, SortData data) {
+    public void sort(AlgoFrame frame) {
 
     }
 

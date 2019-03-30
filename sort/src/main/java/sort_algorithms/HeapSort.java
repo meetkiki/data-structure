@@ -9,7 +9,7 @@ import entity.SortData;
 public class HeapSort implements SortMethod{
 
     @Override
-    public void sort(AlgoFrame frame, SortData data) {
+    public void sort(AlgoFrame frame) {
 
     }
 

@@ -1,29 +1,28 @@
 package sort_algorithms;
 
 import view.AlgoFrame;
-import entity.SortData;
 
 public class SelectionSort implements SortMethod{
 
     @Override
-    public void sort(AlgoFrame frame, SortData data) {
+    public void sort(AlgoFrame frame) {
         // 选择排序初始化
         frame.setData(0, -1, -1);
-        for( int i = 0 ; i < data.N() ; i ++ ){
+        for(int i = 0; i < frame.length() ; i ++ ){
             // 寻找[i, n)区间里的最小值的索引
             int minIndex = i;
             frame.setData(i, -1, minIndex);
-            for( int j = i + 1 ; j < data.N() ; j ++ ){
+            for(int j = i + 1; j < frame.length() ; j ++ ){
                 frame.setData(i, j, minIndex);
-                if( data.get(j) < data.get(minIndex) ){
+                if(frame.less(j,minIndex)){
                     minIndex = j;
                     frame.setData(i, j, minIndex);
                 }
             }
-            data.swap(i , minIndex);
+            frame.swap(i , minIndex);
             frame.setData(i + 1, -1, -1);
         }
-        frame.setData(data.N(),-1,-1);
+        frame.setData(frame.length(),-1,-1);
     }
 
     @Override

@@ -11,7 +11,6 @@ public class AlgoFrame extends JFrame{
 
     public AlgoFrame(){}
     public AlgoFrame(String title, SortData data, int canvasWidth, int canvasHeight){
-
         super(title);
 
         this.data = data;
@@ -32,30 +31,59 @@ public class AlgoFrame extends JFrame{
     public int getCanvasWidth(){return canvasWidth;}
     public int getCanvasHeight(){return canvasHeight;}
 
-    // data
+    /**
+     * 排序data
+     */
     private SortData data;
     public void render(SortData data){
         this.data = data;
         repaint();
     }
 
+    public SortData getData() {
+        return data;
+    }
+
     /**
      * 设置显示参数
      *
      * @param orderedIndex          排序好数组
-     * @param currentCompareIndex   当前数据
-     * @param currentChangeIndex    待交换数据
+     * @param currentCompareIndex   当前数据索引
+     * @param currentChangeIndex    待交换数据索引
      */
     public void setData(int orderedIndex, int currentCompareIndex, int currentChangeIndex){
         // 初始值为-1
-        data.addOrdereds(-1,orderedIndex);
+        setData(-1,orderedIndex,currentCompareIndex,currentChangeIndex);
+    }
+
+    /**
+     * 设置参数
+     * @param orderedIndex          排序好数组区间
+     * @param currentCompareIndex   当前数据索引
+     * @param currentChangeIndex    待交换数据索引
+     */
+    public void setData(int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex){
+        data.addOrdereds(orderedStart,orderedIndex);
+        // 更新参数
+        updateData(currentCompareIndex,currentChangeIndex);
+    }
+
+
+    /**
+     * 更新参数
+     * @param currentCompareIndex   当前数据索引
+     * @param currentChangeIndex    待交换数据索引
+     */
+    public void updateData(int currentCompareIndex, int currentChangeIndex){
         data.currentCompareIndex = currentCompareIndex;
         data.currentChangeIndex = currentChangeIndex;
 
         this.render(data);
-        System.out.println(data.getOrdereds());
         AlgoVisHelper.pause();
+        System.out.println(data.getOrdereds());
     }
+
+
 
     /**
      * 比较两个数的大小返回布尔型
@@ -64,24 +92,39 @@ public class AlgoFrame extends JFrame{
      * @return
      */
     public boolean less(int currentCompareIndex, int currentChangeIndex){
-        return data.get(currentChangeIndex) < data.get(currentChangeIndex);
+        // 设置指向
+        updateData(currentCompareIndex,currentChangeIndex);
+        return data.get(currentCompareIndex) < data.get(currentChangeIndex);
     }
 
     /**
-     * 设置参数
-     * @param orderedIndex          排序好数组
-     * @param currentCompareIndex   当前数据
-     * @param currentChangeIndex    待交换数据
+     * 交换两个数的数据
+     * @param currentCompareIndex
+     * @param currentChangeIndex
      */
-    public void setData(int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex){
-        data.addOrdereds(orderedStart,orderedIndex);
-        data.currentCompareIndex = currentCompareIndex;
-        data.currentChangeIndex = currentChangeIndex;
-
-        this.render(data);
-        AlgoVisHelper.pause();
-        System.out.println(data.getOrdereds());
+    public void swap(int currentCompareIndex, int currentChangeIndex){
+        data.swap(currentCompareIndex,currentChangeIndex);
     }
+
+    /**
+     *  获得数据长度
+     */
+    public int length(){
+        return data.size();
+    }
+
+    /**
+     * 替换两个数的值
+     * @param srcIndex
+     * @param descIndex
+     * @return
+     */
+    public void replace(int srcIndex, int descIndex){
+        // 设置指向
+        updateData(srcIndex,descIndex);
+        data.set(srcIndex,data.get(descIndex));
+    }
+
 
     private class AlgoCanvas extends JPanel{
 
@@ -104,8 +147,8 @@ public class AlgoFrame extends JFrame{
             g2d.addRenderingHints(hints);
 
             // 具体绘制
-            int w = canvasWidth/data.N();
-            for(int i = 0 ; i < data.N() ; i ++ ) {
+            int w = canvasWidth / data.size();
+            for(int i = 0; i < data.size() ; i ++ ) {
                 // 排序好空间
                 if (data.isSorted(i))
                     AlgoVisHelper.setColor(g2d, AlgoVisHelper.Red);
@@ -116,7 +159,7 @@ public class AlgoFrame extends JFrame{
                     AlgoVisHelper.setColor(g2d, AlgoVisHelper.LightBlue);
                 if(i == data.currentChangeIndex)
                     AlgoVisHelper.setColor(g2d, AlgoVisHelper.Indigo);
-                AlgoVisHelper.fillRectangle(g2d, i * w, canvasHeight - data.get(i), w - 1, data.get(i));
+                AlgoVisHelper.fillRectangle(g2d,  i * w, canvasHeight - data.get(i), w - 1, data.get(i));
             }
         }
 

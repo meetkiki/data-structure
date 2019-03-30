@@ -13,7 +13,7 @@ public class ShellSort implements SortMethod {
     /**
      * 希尔排序 交换不相临的元素以对数组进行局部排序，并最终使用插入排序将局部有序的数组排序
      *  优化后的插入排序
-     *   1.拆分待排序数组为h个子数组，对每个h数组进行插入排序
+     *   1.拆分待排序数组间隔为h个子数组，对每个h数组进行插入排序
      *
      *   输入         122,123,11,332,22,334,545,65465
      *                 |-------------|
@@ -48,31 +48,33 @@ public class ShellSort implements SortMethod {
         return arr;
     }
 
+    /**
+     * 希尔排序可视化
+     *  1.插入排序的缺陷
+     *      对于大规模数据插入排序只会一个一个的将数据移动到右边
+     *      希尔排序为了加快速度改进了插入排序 交换不相临数组使数组局部有序
+     * @param frame
+     */
     @Override
-    public void sort(AlgoFrame frame, SortData data) {
-//        frame.setData(0, -1, -1);
-//        int N = data.N(),h = 1;
-//        // 拆分数组为子数组h, 1,4,13,40,121,364,1093
-//        while (h < N / 3) h = h * 3 + 1;
-//        while (h >= 1){
-//            for( int i = h ; i < data.N() ; i ++ ){
-//                // 寻找[h, n)区间里的最小值的索引
-//                int minIndex = i;
-//                frame.setData(i, -1, minIndex);
-//                for( int j = i + 1 ; j < data.N() ; j ++ ){
-//                    frame.setData(i, j, minIndex);
-//
-//                    if( data.get(j) < data.get(minIndex) ){
-//                        minIndex = j;
-//                        frame.setData(i, j, minIndex);
-//                    }
-//                }
-//                data.swap(i , minIndex);
-//                frame.setData(i + 1, -1, -1);
-//            }
-//            h /= 3;
-//        }
-//        frame.setData(data.N(),-1,-1);
+    public void sort(AlgoFrame frame) {
+        frame.setData(0, -1, -1);
+        int size = frame.length(),h = 1;
+        // 拆分数组为子数组h, 1,4,13,40,121,364,1093
+        while (h < size / 3) h = h * 3 + 1;
+        while (h >= 1){
+            // 插入排序
+            for( int i = h ; i < frame.length() ; i ++ ){
+                frame.setData(i + 1, i, i - h);
+                // 寻找[h, n)区间里的最小值的索引
+                for( int j = i; (j - h) >= 0 && frame.less(j,j - h) ; j -= h){
+                    frame.setData(i + 1, j, j - h);
+                    frame.swap(j,j - h);
+                }
+            }
+            // 排序局部数组
+            h /= 3;
+        }
+        frame.setData(frame.length(),-1,-1);
     }
 
     @Override

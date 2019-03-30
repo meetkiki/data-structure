@@ -12,8 +12,13 @@ public interface SortMethod {
      * @param frame
      * @return
      */
-    void sort(AlgoFrame frame, SortData data);
+    void sort(AlgoFrame frame);
 
+    /**
+     * 基本排序算法
+     * @param arr
+     * @return
+     */
     int[] sort(int[] arr);
 
     /**
@@ -47,6 +52,15 @@ public interface SortMethod {
             }
         }
         return true;
+    }
+
+    /**
+     * 判断是否有序
+     * @param sortData
+     * @return
+     */
+    default boolean isSorted(SortData sortData){
+        return isSorted(sortData.getNumbers());
     }
 
     /**

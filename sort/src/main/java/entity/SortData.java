@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 public class SortData {
-
+    /**
+     * 数据数组
+     */
     private int[] numbers;
 
     /**
@@ -33,7 +35,7 @@ public class SortData {
         shuffle(height);
     }
 
-    public int N(){
+    public int size(){
         return numbers.length;
     }
 
@@ -42,6 +44,13 @@ public class SortData {
             throw new IllegalArgumentException("Invalid index to access Sort Data.");
 
         return numbers[index];
+    }
+
+    public void set(int index,int element){
+        if( index < 0 || index >= numbers.length)
+            throw new IllegalArgumentException("Invalid index to access Sort Data.");
+
+        numbers[index] = element;
     }
 
     public void swap(int i, int j) {
@@ -105,6 +114,10 @@ public class SortData {
             numbers[i] = rng.nextInt(height);
         }
         arrayChanges = 0;
+    }
+
+    public int[] getNumbers() {
+        return numbers;
     }
 
     public List<Ordered> getOrdereds() {

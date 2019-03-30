@@ -55,7 +55,7 @@ public class AlgoVisualizer {
     private void init() {
         EventQueue.invokeLater(() -> {
             frame = new AlgoFrame(sortMethod.methodName(),data, SCENEWIDTH, SCENEHEIGHT);
-            new Thread(()->sortMethod.sort(frame,data)).start();
+            new Thread(()->sortMethod.sort(frame)).start();
         });
     }
 

@@ -1,16 +1,15 @@
 package sort_algorithms;
 
 import view.AlgoFrame;
-import entity.SortData;
 
 import java.util.Arrays;
 
 public class BubbleSort implements SortMethod{
 
     @Override
-    public void sort(AlgoFrame frame, SortData data) {
+    public void sort(AlgoFrame frame) {
         // 初始化
-        int N = data.N();
+        int N = frame.length();
         // 排序好空间从右边扩散
         frame.setData(N,N, -1, -1);
         for (int i = 0; i < N; i++) {
@@ -18,9 +17,9 @@ public class BubbleSort implements SortMethod{
             frame.setData(N - i,N, N - 1 - i, -1);
             for (int j = 0; j < N - 1 - i; j++) {
                 // 比较左区间内当前值 找出最大值往右冒泡
-                if (data.get(j) > data.get(j+1)){
-                    frame.setData(N - i,N, j, j + 1);
-                    data.swap(j,j + 1);
+                if (frame.less(j + 1,j)){
+                    frame.setData(N - i,N, j + 1, j);
+                    frame.swap(j,j + 1);
                 }
             }
             // 展示格式化后数据
