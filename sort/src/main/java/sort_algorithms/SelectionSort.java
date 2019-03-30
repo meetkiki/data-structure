@@ -1,5 +1,39 @@
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
+
 public class SelectionSort implements SortMethod{
 
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
+        frame.setData(0, -1, -1);
+
+        for( int i = 0 ; i < data.N() ; i ++ ){
+            // 寻找[i, n)区间里的最小值的索引
+            int minIndex = i;
+            frame.setData(i, -1, minIndex);
+
+            for( int j = i + 1 ; j < data.N() ; j ++ ){
+                frame.setData(i, j, minIndex);
+
+                if( data.get(j) < data.get(minIndex) ){
+                    minIndex = j;
+                    frame.setData(i, j, minIndex);
+                }
+            }
+
+            data.swap(i , minIndex);
+            frame.setData(i + 1, -1, -1);
+        }
+
+        frame.setData(data.N(),-1,-1);
+    }
+
+    @Override
+    public String methodName() {
+        return "Selection Sort";
+    }
 
     /**
      * 选择排序
@@ -33,7 +67,7 @@ public class SelectionSort implements SortMethod{
 
     public static void main(String[] args) {
         //int[] arr = {1,2,32,3,22,11,21};
-        //System.out.println(Arrays.toString(new SelectionSort().sort(arr)));
+        //System.out.println(Arrays.toString(new sort_algorithms.SelectionSort().sort(arr)));
 
         SelectionSort selectionSort = new SelectionSort();
         long sort = selectionSort.testSort(selectionSort, 1000000);

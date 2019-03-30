@@ -1,9 +1,23 @@
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
 public class BucketSort implements SortMethod {
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
+
+    }
+
+    @Override
+    public String methodName() {
+        return "Bucket Sort";
+    }
 
     /**
      * 桶排序

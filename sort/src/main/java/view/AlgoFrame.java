@@ -1,16 +1,21 @@
 package view;
 
+import entity.Ordered;
+import entity.SortData;
+
 import java.awt.*;
 import javax.swing.*;
 
 public class AlgoFrame extends JFrame{
-
     private int canvasWidth;
     private int canvasHeight;
 
-    public AlgoFrame(String title, int canvasWidth, int canvasHeight){
+    public AlgoFrame(){}
+    public AlgoFrame(String title, SortData data, int canvasWidth, int canvasHeight){
 
         super(title);
+
+        this.data = data;
 
         this.canvasWidth = canvasWidth;
         this.canvasHeight = canvasHeight;
@@ -25,19 +30,46 @@ public class AlgoFrame extends JFrame{
         setVisible(true);
     }
 
-    public AlgoFrame(String title){
-
-        this(title, 1024, 768);
-    }
-
     public int getCanvasWidth(){return canvasWidth;}
     public int getCanvasHeight(){return canvasHeight;}
 
     // data
-    private SelectionSortData data;
-    public void render(SelectionSortData data){
+    private SortData data;
+    public void render(SortData data){
         this.data = data;
         repaint();
+    }
+
+    /**
+     * 设置参数
+     * @param orderedIndex          排序好数组
+     * @param currentCompareIndex   当前数据
+     * @param currentMinIndex       最小数据
+     */
+    public void setData(int orderedIndex, int currentCompareIndex, int currentMinIndex){
+        // 初始值为-1
+        data.addOrdereds(-1,orderedIndex);
+        data.currentCompareIndex = currentCompareIndex;
+        data.currentMinIndex = currentMinIndex;
+
+        this.render(data);
+        System.out.println(data.getOrdereds());
+        AlgoVisHelper.pause();
+    }
+
+    /**
+     * 设置参数
+     * @param orderedIndex          排序好数组
+     * @param currentCompareIndex   当前数据
+     * @param currentMinIndex       最小数据
+     */
+    public void setData(int orderedStart, int orderedIndex, int currentCompareIndex, int currentMinIndex){
+        data.addOrdereds(orderedStart,orderedIndex);
+        data.currentCompareIndex = currentCompareIndex;
+        data.currentMinIndex = currentMinIndex;
+
+        this.render(data);
+        AlgoVisHelper.pause();
     }
 
     private class AlgoCanvas extends JPanel{
@@ -63,7 +95,8 @@ public class AlgoFrame extends JFrame{
             // 具体绘制
             int w = canvasWidth/data.N();
             for(int i = 0 ; i < data.N() ; i ++ ) {
-                if (i < data.orderedIndex)
+                // 排序好空间
+                if (data.isSorted(i))
                     AlgoVisHelper.setColor(g2d, AlgoVisHelper.Red);
                 else
                     AlgoVisHelper.setColor(g2d, AlgoVisHelper.Grey);

@@ -1,3 +1,7 @@
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
 
 public class QuickSort implements SortMethod{
 
@@ -64,11 +68,19 @@ public class QuickSort implements SortMethod{
         }
     }
 
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
 
+    }
+
+    @Override
+    public String methodName() {
+        return "Quick Sort";
+    }
 
     public static void main(String[] args) {
 //        int[] arr = {1,2,32,3,22,11,21};
-//        System.out.println(Arrays.toString(new QuickSort().sort(arr)));
+//        System.out.println(Arrays.toString(new sort_algorithms.QuickSort().sort(arr)));
         QuickSort quickSort = new QuickSort();
         long sort = quickSort.testSort(quickSort, 100000000);
         System.out.println("花费时间"+sort+"ms");

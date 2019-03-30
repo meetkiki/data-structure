@@ -1,3 +1,8 @@
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
+
 import java.util.Arrays;
 
 /**
@@ -43,6 +48,37 @@ public class ShellSort implements SortMethod {
         return arr;
     }
 
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
+        frame.setData(0, -1, -1);
+        int N = data.N(),h = 1;
+        // 拆分数组为子数组h, 1,4,13,40,121,364,1093
+        while (h < N / 3) h = h * 3 + 1;
+        while (h >= 1){
+            for( int i = h ; i < data.N() ; i ++ ){
+                // 寻找[h, n)区间里的最小值的索引
+                int minIndex = i;
+                frame.setData(i, -1, minIndex);
+                for( int j = i + 1 ; j < data.N() ; j ++ ){
+                    frame.setData(i, j, minIndex);
+
+                    if( data.get(j) < data.get(minIndex) ){
+                        minIndex = j;
+                        frame.setData(i, j, minIndex);
+                    }
+                }
+                data.swap(i , minIndex);
+                frame.setData(i + 1, -1, -1);
+            }
+            h /= 3;
+        }
+        frame.setData(data.N(),-1,-1);
+    }
+
+    @Override
+    public String methodName() {
+        return "Shell Sort";
+    }
 
     public static void main(String[] args) {
 //        int[] arr = {22,123,11,332,122,334,545,65465,23,231,65,44,78,87,98,989,10};

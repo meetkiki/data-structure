@@ -1,6 +1,18 @@
-import java.util.Arrays;
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
 
 public class CountingSort implements SortMethod {
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
+
+    }
+
+    @Override
+    public String methodName() {
+        return "Counting Sort";
+    }
 
     /**
      * 计数排序

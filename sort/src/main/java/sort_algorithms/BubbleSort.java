@@ -1,6 +1,16 @@
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
+
 import java.util.Arrays;
 
-public class BubbleSort {
+public class BubbleSort implements SortMethod{
+
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
+
+    }
 
     /**
      * 冒泡排序
@@ -21,6 +31,11 @@ public class BubbleSort {
             if (!flag) break;
         }
         return arr;
+    }
+
+    @Override
+    public String methodName() {
+        return "Bubble Sort";
     }
 
 

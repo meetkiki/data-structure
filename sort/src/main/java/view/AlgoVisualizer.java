@@ -1,67 +1,62 @@
 package view;
 
+import entity.SortData;
+import sort_algorithms.BubbleSort;
+import sort_algorithms.BucketSort;
+import sort_algorithms.CountingSort;
+import sort_algorithms.HeapSort;
+import sort_algorithms.InsertionSort;
+import sort_algorithms.MergeSort;
+import sort_algorithms.QuickSort;
+import sort_algorithms.SelectionSort;
+import sort_algorithms.ShellSort;
+import sort_algorithms.SortMethod;
+
 import java.awt.*;
 
 public class AlgoVisualizer {
 
-    private static int DELAY = 20;
+    private static int SCENEWIDTH = 800;
+    private static int SCENEHEIGHT = 800;
+    private static int N = 100;
 
-    private SelectionSortData data;
+    private SortData data;
     private AlgoFrame frame;
+    private SortMethod sortMethod;
 
-    public AlgoVisualizer(int sceneWidth, int sceneHeight, int N){
 
-        data = new SelectionSortData(N, sceneHeight);
-
+    public AlgoVisualizer(String sort){
+        this.data = new SortData(N,SCENEHEIGHT - 50);
+        this.sortMethod = choseSort(sort);
         // 初始化视图
+        init();
+    }
+
+    /**
+     * 排序算法
+     * @param sort
+     * @return
+     */
+    private SortMethod choseSort(String sort) {
+        switch (sort){
+            case "InsertSort":      return new InsertionSort();
+            case "SelectionSort":   return new SelectionSort();
+            case "BubbleSort":      return new BubbleSort();
+            case "BucketSort":      return new BucketSort();
+            case "CountingSort":    return new CountingSort();
+            case "HeapSort":        return new HeapSort();
+            case "MergeSort":       return new MergeSort();
+            case "QuickSort":       return new QuickSort();
+            case "ShellSort":       return new ShellSort();
+            default:                throw new IllegalArgumentException("No sort algorithms");
+        }
+    }
+
+    private void init() {
         EventQueue.invokeLater(() -> {
-            frame = new AlgoFrame("Selection Sort Visualization", sceneWidth, sceneHeight);
-            new Thread(() -> {
-                run();
-            }).start();
+            frame = new AlgoFrame(sortMethod.methodName(),data, SCENEWIDTH, SCENEHEIGHT);
+            new Thread(()->sortMethod.sort(frame,data)).start();
         });
     }
 
-    private void run(){
-
-        setData(0, -1, -1);
-
-        for( int i = 0 ; i < data.N() ; i ++ ){
-            // 寻找[i, n)区间里的最小值的索引
-            int minIndex = i;
-            setData(i, -1, minIndex);
-
-            for( int j = i + 1 ; j < data.N() ; j ++ ){
-                setData(i, j, minIndex);
-
-                if( data.get(j) < data.get(minIndex) ){
-                    minIndex = j;
-                    setData(i, j, minIndex);
-                }
-            }
-
-            data.swap(i , minIndex);
-            setData(i+1, -1, -1);
-        }
-
-        setData(data.N(),-1,-1);
-    }
-
-    private void setData(int orderedIndex, int currentCompareIndex, int currentMinIndex){
-        data.orderedIndex = orderedIndex;
-        data.currentCompareIndex = currentCompareIndex;
-        data.currentMinIndex = currentMinIndex;
-
-        frame.render(data);
-        AlgoVisHelper.pause(DELAY);
-    }
-
-    public static void main(String[] args) {
-
-        int sceneWidth = 800;
-        int sceneHeight = 800;
-        int N = 100;
-
-        AlgoVisualizer vis = new AlgoVisualizer(sceneWidth, sceneHeight, N);
-    }
 }

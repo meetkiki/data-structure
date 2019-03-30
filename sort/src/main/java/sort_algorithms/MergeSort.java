@@ -1,4 +1,7 @@
-import java.util.Arrays;
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
 
 public class MergeSort implements SortMethod{
 
@@ -60,6 +63,15 @@ public class MergeSort implements SortMethod{
         }
     }
 
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
+
+    }
+
+    @Override
+    public String methodName() {
+        return "Merge Sort";
+    }
 
     public static void main(String[] args) {
         MergeSort mergeSort = new MergeSort();
@@ -67,7 +79,7 @@ public class MergeSort implements SortMethod{
         System.out.println("花费时间"+sort+"ms");
         //花费时间1712ms 花费时间1841ms 花费时间1877ms
 
-        //System.out.println(Arrays.toString(new BubbleSort().sort(ints)));
+        //System.out.println(Arrays.toString(new sort_algorithms.BubbleSort().sort(ints)));
     }
 
 

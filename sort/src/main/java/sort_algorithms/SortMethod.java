@@ -1,7 +1,18 @@
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
+
 import java.util.Random;
 
 public interface SortMethod {
 
+    /**
+     * 排序可视化
+     * @param frame
+     * @return
+     */
+    void sort(AlgoFrame frame, SortData data);
 
     int[] sort(int[] arr);
 
@@ -37,4 +48,11 @@ public interface SortMethod {
         }
         return true;
     }
+
+    /**
+     * 排序方法名称
+     * @return
+     */
+    String methodName();
+
 }

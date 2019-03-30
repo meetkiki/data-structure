@@ -1,7 +1,17 @@
+package sort_algorithms;
+
+import view.AlgoFrame;
+import entity.SortData;
+
 /**
  * 堆排序
  */
 public class HeapSort implements SortMethod{
+
+    @Override
+    public void sort(AlgoFrame frame, SortData data) {
+
+    }
 
     /**
      * 堆排序
@@ -22,6 +32,11 @@ public class HeapSort implements SortMethod{
             heapify(arr,k,0);
         }
         return arr;
+    }
+
+    @Override
+    public String methodName() {
+        return "Heap Sort";
     }
 
     /**
