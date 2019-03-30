@@ -18,9 +18,9 @@ public class MiniApp {
     private static int DELAY = 100;
 
     public static void main(String[] args) {
-        AlgoVisHelper.DELAY = DELAY;
 
-        new AlgoVisualizer(ShellSort);
+        AlgoVisualizer visualizer = new AlgoVisualizer(ShellSort);
+
     }
 
 

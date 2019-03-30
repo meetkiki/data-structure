@@ -59,4 +59,12 @@ public class AlgoVisualizer {
         });
     }
 
+    /**
+     * 设置排序间隔
+     * @param delay
+     */
+    public void setDelay(int delay){
+        data.setDELAY(delay);
+    }
+
 }

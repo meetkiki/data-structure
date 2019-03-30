@@ -1,7 +1,6 @@
 package sort_algorithms;
 
 import view.AlgoFrame;
-import entity.SortData;
 
 import java.util.Arrays;
 

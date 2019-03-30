@@ -8,8 +8,6 @@ import java.lang.InterruptedException;
 
 public class AlgoVisHelper {
 
-    public static int DELAY = 10;
-
     private AlgoVisHelper() {
     }
 
@@ -68,7 +66,7 @@ public class AlgoVisHelper {
         g.setStroke(new BasicStroke(strokeWidth, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
     }
 
-    public static void pause() {
+    public static void pause(int DELAY) {
         try {
             Thread.sleep(DELAY);
         } catch (InterruptedException e) {

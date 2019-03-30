@@ -79,7 +79,7 @@ public class AlgoFrame extends JFrame{
         data.currentChangeIndex = currentChangeIndex;
 
         this.render(data);
-        AlgoVisHelper.pause();
+        AlgoVisHelper.pause(data.getDELAY());
         System.out.println(data.getOrdereds());
     }
 

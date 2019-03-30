@@ -28,6 +28,10 @@ public class SortData {
      * 比较次数
      */
     private int arrayChanges = 0;
+    /**
+     * 等待时间
+     */
+    private int DELAY = 100;
 
     public SortData(int N,int height){
         ordereds = new ArrayList<>();
@@ -128,6 +132,14 @@ public class SortData {
 
     public int[] getNumbers() {
         return numbers;
+    }
+
+    public int getDELAY() {
+        return DELAY;
+    }
+
+    public void setDELAY(int DELAY) {
+        this.DELAY = DELAY;
     }
 
     public List<Ordered> getOrdereds() {
