@@ -12,7 +12,7 @@ public class SelectionSort implements SortMethod{
             // 寻找[i, n)区间里的最小值的索引
             int minIndex = i;
             frame.setData(i, -1, minIndex);
-            for(int j = i + 1; j < frame.length() ; j ++ ){
+            for(int j = i + 1; j < frame.length();j ++){
                 frame.setData(i, j, minIndex);
                 if(frame.less(j,minIndex)){
                     minIndex = j;

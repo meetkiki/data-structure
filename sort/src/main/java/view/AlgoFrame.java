@@ -82,6 +82,7 @@ public class AlgoFrame extends JFrame{
         this.render(data);
         AlgoVisHelper.pause(data.getDELAY());
         System.out.println(data.getOrdereds());
+        System.out.println("change --- " + getChange());
     }
 
 
@@ -119,6 +120,14 @@ public class AlgoFrame extends JFrame{
      */
     public int get(int index){
         return data.get(index);
+    }
+
+    /**
+     * 数组交换次数
+     * @return
+     */
+    public int getChange(){
+        return data.getArrayChanges();
     }
 
     /**
