@@ -1,7 +1,9 @@
 package sort_algorithms;
 
-import view.AlgoFrame;
 import entity.SortData;
+import view.AlgoFrame;
+
+import java.util.Arrays;
 
 public class MergeSort implements SortMethod{
 
@@ -21,6 +23,7 @@ public class MergeSort implements SortMethod{
     @Override
     public int[] sort(int[] arr){
         int length = arr.length,l = 0,r = length - 1;
+        aux = new int[length];
         mergesort(arr,l,r);
         return arr;
     }
@@ -37,35 +40,88 @@ public class MergeSort implements SortMethod{
         merge(arr,l,q,r);
     }
 
+    /**
+     * 临时数组
+     */
+    private static int[] aux;
+    /**
+     * 合并方法
+     * @param arr
+     * @param l
+     * @param q
+     * @param r
+     */
     private void merge(int[] arr, int l,int q, int r) {
-        int i = l,j = q + 1,k = 0,tsize = r - l + 1;
-        int[] temp = new int[tsize];
-        while (i <= q && j <= r){
-            if (arr[i]<arr[j]){
-                temp[k++] = arr[i++];
-            }else{
-                temp[k++] = arr[j++];
-            }
+        int i = l,j = q + 1;
+        // 将l r复制到aux临时数组
+        for (int k = l; k <= r; k++) {
+            aux[k] = arr[k];
         }
-        // 判断哪个子数组中有数据
-        int start = i,end = q;
-        if (j <= r){
-            start = j;
-            end = r;
-        }
-        // 将剩余的数据拷贝到临时数组
-        while (start <= end){
-            temp[k++] = arr[start++];
-        }
-        // 将temp数组的数据拷贝回arr
-        for (int m = 0; m < tsize; m++) {
-            arr[l+m] = temp[m];
+        // 合并排序 如果左半边取尽 取右边数组 如果右半边取尽 取左边数组
+        for (int k = l; k <= r; k++) {
+            // 如果左边取尽 取右边
+            if (i > q) arr[k] = aux[j++];
+            // 如果右边取尽 取左边
+            else if (j > r) arr[k] = aux[i++];
+            // 合并方法 哪边小先进
+            else if (aux[j] < aux[i]) arr[k] = aux[j++];
+            else arr[k] = aux[i++];
         }
     }
 
+    /**
+     * 临时数组
+     */
+    private static SortData auxData;
+
     @Override
     public void sort(AlgoFrame frame) {
+        int length = frame.length(),l = 0,r = length - 1;
+        aux = new int[length];
+        auxData = new SortData(aux);
+        // 归并排序初始化
+        frame.setData(0, -1, -1);
+        mergesort(frame,l,r);
+        frame.setData(length,-1,-1);
+    }
 
+    /**
+     * 归并排序可视化
+     * @param frame
+     * @param l
+     * @param r
+     */
+    private void mergesort(AlgoFrame frame, int l, int r) {
+        if (r <= l) return;
+        int mid = l + ((r - l) >> 1);
+        // 分治归并
+        mergesort(frame,l,mid);
+        mergesort(frame,mid + 1,r);
+        // 合并两个数组
+        merge(frame, l, mid ,r);
+    }
+
+    /**
+     * 归并排序可视化
+     * @param frame
+     * @param l
+     * @param r
+     */
+    private void merge(AlgoFrame frame, int l,int mid, int r) {
+        int i = l,j = mid + 1;
+        // 将数据放入临时数组
+        for (int k = l; k <= r; k++) {
+            frame.replace(auxData,k,frame.get(k));
+        }
+        // 归并数组
+        for (int k = l; k <= r; k++) {
+            if (i > mid) frame.replace(k,auxData.get(j++));
+            else if (j > r) frame.replace(k,auxData.get(i++));
+            else if (auxData.less(i,j)) frame.replace(k,auxData.get(i++));
+            else frame.replace(k,auxData.get(j++));
+        }
+        // 更新数组排序区间
+        frame.setData(l,r+1,l,r);
     }
 
     @Override
@@ -74,12 +130,14 @@ public class MergeSort implements SortMethod{
     }
 
     public static void main(String[] args) {
-        MergeSort mergeSort = new MergeSort();
-        long sort = mergeSort.testSort(mergeSort, 10000000);
-        System.out.println("花费时间"+sort+"ms");
+//        MergeSort mergeSort = new MergeSort();
+//        long sort = mergeSort.testSort(mergeSort, 10000000);
+//        System.out.println("花费时间"+sort+"ms");
         //花费时间1712ms 花费时间1841ms 花费时间1877ms
 
-        //System.out.println(Arrays.toString(new sort_algorithms.BubbleSort().sort(ints)));
+        int[] arr = {1,2,32,3,22,11,21};
+        System.out.println(Arrays.toString(new sort_algorithms.MergeSort().sort(arr)));
+
     }
 
 

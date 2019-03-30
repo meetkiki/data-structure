@@ -16,9 +16,9 @@ import java.awt.*;
 
 public class AlgoVisualizer {
 
-    private static int SCENEWIDTH = 800;
+    private static int SCENEWIDTH = 1000;
     private static int SCENEHEIGHT = 800;
-    private static int N = 100;
+    private static int N = 200;
 
     private SortData data;
     private AlgoFrame frame;

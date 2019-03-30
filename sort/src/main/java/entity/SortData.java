@@ -39,6 +39,10 @@ public class SortData {
         shuffle(height);
     }
 
+    public SortData(int[] numbers) {
+        this.numbers = numbers;
+    }
+
     public int size(){
         return numbers.length;
     }
@@ -55,6 +59,7 @@ public class SortData {
             throw new IllegalArgumentException("Invalid index to access Sort Data.");
 
         numbers[index] = element;
+        arrayChanges++;
     }
 
     public void swap(int i, int j) {
@@ -122,10 +127,9 @@ public class SortData {
     }
 
     public void shuffle(int height) {
-        arrayChanges = 0;
         Random rng = new Random();
         for (int i = 0; i < arraySize(); i++) {
-            numbers[i] = rng.nextInt(height);
+            this.set(i,rng.nextInt(height));
         }
         arrayChanges = 0;
     }

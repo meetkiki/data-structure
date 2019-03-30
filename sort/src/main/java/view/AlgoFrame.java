@@ -24,7 +24,8 @@ public class AlgoFrame extends JFrame{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
-
+        // 居中
+        setLocationRelativeTo(null);
         setVisible(true);
     }
 
@@ -114,15 +115,32 @@ public class AlgoFrame extends JFrame{
     }
 
     /**
+     *  获得数据
+     */
+    public int get(int index){
+        return data.get(index);
+    }
+
+    /**
      * 替换两个数的值
      * @param srcIndex
-     * @param descIndex
+     * @param value
      * @return
      */
-    public void replace(int srcIndex, int descIndex){
+    public void replace(int srcIndex, int value){
+        replace(this.data,srcIndex,value);
+    }
+
+    /**
+     * 替换两个数的值
+     * @param srcIndex
+     * @param value
+     * @return
+     */
+    public void replace(SortData data,int srcIndex, int value){
         // 设置指向
-        updateData(srcIndex,descIndex);
-        data.set(srcIndex,data.get(descIndex));
+        updateData(srcIndex,srcIndex);
+        data.set(srcIndex,value);
     }
 
 

@@ -1,4 +1,3 @@
-import view.AlgoVisHelper;
 import view.AlgoVisualizer;
 
 public class MiniApp {
@@ -15,12 +14,10 @@ public class MiniApp {
     /**
      * 排序间隔
      */
-    private static int DELAY = 100;
+    private static int DELAY = 1;
 
     public static void main(String[] args) {
-
-        AlgoVisualizer visualizer = new AlgoVisualizer(ShellSort);
-
+        new AlgoVisualizer(InsertSort).setDelay(DELAY);
     }
 
 
