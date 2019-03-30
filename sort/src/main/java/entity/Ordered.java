@@ -42,7 +42,16 @@ public class Ordered {
      * @return
      */
     public boolean isBetween(int index){
-        if(index >= this.orderedstart && index < this.orderedIndex){
+        return this.isBetween(this.orderedstart,this.orderedIndex,index);
+    }
+
+    /**
+     * 是否在当前区间
+     * @param index
+     * @return
+     */
+    public boolean isBetween(int start,int end,int index){
+        if(index >= start && index < end){
             return true;
         }
         return false;
@@ -55,14 +64,16 @@ public class Ordered {
      * @return
      */
     public boolean isIntersect(int orderedstart,int orderedIndex){
+        // 初始化相交
         if (orderedIndex <= 0 || orderedstart < 0) return true;
         // 如果重合 相交
         if (orderedIndex == orderedstart) return true;
         // 如果当前区间等于传入区间接尾 相交
-        if (this.orderedIndex == orderedstart ||
-                this.orderedstart == orderedIndex) return true;
+        if (this.orderedIndex == orderedstart || this.orderedstart == orderedIndex) return true;
         // 如果当前区间包含传入区间(相互包含) 相交
-        if (isBetween(orderedIndex) || isBetween(orderedstart)) return true;
+        if (this.isBetween(orderedIndex) || this.isBetween(orderedstart)) return true;
+        if (this.isBetween(orderedstart,orderedIndex,this.orderedstart) ||
+                this.isBetween(orderedstart,orderedIndex,this.orderedIndex)) return true;
         // 如果当前区间小于或大于传入区间 不相交
         return false;
     }

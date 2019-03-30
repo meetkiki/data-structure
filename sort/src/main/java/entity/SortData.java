@@ -18,9 +18,9 @@ public class SortData {
      */
     public int currentCompareIndex = -1;
     /**
-     * 当前找到的最小元素的索引
+     * 当前找到的待交换元素的索引
      */
-    public int currentMinIndex = -1;
+    public int currentChangeIndex = -1;
     /**
      * Number of changes to the array the current algorithm has taken so far
      * 比较次数

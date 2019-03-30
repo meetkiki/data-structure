@@ -9,7 +9,25 @@ public class BubbleSort implements SortMethod{
 
     @Override
     public void sort(AlgoFrame frame, SortData data) {
-
+        // 初始化
+        int N = data.N();
+        // 排序好空间从右边扩散
+        frame.setData(N,N, -1, -1);
+        for (int i = 0; i < N; i++) {
+            // 冒泡排序思想为将未排序区间的最大值往最后冒
+            frame.setData(N - i,N, N - 1 - i, -1);
+            for (int j = 0; j < N - 1 - i; j++) {
+                // 比较左区间内当前值 找出最大值往右冒泡
+                if (data.get(j) > data.get(j+1)){
+                    frame.setData(N - i,N, j, j + 1);
+                    data.swap(j,j + 1);
+                }
+            }
+            // 展示格式化后数据
+            frame.setData(N - i,N, -1, -1);
+        }
+        // 展示格式化后数据
+        frame.setData(N, -1, -1);
     }
 
     /**

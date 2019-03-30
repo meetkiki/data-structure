@@ -15,12 +15,12 @@ public class MiniApp {
     /**
      * 排序间隔
      */
-    private static int DELAY = 1;
+    private static int DELAY = 10;
 
     public static void main(String[] args) {
         AlgoVisHelper.DELAY = DELAY;
 
-        new AlgoVisualizer(SelectionSort);
+        new AlgoVisualizer(BubbleSort);
     }
 
 
