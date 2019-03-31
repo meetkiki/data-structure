@@ -1,8 +1,10 @@
 package sort_algorithms;
 
+import abstraction.SortMethod;
+import abstraction.SortView;
 import view.AlgoFrame;
 
-public class InsertionSort implements SortMethod{
+public class InsertionSort implements SortMethod, SortView {
 
     /**
      * 插入排序
@@ -12,6 +14,7 @@ public class InsertionSort implements SortMethod{
      *  插入算法的核心思想是取未排序区间中的元素，在已排序区间中找到合适的插入位置将其插入
      *  并保证已排序区间数据一直有序。重复这个过程，直到未排序区间中元素为空，算法结束
      */
+    @Override
     public int[] sort(int[] arr){
         int temp;
         for (int i = 1; i < arr.length; i++) {

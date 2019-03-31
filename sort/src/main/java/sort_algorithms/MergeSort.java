@@ -1,9 +1,13 @@
 package sort_algorithms;
 
+import abstraction.Optimized;
+import abstraction.SortMethod;
+import abstraction.SortView;
 import entity.SortData;
 import view.AlgoFrame;
 
-public class MergeSort implements SortMethod, Optimized {
+
+public class MergeSort implements SortMethod, Optimized, SortView {
 
     /**
      * 当数组长度小于这个数字时使用插入排序
@@ -30,6 +34,12 @@ public class MergeSort implements SortMethod, Optimized {
         return arr;
     }
 
+    /**
+     * 自顶而下的归并排序
+     * @param arr
+     * @param l
+     * @param r
+     */
     private void mergesort(int[] arr, int l, int r) {
         // 递归终止条件
         if (l >= r) return;
@@ -223,21 +233,53 @@ public class MergeSort implements SortMethod, Optimized {
         return "Merge Sort";
     }
 
+    /**
+     * 自底而上的归并模式
+     */
+    class MergeBu implements SortMethod{
+
+        /**
+         * 自底而上的归并模式
+         *  循序渐进的解决问题
+         * @param arr
+         * @return
+         */
+        @Override
+        public int[] sort(int[] arr) {
+            int n = arr.length;
+            aux = new int[n];
+            // i为子数组的大小
+            for (int i = 1; i < n; i = i<<1)
+                // j为子数组的索引
+                for (int j = 0; j < n - i; j += i<<1)
+                    // 归并子数组
+                    merge(arr,j,j+i-1,Math.min(j+(i<<1)-1,n-1));
+            return arr;
+        }
+
+        @Override
+        public String methodName() {
+            return "MergeBu Sort";
+        }
+    }
+
+
     public static void main(String[] args) {
-        MergeSort mergeSort = new MergeSort();
-        long sort = mergeSort.testSort(mergeSort, 10000000);
+        MergeBu mergeBu = new MergeSort().new MergeBu();
+        long sort = mergeBu.testSort(mergeBu, 10000000);
         System.out.println("花费时间"+sort+"ms");
         //花费时间1712ms 花费时间1841ms 花费时间1877ms
 
-//        Random random = new Random();
 //        MergeSort mergeSort = new MergeSort();
+//        Random random = new Random();
+//        MergeBu mergeBu = mergeSort.new MergeBu();
 //        int[] ints = new int[10000];
 //        for (int i = 0; i < ints.length; i++) {
 //            ints[i] = random.nextInt(10000);
 //        }
-//        mergeSort.sort(ints);
+//        mergeBu.sort(ints);
 //        System.out.println(Arrays.toString(ints));
-//        System.out.println(mergeSort.isSorted(ints));
+//        System.out.println(mergeBu.isSorted(ints));
     }
 
 }

@@ -1,4 +1,4 @@
-package sort_algorithms;
+package abstraction;
 
 import view.AlgoFrame;
 

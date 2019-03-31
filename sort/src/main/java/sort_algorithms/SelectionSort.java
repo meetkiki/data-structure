@@ -1,8 +1,10 @@
 package sort_algorithms;
 
+import abstraction.SortMethod;
+import abstraction.SortView;
 import view.AlgoFrame;
 
-public class SelectionSort implements SortMethod{
+public class SelectionSort implements SortMethod, SortView {
 
     @Override
     public void sort(AlgoFrame frame) {
@@ -38,6 +40,7 @@ public class SelectionSort implements SortMethod{
      * @param arr
      * @return
      */
+    @Override
     public int[] sort(int[] arr){
         int temp;
         // 从头扫描 即最小值逐渐递增

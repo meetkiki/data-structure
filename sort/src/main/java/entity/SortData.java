@@ -48,15 +48,13 @@ public class SortData implements Cloneable{
     }
 
     public int get(int index){
-        if( index < 0 || index >= numbers.length)
-            throw new IllegalArgumentException("Invalid index to access Sort Data.");
+        checkIndex(index);
 
         return numbers[index];
     }
 
     public void set(int index,int element){
-        if( index < 0 || index >= numbers.length)
-            throw new IllegalArgumentException("Invalid index to access Sort Data.");
+        checkIndex(index);
 
         numbers[index] = element;
         arrayChanges++;
@@ -64,13 +62,20 @@ public class SortData implements Cloneable{
 
     public void swap(int i, int j) {
 
-        if( i < 0 || i >= numbers.length || j < 0 || j >= numbers.length)
-            throw new IllegalArgumentException("Invalid index to access Sort Data.");
+        if(checkIndex(i) || checkIndex(j)){
+            return;
+        }
 
         int t = numbers[i];
         numbers[i] = numbers[j];
         numbers[j] = t;
         arrayChanges++;
+    }
+
+    private boolean checkIndex(int index){
+        if( index < 0 || index >= numbers.length)
+            throw new IllegalArgumentException("Invalid index to access Sort Data.");
+        return false;
     }
 
     public int getArrayChanges() {
@@ -87,8 +92,7 @@ public class SortData implements Cloneable{
      * @return
      */
     public boolean isSorted(int curIndex){
-        if( curIndex < 0 || curIndex >= numbers.length)
-            throw new IllegalArgumentException("Invalid index to access Sort Data.");
+        checkIndex(curIndex);
         for (Ordered ordered : ordereds) {
             if (!ordered.isBetween(curIndex)){
                 return false;

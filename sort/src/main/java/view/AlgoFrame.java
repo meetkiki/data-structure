@@ -136,6 +136,7 @@ public class AlgoFrame extends JFrame implements Cloneable{
             frame.data = sortData;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
+            throw new RuntimeException("Clone Error!");
         }
         return frame;
     }

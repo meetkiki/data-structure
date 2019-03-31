@@ -1,9 +1,10 @@
 package sort_algorithms;
 
+import abstraction.SortMethod;
+import abstraction.SortView;
 import view.AlgoFrame;
-import entity.SortData;
 
-public class QuickSort implements SortMethod{
+public class QuickSort implements SortMethod , SortView {
 
     /**
      * 快速排序

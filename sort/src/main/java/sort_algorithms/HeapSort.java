@@ -1,12 +1,13 @@
 package sort_algorithms;
 
+import abstraction.SortMethod;
+import abstraction.SortView;
 import view.AlgoFrame;
-import entity.SortData;
 
 /**
  * 堆排序
  */
-public class HeapSort implements SortMethod{
+public class HeapSort implements SortMethod, SortView {
 
     @Override
     public void sort(AlgoFrame frame) {

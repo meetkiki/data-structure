@@ -17,7 +17,7 @@ public class MiniApp {
     private static int DELAY = 1;
 
     public static void main(String[] args) {
-        new AlgoVisualizer(InsertSort).setDelay(DELAY);
+        new AlgoVisualizer(MergeSort).setDelay(DELAY);
     }
 
 

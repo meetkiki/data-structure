@@ -1,10 +1,12 @@
 package sort_algorithms;
 
+import abstraction.SortMethod;
+import abstraction.SortView;
 import view.AlgoFrame;
 
 import java.util.Arrays;
 
-public class BubbleSort implements SortMethod{
+public class BubbleSort implements SortMethod, SortView {
 
     @Override
     public void sort(AlgoFrame frame) {
@@ -32,6 +34,7 @@ public class BubbleSort implements SortMethod{
     /**
      * 冒泡排序
      */
+    @Override
     public int[] sort(int[] arr){
         int temp;
         for (int i = 0; i < arr.length; i++) {

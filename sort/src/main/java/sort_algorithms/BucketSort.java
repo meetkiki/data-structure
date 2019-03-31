@@ -1,14 +1,15 @@
 package sort_algorithms;
 
+import abstraction.SortMethod;
+import abstraction.SortView;
 import view.AlgoFrame;
-import entity.SortData;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-public class BucketSort implements SortMethod {
+public class BucketSort implements SortMethod, SortView {
     @Override
     public void sort(AlgoFrame frame) {
 

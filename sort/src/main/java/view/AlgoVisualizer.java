@@ -10,14 +10,14 @@ import sort_algorithms.MergeSort;
 import sort_algorithms.QuickSort;
 import sort_algorithms.SelectionSort;
 import sort_algorithms.ShellSort;
-import sort_algorithms.SortMethod;
+import abstraction.SortMethod;
 
 import java.awt.*;
 
 public class AlgoVisualizer {
 
-    private static int SCENEWIDTH = 1000;
-    private static int SCENEHEIGHT = 800;
+    private static int SCENEWIDTH = 1200;
+    private static int SCENEHEIGHT = 1000;
     private static int N = 200;
 
     private SortData data;
@@ -26,7 +26,7 @@ public class AlgoVisualizer {
 
 
     public AlgoVisualizer(String sort){
-        this.data = new SortData(N,SCENEHEIGHT - 50);
+        this.data = new SortData(N,SCENEHEIGHT - 100);
         this.sortMethod = choseSort(sort);
         // 初始化视图
         init();
