@@ -1,4 +1,3 @@
-import abstraction.Environment;
 import view.AlgoVisualizer;
 
 public class MiniApp {

@@ -1,5 +1,7 @@
-package abstraction;
+package view;
 
+import abstraction.Optimized;
+import abstraction.SortMethod;
 import view.AlgoFrame;
 
 /**

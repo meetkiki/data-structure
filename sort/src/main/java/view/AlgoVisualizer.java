@@ -1,6 +1,5 @@
 package view;
 
-import abstraction.Environment;
 import entity.SortData;
 import sort_algorithms.BubbleSort;
 import sort_algorithms.BucketSort;
