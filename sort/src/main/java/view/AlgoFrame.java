@@ -218,6 +218,18 @@ public class AlgoFrame extends JFrame implements Cloneable{
     /**
      * 归并优化后可视化更新显示
      * @param frame             原数组
+     * @param orderedStart
+     * @param orderedIndex
+     * @param currentCompareIndex
+     * @param currentChangeIndex
+     */
+    public void optimizeSetData(AlgoFrame frame, int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex){
+        optimizeSetData(frame,this,orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,true);
+    }
+
+    /**
+     * 归并优化后可视化更新显示
+     * @param frame             原数组
      * @param auxFrame          拷贝数组
      * @param orderedStart
      * @param orderedIndex

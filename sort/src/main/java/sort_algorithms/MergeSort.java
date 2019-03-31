@@ -104,10 +104,10 @@ public class MergeSort implements SortMethod, Optimized {
         int length = frame.length(),l = 0,r = length - 1;
         // 归并排序初始化
         AlgoFrame auxFrame = frame.cloneData();
-        auxFrame.optimizeSetData(auxFrame,frame,-1,0, -1, -1);
+        auxFrame.optimizeSetData(frame,-1,0, -1, -1);
         // 优化后归并
         optimizeMerge(auxFrame,frame,l,r);
-        auxFrame.optimizeSetData(auxFrame,frame,-1,length,-1,-1);
+        auxFrame.optimizeSetData(frame,-1,length,-1,-1);
     }
 
 
@@ -139,7 +139,7 @@ public class MergeSort implements SortMethod, Optimized {
         if(auxFrame.lessOrEqual(mid,mid+1)){
             // 更新数组排序区间
             auxFrame.dataCoppy(auxFrame,l,frame,l,r - l + 1);
-            auxFrame.optimizeSetData(frame,auxFrame,l,r + 1,l,r + 1);
+            auxFrame.optimizeSetData(frame,l,r + 1,l,r + 1);
             return;
         }
         merge(auxFrame,frame,l,mid,r);
@@ -156,10 +156,10 @@ public class MergeSort implements SortMethod, Optimized {
      */
     private void merge(AlgoFrame frame, AlgoFrame auxFrame, int l, int mid, int r) {
         // 设置显示
-        auxFrame.optimizeSetData(frame,auxFrame,l,l,-1,-1);
+        auxFrame.optimizeSetData(frame,l,l,-1,-1);
         quickMerge(auxFrame,frame,l,mid,r);
         // 更新数组排序区间
-        auxFrame.optimizeSetData(frame,auxFrame,l,r+1,-1,-1);
+        auxFrame.optimizeSetData(frame,l,r+1,-1,-1);
     }
 
     /**
@@ -188,11 +188,11 @@ public class MergeSort implements SortMethod, Optimized {
         for (int i = l; i <= r; i++) {
             // 假定[l,l+1]是有序的 则循环后面的元素找到他们在有序数组中的位置
             for (int j = i; j > l && frame.less(j,j - 1); j--) {
-                auxFrame.optimizeSetData(auxFrame,frame,l,i+1,j,j-1);
+                auxFrame.optimizeSetData(frame,l,i+1,j,j-1);
                 frame.swap(j,j - 1);
             }
         }
-        auxFrame.optimizeSetData(auxFrame,frame,l,r + 1,-1,-1);
+        auxFrame.optimizeSetData(frame,l,r + 1,-1,-1);
     }
 
     /**

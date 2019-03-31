@@ -1,4 +1,5 @@
 import view.AlgoVisualizer;
+import view.Environment;
 
 public class MiniApp {
     private static String InsertSort = "InsertSort";
@@ -14,10 +15,20 @@ public class MiniApp {
     /**
      * 排序间隔
      */
-    private static int DELAY = 100;
+    private static int DELAY = 1;
 
     public static void main(String[] args) {
-        new AlgoVisualizer(MergeSort).setDelay(DELAY);
+        AlgoVisualizer visualizer = new AlgoVisualizer(MergeSort);
+        visualizer.setDelay(DELAY);
+        Environment environment = visualizer.getEnvironment();
+        while (true){
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("耗时:"+environment.takeTime()+"ms");
+        }
     }
 
 
