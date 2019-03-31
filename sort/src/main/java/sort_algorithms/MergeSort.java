@@ -2,7 +2,6 @@ package sort_algorithms;
 
 import abstraction.Optimized;
 import abstraction.SortMethod;
-import entity.SortData;
 import view.AlgoFrame;
 
 
@@ -83,13 +82,12 @@ public class MergeSort implements SortMethod, Optimized {
     /**
      * 临时数组
      */
-    private static SortData auxData;
+    private static AlgoFrame auxData;
 
     @Override
     public void sort(AlgoFrame frame) {
         int length = frame.length(),l = 0,r = length - 1;
-        aux = new int[length];
-        auxData = new SortData(aux);
+        auxData = frame.cloneData();
         // 归并排序初始化
         frame.setData(0, -1, -1);
         // 初始归并
@@ -105,11 +103,11 @@ public class MergeSort implements SortMethod, Optimized {
     public void optimizedSort(AlgoFrame frame) {
         int length = frame.length(),l = 0,r = length - 1;
         // 归并排序初始化
-        frame.setData(0, -1, -1);
-        // 优化后归并
         AlgoFrame auxFrame = frame.cloneData();
+        auxFrame.optimizeSetData(auxFrame,frame,-1,0, -1, -1);
+        // 优化后归并
         optimizeMerge(auxFrame,frame,l,r);
-        frame.setData(length,-1,-1);
+        auxFrame.optimizeSetData(auxFrame,frame,-1,length,-1,-1);
     }
 
 
@@ -125,7 +123,7 @@ public class MergeSort implements SortMethod, Optimized {
          * 归并排序优化① 对于小规模数据使用插入排序
          */
         if (r - l <= INSERTSIZE){
-            InsertSort(frame,l,r);
+            InsertSort(auxFrame,frame,l,r);
             return;
         }
         int mid = l + ((r - l) >> 1);
@@ -140,12 +138,13 @@ public class MergeSort implements SortMethod, Optimized {
          */
         if(auxFrame.lessOrEqual(mid,mid+1)){
             // 更新数组排序区间
-            frame.setData(l,r+1,l,r);
-            auxFrame.dataCoppy(auxFrame,l,frame,l,r-l+1);
+            auxFrame.dataCoppy(auxFrame,l,frame,l,r - l + 1);
+            auxFrame.optimizeSetData(frame,auxFrame,l,r + 1,l,r + 1);
             return;
         }
         merge(auxFrame,frame,l,mid,r);
     }
+
 
     /**
      * 优化后merge方法 不需要拷贝数组
@@ -156,12 +155,12 @@ public class MergeSort implements SortMethod, Optimized {
      * @param r
      */
     private void merge(AlgoFrame frame, AlgoFrame auxFrame, int l, int mid, int r) {
-        quickMerge(auxFrame,frame.getData(),l,mid,r);
+        // 设置显示
+        auxFrame.optimizeSetData(frame,auxFrame,l,l,-1,-1);
+        quickMerge(auxFrame,frame,l,mid,r);
         // 更新数组排序区间
-        frame.setData(l,r+1,l,r);
+        auxFrame.optimizeSetData(frame,auxFrame,l,r+1,-1,-1);
     }
-
-
 
     /**
      * 归并排序可视化
@@ -185,16 +184,15 @@ public class MergeSort implements SortMethod, Optimized {
      * @param l
      * @param r
      */
-    private void InsertSort(AlgoFrame frame, int l, int r){
-        frame.setData(l,l+1,l,l);
+    private void InsertSort(AlgoFrame auxFrame,AlgoFrame frame, int l, int r){
         for (int i = l; i <= r; i++) {
             // 假定[l,l+1]是有序的 则循环后面的元素找到他们在有序数组中的位置
             for (int j = i; j > l && frame.less(j,j - 1); j--) {
-                frame.setData(l,i+1,j,j - 1);
+                auxFrame.optimizeSetData(auxFrame,frame,l,i+1,j,j-1);
                 frame.swap(j,j - 1);
             }
         }
-        frame.setData(l,r + 1,-1,-1);
+        auxFrame.optimizeSetData(auxFrame,frame,l,r + 1,-1,-1);
     }
 
     /**
@@ -216,14 +214,14 @@ public class MergeSort implements SortMethod, Optimized {
     /**
      * 快速归并
      */
-    public void quickMerge(AlgoFrame frame,SortData auxData,int l,int mid,int r){
+    public void quickMerge(AlgoFrame frame,AlgoFrame auxData,int l,int mid,int r){
         int i = l,j = mid + 1;
         // 归并数组
         for (int k = l; k <= r; k++) {
-            if (i > mid) frame.replace(k,auxData.get(j++));
-            else if (j > r) frame.replace(k,auxData.get(i++));
-            else if (auxData.less(i,j)) frame.replace(k,auxData.get(i++));
-            else frame.replace(k,auxData.get(j++));
+            if (i > mid) auxData.replace(frame,k,auxData.get(j++));
+            else if (j > r) auxData.replace(frame,k,auxData.get(i++));
+            else if (auxData.less(i,j)) auxData.replace(frame,k,auxData.get(i++));
+            else auxData.replace(frame,k,auxData.get(j++));
         }
     }
 

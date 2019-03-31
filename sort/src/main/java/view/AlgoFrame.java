@@ -9,6 +9,19 @@ public class AlgoFrame extends JFrame implements Cloneable{
     private int canvasWidth;
     private int canvasHeight;
     /**
+     * 是否为主
+     */
+    private boolean master = true;
+
+    /**
+     * 判断是否为主
+     * @return
+     */
+    public boolean isMaster(){
+        return master;
+    }
+
+    /**
      * 排序data
      */
     private SortData data;
@@ -132,7 +145,10 @@ public class AlgoFrame extends JFrame implements Cloneable{
         try {
             SortData sortData = (SortData)data.getClone();
             sortData.setNumbers(data.cloneData());
+            this.master = true;
+            // 克隆为副 this为主
             frame = (AlgoFrame)this.clone();
+            frame.master = false;
             frame.data = sortData;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
@@ -183,6 +199,48 @@ public class AlgoFrame extends JFrame implements Cloneable{
         // 设置指向
         updateData(srcIndex,srcIndex);
         data.set(srcIndex,value);
+    }
+
+    /**
+     * 替换传入索引的值
+     * @param data 数据项
+     * @param srcIndex
+     * @param value
+     * @return
+     */
+    public void replace(AlgoFrame data,int srcIndex, int value){
+        // 设置指向
+        optimizeSetData(this,data,-1,-1,srcIndex,srcIndex);
+        data.getData().set(srcIndex,value);
+    }
+
+
+    /**
+     * 归并优化后可视化更新显示
+     * @param frame             原数组
+     * @param auxFrame          拷贝数组
+     * @param orderedStart
+     * @param orderedIndex
+     * @param currentCompareIndex
+     * @param currentChangeIndex
+     */
+    public void optimizeSetData(AlgoFrame frame, AlgoFrame auxFrame, int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex){
+        optimizeSetData(frame,auxFrame,orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,true);
+    }
+
+    /**
+     * 归并优化后可视化更新显示
+     * @param frame             原数组
+     * @param auxFrame          拷贝数组
+     * @param orderedStart
+     * @param orderedIndex
+     * @param currentCompareIndex
+     * @param currentChangeIndex
+     */
+    public void optimizeSetData(AlgoFrame frame, AlgoFrame auxFrame, int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex,boolean showMaster){
+        // 判断是否需要将子数组显示 true 只显示master false 显示从
+        if (showMaster == frame.isMaster()) frame.setData(orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex);
+        if (showMaster == auxFrame.isMaster()) auxFrame.setData(orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex);
     }
 
     /**

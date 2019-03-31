@@ -61,7 +61,6 @@ public class SortData implements Cloneable{
     }
 
     public void swap(int i, int j) {
-
         if(checkIndex(i) || checkIndex(j)){
             return;
         }
