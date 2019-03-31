@@ -1,10 +1,9 @@
 package sort_algorithms;
 
 import abstraction.SortMethod;
-import abstraction.SortView;
 import view.AlgoFrame;
 
-public class InsertionSort implements SortMethod, SortView {
+public class InsertionSort implements SortMethod {
 
     /**
      * 插入排序

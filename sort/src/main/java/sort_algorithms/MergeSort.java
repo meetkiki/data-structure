@@ -2,12 +2,11 @@ package sort_algorithms;
 
 import abstraction.Optimized;
 import abstraction.SortMethod;
-import abstraction.SortView;
 import entity.SortData;
 import view.AlgoFrame;
 
 
-public class MergeSort implements SortMethod, Optimized, SortView {
+public class MergeSort implements SortMethod, Optimized {
 
     /**
      * 当数组长度小于这个数字时使用插入排序
@@ -237,6 +236,10 @@ public class MergeSort implements SortMethod, Optimized, SortView {
      * 自底而上的归并模式
      */
     class MergeBu implements SortMethod{
+        @Override
+        public void sort(AlgoFrame frame) {
+
+        }
 
         /**
          * 自底而上的归并模式

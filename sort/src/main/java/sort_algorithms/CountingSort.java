@@ -1,10 +1,9 @@
 package sort_algorithms;
 
 import abstraction.SortMethod;
-import abstraction.SortView;
 import view.AlgoFrame;
 
-public class CountingSort implements SortMethod,SortView {
+public class CountingSort implements SortMethod {
     @Override
     public void sort(AlgoFrame frame) {
 

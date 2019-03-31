@@ -1,7 +1,6 @@
 package sort_algorithms;
 
 import abstraction.SortMethod;
-import abstraction.SortView;
 import view.AlgoFrame;
 
 import java.util.Arrays;
@@ -9,7 +8,7 @@ import java.util.Arrays;
 /**
  * 希尔排序
  */
-public class ShellSort implements SortMethod, SortView {
+public class ShellSort implements SortMethod {
 
     /**
      * 希尔排序 交换不相临的元素以对数组进行局部排序，并最终使用插入排序将局部有序的数组排序

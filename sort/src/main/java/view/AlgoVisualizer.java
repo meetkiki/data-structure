@@ -1,5 +1,6 @@
 package view;
 
+import abstraction.Environment;
 import entity.SortData;
 import sort_algorithms.BubbleSort;
 import sort_algorithms.BucketSort;
@@ -13,6 +14,7 @@ import sort_algorithms.ShellSort;
 import abstraction.SortMethod;
 
 import java.awt.*;
+import java.util.concurrent.CountDownLatch;
 
 public class AlgoVisualizer {
 
@@ -23,15 +25,26 @@ public class AlgoVisualizer {
     private SortData data;
     private AlgoFrame frame;
     private SortMethod sortMethod;
+    private Environment environment;
+    private CountDownLatch count;
 
 
     public AlgoVisualizer(String sort){
+        this.count = new CountDownLatch(1);
         this.data = new SortData(N,SCENEHEIGHT - 100);
         this.sortMethod = choseSort(sort);
         // 初始化视图
         init();
     }
 
+    private void init() {
+        EventQueue.invokeLater(() -> {
+            this.frame = new AlgoFrame(sortMethod.methodName(),data, SCENEWIDTH, SCENEHEIGHT);
+            this.environment = new Environment(sortMethod,frame);
+            this.count.countDown();
+            new Thread(()->environment.invoke()).start();
+        });
+    }
     /**
      * 排序算法
      * @param sort
@@ -52,13 +65,6 @@ public class AlgoVisualizer {
         }
     }
 
-    private void init() {
-        EventQueue.invokeLater(() -> {
-            frame = new AlgoFrame(sortMethod.methodName(),data, SCENEWIDTH, SCENEHEIGHT);
-            new Thread(()->sortMethod.sort(frame)).start();
-        });
-    }
-
     /**
      * 设置排序间隔
      * @param delay
@@ -67,4 +73,16 @@ public class AlgoVisualizer {
         data.setDELAY(delay);
     }
 
+    /**
+     * 获取代理执行对象
+     * @return
+     */
+    public Environment getEnvironment(){
+        try {
+            count.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return environment;
+    }
 }

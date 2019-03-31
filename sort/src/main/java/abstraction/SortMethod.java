@@ -1,10 +1,18 @@
 package abstraction;
 
+import view.AlgoFrame;
 import entity.SortData;
 
 import java.util.Random;
 
 public interface SortMethod {
+
+    /**
+     * 排序可视化
+     * @param frame
+     * @return
+     */
+    void sort(AlgoFrame frame);
 
     /**
      * 基本排序算法
