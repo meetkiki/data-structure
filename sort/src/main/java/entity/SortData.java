@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SortData {
+public class SortData implements Cloneable{
     /**
      * 数据数组
      */
@@ -108,6 +108,16 @@ public class SortData {
     }
 
     /**
+     * 比较两个数的是否小于等于  返回布尔型
+     * @param currentCompareIndex
+     * @param currentChangeIndex
+     * @return
+     */
+    public boolean lessOrEqual(int currentCompareIndex, int currentChangeIndex){
+        return numbers[currentCompareIndex] <= numbers[currentChangeIndex];
+    }
+
+    /**
      * 添加排序区间
      * @param orderedstart
      * @param orderedIndex
@@ -138,6 +148,10 @@ public class SortData {
         return numbers;
     }
 
+    public void setNumbers(int[] numbers) {
+        this.numbers = numbers;
+    }
+
     public int getDELAY() {
         return DELAY;
     }
@@ -149,4 +163,21 @@ public class SortData {
     public List<Ordered> getOrdereds() {
         return ordereds;
     }
+
+    /**
+     * 克隆数组，用来做原数据数组用
+     * @return
+     */
+    public int[] cloneData(){
+        return numbers.clone();
+    }
+
+    /**
+     * 克隆数组，用来做原数据数组用
+     * @return
+     */
+    public Object getClone() throws CloneNotSupportedException {
+        return this.clone();
+    }
+
 }

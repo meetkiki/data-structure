@@ -3,10 +3,12 @@ package sort_algorithms;
 import entity.SortData;
 import view.AlgoFrame;
 
-import java.util.Arrays;
+public class MergeSort implements SortMethod, Optimized {
 
-public class MergeSort implements SortMethod{
-
+    /**
+     * 当数组长度小于这个数字时使用插入排序
+     */
+    private static final int INSERTSIZE = 10;
 
     /**
      * 归并排序
@@ -32,12 +34,12 @@ public class MergeSort implements SortMethod{
         // 递归终止条件
         if (l >= r) return;
         // 取 l到r中间的位置
-        int q = (l+r)/2;
+        int mid = (l+r)/2;
         // 分治递归
-        mergesort(arr,l,q);
-        mergesort(arr,q+1,r);
+        mergesort(arr,l,mid);
+        mergesort(arr,mid+1,r);
         // 将arr合并
-        merge(arr,l,q,r);
+        merge(arr,l,mid,r);
     }
 
     /**
@@ -81,9 +83,76 @@ public class MergeSort implements SortMethod{
         auxData = new SortData(aux);
         // 归并排序初始化
         frame.setData(0, -1, -1);
+        // 初始归并
         mergesort(frame,l,r);
         frame.setData(length,-1,-1);
     }
+
+    /**
+     * 改进接口实现
+     * @param frame
+     */
+    @Override
+    public void optimizedSort(AlgoFrame frame) {
+        int length = frame.length(),l = 0,r = length - 1;
+        // 归并排序初始化
+        frame.setData(0, -1, -1);
+        // 优化后归并
+        AlgoFrame auxFrame = frame.cloneData();
+        optimizeMerge(auxFrame,frame,l,r);
+        frame.setData(length,-1,-1);
+    }
+
+
+    /**
+     * 归并排序改进后方法
+     * @param auxFrame  拷贝数组
+     * @param frame     原数组
+     * @param l
+     * @param r
+     */
+    private void optimizeMerge(AlgoFrame auxFrame, AlgoFrame frame, int l, int r) {
+        /**
+         * 归并排序优化① 对于小规模数据使用插入排序
+         */
+        if (r - l <= INSERTSIZE){
+            InsertSort(frame,l,r);
+            return;
+        }
+        int mid = l + ((r - l) >> 1);
+        /**
+         * 归并排序优化③ 通过再递归中交换参数来避免每次归并时都要复制数组到辅助数组
+         */
+        optimizeMerge(frame,auxFrame,l,mid);
+        optimizeMerge(frame,auxFrame,mid + 1,r);
+        /**
+         * 归并排序优化② 这里可以判断已经有序 则不需要创建数组归并
+         *  两个子数组已经有序 判断两个数组的位置是否有序即可
+         */
+        if(auxFrame.lessOrEqual(mid,mid+1)){
+            // 更新数组排序区间
+            frame.setData(l,r+1,l,r);
+            auxFrame.dataCoppy(auxFrame,l,frame,l,r-l+1);
+            return;
+        }
+        merge(auxFrame,frame,l,mid,r);
+    }
+
+    /**
+     * 优化后merge方法 不需要拷贝数组
+     * @param frame
+     * @param auxFrame
+     * @param l
+     * @param mid
+     * @param r
+     */
+    private void merge(AlgoFrame frame, AlgoFrame auxFrame, int l, int mid, int r) {
+        quickMerge(auxFrame,frame.getData(),l,mid,r);
+        // 更新数组排序区间
+        frame.setData(l,r+1,l,r);
+    }
+
+
 
     /**
      * 归并排序可视化
@@ -102,17 +171,44 @@ public class MergeSort implements SortMethod{
     }
 
     /**
+     * 插入排序
+     * @param frame
+     * @param l
+     * @param r
+     */
+    private void InsertSort(AlgoFrame frame, int l, int r){
+        frame.setData(l,l+1,l,l);
+        for (int i = l; i <= r; i++) {
+            // 假定[l,l+1]是有序的 则循环后面的元素找到他们在有序数组中的位置
+            for (int j = i; j > l && frame.less(j,j - 1); j--) {
+                frame.setData(l,i+1,j,j - 1);
+                frame.swap(j,j - 1);
+            }
+        }
+        frame.setData(l,r + 1,-1,-1);
+    }
+
+    /**
      * 归并排序可视化
      * @param frame
      * @param l
      * @param r
      */
     private void merge(AlgoFrame frame, int l,int mid, int r) {
-        int i = l,j = mid + 1;
         // 将数据放入临时数组
         for (int k = l; k <= r; k++) {
             frame.replace(auxData,k,frame.get(k));
         }
+        quickMerge(frame,auxData,l,mid,r);
+        // 更新数组排序区间
+        frame.setData(l,r+1,l,r);
+    }
+
+    /**
+     * 快速归并
+     */
+    public void quickMerge(AlgoFrame frame,SortData auxData,int l,int mid,int r){
+        int i = l,j = mid + 1;
         // 归并数组
         for (int k = l; k <= r; k++) {
             if (i > mid) frame.replace(k,auxData.get(j++));
@@ -120,8 +216,6 @@ public class MergeSort implements SortMethod{
             else if (auxData.less(i,j)) frame.replace(k,auxData.get(i++));
             else frame.replace(k,auxData.get(j++));
         }
-        // 更新数组排序区间
-        frame.setData(l,r+1,l,r);
     }
 
     @Override
@@ -130,15 +224,20 @@ public class MergeSort implements SortMethod{
     }
 
     public static void main(String[] args) {
-//        MergeSort mergeSort = new MergeSort();
-//        long sort = mergeSort.testSort(mergeSort, 10000000);
-//        System.out.println("花费时间"+sort+"ms");
+        MergeSort mergeSort = new MergeSort();
+        long sort = mergeSort.testSort(mergeSort, 10000000);
+        System.out.println("花费时间"+sort+"ms");
         //花费时间1712ms 花费时间1841ms 花费时间1877ms
 
-        int[] arr = {1,2,32,3,22,11,21};
-        System.out.println(Arrays.toString(new sort_algorithms.MergeSort().sort(arr)));
-
+//        Random random = new Random();
+//        MergeSort mergeSort = new MergeSort();
+//        int[] ints = new int[10000];
+//        for (int i = 0; i < ints.length; i++) {
+//            ints[i] = random.nextInt(10000);
+//        }
+//        mergeSort.sort(ints);
+//        System.out.println(Arrays.toString(ints));
+//        System.out.println(mergeSort.isSorted(ints));
     }
-
 
 }

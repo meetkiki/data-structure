@@ -5,9 +5,13 @@ import entity.SortData;
 import java.awt.*;
 import javax.swing.*;
 
-public class AlgoFrame extends JFrame{
+public class AlgoFrame extends JFrame implements Cloneable{
     private int canvasWidth;
     private int canvasHeight;
+    /**
+     * 排序data
+     */
+    private SortData data;
 
     public AlgoFrame(){}
     public AlgoFrame(String title, SortData data, int canvasWidth, int canvasHeight){
@@ -33,9 +37,9 @@ public class AlgoFrame extends JFrame{
     public int getCanvasHeight(){return canvasHeight;}
 
     /**
-     * 排序data
+     * 重新渲染视图
+     * @param data
      */
-    private SortData data;
     public void render(SortData data){
         this.data = data;
         repaint();
@@ -82,7 +86,7 @@ public class AlgoFrame extends JFrame{
         this.render(data);
         AlgoVisHelper.pause(data.getDELAY());
         System.out.println(data.getOrdereds());
-        System.out.println("change --- " + getChange());
+        System.out.println("change --- " + this.getChange());
     }
 
 
@@ -98,6 +102,17 @@ public class AlgoFrame extends JFrame{
         updateData(currentCompareIndex,currentChangeIndex);
         return data.less(currentCompareIndex,currentChangeIndex);
     }
+    /**
+     * 比较两个数的是否小于等于  返回布尔型
+     * @param currentCompareIndex
+     * @param currentChangeIndex
+     * @return
+     */
+    public boolean lessOrEqual(int currentCompareIndex, int currentChangeIndex){
+        // 设置指向
+        updateData(currentCompareIndex,currentChangeIndex);
+        return data.lessOrEqual(currentCompareIndex,currentChangeIndex);
+    }
 
     /**
      * 交换两个数的数据
@@ -108,6 +123,22 @@ public class AlgoFrame extends JFrame{
         data.swap(currentCompareIndex,currentChangeIndex);
     }
 
+    /**
+     * 获取克隆对象
+     * @return
+     */
+    public AlgoFrame cloneData(){
+        AlgoFrame frame = null;
+        try {
+            SortData sortData = (SortData)data.getClone();
+            sortData.setNumbers(data.cloneData());
+            frame = (AlgoFrame)this.clone();
+            frame.data = sortData;
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return frame;
+    }
     /**
      *  获得数据长度
      */
@@ -131,7 +162,7 @@ public class AlgoFrame extends JFrame{
     }
 
     /**
-     * 替换两个数的值
+     * 替换传入索引的值
      * @param srcIndex
      * @param value
      * @return
@@ -141,7 +172,8 @@ public class AlgoFrame extends JFrame{
     }
 
     /**
-     * 替换两个数的值
+     * 替换传入索引的值
+     * @param data 数据项
      * @param srcIndex
      * @param value
      * @return
@@ -150,6 +182,20 @@ public class AlgoFrame extends JFrame{
         // 设置指向
         updateData(srcIndex,srcIndex);
         data.set(srcIndex,value);
+    }
+
+    /**
+     * 数组拷贝方法
+     * @param src       源数组
+     * @param srcIndex  源数组开始索引
+     * @param desc      目标数组
+     * @param descIndex 目标数组开始索引
+     * @param length    长度
+     */
+    public void dataCoppy(AlgoFrame src,int srcIndex ,AlgoFrame desc,int descIndex,int length){
+        for (int i = 0; i < length; i++) {
+            desc.replace(descIndex + i,src.get(srcIndex + i));
+        }
     }
 
 

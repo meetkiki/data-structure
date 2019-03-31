@@ -36,9 +36,10 @@ public interface SortMethod {
         }
         long start = System.currentTimeMillis();
         sort.sort(ints);
-        return System.currentTimeMillis() - start;
+        long end = System.currentTimeMillis() - start;
+        System.out.println("sorted is " + isSorted(ints));
+        return end;
     }
-
 
     /**
      * 判断是否有序
@@ -46,7 +47,16 @@ public interface SortMethod {
      * @return
      */
     default boolean isSorted(int[] arr){
-        for (int i = 1; i < arr.length; i++) {
+        return isSorted(arr,0,arr.length-1);
+    }
+
+    /**
+     * 判断是否有序
+     * @param arr
+     * @return
+     */
+    default boolean isSorted(int[] arr,int l,int r){
+        for (int i = l + 1; i <= r; i++) {
             if (arr[i] < arr[i - 1]){
                 return false;
             }
@@ -60,7 +70,16 @@ public interface SortMethod {
      * @return
      */
     default boolean isSorted(SortData sortData){
-        return isSorted(sortData.getNumbers());
+        return isSorted(sortData,0,sortData.size()-1);
+    }
+
+    /**
+     * 判断是否有序
+     * @param sortData
+     * @return
+     */
+    default boolean isSorted(SortData sortData,int l,int r){
+        return isSorted(sortData.getNumbers(),l,r);
     }
 
     /**
