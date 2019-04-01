@@ -40,18 +40,14 @@ public class InsertionSort implements SortMethod {
     @Override
     public void sort(AlgoFrame frame) {
         int n = frame.length();
-        // 初始化数组
-        frame.setData(0,-1,-1);
         // 假定从1开始前面都是有序的 从无序的每个元素中依次插入到有序的数组中达到完全有序
-        for (int i = 1; i < n; i++) {
+        for (int i = 1; frame.compareLess(i, n); i++) {
             // 判断数据当前值是否小于已排序好值，找到当前数据合适的位置
-            for (int j = i; j > 0 && frame.less(j,j - 1); j--) {
-                frame.setData(i + 1, j,j - 1);
+            for (int j = i;frame.compareMore(j,0) && frame.less(j,j - 1); j--) {
                 frame.swap(j,j - 1);
+                frame.updateOrdereds(i + 1);
             }
         }
-        // 格式化数据
-        frame.setData(n,-1,-1);
     }
 
     @Override

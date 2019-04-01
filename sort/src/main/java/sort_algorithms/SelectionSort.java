@@ -7,23 +7,18 @@ public class SelectionSort implements SortMethod {
 
     @Override
     public void sort(AlgoFrame frame) {
-        // 选择排序初始化
-        frame.setData(0, -1, -1);
-        for(int i = 0; i < frame.length() ; i ++ ){
+        for(int i = 0;frame.compareLess(i ,frame.length()); i ++ ){
             // 寻找[i, n)区间里的最小值的索引
             int minIndex = i;
-            frame.setData(i, -1, minIndex);
-            for(int j = i + 1; j < frame.length();j ++){
-                frame.setData(i, j, minIndex);
+            for(int j = i + 1; frame.compareLess(j , frame.length());j ++){
                 if(frame.less(j,minIndex)){
                     minIndex = j;
-                    frame.setData(i, j, minIndex);
                 }
             }
             frame.swap(i , minIndex);
-            frame.setData(i + 1, -1, -1);
+            // 更细排序空间
+            frame.updateOrdereds(i + 1);
         }
-        frame.setData(frame.length(),-1,-1);
     }
 
     @Override

@@ -60,6 +60,7 @@ public class AlgoVisualizer {
             case "MergeSort":       return new MergeSort();
             case "QuickSort":       return new QuickSort();
             case "ShellSort":       return new ShellSort();
+            case "MergeBUSort":       return new MergeSort().new MergeBu();
             default:                throw new IllegalArgumentException("No sort algorithms");
         }
     }

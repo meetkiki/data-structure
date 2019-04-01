@@ -57,24 +57,22 @@ public class ShellSort implements SortMethod {
      */
     @Override
     public void sort(AlgoFrame frame) {
-        frame.setData(0, -1, -1);
         int size = frame.length(),h = 1;
         // 拆分数组为子数组h, 1,4,13,40,121,364,1093
-        while (h < size / 3) h = h * 3 + 1;
-        while (h >= 1){
+        while (frame.compareLess(h, size / 3)) h = h * 3 + 1;
+        while (frame.compareMoreOrEqual(h, 1)){
             // 插入排序
-            for( int i = h ; i < frame.length() ; i ++ ){
-                frame.setData(i + 1, i, i - h);
+            for( int i = h ;frame.compareLess(i, frame.length()); i ++ ){
                 // 寻找[h, n)区间里的最小值的索引
-                for( int j = i; (j - h) >= 0 && frame.less(j,j - h) ; j -= h){
-                    frame.setData(i + 1, j, j - h);
+                for( int j = i;frame.compareMoreOrEqual(j - h,0) && frame.less(j,j - h) ; j -= h){
                     frame.swap(j,j - h);
                 }
+                // 更新排序区间
+                frame.updateOrdereds(i + 1);
             }
             // 排序局部数组
             h /= 3;
         }
-        frame.setData(frame.length(),-1,-1);
     }
 
     @Override

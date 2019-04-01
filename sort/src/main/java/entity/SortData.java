@@ -25,9 +25,14 @@ public class SortData implements Cloneable{
     public int currentChangeIndex = -1;
     /**
      * Number of changes to the array the current algorithm has taken so far
-     * 比较次数
+     * 交换次数
      */
     private int arrayChanges = 0;
+    /**
+     * Number of changes to the array the current algorithm has taken so far
+     * 比较次数
+     */
+    private int arrayCompare = 0;
     /**
      * 等待时间
      */
@@ -57,7 +62,7 @@ public class SortData implements Cloneable{
         checkIndex(index);
 
         numbers[index] = element;
-        arrayChanges++;
+        changeIncrement();
     }
 
     public void swap(int i, int j) {
@@ -68,7 +73,7 @@ public class SortData implements Cloneable{
         int t = numbers[i];
         numbers[i] = numbers[j];
         numbers[j] = t;
-        arrayChanges++;
+        changeIncrement();
     }
 
     private boolean checkIndex(int index){
@@ -93,11 +98,12 @@ public class SortData implements Cloneable{
     public boolean isSorted(int curIndex){
         checkIndex(curIndex);
         for (Ordered ordered : ordereds) {
-            if (!ordered.isBetween(curIndex)){
-                return false;
+            // 如果有一个则为true 否则为false
+            if (ordered.isBetween(curIndex)){
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -107,6 +113,7 @@ public class SortData implements Cloneable{
      * @return
      */
     public boolean less(int currentCompareIndex, int currentChangeIndex){
+        compareIncrement();
         return numbers[currentCompareIndex] < numbers[currentChangeIndex];
     }
 
@@ -117,7 +124,21 @@ public class SortData implements Cloneable{
      * @return
      */
     public boolean lessOrEqual(int currentCompareIndex, int currentChangeIndex){
+        compareIncrement();
         return numbers[currentCompareIndex] <= numbers[currentChangeIndex];
+    }
+
+    /**
+     * 比较自增
+     */
+    public void compareIncrement(){
+        arrayCompare++;
+    }
+    /**
+     * 交换自增
+     */
+    public void changeIncrement(){
+        arrayChanges++;
     }
 
     /**
@@ -145,6 +166,7 @@ public class SortData implements Cloneable{
             this.set(i,rng.nextInt(height));
         }
         arrayChanges = 0;
+        arrayCompare = 0;
     }
 
     public int[] getNumbers() {
@@ -183,4 +205,7 @@ public class SortData implements Cloneable{
         return this.clone();
     }
 
+    public int getArrayCompare() {
+        return arrayCompare;
+    }
 }

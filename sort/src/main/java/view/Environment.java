@@ -2,7 +2,6 @@ package view;
 
 import abstraction.Optimized;
 import abstraction.SortMethod;
-import view.AlgoFrame;
 
 /**
  * 环境角色
@@ -33,9 +32,12 @@ public class Environment {
     public void invoke(){
         // 初始化
         init();
+        frame.updateOrdereds(0);
         start = System.currentTimeMillis();
         sort();
         end = System.currentTimeMillis();
+        // 排序空间
+        frame.updateOrdereds(frame.length());
     }
 
     /**
