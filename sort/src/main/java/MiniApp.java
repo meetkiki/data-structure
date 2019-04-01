@@ -16,15 +16,14 @@ public class MiniApp {
     /**
      * 排序间隔
      *
-     *  change      3 * delay
-     *  compare     1 * delay
-     *  value       1 * delay
-     *
+     *  change          3 * delay
+     *  compare         1 * delay
+     *  assignment      1 * delay
      */
     private static int DELAY = 1;
 
     public static void main(String[] args) {
-        AlgoVisualizer visualizer = new AlgoVisualizer(MergeBUSort);
+        AlgoVisualizer visualizer = new AlgoVisualizer(MergeSort);
         visualizer.setDelay(DELAY);
         Environment environment = visualizer.getEnvironment();
         while (true){

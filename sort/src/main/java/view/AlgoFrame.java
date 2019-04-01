@@ -404,7 +404,10 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
         public AlgoCanvas(){
             // 双缓存
             super(true);
+            w = canvasWidth / data.size();
         }
+
+        private int w = 0;
 
         @Override
         public void paintComponent(Graphics g) {
@@ -420,7 +423,6 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
             g2d.addRenderingHints(hints);
 
             // 具体绘制
-            int w = canvasWidth / data.size();
             for(int i = 0; i < data.size() ; i ++ ) {
                 // 排序好空间
                 if (data.isSorted(i))

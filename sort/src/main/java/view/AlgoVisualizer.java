@@ -19,7 +19,7 @@ public class AlgoVisualizer {
 
     private static int SCENEWIDTH = 1200;
     private static int SCENEHEIGHT = 1000;
-    private static int N = 200;
+    private static int N = 600;
 
     private SortData data;
     private AlgoFrame frame;
