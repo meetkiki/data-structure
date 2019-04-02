@@ -136,7 +136,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
     public void updateData(int currentCompareIndex, int currentChangeIndex,boolean isStep){
         data.currentCompareIndex = currentCompareIndex;
         data.currentChangeIndex = currentChangeIndex;
-
+        long s = System.currentTimeMillis();
         this.render(data);
         if (isStep) AlgoVisHelper.pause(data.getDELAY());
         System.out.println(data.getOrdereds());

@@ -4,6 +4,9 @@ import abstraction.Optimized;
 import abstraction.SortMethod;
 import view.AlgoFrame;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 
 public class MergeSort implements SortMethod, Optimized {
 
@@ -134,7 +137,7 @@ public class MergeSort implements SortMethod, Optimized {
          */
         if(auxFrame.lessOrEqual(mid,mid+1)){
             // 更新数组排序区间
-            auxFrame.dataCoppy(auxFrame,l,frame,l,r - l + 1);
+            //auxFrame.dataCoppy(auxFrame,l,frame,l,r - l + 1);
             auxFrame.optimizeUpdateOrdered(frame,l,r + 1);
             return;
         }
@@ -232,7 +235,7 @@ public class MergeSort implements SortMethod, Optimized {
     }
 
     /**
-     * 自底而上的归并模式
+     * 自底而上的归并排序
      */
     public class MergeBu implements SortMethod{
         @Override
