@@ -8,6 +8,11 @@ import java.util.Random;
 public interface SortMethod {
 
     /**
+     * 当数组长度小于这个数字时使用插入排序
+     */
+    int INSERTSIZE = 15;
+
+    /**
      * 排序可视化
      * @param frame
      * @return
@@ -62,6 +67,20 @@ public interface SortMethod {
             }
         }
         return true;
+    }
+
+    /**
+     * 交换方法
+     * @param arr
+     * @param i
+     * @param j
+     */
+    default void swap(int[] arr, int i, int j) {
+        if (i != j){
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
     }
 
     /**

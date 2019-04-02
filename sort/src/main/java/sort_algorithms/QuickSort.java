@@ -3,6 +3,8 @@ package sort_algorithms;
 import abstraction.SortMethod;
 import view.AlgoFrame;
 
+import java.util.Arrays;
+
 public class QuickSort implements SortMethod {
 
     /**
@@ -24,6 +26,28 @@ public class QuickSort implements SortMethod {
         return arr;
     }
 
+//    /**
+//     * 三向切分快速排序
+//     *
+//     * @param arr
+//     * @param l
+//     * @param r
+//     */
+//    private void quick_sort_c(int[] arr, int l, int r) {
+//        if (r <= l) return;
+//        int i = l,j = l + 1,k = r,v = arr[l];
+//        // 荷兰国旗问题
+//        while (j <= k){
+//            if (arr[j] < v) swap(arr,i++,j++);
+//            else if (arr[j] > v) swap(arr,j,k--);
+//            else j++;
+//        }
+//        // 现在arr[l...i-1] < v < arr[i...j] < arr[k+1,r]成立
+//        quick_sort_c(arr,l,i-1);
+//        quick_sort_c(arr,k+1,r);
+//    }
+
+
     private void quick_sort_c(int[] arr, int l, int r) {
         if (l >= r) return;
         // 获取分区点
@@ -31,6 +55,40 @@ public class QuickSort implements SortMethod {
         quick_sort_c(arr,l,q-1);
         quick_sort_c(arr,q+1,r);
     }
+
+//    /**
+//     * 快速排序拆分
+//     *  思路：
+//     *      1.采用arr[l]作为切分元素
+//     *      2.定义一个元素从左边扫描找到第一个大于arr[l]，在从右边往左边扫描找到第一个小于arr[l]的元素
+//     *      3.交换这两个元素的值，如此可以保证左边的元素小于arr[l]，右边的j元素大于arr[l]
+//     *      4.重复2-3操作，直至左右指针相遇
+//     * @param arr
+//     * @param l
+//     * @param r
+//     * @return
+//     */
+//    private int partition(int[] arr, int l, int r) {
+//        int i = l,j = r + 1,v = arr[l];
+//        while (true){
+//            /**
+//             * 找到第一个大于arr[i]的值
+//             */
+//            while (arr[++i] < v){
+//                if (i == r) break;
+//            }
+//            /**
+//             * 找到第一个小于arr[i]的值
+//             */
+//            while (v < arr[--j]){
+//                if (j == l) break;
+//            }
+//            if (i >= j) break;
+//            swap(arr,i,j);
+//        }
+//        swap(arr,l,j);
+//        return j;
+//    }
 
     /**
      * 这里的处理有点类似选择排序。我们通过游标 i 把 A[p…r-1] 分成两部分。
@@ -55,23 +113,87 @@ public class QuickSort implements SortMethod {
     }
 
     /**
-     * 交换方法
-     * @param arr
-     * @param i
-     * @param j
+     * 快速排序可视化
+     * @param frame
      */
-    private void swap(int[] arr, int i, int j) {
-        if (i != j){
-            arr[i] = arr[i] ^ arr[j];
-            arr[j] = arr[i] ^ arr[j];
-            arr[i] = arr[i] ^ arr[j];
-        }
-    }
-
     @Override
     public void sort(AlgoFrame frame) {
-
+        int length = frame.length();
+        quickSort(frame,0,length-1);
     }
+
+
+    /**
+     * 插入排序
+     * @param frame
+     * @param l
+     * @param r
+     */
+    private void InsertSort(AlgoFrame frame, int l, int r){
+        for (int i = l;frame.compareLessOrEqual(i, r); i++) {
+            // 假定[l,l+1]是有序的 则循环后面的元素找到他们在有序数组中的位置
+            for (int j = i; frame.compareMore(j, l) && frame.less(j,j - 1); j--) {
+                frame.swap(j,j - 1);
+            }
+            frame.updateOrdereds(l,i);
+        }
+        frame.updateOrdereds(l,r + 1);
+    }
+
+    private void quickSort(AlgoFrame frame, int l, int r) {
+        // 小数组优化
+        if (frame.compareMoreOrEqual(l, r - INSERTSIZE)) {
+            InsertSort(frame,l,r);
+            return;
+        }
+        // 获取分区点
+        int q = partition(frame,l,r);
+        quickSort(frame,l,q-1);
+        frame.updateOrdereds(l,q-1);
+        quickSort(frame,q+1,r);
+        frame.updateOrdereds(q+1,r);
+    }
+
+    /**
+     * 快速排序优化
+     *
+     * @param frame
+     * @param l
+     * @param r
+     * @return
+     */
+    private int partition(AlgoFrame frame, int l, int r) {
+        int i = l;
+        for (int j = l; frame.compareLessOrEqual(j, r - 1); j++) {
+            if (frame.less(j,r)){
+                frame.swap(i++,j);
+            }
+        }
+        frame.swap(i,r);
+        return i;
+    }
+
+
+//    /**
+//     * 三向快速排序
+//     * @param frame
+//     * @param l
+//     * @param r
+//     */
+//    private void quickSort(AlgoFrame frame, int l, int r) {
+//        if (r <= l) return;
+//        int i = l,j = l + 1,k = r ,v = frame.get(l);
+//        while (j <= k){
+//            int compare = frame.compare(frame.get(j), v);
+//            if (compare < 0) frame.swap(i++,j++);
+//            else if(compare > 0) frame.swap(j,k--);
+//            else j++;
+//        }
+//        quickSort(frame,l,i-1);
+//        frame.updateOrdereds(l,i-1);
+//        quickSort(frame,k + 1,r);
+//        frame.updateOrdereds(k + 1,r);
+//    }
 
     @Override
     public String methodName() {
@@ -84,7 +206,6 @@ public class QuickSort implements SortMethod {
         QuickSort quickSort = new QuickSort();
         long sort = quickSort.testSort(quickSort, 100000000);
         System.out.println("花费时间"+sort+"ms");
-
         // 花费时间1061ms   花费时间1424ms  花费时间1165ms
     }
 }

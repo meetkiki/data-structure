@@ -65,6 +65,8 @@ public class Ordered {
     public boolean isIntersect(int orderedstart,int orderedIndex){
         // 初始化相交
         if (orderedIndex <= 0 || orderedstart < 0) return true;
+        // 如果负区间 则合并
+        if (orderedIndex < orderedstart) return true;
         // 如果重合 相交
         if (orderedIndex == orderedstart) return true;
         // 如果当前区间等于传入区间接尾 相交

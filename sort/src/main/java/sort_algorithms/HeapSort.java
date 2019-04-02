@@ -69,18 +69,6 @@ public class HeapSort implements SortMethod {
         }
     }
 
-    /**
-     * 交换两数的值
-     * @param arr
-     * @param maxpos
-     * @param i
-     */
-    private void swap(int[] arr, int maxpos, int i) {
-        int temp = arr[i];
-        arr[i] = arr[maxpos];
-        arr[maxpos] = temp;
-    }
-
 
     public static void main(String[] args) {
         HeapSort heapSort = new HeapSort();

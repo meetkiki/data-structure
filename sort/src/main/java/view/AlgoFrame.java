@@ -153,10 +153,20 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      */
     @Override
     public boolean compareMore(int curl, int curr){
+        return compare(curl,curr) > 0;
+    }
+
+
+    /**
+     * 比较两个数的大小返回int型 小于 等于 大于
+     * @param curl
+     * @param curr
+     * @return
+     */
+    public int compare(int curl, int curr){
         data.compareIncrement();
         AlgoVisHelper.pause(data.getDELAY());
-        // 设置指向
-        return curl > curr;
+        return curl - curr;
     }
 
     /**
@@ -167,9 +177,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      */
     @Override
     public boolean compareLess(int curl, int curr){
-        data.compareIncrement();
-        AlgoVisHelper.pause(data.getDELAY());
-        return curl < curr;
+        return compare(curl,curr) < 0;
     }
 
     /**
@@ -180,9 +188,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      */
     @Override
     public boolean compareMoreOrEqual(int curl, int curr) {
-        data.compareIncrement();
-        AlgoVisHelper.pause(data.getDELAY());
-        return curl >= curr;
+        return compare(curl,curr) >= 0;
     }
 
     /**
@@ -193,10 +199,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      */
     @Override
     public boolean compareLessOrEqual(int curl, int curr) {
-        data.compareIncrement();
-        AlgoVisHelper.pause(data.getDELAY());
-        // 设置指向
-        return curl <= curr;
+        return compare(curl,curr) <= 0;
     }
 
     /**

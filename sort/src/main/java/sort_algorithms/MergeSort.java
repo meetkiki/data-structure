@@ -4,16 +4,9 @@ import abstraction.Optimized;
 import abstraction.SortMethod;
 import view.AlgoFrame;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 
 public class MergeSort implements SortMethod, Optimized {
 
-    /**
-     * 当数组长度小于这个数字时使用插入排序
-     */
-    private static final int INSERTSIZE = 15;
 
     /**
      * 归并排序
@@ -278,7 +271,7 @@ public class MergeSort implements SortMethod, Optimized {
 
     public static void main(String[] args) {
         MergeBu mergeBu = new MergeSort().new MergeBu();
-        long sort = mergeBu.testSort(mergeBu, 10000000);
+        long sort = mergeBu.testSort(mergeBu, 100000000);
         System.out.println("花费时间"+sort+"ms");
         //花费时间1712ms 花费时间1841ms 花费时间1877ms
 

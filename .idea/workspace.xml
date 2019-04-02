@@ -2,10 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/RunTask.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/MiniApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/MiniApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/entity/Ordered.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/entity/Ordered.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/HeapSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/HeapSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -49,53 +56,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/MiniApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="374">
-              <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+            <state relative-caret-position="325">
+              <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/ShellSort.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="70" column="26" lean-forward="true" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="31" column="11" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/OperatingArray.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -103,8 +68,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+            <state relative-caret-position="286">
+              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#7046#7047#0" expanded="true" />
@@ -114,40 +79,39 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/HeapSort.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="556">
+              <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="699">
+              <caret line="83" column="32" lean-forward="true" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="82" column="64" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="64" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoVisHelper.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="809">
-              <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
-              <folding>
-                <element signature="e#2257#2258#0" expanded="true" />
-                <element signature="e#2290#2291#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/Environment.java">
-          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="372">
-              <caret line="49" column="21" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
+              <caret line="144" column="48" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1057#1058#0" expanded="true" />
-                <element signature="e#1114#1115#0" expanded="true" />
+                <element signature="e#3200#3201#0" expanded="true" />
+                <element signature="e#3235#3236#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -156,10 +120,67 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
+            <state relative-caret-position="154">
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#940#941#0" expanded="true" />
+                <element signature="e#991#992#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/InsertionSort.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="308">
+              <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/entity/SortData.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="346">
+              <caret line="151" selection-start-line="151" selection-end-line="151" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2998#2999#0" expanded="true" />
+                <element signature="e#3028#3029#0" expanded="true" />
+                <element signature="e#4293#4294#0" expanded="true" />
+                <element signature="e#4331#4332#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/entity/Ordered.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="398">
+              <caret line="69" column="18" lean-forward="true" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+              <folding>
+                <element signature="e#575#576#0" expanded="true" />
+                <element signature="e#612#613#0" expanded="true" />
+                <element signature="e#868#869#0" expanded="true" />
+                <element signature="e#948#949#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="227" column="7" lean-forward="true" selection-start-line="227" selection-start-column="7" selection-end-line="227" selection-end-column="7" />
+              <folding>
+                <element signature="e#4053#4054#0" expanded="true" />
+                <element signature="e#4098#4099#0" expanded="true" />
+                <element signature="e#4524#4525#0" expanded="true" />
+                <element signature="e#4569#4570#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -177,7 +198,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>compare</find>
       <find>randomBound</find>
       <find>rng</find>
       <find>SelectionSortData</find>
@@ -200,6 +220,8 @@
       <find>isStep</find>
       <find>auxData</find>
       <find>merge</find>
+      <find>workBase</find>
+      <find>compare</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -225,7 +247,6 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/random/StdRandom.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/view/SelectionSortData.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/view/SortData.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/entity/Ordered.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/view/AlgoVisHelper.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/SortMethod.java" />
         <option value="$PROJECT_DIR$/othre/src/main/java/Worker.java" />
@@ -238,11 +259,8 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/Optimized.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/SortView/SortView.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/SortView.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/BucketSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/CountingSort.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/HeapSort.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/ProxyFactory.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/Environment.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/entity/SortData.java" />
@@ -252,11 +270,18 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/SelectionSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/ShellSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/view/Environment.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/Optimized.java" />
+        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java" />
+        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/RunTask.java" />
+        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/HeapSort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/entity/Ordered.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/MiniApp.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java" />
       </list>
     </option>
   </component>
@@ -299,6 +324,32 @@
             <path>
               <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
               <item name="data-structure" type="462c0819:PsiDirectoryNode" />
+              <item name="othre" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
+              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
+              <item name="othre" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
+              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
+              <item name="othre" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
+              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
+              <item name="othre" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
+              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
               <item name="sort" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -321,15 +372,6 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
-              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
-              <item name="sort" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="abstraction" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
@@ -358,7 +400,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554207541072" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554221392083" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Sort-Algorithm-Visualiser-master" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -377,7 +419,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.QuickSort">
+  <component name="RunManager" selected="Application.MiniApp">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -455,10 +497,16 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Test" />
+    <configuration name="TestExecute" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="fork_join.TestExecute" />
       <module name="othre" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="fork_join.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -587,16 +635,16 @@
       <item itemvalue="Application.ShellSort" />
       <item itemvalue="Application.MiniApp" />
       <item itemvalue="Application.MergeSort" />
-      <item itemvalue="Application.Test" />
       <item itemvalue="Application.QuickSort" />
+      <item itemvalue="Application.TestExecute" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.QuickSort" />
         <item itemvalue="Application.MiniApp" />
+        <item itemvalue="Application.QuickSort" />
         <item itemvalue="Application.MergeSort" />
+        <item itemvalue="Application.TestExecute" />
         <item itemvalue="Application.ShellSort" />
-        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -621,7 +669,7 @@
       <workItem from="1554004283128" duration="3391000" />
       <workItem from="1554011328920" duration="33056000" />
       <workItem from="1554116906318" duration="14771000" />
-      <workItem from="1554202914248" duration="2627000" />
+      <workItem from="1554202914248" duration="16419000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1553564515624</created>
@@ -798,17 +846,23 @@
       <option name="project" value="LOCAL" />
       <updated>1554132068578</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="归并排序可视化fix bug">
+      <created>1554207567234</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1554207567234</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111981000" />
+    <option name="totallyTimeSpent" value="125773000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1263911" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1263911" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -819,7 +873,7 @@
       <window_info id="Nl-Palette" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29563183" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29563183" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.30421218" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -917,47 +971,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="5" lean-forward="true" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/othre/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/skip-list/src/main/java/SkipList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="7" lean-forward="true" selection-start-line="16" selection-start-column="7" selection-end-line="16" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/Random.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="103" column="11" selection-start-line="103" selection-start-column="11" selection-end-line="103" selection-end-column="11" />
-          <folding>
-            <element signature="e#3504#3505#0" expanded="true" />
-            <element signature="e#3562#3563#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/lang/Comparable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="93" column="13" lean-forward="true" selection-start-line="93" selection-start-column="13" selection-end-line="93" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/random/StdRandom.java" />
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/entity.java" />
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/List.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
@@ -1073,19 +1086,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/SortView.java" />
-    <entry file="file://$PROJECT_DIR$/othre/src/main/java/brickmason.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-          <folding>
-            <element signature="e#95#96#0" expanded="true" />
-            <element signature="e#127#128#0" expanded="true" />
-            <element signature="e#184#185#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/othre/src/main/java/Environment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
@@ -1097,18 +1097,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="211" column="28" selection-start-line="211" selection-start-column="28" selection-end-line="211" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/entity/Ordered.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-          <folding>
-            <element signature="e#575#576#0" expanded="true" />
-            <element signature="e#612#613#0" expanded="true" />
-            <element signature="e#948#949#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1139,41 +1127,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/HeapSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="21" column="14" lean-forward="true" selection-start-line="21" selection-start-column="14" selection-end-line="21" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/InsertionSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="48" column="13" lean-forward="true" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/SelectionSort.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="13" column="28" lean-forward="true" selection-start-line="13" selection-start-column="28" selection-end-line="13" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/entity/SortData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1276">
-          <caret line="64" column="14" selection-start-line="64" selection-start-column="14" selection-end-line="64" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2998#2999#0" expanded="true" />
-            <element signature="e#3028#3029#0" expanded="true" />
-            <element signature="e#4293#4294#0" expanded="true" />
-            <element signature="e#4331#4332#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1237,16 +1194,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/OperatingArray.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="110">
@@ -1258,23 +1205,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="176">
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="550">
-          <caret line="31" column="11" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="14" column="9" selection-start-line="14" selection-start-column="9" selection-end-line="14" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1290,20 +1220,138 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/MiniApp.java">
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/DualPivotQuicksort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="6" lean-forward="true" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        <state relative-caret-position="253">
+          <caret line="110" column="14" lean-forward="true" selection-start-line="110" selection-start-column="14" selection-end-line="110" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/Arrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="380">
+          <caret line="167" column="49" lean-forward="true" selection-start-line="167" selection-start-column="49" selection-end-line="167" selection-end-column="49" />
+          <folding>
+            <element signature="e#5027#5028#0" expanded="true" />
+            <element signature="e#5098#5099#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/brickmason.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+          <folding>
+            <element signature="e#95#96#0" expanded="true" />
+            <element signature="e#127#128#0" expanded="true" />
+            <element signature="e#184#185#0" expanded="true" />
+            <element signature="e#211#212#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/ForkJoinTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="716" column="19" selection-start-line="716" selection-start-column="19" selection-end-line="716" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/Collections.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="420" column="23" selection-start-line="420" selection-start-column="23" selection-end-line="420" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="30" selection-start-line="30" selection-end-line="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1132#1133#0" expanded="true" />
+            <element signature="e#1161#1162#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/RunTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="66" column="23" lean-forward="true" selection-start-line="66" selection-start-column="23" selection-end-line="66" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="32" column="32" lean-forward="true" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/HeapSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="556">
+          <caret line="71" lean-forward="true" selection-start-line="71" selection-end-line="71" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/entity/SortData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="151" selection-start-line="151" selection-end-line="151" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2998#2999#0" expanded="true" />
+            <element signature="e#3028#3029#0" expanded="true" />
+            <element signature="e#4293#4294#0" expanded="true" />
+            <element signature="e#4331#4332#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/entity/Ordered.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="398">
+          <caret line="69" column="18" lean-forward="true" selection-start-line="69" selection-start-column="18" selection-end-line="69" selection-end-column="18" />
+          <folding>
+            <element signature="e#575#576#0" expanded="true" />
+            <element signature="e#612#613#0" expanded="true" />
+            <element signature="e#868#869#0" expanded="true" />
+            <element signature="e#948#949#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="227" column="7" lean-forward="true" selection-start-line="227" selection-start-column="7" selection-end-line="227" selection-end-column="7" />
+          <folding>
+            <element signature="e#4053#4054#0" expanded="true" />
+            <element signature="e#4098#4099#0" expanded="true" />
+            <element signature="e#4524#4525#0" expanded="true" />
+            <element signature="e#4569#4570#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/InsertionSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="29" column="13" lean-forward="true" selection-start-line="29" selection-start-column="13" selection-end-line="29" selection-end-column="13" />
+        <state relative-caret-position="286">
+          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#7046#7047#0" expanded="true" />
@@ -1312,10 +1360,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#940#941#0" expanded="true" />
+            <element signature="e#991#992#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="82" column="64" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="64" />
+        <state relative-caret-position="372">
+          <caret line="144" column="48" selection-start-line="144" selection-start-column="48" selection-end-line="144" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3200#3201#0" expanded="true" />
+            <element signature="e#3235#3236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/MiniApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="699">
+          <caret line="83" column="32" lean-forward="true" selection-start-line="83" selection-start-column="32" selection-end-line="83" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1374,7 +1456,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>sort</last-edited>
+          <last-edited>othre</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

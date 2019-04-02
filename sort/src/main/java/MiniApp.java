@@ -23,7 +23,7 @@ public class MiniApp {
     private static int DELAY = 1;
 
     public static void main(String[] args) {
-        AlgoVisualizer visualizer = new AlgoVisualizer(MergeSort);
+        AlgoVisualizer visualizer = new AlgoVisualizer(QuickSort);
         visualizer.setDelay(DELAY);
         Environment environment = visualizer.getEnvironment();
         while (true){
