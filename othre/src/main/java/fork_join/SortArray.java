@@ -111,7 +111,15 @@ public class SortArray {
      * @return
      */
     public boolean less(int i,int j){
-        return data[i]<data[j];
+        return compare(i,j) < 0;
+    }
+
+    /**
+     * 比较数组中两个索引处值的大小
+     * @return
+     */
+    public int compare(int i,int j){
+        return data[i] - data[j];
     }
 
     public boolean isSorted(){
@@ -121,6 +129,13 @@ public class SortArray {
             }
         }
         return true;
+    }
+
+
+    public static void arrayCoppy(SortArray src,int l1,SortArray desc,int l2,int length){
+        for (int i = l1; i < l1 + length; i++) {
+            desc.set(l2++,src.get(i));
+        }
     }
 
 
@@ -136,5 +151,18 @@ public class SortArray {
             e.printStackTrace();
             throw new RuntimeException("random exception!");
         }
+    }
+
+    public static SortArray insertSort(SortArray data,int l,int r){
+        for (int i = l + 1; i <= r; i++) {
+            // 选择合适的位置
+            int temp = data.get(i);
+            int j = i;
+            for (; j > l && temp < data.get(j-1); j--) {
+                data.set(j,data.get(j-1));
+            }
+            data.set(j,temp);
+        }
+        return data;
     }
 }

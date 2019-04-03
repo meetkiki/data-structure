@@ -17,11 +17,15 @@ public class TestExecute {
     public static void main(String[] args) {
         int[] randomInt = SortArray.randomInt(100000000);
         int[] randomInt2 = randomInt.clone();
+        int[] randomInt3 = randomInt.clone();
         SortArray sort = new SortArray(randomInt);
 
         // 执行一个任务
-        ForkJoinPool forkjoinPool = new ForkJoinPool();
-        RunTask task = new RunTask(sort);
+        ForkJoinPool forkjoinPool = new ForkJoinPool(8);
+        MergeRunTask task = new MergeRunTask(sort);
+//        QuickRunTask task = new QuickRunTask(sort);
+
+        System.out.println("start ----");
 
         long s1 = System.currentTimeMillis();
         ForkJoinTask submit = forkjoinPool.submit(task);
@@ -38,8 +42,19 @@ public class TestExecute {
         Arrays.sort(randomInt2);
         long s4 = System.currentTimeMillis();
 
+        long s5 = System.currentTimeMillis();
+        Arrays.parallelSort(randomInt3);
+        long s6 = System.currentTimeMillis();
+        System.out.println("parallelSort ===== "+ (new SortArray(randomInt3).isSorted() ? "成功!":"失败!"));
+
+        //-Xmx16g -Xms16g
+        // QuickRunTask 1000000000 fork join sort 28092ms!
+        //  Arrays sort 108991ms!
+        // MergeRunTask 1000000000 fork join sort 50125ms!
+        //  Arrays sort 99199ms!
         System.out.println("fork join sort "+(s2 - s1) + "ms!");
         System.out.println("Arrays sort "+(s4 - s3) + "ms!");
+        System.out.println("parallelSort sort "+(s6 - s5) + "ms!");
 
         //System.out.println(Arrays.toString(sort.getData()));
 

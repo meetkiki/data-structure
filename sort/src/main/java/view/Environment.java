@@ -36,6 +36,7 @@ public class Environment {
         start = System.currentTimeMillis();
         sort();
         end = System.currentTimeMillis();
+        assert target.isSorted(frame.getData());
         // 排序空间
         frame.updateOrdereds(frame.length());
     }

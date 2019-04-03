@@ -140,60 +140,59 @@ public class QuickSort implements SortMethod {
         frame.updateOrdereds(l,r + 1);
     }
 
-    private void quickSort(AlgoFrame frame, int l, int r) {
-        // 小数组优化
-        if (frame.compareMoreOrEqual(l, r - INSERTSIZE)) {
-            InsertSort(frame,l,r);
-            return;
-        }
-        // 获取分区点
-        int q = partition(frame,l,r);
-        quickSort(frame,l,q-1);
-        frame.updateOrdereds(l,q-1);
-        quickSort(frame,q+1,r);
-        frame.updateOrdereds(q+1,r);
-    }
-
-    /**
-     * 快速排序优化
-     *
-     * @param frame
-     * @param l
-     * @param r
-     * @return
-     */
-    private int partition(AlgoFrame frame, int l, int r) {
-        int i = l;
-        for (int j = l; frame.compareLessOrEqual(j, r - 1); j++) {
-            if (frame.less(j,r)){
-                frame.swap(i++,j);
-            }
-        }
-        frame.swap(i,r);
-        return i;
-    }
-
+//    private void quickSort(AlgoFrame frame, int l, int r) {
+//        // 小数组优化
+//        if (frame.compareMoreOrEqual(l, r - INSERTSIZE)) {
+//            InsertSort(frame,l,r);
+//            return;
+//        }
+//        // 获取分区点
+//        int q = partition(frame,l,r);
+//        quickSort(frame,l,q-1);
+//        frame.updateOrdereds(l,q-1);
+//        quickSort(frame,q+1,r);
+//        frame.updateOrdereds(q+1,r);
+//    }
 
 //    /**
-//     * 三向快速排序
+//     * 快速排序优化
+//     *
 //     * @param frame
 //     * @param l
 //     * @param r
+//     * @return
 //     */
-//    private void quickSort(AlgoFrame frame, int l, int r) {
-//        if (r <= l) return;
-//        int i = l,j = l + 1,k = r ,v = frame.get(l);
-//        while (j <= k){
-//            int compare = frame.compare(frame.get(j), v);
-//            if (compare < 0) frame.swap(i++,j++);
-//            else if(compare > 0) frame.swap(j,k--);
-//            else j++;
+//    private int partition(AlgoFrame frame, int l, int r) {
+//        int i = l;
+//        for (int j = l; frame.compareLessOrEqual(j, r - 1); j++) {
+//            if (frame.less(j,r)){
+//                frame.swap(i++,j);
+//            }
 //        }
-//        quickSort(frame,l,i-1);
-//        frame.updateOrdereds(l,i-1);
-//        quickSort(frame,k + 1,r);
-//        frame.updateOrdereds(k + 1,r);
+//        frame.swap(i,r);
+//        return i;
 //    }
+
+    /**
+     * 三向快速排序
+     * @param frame
+     * @param l
+     * @param r
+     */
+    private void quickSort(AlgoFrame frame, int l, int r) {
+        if (r <= l) return;
+        int i = l,j = l + 1,k = r ,v = frame.get(l);
+        while (j <= k){
+            int compare = frame.compare(frame.get(j), v);
+            if (compare < 0) frame.swap(i++,j++);
+            else if(compare > 0) frame.swap(j,k--);
+            else j++;
+        }
+        quickSort(frame,l,i-1);
+        frame.updateOrdereds(l,i-1);
+        quickSort(frame,k + 1,r);
+        frame.updateOrdereds(k + 1,r);
+    }
 
     @Override
     public String methodName() {
