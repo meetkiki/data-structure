@@ -22,8 +22,8 @@ public class TestExecute {
 
         // 执行一个任务
         ForkJoinPool forkjoinPool = new ForkJoinPool(8);
-        MergeRunTask task = new MergeRunTask(sort);
-//        QuickRunTask task = new QuickRunTask(sort);
+//        MergeRunTask task = new MergeRunTask(sort);
+        QuickRunTask task = new QuickRunTask(sort);
 
         System.out.println("start ----");
 
@@ -37,6 +37,7 @@ public class TestExecute {
             e.printStackTrace();
         }
         System.out.println("排序 ===== "+ (sort.isSorted() ? "成功!":"失败!"));
+        sort = null;
 
         long s3 = System.currentTimeMillis();
         Arrays.sort(randomInt2);
