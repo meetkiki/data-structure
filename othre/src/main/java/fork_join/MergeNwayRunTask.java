@@ -16,7 +16,7 @@ public final class MergeNwayRunTask extends RecursiveTask {
      */
     private static final int threshold = 48;
 
-    private SortArray aux;
+    private static SortArray aux;
     /**
      * 数据项
      */
@@ -24,8 +24,6 @@ public final class MergeNwayRunTask extends RecursiveTask {
     private int l;
     private int r;
     private int n;
-
-    public MergeNwayRunTask(){}
 
     public MergeNwayRunTask(SortArray data) {
         this(data,2);
@@ -40,13 +38,12 @@ public final class MergeNwayRunTask extends RecursiveTask {
         this.n = n;
     }
 
-    public MergeNwayRunTask(SortArray data, SortArray aux, int l, int r) {
-        this(data,aux,l,r,2);
+    public MergeNwayRunTask(SortArray data, int l, int r) {
+        this(data,l,r,2);
     }
 
-    public MergeNwayRunTask(SortArray data, SortArray aux, int l, int r, int n) {
+    public MergeNwayRunTask(SortArray data, int l, int r, int n) {
         this.data = data;
-        this.aux = aux;
         this.l = l;
         this.r = r;
         this.n = n;
@@ -63,30 +60,20 @@ public final class MergeNwayRunTask extends RecursiveTask {
         // 拆分子任务 //优化2 在子任务中交换源数组和临时数组的角色优化拷贝
         List<MergeNwayRunTask> tasks = new ArrayList<>();
         int mid = (r - l) / n,i = 1,h = n - 1;
-        tasks.add(new MergeNwayRunTask(aux,data, l, l + mid,n));
+        tasks.add(new MergeNwayRunTask(data, l,l + mid,n));
         while (i < h) {
-            tasks.add(new MergeNwayRunTask(aux,data, l + i * mid + 1,l + (++i) * mid, n));
+            tasks.add(new MergeNwayRunTask(data,l + i * mid + 1,l + (++i) * mid, n));
         }
-        tasks.add(new MergeNwayRunTask(aux,data,l + i * mid + 1,r,n));
-//        MergeRunTask taskleft = new MergeRunTask(aux,data, l, mid);
-//        MergeRunTask taskCenter = new MergeRunTask(aux,data, mid + 1, 2 * mid);
-//        MergeRunTask taskright = new MergeRunTask(aux,data, 2 * mid + 1, r);
+        tasks.add(new MergeNwayRunTask(data,l + i * mid + 1,r,n));
         // 执行子任务
-        System.out.println("l=" + l + " ; r=" + r);
-        System.out.println(tasks);
         invokeAll(tasks);
         //等待任务执行结束合并其结果
         for (MergeNwayRunTask task : tasks) {
             task.join();
         }
-        // 优化3 局部有序 不进行merge
-        if (aux.get(mid) <= aux.get(mid+1)){
-            // 有序 拷贝数组
-            SortArray.arrayCoppy(aux,l,data,l,(r - l + 1));
-            return data;
-        }
-        // 合并结果
-        merge(data,aux,l,mid,r);
+        // 合并结果mid + l + 1
+        merge(data,l,l + mid,l + 2 * mid);
+        merge(data,l,l + 2 * mid,r);
         return data;
     }
 
@@ -97,8 +84,12 @@ public final class MergeNwayRunTask extends RecursiveTask {
      * @param mid
      * @param r
      */
-    private void merge(SortArray data,SortArray aux, int l, int mid, int r) {
+    private void merge(SortArray data,int l, int mid, int r) {
         int i = l,j = mid + 1;
+        // 拷贝数组
+        for (int k = l; k <= r; k++) {
+            aux.set(k,data.get(k));
+        }
         // 归并
         for (int k = l; k <= r; k++) {
             if (i > mid) data.set(k,aux.get(j++));

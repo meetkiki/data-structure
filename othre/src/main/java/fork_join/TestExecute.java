@@ -15,15 +15,16 @@ public class TestExecute {
 
 
     public static void main(String[] args) {
-        int[] randomInt = SortArray.randomInt(100000000);
+        int[] randomInt = SortArray.randomInt(10000000);
         int[] randomInt2 = randomInt.clone();
         int[] randomInt3 = randomInt.clone();
         SortArray sort = new SortArray(randomInt);
 
         // 执行一个任务
         ForkJoinPool forkjoinPool = new ForkJoinPool();
-        MergeRunTask task = new MergeRunTask(sort);
-//        QuickRunTask task = new QuickRunTask(sort,0,sort.getSize() - 1);
+//        MergeRunTask task = new MergeRunTask(sort);
+//        MergeNwayRunTask task = new MergeNwayRunTask(sort,3);
+        QuickRunTask task = new QuickRunTask(sort,0,sort.getSize() - 1);
 
         System.out.println("start ----");
 
@@ -40,7 +41,7 @@ public class TestExecute {
         sort = null;
 
         long s3 = System.currentTimeMillis();
-        //Arrays.sort(randomInt2);
+        Arrays.sort(randomInt2);
         long s4 = System.currentTimeMillis();
 
         long s5 = System.currentTimeMillis();
