@@ -2,10 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/DualPivotQuickSort.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/MergeNwayRunTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/othre/src/main/java/fork_join/MergeRunTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/MergeRunTask.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/othre/src/main/java/fork_join/QuickRunTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/QuickRunTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java" beforeDir="false" afterPath="$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/DualPivotQuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/DualPivotQuickSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
@@ -50,20 +54,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/MergeRunTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="479">
-              <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="136" column="22" selection-start-line="136" selection-start-column="14" selection-end-line="136" selection-end-column="22" />
+            <state relative-caret-position="413">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,10 +67,52 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java">
+        <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/MergeNwayRunTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3014">
-              <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+            <state relative-caret-position="501">
+              <caret line="74" column="37" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/RecursiveTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="624">
+              <caret line="93" selection-start-line="93" selection-end-line="93" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/ForkJoinTask.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="824" column="60" selection-start-line="824" selection-start-column="60" selection-end-line="824" selection-end-column="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/othre/src/main/java/brickmason.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
+              <folding>
+                <element signature="e#95#96#0" expanded="true" />
+                <element signature="e#127#128#0" expanded="true" />
+                <element signature="e#184#185#0" expanded="true" />
+                <element signature="e#211#212#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="36" column="26" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -86,26 +123,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/DualPivotQuickSort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="765">
-              <caret line="52" column="20" selection-start-line="46" selection-start-column="16" selection-end-line="52" selection-end-column="20" />
+            <state relative-caret-position="594">
+              <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#572#573#0" expanded="true" />
-                <element signature="e#617#618#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="35" column="17" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1735#1736#0" expanded="true" />
-                <element signature="e#1796#1797#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -114,12 +135,13 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+            <state relative-caret-position="324">
+              <caret line="134" column="18" lean-forward="true" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
               <folding>
-                <element signature="imports" expanded="true" />
                 <element signature="e#847#848#0" expanded="true" />
                 <element signature="e#877#878#0" expanded="true" />
+                <element signature="e#1452#1453#0" expanded="true" />
+                <element signature="e#1481#1482#0" expanded="true" />
                 <element signature="e#1825#1826#0" expanded="true" />
                 <element signature="e#1864#1865#0" expanded="true" />
               </folding>
@@ -127,24 +149,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/CountedCompleter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="524" column="22" selection-start-line="524" selection-start-column="22" selection-end-line="524" selection-end-column="22" />
-              <folding>
-                <element signature="e#21462#21463#0" expanded="true" />
-                <element signature="e#21514#21515#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="484">
+              <caret line="24" column="53" lean-forward="true" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
             </state>
           </provider>
         </entry>
@@ -152,8 +161,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/QuickRunTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
+            <state relative-caret-position="110">
+              <caret line="53" column="48" lean-forward="true" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -178,7 +187,6 @@
       <find>w</find>
       <find>size</find>
       <find>pause</find>
-      <find>data</find>
       <find>set</find>
       <find>random</find>
       <find>desc</find>
@@ -195,6 +203,8 @@
       <find>workBase</find>
       <find>compare</find>
       <find>sort</find>
+      <find>data</find>
+      <find>MergeRunTask</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -206,7 +216,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/leetcode/src/main/java/LeetCode5.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/HeapSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/SelectionSort.java" />
@@ -248,15 +257,16 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/MiniApp.java" />
         <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/RunTask.java" />
-        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/MergeRunTask.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/view/Environment.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/view/AlgoVisualizer.java" />
-        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/sort_algorithms/DualPivotQuickSort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java" />
+        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java" />
         <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/QuickRunTask.java" />
         <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java" />
+        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/MergeNwayRunTask.java" />
+        <option value="$PROJECT_DIR$/othre/src/main/java/fork_join/MergeRunTask.java" />
       </list>
     </option>
   </component>
@@ -383,12 +393,17 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554308299337" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554392890882" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Sort-Algorithm-Visualiser-master" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="fork_join" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -661,6 +676,7 @@
       <workItem from="1554202914248" duration="16945000" />
       <workItem from="1554289064584" duration="3599000" />
       <workItem from="1554294752652" duration="13140000" />
+      <workItem from="1554377569740" duration="10665000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1553564515624</created>
@@ -862,13 +878,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143038000" />
+    <option name="totallyTimeSpent" value="153703000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12798092" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.12877584" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -879,8 +895,8 @@
       <window_info id="Nl-Palette" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29563183" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.30421218" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29563183" />
+      <window_info anchor="bottom" id="Debug" order="3" visible="true" weight="0.27847114" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32960895" />
@@ -896,7 +912,6 @@
       <window_info anchor="bottom" id="Debug with VisualVM" order="16" />
       <window_info anchor="bottom" id="Docker" order="17" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="18" />
-      <window_info anchor="right" id="Coverage" side_tool="true" weight="0.3298887" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -908,6 +923,7 @@
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info anchor="right" id="Theme Preview" order="9" />
       <window_info anchor="right" id="Maven" order="10" />
+      <window_info anchor="right" id="Coverage" order="11" side_tool="true" weight="0.3298887" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -989,20 +1005,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/binary_search_tree/src/main/java/RedBlackBST.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="613">
-          <caret line="431" column="11" selection-start-line="431" selection-start-column="11" selection-end-line="431" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/lang/Runnable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="67" column="25" selection-start-line="67" selection-start-column="25" selection-end-line="67" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/awt/EventQueue.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="314">
@@ -1056,16 +1058,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
           <caret line="26" column="19" lean-forward="true" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/CountingSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1150,20 +1142,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/DualPivotQuicksort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="110" column="14" lean-forward="true" selection-start-line="110" selection-start-column="14" selection-end-line="110" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/ForkJoinTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="716" column="19" selection-start-line="716" selection-start-column="19" selection-end-line="716" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/Collections.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
@@ -1178,13 +1156,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/InsertionSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="902">
-          <caret line="42" column="28" selection-start-line="42" selection-start-column="28" selection-end-line="42" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -1248,19 +1219,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/othre/src/main/java/brickmason.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
-          <folding>
-            <element signature="e#95#96#0" expanded="true" />
-            <element signature="e#127#128#0" expanded="true" />
-            <element signature="e#184#185#0" expanded="true" />
-            <element signature="e#211#212#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/othre/src/main/java/Optimized.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="220">
@@ -1313,10 +1271,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/stack/src/main/java/Stack682.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/InsertionSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="5" column="42" lean-forward="true" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/CountingSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="5" column="48" selection-start-line="5" selection-start-column="48" selection-end-line="5" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="550">
+          <caret line="84" selection-start-line="84" selection-end-line="88" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1735#1736#0" expanded="true" />
+            <element signature="e#1796#1797#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/CountedCompleter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="284">
-          <caret line="524" column="22" selection-start-line="524" selection-start-column="22" selection-end-line="524" selection-end-column="22" />
+        <state relative-caret-position="292">
+          <caret line="452" column="25" selection-start-line="452" selection-start-column="25" selection-end-line="452" selection-end-column="25" />
           <folding>
             <element signature="e#21462#21463#0" expanded="true" />
             <element signature="e#21514#21515#0" expanded="true" />
@@ -1326,8 +1320,8 @@
     </entry>
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/ArraysParallelSortHelpers.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="809">
-          <caret line="278" column="53" lean-forward="true" selection-start-line="278" selection-start-column="53" selection-end-line="278" selection-end-column="53" />
+        <state relative-caret-position="284">
+          <caret line="604" column="12" selection-start-line="604" selection-start-column="12" selection-end-line="604" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3690#3691#0" expanded="true" />
@@ -1336,10 +1330,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/DualPivotQuickSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="26" lean-forward="true" selection-start-line="27" selection-start-column="26" selection-end-line="27" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/DualPivotQuicksort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="109" column="38" selection-start-line="109" selection-start-column="38" selection-end-line="109" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/Arrays.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="677" column="45" selection-start-line="677" selection-start-column="45" selection-end-line="677" selection-end-column="45" />
+        <state relative-caret-position="306">
+          <caret line="143" column="28" lean-forward="true" selection-start-line="143" selection-start-column="28" selection-end-line="143" selection-end-column="28" />
           <folding>
             <element signature="e#5027#5028#0" expanded="true" />
             <element signature="e#5098#5099#0" expanded="true" />
@@ -1347,89 +1368,86 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/MergeRunTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="55" column="23" selection-start-line="55" selection-start-column="23" selection-end-line="55" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/MergeSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="136" column="22" selection-start-line="136" selection-start-column="14" selection-end-line="136" selection-end-column="22" />
+        <state relative-caret-position="198">
+          <caret line="36" column="26" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/abstraction/SortMethod.java">
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/brickmason.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="35" column="17" selection-start-line="35" selection-start-column="17" selection-end-line="35" selection-end-column="17" />
+        <state relative-caret-position="330">
+          <caret line="15" column="30" selection-start-line="15" selection-start-column="30" selection-end-line="15" selection-end-column="30" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1735#1736#0" expanded="true" />
-            <element signature="e#1796#1797#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/QuickSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3014">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="e#95#96#0" expanded="true" />
+            <element signature="e#127#128#0" expanded="true" />
+            <element signature="e#184#185#0" expanded="true" />
+            <element signature="e#211#212#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/SortArray.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="49" column="16" selection-start-line="49" selection-start-column="16" selection-end-line="49" selection-end-column="16" />
+        <state relative-caret-position="324">
+          <caret line="134" column="18" lean-forward="true" selection-start-line="134" selection-start-column="18" selection-end-line="134" selection-end-column="18" />
           <folding>
-            <element signature="imports" expanded="true" />
             <element signature="e#847#848#0" expanded="true" />
             <element signature="e#877#878#0" expanded="true" />
+            <element signature="e#1452#1453#0" expanded="true" />
+            <element signature="e#1481#1482#0" expanded="true" />
             <element signature="e#1825#1826#0" expanded="true" />
             <element signature="e#1864#1865#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/sort_algorithms/DualPivotQuickSort.java">
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/RecursiveTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="52" column="20" selection-start-line="46" selection-start-column="16" selection-end-line="52" selection-end-column="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#572#573#0" expanded="true" />
-            <element signature="e#617#618#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="624">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/QuickRunTask.java">
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/ForkJoinTask.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="22" column="18" selection-start-line="22" selection-start-column="18" selection-end-line="22" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stack/src/main/java/Stack682.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="16" column="21" lean-forward="true" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
+        <state relative-caret-position="291">
+          <caret line="824" column="60" selection-start-line="824" selection-start-column="60" selection-end-line="824" selection-end-column="60" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/TestExecute.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="43" column="32" selection-start-line="43" selection-start-column="32" selection-end-line="43" selection-end-column="32" />
+        <state relative-caret-position="484">
+          <caret line="24" column="53" lean-forward="true" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/QuickRunTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="53" column="48" lean-forward="true" selection-start-line="53" selection-start-column="48" selection-end-line="53" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/MergeNwayRunTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="74" column="37" selection-start-line="74" selection-start-column="37" selection-end-line="74" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/othre/src/main/java/fork_join/MergeRunTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -1,7 +1,5 @@
 package fork_join;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -12,10 +10,9 @@ import java.util.Random;
  */
 public class SortArray {
 
-    private int[] data;
-    private int size;
+    private final int[] data;
+    private final int size;
 
-    public SortArray(){}
     public SortArray(int[] data) {
         this.data = data;
         this.size = data.length;
@@ -43,7 +40,6 @@ public class SortArray {
 
     /**
      * 交换两个数据的值
-     * @param data
      * @param l
      * @param r
      */
@@ -53,14 +49,16 @@ public class SortArray {
 
     /**
      * 交换两个数据的值
-     * @param data
-     * @param l
-     * @param r
+     * @param arr
+     * @param i
+     * @param j
      */
-    public void swap(int[] data, int l, int r) {
-        int datum = data[l];
-        data[l] = data[r];
-        data[r] = datum;
+    public void swap(int[] arr, int i, int j) {
+        if (i != j){
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
+        }
     }
 
     /**
@@ -140,28 +138,25 @@ public class SortArray {
 
 
     public static int[] randomInt(int n){
-        try {
-            int[] rs = new int[n];
-            Random random = new Random();
-            for (int i = 0; i < n; i++) {
-                rs[i] = random.nextInt(n);
-            }
-            return rs;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("random exception!");
+        int[] rs = new int[n];
+        Random random = new Random();
+        for (int i = 0; i < n; i++) {
+            rs[i] = random.nextInt(n);
         }
+        return rs;
     }
 
     public static SortArray insertSort(SortArray data,int l,int r){
-        for (int i = l + 1; i <= r; i++) {
-            // 选择合适的位置
+        for (int i = l,j = i; i < r; j = ++i) {
             int temp = data.get(i);
-            int j = i;
-            for (; j > l && temp < data.get(j-1); j--) {
-                data.set(j,data.get(j-1));
+            while (temp < data.get(j)){
+                // 选取temp放在该放的位置上 这里是temp小于arr[j]时将arr[j]右移
+                data.set(j + 1,data.get(j));
+                if (j-- == l){
+                    break;
+                }
             }
-            data.set(j,temp);
+            data.set(j + 1,temp);
         }
         return data;
     }

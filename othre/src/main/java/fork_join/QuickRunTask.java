@@ -7,26 +7,21 @@ import java.util.concurrent.RecursiveAction;
  * @ClassName QuickRunTask
  * @date 2019/4/3 9:55
  */
-public class QuickRunTask extends RecursiveAction {
+public final class QuickRunTask extends RecursiveAction {
 
     /**
      * 数组大小标准 如果小于这个数 就执行插入排序
      */
-    private static final int threshold = 32;
+    private static final int threshold = 48;
 
 
     /**
      * 数据项
      */
-    private volatile SortArray data;
-    private int l;
-    private int r;
+    private final SortArray data;
+    private final int l;
+    private final int r;
 
-    public QuickRunTask(SortArray data) {
-        this.data = data;
-        this.l = 0;
-        this.r = data.getSize() - 1;
-    }
 
     public QuickRunTask(SortArray data, int l, int r) {
         this.data = data;
@@ -37,7 +32,7 @@ public class QuickRunTask extends RecursiveAction {
 
 
     @Override
-    protected void compute() {
+    final protected void compute() {
         // 优化1 小数组使用插入排序
         if (r - l <= threshold){
             SortArray.insertSort(data,l,r);
