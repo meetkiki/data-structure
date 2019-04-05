@@ -1,7 +1,6 @@
-package miniapp.sort_algorithms;
+package miniapp.sort_algorithms.bucketsort;
 
 import miniapp.abstraction.SortMethod;
-import miniapp.view.AlgoFrame;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,15 +8,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class BucketSort implements SortMethod {
-    @Override
-    public void sort(AlgoFrame frame) {
-
-    }
-
-    @Override
-    public String methodName() {
-        return "Bucket Sort";
-    }
 
     /**
      * 桶排序
@@ -56,7 +46,7 @@ public class BucketSort implements SortMethod {
         List<Integer> list = new LinkedList<>();
         Collections.sort(list);
         BucketSort bucketSort = new BucketSort();
-        long sort = bucketSort.testSort(bucketSort, 100000000);
+        long sort = bucketSort.testSort(100000000);
         System.out.println("花费时间"+sort+"ms");
     }
 

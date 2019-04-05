@@ -1,16 +1,16 @@
 package miniapp.view;
 
+import miniapp.abstraction.Sort;
 import miniapp.entity.SortData;
-import miniapp.sort_algorithms.BubbleSort;
-import miniapp.sort_algorithms.BucketSort;
-import miniapp.sort_algorithms.CountingSort;
-import miniapp.sort_algorithms.HeapSort;
-import miniapp.sort_algorithms.InsertionSort;
-import miniapp.sort_algorithms.MergeSort;
-import miniapp.sort_algorithms.QuickSort;
-import miniapp.sort_algorithms.SelectionSort;
-import miniapp.sort_algorithms.ShellSort;
-import miniapp.abstraction.SortMethod;
+import miniapp.sort_algorithms.bubblesort.BubbleFrame;
+import miniapp.sort_algorithms.bucketsort.BucketFrame;
+import miniapp.sort_algorithms.countingsort.CountingFrame;
+import miniapp.sort_algorithms.heapsort.HeapFrame;
+import miniapp.sort_algorithms.insertionsort.InsertionFrame;
+import miniapp.sort_algorithms.mergesort.MergeFrame;
+import miniapp.sort_algorithms.quicksort.QuickFrame;
+import miniapp.sort_algorithms.selectionsort.SelectionFrame;
+import miniapp.sort_algorithms.shellsort.ShellFrame;
 
 import java.awt.*;
 import java.util.concurrent.CountDownLatch;
@@ -23,7 +23,7 @@ public class AlgoVisualizer {
 
     private SortData data;
     private AlgoFrame frame;
-    private SortMethod sortMethod;
+    private Sort sort;
     private Environment environment;
     private CountDownLatch count;
 
@@ -31,15 +31,15 @@ public class AlgoVisualizer {
     public AlgoVisualizer(String sort){
         this.count = new CountDownLatch(1);
         this.data = new SortData(N,SCENEHEIGHT - 100);
-        this.sortMethod = choseSort(sort);
+        this.sort = choseSort(sort);
         // 初始化视图
         init();
     }
 
     private void init() {
         EventQueue.invokeLater(() -> {
-            this.frame = new AlgoFrame(sortMethod.methodName(),data, SCENEWIDTH, SCENEHEIGHT);
-            this.environment = new Environment(sortMethod,frame);
+            this.frame = new AlgoFrame(sort.methodName(),data, SCENEWIDTH, SCENEHEIGHT);
+            this.environment = new Environment(sort,frame);
             this.count.countDown();
             new Thread(()->environment.invoke()).start();
         });
@@ -49,18 +49,17 @@ public class AlgoVisualizer {
      * @param sort
      * @return
      */
-    private SortMethod choseSort(String sort) {
+    private Sort choseSort(String sort) {
         switch (sort){
-            case "InsertSort":      return new InsertionSort();
-            case "SelectionSort":   return new SelectionSort();
-            case "BubbleSort":      return new BubbleSort();
-            case "BucketSort":      return new BucketSort();
-            case "CountingSort":    return new CountingSort();
-            case "HeapSort":        return new HeapSort();
-            case "MergeSort":       return new MergeSort();
-            case "QuickSort":       return new QuickSort();
-            case "ShellSort":       return new ShellSort();
-            case "MergeBUSort":       return new MergeSort().new MergeBu();
+            case "InsertSort":      return new InsertionFrame();
+            case "SelectionSort":   return new SelectionFrame();
+            case "BubbleSort":      return new BubbleFrame();
+            case "BucketSort":      return new BucketFrame();
+            case "CountingSort":    return new CountingFrame();
+            case "HeapSort":        return new HeapFrame();
+            case "MergeSort":       return new MergeFrame();
+            case "QuickSort":       return new QuickFrame();
+            case "ShellSort":       return new ShellFrame();
             default:                throw new IllegalArgumentException("No sort algorithms");
         }
     }

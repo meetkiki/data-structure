@@ -1,7 +1,7 @@
 package miniapp.view;
 
 import miniapp.abstraction.Optimized;
-import miniapp.abstraction.SortMethod;
+import miniapp.abstraction.Sort;
 
 /**
  * 环境角色
@@ -11,12 +11,12 @@ public class Environment {
     /**
      * 维护一个目标对象
      */
-    private SortMethod target;
+    private Sort target;
     private AlgoFrame frame;
 
     private long start = 0;
     private long end = 0;
-    public Environment(SortMethod sortMethod, AlgoFrame frame){
+    public Environment(Sort sortMethod, AlgoFrame frame){
         this.target = sortMethod;
         this.frame = frame;
     }

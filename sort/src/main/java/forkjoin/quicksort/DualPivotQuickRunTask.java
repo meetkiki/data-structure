@@ -20,7 +20,7 @@ public class DualPivotQuickRunTask extends AbstractRunTask {
     final protected SortArray compute() {
         // 优化1 小数组使用插入排序
         if (r - l <= threshold){
-            return SortArray.insertSort(data,l,r);
+            return data.insertSort(l,r);
         }
         // 优化2 三向切分快速排序
         // 保证pivot1 小于等于pivot2

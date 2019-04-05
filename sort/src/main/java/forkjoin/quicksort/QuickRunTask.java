@@ -25,7 +25,7 @@ public final class QuickRunTask extends AbstractRunTask {
     protected SortArray compute() {
         // 优化1 小数组使用插入排序
         if (r - l <= threshold){
-            return SortArray.insertSort(data,l,r);
+            return data.insertSort(l,r);
         }
         // 优化2 三向切分快速排序
         int i = l,j = l + 1,k = r,v = data.get(l);

@@ -1,15 +1,10 @@
-package miniapp.sort_algorithms;
+package miniapp.sort_algorithms.quicksort;
 
+import miniapp.abstraction.Constant;
 import miniapp.abstraction.SortMethod;
-import miniapp.view.AlgoFrame;
 
 public class DualPivotQuickSort implements SortMethod {
 
-
-    @Override
-    public void sort(AlgoFrame frame) {
-
-    }
 
     @Override
     public int[] sort(int[] arr) {
@@ -25,7 +20,7 @@ public class DualPivotQuickSort implements SortMethod {
      * @param r
      */
     private void dualPivotQuickSort(int[] arr, int l, int r) {
-        if (r - l < INSERTSIZE) {
+        if (r - l < Constant.INSERTSIZE) {
             insertSort(arr,l,r);
             return;
         }
@@ -62,15 +57,11 @@ public class DualPivotQuickSort implements SortMethod {
         dualPivotQuickSort(arr,j + 1,r);
     }
 
-    @Override
-    public String methodName() {
-        return "DualPivot Quick Sort";
-    }
 
 
     public static void main(String[] args) {
         DualPivotQuickSort dualPivotQuickSort = new DualPivotQuickSort();
-        long sort = dualPivotQuickSort.testSort(dualPivotQuickSort, 100000000);
+        long sort = dualPivotQuickSort.testSort(100000000);
         System.out.println("DualPivotQuickSort 花费时间"+sort+"ms");
     }
 }

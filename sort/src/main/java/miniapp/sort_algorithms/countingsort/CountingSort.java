@@ -1,19 +1,8 @@
-package miniapp.sort_algorithms;
+package miniapp.sort_algorithms.countingsort;
 
 import miniapp.abstraction.SortMethod;
-import miniapp.view.AlgoFrame;
 
 public class CountingSort implements SortMethod {
-    @Override
-    public void sort(AlgoFrame frame) {
-
-    }
-
-    @Override
-    public String methodName() {
-        return "Counting Sort";
-    }
-
     /**
      * 计数排序
      * @param arr
@@ -57,7 +46,7 @@ public class CountingSort implements SortMethod {
 
     public static void main(String[] args) {
         CountingSort countingSort = new CountingSort();
-        long sort = countingSort.testSort(countingSort, 1000000);
+        long sort = countingSort.testSort(1000000);
         System.out.println("花费时间"+sort+"ms");
     }
 

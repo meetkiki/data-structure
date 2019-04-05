@@ -30,10 +30,10 @@ public final class MergeRunTask extends AbstractRunTask {
 
 
     @Override
-    protected Object compute() {
+    protected SortArray compute() {
         // 优化1 小数组插入排序
         if (r - l <= threshold){
-            return SortArray.insertSort(data,l,r);
+            return data.insertSort(l,r);
         }
         int mid = l + ((r - l)>>1);
         // 拆分子任务 //优化2 在子任务中交换源数组和临时数组的角色优化拷贝

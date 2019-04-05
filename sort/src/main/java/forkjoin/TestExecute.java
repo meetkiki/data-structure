@@ -18,12 +18,11 @@ public class TestExecute {
 
     public static void main(String[] args) {
         long ss = System.currentTimeMillis();
-        int[] randomInt = SortArray.randomInt(1000000000);
-        int[] randomInt3 = randomInt.clone();
+        SortArray sort = new SortArray(1000000000);
+        int[] randomInt2 = sort.cloneData();
+        int[] randomInt3 = sort.cloneData();
         long se = System.currentTimeMillis();
         System.out.println("O(n) times "+(se-ss) +"ms!");
-        //int[] randomInt2 = randomInt.clone();
-        SortArray sort = new SortArray(randomInt);
 
         // 执行一个任务
         ForkJoinPool forkjoinPool = new ForkJoinPool();
@@ -48,7 +47,6 @@ public class TestExecute {
         forkjoinPool = null;
         task = null;
         submit = null;
-        randomInt = null;
 
         long s3 = System.currentTimeMillis();
         //Arrays.sort(randomInt2);

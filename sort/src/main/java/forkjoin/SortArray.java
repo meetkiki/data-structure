@@ -1,5 +1,7 @@
 package forkjoin;
 
+import miniapp.abstraction.Sort;
+
 import java.util.Random;
 
 /**
@@ -8,10 +10,15 @@ import java.util.Random;
  * @Description TODO
  * @date 2019/4/2 15:24
  */
-public class SortArray {
+public class SortArray implements Sort {
 
     private final int[] data;
     private final int size;
+
+    public SortArray(int size) {
+        this.data = randomInt(size);
+        this.size = size;
+    }
 
     public SortArray(int[] data) {
         this.data = data;
@@ -45,36 +52,6 @@ public class SortArray {
      */
     public void swap(int l, int r) {
         swap(data,l,r);
-    }
-
-    /**
-     * 交换两个数据的值
-     * @param arr
-     * @param i
-     * @param j
-     */
-    public void swap(int[] arr, int i, int j) {
-        if (i != j){
-            arr[i] = arr[i] ^ arr[j];
-            arr[j] = arr[i] ^ arr[j];
-            arr[i] = arr[i] ^ arr[j];
-        }
-    }
-
-    /**
-     * 数据赋值
-     * @param data
-     */
-    public void replace(int l, int val) {
-        data[l] = val;
-    }
-
-    /**
-     * 数据赋值
-     * @param data
-     */
-    public void replace(SortArray data, int l, int val) {
-        data.set(l,val);
     }
 
     /**
@@ -121,12 +98,7 @@ public class SortArray {
     }
 
     public boolean isSorted(){
-        for (int i = 1; i < data.length; i++) {
-            if (this.less(i,i-1)){
-                return false;
-            }
-        }
-        return true;
+        return this.isSorted(data);
     }
 
 
@@ -136,28 +108,17 @@ public class SortArray {
         }
     }
 
-
-    public static int[] randomInt(int n){
-        int[] rs = new int[n];
-        Random random = new Random();
-        for (int i = 0; i < n; i++) {
-            rs[i] = random.nextInt(n);
-        }
-        return rs;
+    public SortArray insertSort(SortArray data, int l, int r){
+        this.insertSort(data.getData(),l,r);
+        return data;
     }
 
-    public static SortArray insertSort(SortArray data,int l,int r){
-        for (int i = l,j = i; i < r; j = ++i) {
-            int temp = data.get(i);
-            while (temp < data.get(j)){
-                // 选取temp放在该放的位置上 这里是temp小于arr[j]时将arr[j]右移
-                data.set(j + 1,data.get(j));
-                if (j-- == l){
-                    break;
-                }
-            }
-            data.set(j + 1,temp);
-        }
-        return data;
+    public int[] cloneData(){
+        return data.clone();
+    }
+
+    public SortArray insertSort(int l, int r) {
+        this.insertSort(data,l,r);
+        return this;
     }
 }

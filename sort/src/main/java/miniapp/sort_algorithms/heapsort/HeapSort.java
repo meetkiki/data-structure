@@ -1,4 +1,4 @@
-package miniapp.sort_algorithms;
+package miniapp.sort_algorithms.heapsort;
 
 import miniapp.abstraction.SortMethod;
 import miniapp.view.AlgoFrame;
@@ -8,10 +8,7 @@ import miniapp.view.AlgoFrame;
  */
 public class HeapSort implements SortMethod {
 
-    @Override
-    public void sort(AlgoFrame frame) {
 
-    }
 
     /**
      * 堆排序
@@ -32,11 +29,6 @@ public class HeapSort implements SortMethod {
             heapify(arr,k,0);
         }
         return arr;
-    }
-
-    @Override
-    public String methodName() {
-        return "Heap Sort";
     }
 
     /**
@@ -72,7 +64,7 @@ public class HeapSort implements SortMethod {
 
     public static void main(String[] args) {
         HeapSort heapSort = new HeapSort();
-        long sort = heapSort.testSort(heapSort, 100000);
+        long sort = heapSort.testSort(100000);
         System.out.println("花费时间"+sort+"ms");
     }
 }
