@@ -1,7 +1,7 @@
 package miniapp;
 
-import miniapp.view.AlgoVisualizer;
-import miniapp.view.Environment;
+import miniapp.view.manoeuvre.AlgoVisualizer;
+import miniapp.view.manoeuvre.Environment;
 
 public class MiniApp {
     private static String InsertSort = "InsertSort";
@@ -25,10 +25,10 @@ public class MiniApp {
      *  compare         1 * delay
      *  assignment      1 * delay
      */
-    private static int DELAY = 1;
+    private static int DELAY = 10;
 
     public static void main(String[] args) {
-        AlgoVisualizer visualizer = new AlgoVisualizer(MergeOptimizedSort);
+        AlgoVisualizer visualizer = new AlgoVisualizer(MergeSort);
         visualizer.setDelay(DELAY);
         Environment environment = visualizer.getEnvironment();
         while (true){

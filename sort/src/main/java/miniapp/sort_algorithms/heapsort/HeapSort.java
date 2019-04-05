@@ -1,14 +1,16 @@
 package miniapp.sort_algorithms.heapsort;
 
 import miniapp.abstraction.SortMethod;
-import miniapp.view.AlgoFrame;
 
 /**
  * 堆排序
  */
 public class HeapSort implements SortMethod {
 
-
+    @Override
+    public String getCnName() {
+        return "堆排序";
+    }
 
     /**
      * 堆排序

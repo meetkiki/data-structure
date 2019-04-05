@@ -37,5 +37,10 @@ public interface SortMethod extends Sort {
         return e1 - s1;
     }
 
+    /**
+     * 排序方法的中文名称
+     * @return
+     */
+    String getCnName();
 
 }

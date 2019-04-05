@@ -1,6 +1,6 @@
 package miniapp.sort_algorithms.quicksort;
 
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 public class Quick3wayFrame extends QuickFrame {
 

@@ -1,7 +1,7 @@
 package miniapp.abstraction;
 
 import miniapp.entity.SortData;
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 import java.util.Random;
 
@@ -20,7 +20,7 @@ public interface Sort {
      * @param frame
      * @return
      */
-    default void sort(AlgoFrame frame){};
+    default void sort(AlgoFrame frame){}
 
 
     /**
@@ -107,6 +107,21 @@ public interface Sort {
             arr[i] = arr[i] ^ arr[j];
             arr[j] = arr[i] ^ arr[j];
             arr[i] = arr[i] ^ arr[j];
+        }
+    }
+
+    /**
+     * 交换方法
+     * @param src       源数组
+     * @param l1        起始指针
+     * @param desc      目标数组
+     * @param l2        起始指针
+     * @param length    拷贝长度
+     */
+    default void arraycoppy(int[] src,int l1,int[] desc, int l2, int length) {
+        int r = l1 + length;
+        while (l1 < r){
+            desc[l2++] = src[l1++];
         }
     }
 

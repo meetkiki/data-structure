@@ -1,9 +1,13 @@
 package miniapp.sort_algorithms.insertionsort;
 
 import miniapp.abstraction.SortMethod;
-import miniapp.view.AlgoFrame;
 
 public class InsertionSort implements SortMethod {
+
+    @Override
+    public String getCnName() {
+        return "插入排序";
+    }
 
     /**
      * 插入排序

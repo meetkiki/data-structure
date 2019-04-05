@@ -1,8 +1,8 @@
 package miniapp.sort_algorithms.mergesort;
 
 
-import miniapp.abstraction.Constant;
-import miniapp.view.AlgoFrame;
+import miniapp.Enum.Constant;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 public class MergeOptimizedFrame extends MergeFrame {
 

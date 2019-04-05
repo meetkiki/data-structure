@@ -4,6 +4,11 @@ import miniapp.abstraction.SortMethod;
 
 public class MergeSort implements SortMethod{
 
+    @Override
+    public String getCnName() {
+        return "归并排序";
+    }
+
     /**
      * 临时数组
      */
@@ -64,11 +69,11 @@ public class MergeSort implements SortMethod{
 
     /**
      * 快速归并
-     * @param arr
-     * @param aux
-     * @param l
-     * @param q
-     * @param r
+     * @param arr 目标数组
+     * @param aux 临时数组
+     * @param l   左指针
+     * @param q   右指针
+     * @param r   中指针
      * @return
      */
     protected int[] fastMerge(int[] arr,int[] aux, int l,int q, int r){

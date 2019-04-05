@@ -1,6 +1,6 @@
-package miniapp.view;
+package miniapp.view.manoeuvre;
 
-import miniapp.abstraction.Sort;
+import miniapp.abstraction.ICommand;
 
 /**
  * 环境角色
@@ -10,14 +10,12 @@ public class Environment {
     /**
      * 维护一个目标对象
      */
-    private Sort target;
-    private AlgoFrame frame;
+    private ICommand command;
 
     private long start = 0;
     private long end = 0;
-    public Environment(Sort sortMethod, AlgoFrame frame){
-        this.target = sortMethod;
-        this.frame = frame;
+    public Environment(ICommand command){
+        this.command = command;
     }
 
     private void init(){
@@ -31,13 +29,9 @@ public class Environment {
     public void invoke(){
         // 初始化
         init();
-        frame.updateOrdereds(0);
         start = System.currentTimeMillis();
-        target.sort(frame);
+        command.Execute();
         end = System.currentTimeMillis();
-        assert target.isSorted(frame.getData());
-        // 排序空间
-        frame.updateOrdereds(frame.length());
     }
 
     /**

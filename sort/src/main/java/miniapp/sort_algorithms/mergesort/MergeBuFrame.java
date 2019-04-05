@@ -1,6 +1,6 @@
 package miniapp.sort_algorithms.mergesort;
 
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 public class MergeBuFrame extends MergeFrame {
     /**

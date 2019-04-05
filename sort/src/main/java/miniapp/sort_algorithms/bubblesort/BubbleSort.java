@@ -6,6 +6,12 @@ import java.util.Arrays;
 
 public class BubbleSort implements SortMethod {
 
+
+    @Override
+    public String getCnName() {
+        return "冒泡排序";
+    }
+
     /**
      * 冒泡排序
      */

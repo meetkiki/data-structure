@@ -1,6 +1,6 @@
 package miniapp.abstraction;
 
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 /**
  * 可视化接口

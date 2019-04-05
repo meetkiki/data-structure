@@ -11,10 +11,7 @@ import forkjoin.SortArray;
  */
 public final class MergeRunTask extends AbstractRunTask {
 
-    private SortArray aux;
-    private int n;
-
-    public MergeRunTask(){}
+    private final SortArray aux;
 
     public MergeRunTask(SortArray data) {
         this(data,new SortArray(data.getData().clone()),0,data.size() - 1);
@@ -47,7 +44,7 @@ public final class MergeRunTask extends AbstractRunTask {
         // 优化3 局部有序 不进行merge
         if (aux.get(mid) <= aux.get(mid+1)){
             // 有序 拷贝数组
-            SortArray.arrayCoppy(aux,l,data,l,(r - l + 1));
+            aux.arrayCoppy(aux,l,data,l,(r - l + 1));
             return data;
         }
         // 合并结果

@@ -22,7 +22,7 @@ public class DualPivotQuickRunTask extends AbstractRunTask {
         if (r - l <= threshold){
             return data.insertSort(l,r);
         }
-        // 优化2 三向切分快速排序
+        // 优化2 双轴四项切分
         // 保证pivot1 小于等于pivot2
         if (data.less(r,l)){
             data.swap(l,r);

@@ -26,5 +26,8 @@ public class Quick1ScanSort extends QuickSort {
         return i;
     }
 
-
+    @Override
+    public String getCnName() {
+        return "单向扫描快速排序";
+    }
 }

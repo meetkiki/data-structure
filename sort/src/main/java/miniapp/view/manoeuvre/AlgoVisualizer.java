@@ -1,4 +1,4 @@
-package miniapp.view;
+package miniapp.view.manoeuvre;
 
 import miniapp.abstraction.Sort;
 import miniapp.entity.SortData;
@@ -42,7 +42,7 @@ public class AlgoVisualizer {
     private void init() {
         EventQueue.invokeLater(() -> {
             this.frame = new AlgoFrame(sort.methodName(),data, SCENEWIDTH, SCENEHEIGHT);
-            this.environment = new Environment(sort,frame);
+            this.environment = new Environment(new SortFrameCommand(sort,frame));
             this.count.countDown();
             new Thread(()->environment.invoke()).start();
         });

@@ -1,9 +1,14 @@
 package miniapp.sort_algorithms.selectionsort;
 
 import miniapp.abstraction.SortMethod;
-import miniapp.view.AlgoFrame;
 
 public class SelectionSort implements SortMethod {
+
+
+    @Override
+    public String getCnName() {
+        return "选择排序";
+    }
 
     /**
      * 选择排序

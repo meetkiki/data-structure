@@ -102,10 +102,8 @@ public class SortArray implements Sort {
     }
 
 
-    public static void arrayCoppy(SortArray src,int l1,SortArray desc,int l2,int length){
-        for (int i = l1; i < l1 + length; i++) {
-            desc.set(l2++,src.get(i));
-        }
+    public void arrayCoppy(SortArray src,int l1,SortArray desc,int l2,int length){
+        this.arraycoppy(src.getData(),l1,desc.getData(),l2,length);
     }
 
     public SortArray insertSort(SortArray data, int l, int r){
@@ -121,4 +119,5 @@ public class SortArray implements Sort {
         this.insertSort(data,l,r);
         return this;
     }
+
 }

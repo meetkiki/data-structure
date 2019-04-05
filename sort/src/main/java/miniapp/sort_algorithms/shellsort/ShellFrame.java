@@ -1,7 +1,7 @@
 package miniapp.sort_algorithms.shellsort;
 
 import miniapp.abstraction.SortVisual;
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 public class ShellFrame implements SortVisual {
 

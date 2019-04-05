@@ -1,7 +1,7 @@
 package miniapp.sort_algorithms.mergesort;
 
 import miniapp.abstraction.SortVisual;
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 public class MergeFrame implements SortVisual {
 

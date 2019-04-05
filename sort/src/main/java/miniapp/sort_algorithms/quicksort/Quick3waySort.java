@@ -23,4 +23,9 @@ public class Quick3waySort extends QuickSort {
         quickSort(arr,l,i-1);
         quickSort(arr,k+1,r);
     }
+
+    @Override
+    public String getCnName() {
+        return "三向切分快速排序";
+    }
 }

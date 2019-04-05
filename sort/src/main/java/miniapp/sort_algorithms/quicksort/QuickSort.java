@@ -4,6 +4,11 @@ import miniapp.abstraction.SortMethod;
 
 public class QuickSort implements SortMethod {
 
+    @Override
+    public String getCnName() {
+        return "快速排序";
+    }
+
     /**
      * 快速排序
      *  快速排序的基本思想是，通过一轮的排序将序列分割成独立的两部分，其中一部分序列的关键字（这里主要用值来表示）

@@ -1,9 +1,14 @@
 package miniapp.sort_algorithms.mergesort;
 
 
-import miniapp.abstraction.Constant;
+import miniapp.Enum.Constant;
 
 public class MergeOptimizedSort extends MergeSort {
+
+    @Override
+    public String getCnName() {
+        return "优化归并排序";
+    }
 
     /**
      * 优化接口实现

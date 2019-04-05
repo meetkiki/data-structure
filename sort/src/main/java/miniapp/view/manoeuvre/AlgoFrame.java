@@ -1,5 +1,6 @@
-package miniapp.view;
+package miniapp.view.manoeuvre;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.OperatingArray;
 import miniapp.entity.SortData;
 
@@ -136,12 +137,11 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
     public void updateData(int currentCompareIndex, int currentChangeIndex,boolean isStep){
         data.currentCompareIndex = currentCompareIndex;
         data.currentChangeIndex = currentChangeIndex;
-        long s = System.currentTimeMillis();
         this.render(data);
         if (isStep) AlgoVisHelper.pause(data.getDELAY());
-        System.out.println(data.getOrdereds());
-        System.out.println("change --- " + this.getChange());
-        System.out.println("compare --- " + this.getCompare());
+//        System.out.println(data.getOrdereds());
+//        System.out.println("change --- " + this.getChange());
+//        System.out.println("compare --- " + this.getCompare());
     }
 
 
@@ -440,14 +440,14 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
             for(int i = 0; i < data.size() ; i ++ ) {
                 // 排序好空间
                 if (data.isSorted(i))
-                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.Red);
+                    AlgoVisHelper.setColor(g2d, LineColorEnum.Red);
                 else
-                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.Grey);
+                    AlgoVisHelper.setColor(g2d, LineColorEnum.Grey);
 
                 if(i == data.currentCompareIndex)
-                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.LightBlue);
+                    AlgoVisHelper.setColor(g2d, LineColorEnum.LightBlue);
                 if(i == data.currentChangeIndex)
-                    AlgoVisHelper.setColor(g2d, AlgoVisHelper.Indigo);
+                    AlgoVisHelper.setColor(g2d, LineColorEnum.Indigo);
                 AlgoVisHelper.fillRectangle(g2d,  i * w, canvasHeight - data.get(i), w - 1, data.get(i));
             }
         }

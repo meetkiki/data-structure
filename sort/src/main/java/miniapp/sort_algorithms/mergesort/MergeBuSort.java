@@ -21,5 +21,8 @@ public class MergeBuSort extends MergeSort {
         return arr;
     }
 
-
+    @Override
+    public String getCnName() {
+        return "自底而上的归并排序";
+    }
 }

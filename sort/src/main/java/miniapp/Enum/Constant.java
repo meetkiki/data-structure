@@ -1,4 +1,4 @@
-package miniapp.abstraction;
+package miniapp.Enum;
 
 /**
  * 常量

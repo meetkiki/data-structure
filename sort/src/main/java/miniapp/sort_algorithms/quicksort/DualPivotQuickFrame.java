@@ -1,7 +1,7 @@
 package miniapp.sort_algorithms.quicksort;
 
 import miniapp.abstraction.SortVisual;
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 public class DualPivotQuickFrame implements SortVisual {
 

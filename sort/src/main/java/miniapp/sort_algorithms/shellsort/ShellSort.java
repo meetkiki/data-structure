@@ -9,6 +9,11 @@ import java.util.Arrays;
  */
 public class ShellSort implements SortMethod {
 
+    @Override
+    public String getCnName() {
+        return "希尔排序";
+    }
+
     /**
      * 希尔排序 交换不相临的元素以对数组进行局部排序，并最终使用插入排序将局部有序的数组排序
      *  优化后的插入排序

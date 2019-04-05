@@ -16,8 +16,6 @@ import java.util.concurrent.ForkJoinTask;
  */
 public class TestExecute {
 
-
-
     public static void main(String[] args) {
         long ss = System.currentTimeMillis();
         SortArray sort = new SortArray(100000000);
@@ -28,8 +26,8 @@ public class TestExecute {
 
         // 执行一个任务
         ForkJoinPool forkjoinPool = new ForkJoinPool();
-        MergeRunTask task = new MergeRunTask(sort);
-//        MergeNwayRunTask task = new MergeNwayRunTask(sort,3);
+//        MergeRunTask task = new MergeRunTask(sort);
+        MergeNwayRunTask task = new MergeNwayRunTask(sort,6);
 //        QuickRunTask task = new QuickRunTask(sort);
 //        DualPivotQuickRunTask task = new DualPivotQuickRunTask(sort);
 
@@ -45,10 +43,6 @@ public class TestExecute {
             e.printStackTrace();
         }
         System.out.println("排序 ===== "+ (sort.isSorted() ? "成功!":"失败!"));
-        sort = null;
-        forkjoinPool = null;
-        task = null;
-        submit = null;
 
         long s3 = System.currentTimeMillis();
         //Arrays.sort(randomInt2);

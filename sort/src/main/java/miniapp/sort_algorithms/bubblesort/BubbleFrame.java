@@ -1,7 +1,7 @@
 package miniapp.sort_algorithms.bubblesort;
 
 import miniapp.abstraction.SortVisual;
-import miniapp.view.AlgoFrame;
+import miniapp.view.manoeuvre.AlgoFrame;
 
 public class BubbleFrame implements SortVisual {
 

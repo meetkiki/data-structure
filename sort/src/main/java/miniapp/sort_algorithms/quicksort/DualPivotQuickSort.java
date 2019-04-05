@@ -1,10 +1,14 @@
 package miniapp.sort_algorithms.quicksort;
 
-import miniapp.abstraction.Constant;
+import miniapp.Enum.Constant;
 import miniapp.abstraction.SortMethod;
 
 public class DualPivotQuickSort implements SortMethod {
 
+    @Override
+    public String getCnName() {
+        return "双轴快速排序";
+    }
 
     @Override
     public int[] sort(int[] arr) {

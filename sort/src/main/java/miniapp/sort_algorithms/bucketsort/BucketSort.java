@@ -9,6 +9,11 @@ import java.util.List;
 
 public class BucketSort implements SortMethod {
 
+    @Override
+    public String getCnName() {
+        return "桶排序";
+    }
+
     /**
      * 桶排序
      *  1.首先找到数组中的最大值，那么此时的桶数组的长度就是最大值加一，
