@@ -1,5 +1,6 @@
 package miniapp;
 
+import miniapp.Enum.SortEnum;
 import miniapp.view.manoeuvre.AlgoVisualizer;
 import miniapp.view.manoeuvre.Environment;
 

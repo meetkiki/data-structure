@@ -10,6 +10,7 @@ import miniapp.sort_algorithms.mergesort.MergeBuSort;
 import miniapp.sort_algorithms.mergesort.MergeSort;
 import miniapp.sort_algorithms.mergesort.MergeOptimizedSort;
 import miniapp.sort_algorithms.quicksort.DualPivotQuickSort;
+import miniapp.sort_algorithms.quicksort.Quick1ScanSort;
 import miniapp.sort_algorithms.quicksort.Quick3waySort;
 import miniapp.sort_algorithms.quicksort.QuickSort;
 import miniapp.sort_algorithms.selectionsort.SelectionSort;
@@ -88,6 +89,7 @@ public enum SortEnum {
         map.put("MergeBuSort",          new MergeBuSort());
         map.put("MergeOptimizedSort",   new MergeOptimizedSort());
         map.put("QuickSort",            new QuickSort());
+        map.put("Quick1ScanSort",       new Quick1ScanSort());
         map.put("Quick3waySort",        new Quick3waySort());
         map.put("DualPivotQuickSort",   new DualPivotQuickSort());
         map.put("ShellSort",            new ShellSort());
@@ -108,5 +110,12 @@ public enum SortEnum {
 
     public String getCnName() {
         return cache.get(name).getCnName();
+    }
+
+    @Override
+    public String toString() {
+        return "SortEnum{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
