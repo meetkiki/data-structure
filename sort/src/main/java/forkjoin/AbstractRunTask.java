@@ -16,7 +16,6 @@ public abstract class AbstractRunTask extends RecursiveTask<SortArray> {
     protected int l;
     protected int r;
 
-    protected AbstractRunTask(){}
     @Override
     protected abstract SortArray compute();
 }

@@ -34,7 +34,7 @@ public interface SortMethod extends Sort {
         System.out.println("sorted is " + isSorted(ints));
         System.out.println("this Sort is " + (e1 - s1) + "ms");
         System.out.println("Arrays sort is " + (e2 - s2) + "ms");
-        return e1;
+        return e1 - s1;
     }
 
 

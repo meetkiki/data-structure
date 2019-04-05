@@ -2,27 +2,16 @@ package miniapp.sort_algorithms.mergesort;
 
 
 import miniapp.abstraction.Constant;
-import miniapp.abstraction.Optimized;
 import miniapp.view.AlgoFrame;
 
-public class MergeOptimized extends MergeFrame implements Optimized {
-
-    /**
-     * 优化接口实现
-     * @param arr
-     * @return
-     */
-    @Override
-    public int[] sort(int[] arr) {
-        return super.sort(arr);
-    }
+public class MergeOptimizedFrame extends MergeFrame {
 
     /**
      * 优化接口实现
      * @param frame
      */
     @Override
-    public void optimizedSort(AlgoFrame frame) {
+    public void sort(AlgoFrame frame) {
         int length = frame.length(),l = 0,r = length - 1;
         // 归并排序初始化
         AlgoFrame auxFrame = frame.cloneData();
@@ -38,7 +27,7 @@ public class MergeOptimized extends MergeFrame implements Optimized {
      * @param l
      * @param r
      */
-    private void optimizeMerge(AlgoFrame auxFrame, AlgoFrame frame, int l, int r) {
+    protected void optimizeMerge(AlgoFrame auxFrame, AlgoFrame frame, int l, int r) {
         /**
          * 归并排序优化① 对于小规模数据使用插入排序
          */
@@ -66,6 +55,24 @@ public class MergeOptimized extends MergeFrame implements Optimized {
     }
 
     /**
+     * 插入排序
+     * @param frame
+     * @param l
+     * @param r
+     */
+    protected void InsertSort(AlgoFrame auxFrame, AlgoFrame frame, int l, int r){
+        for (int i = l;auxFrame.compareLessOrEqual(i, r); i++) {
+            // 假定[l,l+1]是有序的 则循环后面的元素找到他们在有序数组中的位置
+            for (int j = i; auxFrame.compareMore(j, l) && frame.less(j,j - 1); j--) {
+                frame.swap(j,j - 1);
+            }
+            auxFrame.optimizeUpdateOrdered(frame,l,i+1);
+        }
+        auxFrame.optimizeUpdateOrdered(frame,l,r + 1);
+    }
+
+
+    /**
      * 优化后merge方法 不需要拷贝数组
      * @param frame
      * @param auxFrame
@@ -73,7 +80,7 @@ public class MergeOptimized extends MergeFrame implements Optimized {
      * @param mid
      * @param r
      */
-    private void merge(AlgoFrame frame, AlgoFrame auxFrame, int l, int mid, int r) {
+    protected void merge(AlgoFrame frame, AlgoFrame auxFrame, int l, int mid, int r) {
         // 设置显示
         auxFrame.optimizeUpdateOrdered(frame,l,l);
         quickMerge(auxFrame,frame,l,mid,r);
@@ -81,4 +88,8 @@ public class MergeOptimized extends MergeFrame implements Optimized {
         auxFrame.optimizeUpdateOrdered(frame,l,r+1);
     }
 
+    @Override
+    public String methodName() {
+        return "MergeOptimized Sort";
+    }
 }

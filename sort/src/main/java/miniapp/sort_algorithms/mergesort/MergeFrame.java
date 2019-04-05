@@ -3,7 +3,7 @@ package miniapp.sort_algorithms.mergesort;
 import miniapp.abstraction.SortVisual;
 import miniapp.view.AlgoFrame;
 
-public class MergeFrame extends MergeSort implements SortVisual {
+public class MergeFrame implements SortVisual {
 
     /**
      * 临时数组
@@ -53,31 +53,13 @@ public class MergeFrame extends MergeSort implements SortVisual {
     }
 
     /**
-     * 插入排序
-     * @param frame
-     * @param l
-     * @param r
-     */
-    static void InsertSort(AlgoFrame auxFrame, AlgoFrame frame, int l, int r){
-        for (int i = l;auxFrame.compareLessOrEqual(i, r); i++) {
-            // 假定[l,l+1]是有序的 则循环后面的元素找到他们在有序数组中的位置
-            for (int j = i; auxFrame.compareMore(j, l) && frame.less(j,j - 1); j--) {
-                frame.swap(j,j - 1);
-            }
-            auxFrame.optimizeUpdateOrdered(frame,l,i+1);
-        }
-        auxFrame.optimizeUpdateOrdered(frame,l,r + 1);
-    }
-
-
-    /**
      * 快速归并
      *  不需要拷贝
      *  frame   源数组
      *  auxData 临时数组
      *
      */
-    static void quickMerge(AlgoFrame frame,AlgoFrame auxData,int l,int mid,int r){
+    protected void quickMerge(AlgoFrame frame,AlgoFrame auxData,int l,int mid,int r){
         int i = l,j = mid + 1;
         // 归并数组
         for (int k = l; auxData.compareLessOrEqual(k, r); k++) {

@@ -170,6 +170,17 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
     }
 
     /**
+     * 比较两个数的大小返回布尔型  判断A是否等于B
+     * @param curl
+     * @param curr
+     * @return
+     */
+    @Override
+    public boolean compareEqual(int curl, int curr){
+        return compare(curl,curr) == 0;
+    }
+
+    /**
      * 比较两个数的大小返回布尔型  判断A是否小于B
      * @param curl
      * @param curr

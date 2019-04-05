@@ -1,6 +1,5 @@
 package miniapp.view;
 
-import miniapp.abstraction.Optimized;
 import miniapp.abstraction.Sort;
 
 /**
@@ -34,22 +33,11 @@ public class Environment {
         init();
         frame.updateOrdereds(0);
         start = System.currentTimeMillis();
-        sort();
+        target.sort(frame);
         end = System.currentTimeMillis();
         assert target.isSorted(frame.getData());
         // 排序空间
         frame.updateOrdereds(frame.length());
-    }
-
-    /**
-     * 执行排序方法
-     */
-    public void sort(){
-        if (target instanceof Optimized){
-            ((Optimized) target).optimizedSort(frame);
-        }else{
-            target.sort(frame);
-        }
     }
 
     /**

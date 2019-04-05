@@ -12,7 +12,10 @@ public class MiniApp {
     private static String HeapSort = "HeapSort";
     private static String MergeSort = "MergeSort";
     private static String MergeBUSort = "MergeBUSort";
+    private static String MergeOptimizedSort = "MergeOptimizedSort";
     private static String QuickSort = "QuickSort";
+    private static String Quick3waySort = "Quick3waySort";
+    private static String DualPivotQuickSort = "DualPivotQuickSort";
     private static String ShellSort = "ShellSort";
 
     /**
@@ -25,7 +28,7 @@ public class MiniApp {
     private static int DELAY = 1;
 
     public static void main(String[] args) {
-        AlgoVisualizer visualizer = new AlgoVisualizer(QuickSort);
+        AlgoVisualizer visualizer = new AlgoVisualizer(MergeOptimizedSort);
         visualizer.setDelay(DELAY);
         Environment environment = visualizer.getEnvironment();
         while (true){

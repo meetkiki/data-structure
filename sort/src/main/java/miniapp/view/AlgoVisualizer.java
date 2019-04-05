@@ -8,6 +8,9 @@ import miniapp.sort_algorithms.countingsort.CountingFrame;
 import miniapp.sort_algorithms.heapsort.HeapFrame;
 import miniapp.sort_algorithms.insertionsort.InsertionFrame;
 import miniapp.sort_algorithms.mergesort.MergeFrame;
+import miniapp.sort_algorithms.mergesort.MergeOptimizedFrame;
+import miniapp.sort_algorithms.quicksort.DualPivotQuickFrame;
+import miniapp.sort_algorithms.quicksort.Quick3wayFrame;
 import miniapp.sort_algorithms.quicksort.QuickFrame;
 import miniapp.sort_algorithms.selectionsort.SelectionFrame;
 import miniapp.sort_algorithms.shellsort.ShellFrame;
@@ -51,16 +54,19 @@ public class AlgoVisualizer {
      */
     private Sort choseSort(String sort) {
         switch (sort){
-            case "InsertSort":      return new InsertionFrame();
-            case "SelectionSort":   return new SelectionFrame();
-            case "BubbleSort":      return new BubbleFrame();
-            case "BucketSort":      return new BucketFrame();
-            case "CountingSort":    return new CountingFrame();
-            case "HeapSort":        return new HeapFrame();
-            case "MergeSort":       return new MergeFrame();
-            case "QuickSort":       return new QuickFrame();
-            case "ShellSort":       return new ShellFrame();
-            default:                throw new IllegalArgumentException("No sort algorithms");
+            case "InsertSort":          return new InsertionFrame();
+            case "SelectionSort":       return new SelectionFrame();
+            case "BubbleSort":          return new BubbleFrame();
+            case "BucketSort":          return new BucketFrame();
+            case "CountingSort":        return new CountingFrame();
+            case "HeapSort":            return new HeapFrame();
+            case "MergeSort":           return new MergeFrame();
+            case "MergeOptimizedSort":  return new MergeOptimizedFrame();
+            case "QuickSort":           return new QuickFrame();
+            case "Quick3waySort":       return new Quick3wayFrame();
+            case "DualPivotQuickSort":  return new DualPivotQuickFrame();
+            case "ShellSort":           return new ShellFrame();
+            default:                    throw new IllegalArgumentException("No sort algorithms");
         }
     }
 

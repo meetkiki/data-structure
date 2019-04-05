@@ -1,6 +1,5 @@
 package miniapp.sort_algorithms.quicksort;
 
-import miniapp.abstraction.Constant;
 import miniapp.abstraction.SortVisual;
 import miniapp.view.AlgoFrame;
 
@@ -21,30 +20,8 @@ public class QuickFrame implements SortVisual {
         return "Quick Sort";
     }
 
-
-    /**
-     * 插入排序
-     * @param frame
-     * @param l
-     * @param r
-     */
-    private void InsertSort(AlgoFrame frame, int l, int r){
-        for (int i = l;frame.compareLessOrEqual(i, r); i++) {
-            // 假定[l,l+1]是有序的 则循环后面的元素找到他们在有序数组中的位置
-            for (int j = i; frame.compareMore(j, l) && frame.less(j,j - 1); j--) {
-                frame.swap(j,j - 1);
-            }
-            frame.updateOrdereds(l,i);
-        }
-        frame.updateOrdereds(l,r + 1);
-    }
-
     private void quickSort(AlgoFrame frame, int l, int r) {
-        // 小数组优化
-        if (frame.compareMoreOrEqual(l, r - Constant.INSERTSIZE)) {
-            InsertSort(frame,l,r);
-            return;
-        }
+        if (frame.compareMoreOrEqual(l,r)) return;
         // 获取分区点
         int q = partition(frame,l,r);
         quickSort(frame,l,q-1);
@@ -53,23 +30,26 @@ public class QuickFrame implements SortVisual {
         frame.updateOrdereds(q+1,r);
     }
 
-    /**
-     * 快速排序优化
-     *
-     * @param frame
-     * @param l
-     * @param r
-     * @return
-     */
-    private int partition(AlgoFrame frame, int l, int r) {
-        int i = l;
-        for (int j = l; frame.compareLessOrEqual(j, r - 1); j++) {
-            if (frame.less(j,r)){
-                frame.swap(i++,j);
+    protected int partition(AlgoFrame frame, int l, int r) {
+        int i = l,j = r + 1,v = frame.get(l);
+        while (true){
+            /**
+             * 找到第一个大于arr[i]的值
+             */
+            while (frame.compare(frame.get(++i), v) < 0){
+                if (frame.compareEqual(i, r)) break;
             }
+            /**
+             * 找到第一个小于arr[i]的值
+             */
+            while (frame.compare(v,frame.get(--j)) < 0){
+                if (frame.compareEqual(j, l)) break;
+            }
+            if (frame.compareMoreOrEqual(i, j)) break;
+            frame.swap(i,j);
         }
-        frame.swap(i,r);
-        return i;
+        frame.swap(l,j);
+        return j;
     }
 
 

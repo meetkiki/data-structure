@@ -1,5 +1,7 @@
 package forkjoin;
 
+import forkjoin.mergesort.MergeNwayRunTask;
+import forkjoin.mergesort.MergeRunTask;
 import forkjoin.quicksort.DualPivotQuickRunTask;
 
 import java.util.Arrays;
@@ -18,7 +20,7 @@ public class TestExecute {
 
     public static void main(String[] args) {
         long ss = System.currentTimeMillis();
-        SortArray sort = new SortArray(1000000000);
+        SortArray sort = new SortArray(100000000);
         int[] randomInt2 = sort.cloneData();
         int[] randomInt3 = sort.cloneData();
         long se = System.currentTimeMillis();
@@ -26,10 +28,10 @@ public class TestExecute {
 
         // 执行一个任务
         ForkJoinPool forkjoinPool = new ForkJoinPool();
-//        MergeRunTask task = new MergeRunTask(sort);
+        MergeRunTask task = new MergeRunTask(sort);
 //        MergeNwayRunTask task = new MergeNwayRunTask(sort,3);
 //        QuickRunTask task = new QuickRunTask(sort);
-        DualPivotQuickRunTask task = new DualPivotQuickRunTask(sort);
+//        DualPivotQuickRunTask task = new DualPivotQuickRunTask(sort);
 
         System.out.println("start ----");
 

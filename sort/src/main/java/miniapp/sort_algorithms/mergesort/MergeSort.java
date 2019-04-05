@@ -55,39 +55,42 @@ public class MergeSort implements SortMethod{
      * @param r
      */
     protected void merge(int[] arr, int l,int q, int r) {
-        int i = l,j = q + 1;
         // 将l r复制到aux临时数组
         for (int k = l; k <= r; k++) {
             aux[k] = arr[k];
         }
+        fastMerge(arr,aux,l,q,r);
+    }
+
+    /**
+     * 快速归并
+     * @param arr
+     * @param aux
+     * @param l
+     * @param q
+     * @param r
+     * @return
+     */
+    protected int[] fastMerge(int[] arr,int[] aux, int l,int q, int r){
+        int i = l,j = q + 1;
         // 合并排序 如果左半边取尽 取右边数组 如果右半边取尽 取左边数组
         for (int k = l; k <= r; k++) {
             // 如果左边取尽 取右边
             if (i > q) arr[k] = aux[j++];
-            // 如果右边取尽 取左边
+                // 如果右边取尽 取左边
             else if (j > r) arr[k] = aux[i++];
-            // 合并方法 哪边小先进
+                // 合并方法 哪边小先进
             else if (aux[j] < aux[i]) arr[k] = aux[j++];
             else arr[k] = aux[i++];
         }
+        return arr;
     }
 
     public static void main(String[] args) {
-        MergeBu mergeBu = new MergeBu();
-        long sort = mergeBu.testSort(100000000);
+        MergeSort mergeBu = new MergeSort();
+        long sort = mergeBu.testSort(10000000);
         System.out.println("花费时间"+sort+"ms");
-        //花费时间1712ms 花费时间1841ms 花费时间1877ms
-
-//        MergeSort mergeSort = new MergeSort();
-//        Random random = new Random();
-//        MergeBu mergeBu = mergeSort.new MergeBu();
-//        int[] ints = new int[10000];
-//        for (int i = 0; i < ints.length; i++) {
-//            ints[i] = random.nextInt(10000);
-//        }
-//        mergeBu.sort(ints);
-//        System.out.println(Arrays.toString(ints));
-//        System.out.println(mergeBu.isSorted(ints));
+        //花费时间1562ms 花费时间1596ms 花费时间1606ms
     }
 
 }

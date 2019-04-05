@@ -8,11 +8,17 @@ public class DualPivotQuickFrame implements SortVisual {
 
     @Override
     public void sort(AlgoFrame frame) {
+        int length = frame.length();
+        dualPivotQuickSort(frame,0,length - 1);
+    }
+
+    private void dualPivotQuickSort(AlgoFrame frame, int l, int r) {
+
 
     }
 
     @Override
     public String methodName() {
-        return "DualPivot Quick Sort";
+        return "DualPivotQuick Sort";
     }
 }

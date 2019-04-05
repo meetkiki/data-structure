@@ -13,7 +13,7 @@ public interface Sort {
      * @param arr
      * @return
      */
-    default int[] sort(int[] arr){return null;};
+    default int[] sort(int[] arr){return null;}
 
     /**
      * 排序可视化
@@ -72,11 +72,26 @@ public interface Sort {
     }
 
 
+    /**
+     * 产生随机数组
+     * @param n
+     * @return
+     */
     default int[] randomInt(int n){
+        return randomInt(n,n);
+    }
+
+    /**
+     * 产生随机数组
+     * @param n
+     * @param bound
+     * @return
+     */
+    default int[] randomInt(int n,int bound){
         int[] rs = new int[n];
         Random random = new Random();
         for (int i = 0; i < n; i++) {
-            rs[i] = random.nextInt(n);
+            rs[i] = random.nextInt(bound);
         }
         return rs;
     }
@@ -111,7 +126,7 @@ public interface Sort {
      * @param l
      * @param r
      */
-    default void insertSort(int[] arr,int l,int r){
+    default int[] insertSort(int[] arr,int l,int r){
         for (int i = l,j = i; i < r; j = ++i) {
             int temp = arr[i];
             while (temp < arr[j]){
@@ -123,5 +138,6 @@ public interface Sort {
             }
             arr[j + 1] = temp;
         }
+        return arr;
     }
 }
