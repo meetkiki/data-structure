@@ -1,8 +1,14 @@
 package miniapp.view.analysis;
 
+import miniapp.Enum.LineColorEnum;
+import miniapp.Enum.SortEnum;
+
 import java.awt.*;
 
-// 主画布
+/**
+ *  // 主画布
+ * @author Tao
+ */
 public class MyCanvas extends Canvas {
     /**
      * / 画布框架起点坐标
@@ -34,7 +40,7 @@ public class MyCanvas extends Canvas {
     private final int LENGTH_INTERVAL = 40;
     private final int TIME_INTERVAL = 20;
 
-    private Color[] lineColor;
+    private LineColorEnum[] lineColor;
 
     /**
      * /缓存要显示的数组
@@ -61,18 +67,18 @@ public class MyCanvas extends Canvas {
     /**
      * /画线的的名称
      */
-    private String[] lineName;
+    private SortEnum[] sortEnums;
 
     /**
      * /获取每个排序的时间（原单位：毫秒）
      */
     public MyCanvas() {
         //获取画线颜色
-        lineColor = doMapping.getLineColor();
+        lineColor = SortingAnalysisFrame.getLineColor();
 
         //获取画线的名称
-//        lineName = SelectComponent.getSortType();
-//        //为排序数组获取数值
+        sortEnums = SortEnum.values();
+        //为排序数组获取数值
 //        Select = SortFile.getSelect();
 //        Insert = SortFile.getInsert();
 //        Bubble = SortFile.getBubble();
@@ -138,7 +144,7 @@ public class MyCanvas extends Canvas {
 
         //八种排序绘制
         for (int j = 0; j < 8; j++) {
-            g.setColor(lineColor[j]);
+            g.setColor(lineColor[j].getColor());
             if (sortArray[j] != null) {
                 tempArray = new int[sortArray[j].length];
                 tempArray = sortArray[j];

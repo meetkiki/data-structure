@@ -18,6 +18,7 @@ import miniapp.view.manoeuvre.SortFrameCommand;
 /**
  * The main class for the sort visualiser GUI
  *
+ * @author Tao
  */
 public final class SortingVisualiserScreen extends Screen {
     private final AlgoFrame algoFrame;

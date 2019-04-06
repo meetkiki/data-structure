@@ -4,11 +4,13 @@ import miniapp.Enum.SortFrameEnum;
 import miniapp.MiniApp;
 import miniapp.abstraction.SortVisual;
 import miniapp.view.Screen;
+import miniapp.view.analysis.SortingAnalysisFrame;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
@@ -16,10 +18,14 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+/**
+ * @author Tao
+ */
 public class MainMenuScreen extends Screen {
 
     private static final Color BACKGROUND_COLOUR = Color.DARK_GRAY;
     private final ArrayList<AlgorithmCheckBox> checkBoxes;
+    private JFrame analysisFrame;
 
 
     public MainMenuScreen(MiniApp app) {
@@ -67,8 +73,8 @@ public class MainMenuScreen extends Screen {
         soundCheckBox.setAlignmentX(Component.LEFT_ALIGNMENT);
         soundCheckBox.setBackground(BACKGROUND_COLOUR);
         soundCheckBox.setForeground(Color.WHITE);
-        optionsContainer.add(soundCheckBox);
 
+        optionsContainer.add(soundCheckBox);
         JButton startButton = new JButton("Begin Visual Sorter");
         // 添加按钮监听
         startButton.addActionListener((ActionEvent e) -> {
@@ -87,15 +93,22 @@ public class MainMenuScreen extends Screen {
         });
         startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        JButton startAnalysis = new JButton("Begin Analysis Sorter");
+        // 添加按钮监听
+        startAnalysis.addActionListener((ActionEvent e) -> analysisFrame = new SortingAnalysisFrame(app));
+        startAnalysis.setAlignmentX(Component.CENTER_ALIGNMENT);
         outerContainer.add(optionsContainer);
         outerContainer.add(Box.createRigidArea(new Dimension(5,0)));
         outerContainer.add(sortAlgorithmContainer);
+        outerContainer.add(startAnalysis);
 
         int gap = 15;
         add(Box.createRigidArea(new Dimension(0, gap)));
         add(outerContainer);
         add(Box.createRigidArea(new Dimension(0, gap)));
         add(startButton);
+        add(Box.createRigidArea(new Dimension(0, gap)));
+        add(startAnalysis);
     }
 
 

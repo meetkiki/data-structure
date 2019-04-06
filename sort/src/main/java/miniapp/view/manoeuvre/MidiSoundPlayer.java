@@ -8,8 +8,8 @@ import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Synthesizer;
 
 /**
- * 
- * @author Matthew Hopson
+ *
+ * @author Tao
  */
 public class MidiSoundPlayer {
     private final ArrayList<Integer> keys;

@@ -5,6 +5,7 @@ import miniapp.abstraction.Sort;
 
 /**
  * 排序渲染命令
+ * @author Tao
  */
 public class SortFrameCommand implements ICommand {
 

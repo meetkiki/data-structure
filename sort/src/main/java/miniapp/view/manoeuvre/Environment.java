@@ -4,6 +4,7 @@ import miniapp.abstraction.ICommand;
 
 /**
  * 环境角色
+ * @author Tao
  */
 public class Environment {
 

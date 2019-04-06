@@ -1,11 +1,7 @@
 package miniapp.view.analysis;
 
-/**
- * 每次排序都生成一个doSort对象
- * 选择具体的排序方法
- * 计算排序的时间
- */
-public class doSort {
+public class DoSort {
+
     /**
      * //记录排序用时
      */
@@ -26,10 +22,9 @@ public class doSort {
     /**每个doSort对象对应的排序方式*/
     private String sortType;
 
-    /**文本框对象的操作*/
-
-    public doSort(String sortType) {
+    public DoSort(String sortType) {
         this.sortType = sortType;
+
         times = new int[21];
 
         TextComponent.setSortText(sortType + "---------------已经开始---------------");
@@ -50,7 +45,7 @@ public class doSort {
             startTime = System.currentTimeMillis();
 
 //            if (i > 0) {
-                //排序选择器
+            //排序选择器
 //                switch (sortType) {
 //                    case "选择排序":
 //                        Select_Sort.sort(array);
@@ -99,4 +94,5 @@ public class doSort {
     public int[] getTimes() {
         return times;
     }
+
 }

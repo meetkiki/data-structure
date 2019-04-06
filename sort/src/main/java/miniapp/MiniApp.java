@@ -8,6 +8,9 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import java.util.ArrayList;
 
+/**
+ * @author Tao
+ */
 public class MiniApp {
 
     private final JFrame window;
@@ -21,8 +24,9 @@ public class MiniApp {
         screens = new ArrayList<>();
         window = new JFrame ("算法分析 及图形化演示");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setVisible(true);
+        window.setResizable(false);
         window.pack();
+        window.setVisible(true);
     }
 
     public Screen getCurrentScreen() {

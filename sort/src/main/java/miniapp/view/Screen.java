@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 
 import miniapp.MiniApp;
 
+/**
+ * @author Tao
+ */
 public abstract class Screen extends JPanel {
     protected MiniApp app;
     

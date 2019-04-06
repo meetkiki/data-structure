@@ -5,6 +5,7 @@ import java.awt.*;
 
 /**
  * 获取文本框组件，并添加事件
+ * @author Tao
  */
 public class TextComponent {
     /**
