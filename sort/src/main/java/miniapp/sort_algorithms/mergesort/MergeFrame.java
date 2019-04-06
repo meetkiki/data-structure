@@ -12,7 +12,7 @@ public class MergeFrame implements SortVisual {
     /**
      * 临时数组
      */
-    protected static AlgoFrame auxData;
+    protected AlgoFrame auxData;
 
     @Override
     public void sort(AlgoFrame frame) {
@@ -76,6 +76,6 @@ public class MergeFrame implements SortVisual {
 
     @Override
     public String methodName() {
-        return "merge sort";
+        return "Merge Sort";
     }
 }

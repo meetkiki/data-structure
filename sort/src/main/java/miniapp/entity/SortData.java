@@ -38,7 +38,7 @@ public class SortData implements Cloneable{
     private int DELAY = 10;
 
     public static final int DEFAULT_WIN_WIDTH = 1280;
-    public static final int DEFAULT_WIN_HEIGHT = 720;
+    public static final int DEFAULT_WIN_HEIGHT = 868;
     public static final int DEFAULT_BAR_WIDTH = 5;
     public static final int NUM_BARS = DEFAULT_WIN_WIDTH / DEFAULT_BAR_WIDTH;
     public static final int NUM_HEIGHT = DEFAULT_WIN_HEIGHT - 100;

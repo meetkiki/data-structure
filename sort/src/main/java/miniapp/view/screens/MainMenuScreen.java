@@ -5,7 +5,6 @@ import miniapp.MiniApp;
 import miniapp.abstraction.SortVisual;
 import miniapp.view.Screen;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;

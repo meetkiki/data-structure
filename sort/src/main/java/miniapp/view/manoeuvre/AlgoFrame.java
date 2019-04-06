@@ -51,6 +51,8 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
      */
     private SortData data;
 
+    private MidiSoundPlayer midiSoundPlayer;
+
     public AlgoFrame(SortData data,boolean playSounds){
         // 双缓存
         super(true);
@@ -62,6 +64,8 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
 
         this.playSounds = playSounds;
         this.width = canvasWidth / data.size();
+
+        this.midiSoundPlayer = new MidiSoundPlayer(SortData.NUM_HEIGHT);
 
         this.spinner = new JSpinner(new SpinnerNumberModel(data.getDELAY(), 1, 200, 1));
         this.spinner.addChangeListener((event) -> {
@@ -162,6 +166,8 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
      */
     public void initOrdereds() {
         data.initOrdereds();
+        // 设置焦点
+        spinner.requestFocus();
     }
 
     /**
@@ -183,6 +189,12 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
         this.data.currentChangeIndex = currentChangeIndex;
         if (isStep) pause(this.data.getDELAY());
         this.render(this.data);
+        if (playSounds){
+            if (currentChangeIndex < 0 || currentChangeIndex >= data.size()){
+                currentChangeIndex = 0;
+            }
+            midiSoundPlayer.makeSound(this.data.get(currentChangeIndex));
+        }
 //        System.out.println(data.getOrdereds());
 //        System.out.println("change --- " + this.getChange());
 //        System.out.println("compare --- " + this.getCompare());
@@ -315,6 +327,7 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
             // 克隆为副 this为主
             auxFrame = (AlgoFrame)super.clone();
             auxFrame.spinner = this.spinner;
+            auxFrame.midiSoundPlayer = this.midiSoundPlayer;
             auxFrame.auxFrame = this;
             auxFrame.master = false;
             auxFrame.data = sortData;
@@ -462,25 +475,26 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D)g;
-        boolean isSlave = auxFrame != null;
         try
         {
+            boolean isSlave = auxFrame != null;
             Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
             renderingHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.addRenderingHints(renderingHints);
                 g2d.setFont(new Font("Monospaced", Font.BOLD, 20));
                 g2d.drawString("    Sort algorithm: " + algorithmName, 10, 30);
-                g2d.drawString("        Step delay: " + (isSlave ? ((this.isMaster() ? this.delay : auxFrame.delay)) : this.delay) + "ms", 10, 55);
+                g2d.drawString("        Step delay: " + (isSlave ? ((this.isMaster() ? this.delay : auxFrame.delay)) : this.delay) + "ms." + "( ↑ and ↓ )", 10, 55);
                 g2d.drawString("     Array Changes: " + (isSlave ? (this.isMaster() ? this.data.getArrayChanges() : auxFrame.data.getArrayChanges())
                         : this.data.getArrayChanges()), 10, 80);
                 g2d.drawString("     Array Compare: " + (isSlave ? (this.isMaster() ? this.data.getArrayCompare() : auxFrame.data.getArrayCompare())
                         : this.data.getArrayCompare()), 10, 105);
-                // 如果含有双frame
+            // 如果含有双frame
             if (isSlave){
                 g2d.drawString("   Slave Step delay: " + (!this.isMaster() ? this.delay : auxFrame.delay) + "ms", getWidth() - 380, 55);
                 g2d.drawString("Slave Array Changes: " + (!this.isMaster() ? this.data.getArrayChanges() : auxFrame.data.getArrayChanges()), getWidth() - 380, 80);
                 g2d.drawString("Slave Array Compare: " + (!this.isMaster() ? this.data.getArrayCompare() : auxFrame.data.getArrayCompare()), getWidth() - 380, 105);
             }
+            // 图像信息
             drawBars(g2d);
         } finally {
             g2d.dispose();
@@ -571,5 +585,9 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
     public void finish() {
         auxFrame = null;
         render(this.data);
+        for (int i = 0; i < data.size(); i++) {
+            pause(data.getDELAY());
+            updateData(i,i);
+        }
     }
 }

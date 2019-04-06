@@ -3,10 +3,6 @@ package miniapp.sort_algorithms.mergesort;
 import miniapp.view.manoeuvre.AlgoFrame;
 
 public class MergeBuFrame extends MergeFrame {
-    /**
-     * 临时数组
-     */
-    public static AlgoFrame auxData;
 
     /**
      * 自底而上的归并排序
@@ -26,7 +22,7 @@ public class MergeBuFrame extends MergeFrame {
 
     @Override
     public String methodName() {
-        return "MergeBuSort Sort";
+        return "MergeBu Sort";
     }
 
     @Override

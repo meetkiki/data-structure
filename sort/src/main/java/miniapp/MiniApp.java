@@ -12,19 +12,16 @@ public class MiniApp {
 
     private final JFrame window;
 
-    public static final int WIN_WIDTH = 1200;
-    public static final int WIN_HEIGHT = 720;
+    public static final int WIN_WIDTH = 1280;
+    public static final int WIN_HEIGHT = 868;
     private final ArrayList<Screen> screens;
 
 
     public MiniApp() {
         screens = new ArrayList<>();
-        window = new JFrame ("Sort visualiser");
+        window = new JFrame ("算法分析 及图形化演示");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // 居中
-//        window.setLocationRelativeTo(null);
         window.setVisible(true);
-
         window.pack();
     }
 
@@ -63,15 +60,6 @@ public class MiniApp {
         pushScreen(new MainMenuScreen(this));
         window.pack();
     }
-
-    /**
-     * 排序间隔
-     *
-     *  change          3 * delay
-     *  compare         1 * delay
-     *  assignment      1 * delay
-     */
-    private static int DELAY = 10;
 
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");

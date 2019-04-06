@@ -42,7 +42,7 @@ public final class SortingVisualiserScreen extends Screen {
     
     private void longSleep() {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         } 
@@ -66,6 +66,7 @@ public final class SortingVisualiserScreen extends Screen {
 
                     environment = new Environment(new SortFrameCommand(algorithm, algoFrame));
                     environment.invoke();
+
                     longSleep();
                 }
                 return null;
