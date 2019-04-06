@@ -20,7 +20,6 @@ import java.awt.Color;
  */
 public class SortingAnalysisFrame extends JFrame {
 
-
     /**
      * /主坐标图
      */

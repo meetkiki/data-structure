@@ -142,12 +142,12 @@ public class MyCanvas extends Canvas {
         // 轴线粗度
         g2D.setStroke(new BasicStroke(Float.parseFloat("2.0F")));
 
-        //八种排序绘制
-        for (int j = 0; j < 8; j++) {
-            g.setColor(lineColor[j].getColor());
-            if (sortArray[j] != null) {
-                tempArray = new int[sortArray[j].length];
-                tempArray = sortArray[j];
+        // 排序算法绘制
+        for (int k = 0; k < sortEnums.length; k++) {
+            g.setColor(sortEnums[k].getSortMethod().lineColor().getColor());
+            if (sortArray[k] != null) {
+                tempArray = new int[sortArray[k].length];
+                tempArray = sortArray[k];
             } else
                 continue;
             //绘制直线，通过循环，将所有的点连线
@@ -155,7 +155,7 @@ public class MyCanvas extends Canvas {
                 g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - tempArray[i],
                         Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - tempArray[i + 1]);
                 if (i == 19) {
-                    g2D.drawString(lineName[j], Origin_X + (i + 1) * LENGTH_INTERVAL + 10, Origin_Y - tempArray[i + 1]);
+                    g2D.drawString(sortEnums[k].getCnName(), Origin_X + (i + 1) * LENGTH_INTERVAL + 10, Origin_Y - tempArray[i + 1]);
                 }
             }
         }
