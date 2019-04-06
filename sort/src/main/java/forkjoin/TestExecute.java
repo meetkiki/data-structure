@@ -18,7 +18,7 @@ public class TestExecute {
 
     public static void main(String[] args) {
         long ss = System.currentTimeMillis();
-        SortArray sort = new SortArray(100000000);
+        SortArray sort = new SortArray(1000000);
         int[] randomInt2 = sort.cloneData();
         int[] randomInt3 = sort.cloneData();
         long se = System.currentTimeMillis();
@@ -26,8 +26,8 @@ public class TestExecute {
 
         // 执行一个任务
         ForkJoinPool forkjoinPool = new ForkJoinPool();
-//        MergeRunTask task = new MergeRunTask(sort);
-        MergeNwayRunTask task = new MergeNwayRunTask(sort,6);
+        MergeRunTask task = new MergeRunTask(sort);
+//        MergeNwayRunTask task = new MergeNwayRunTask(sort,6);
 //        QuickRunTask task = new QuickRunTask(sort);
 //        DualPivotQuickRunTask task = new DualPivotQuickRunTask(sort);
 
@@ -45,7 +45,7 @@ public class TestExecute {
         System.out.println("排序 ===== "+ (sort.isSorted() ? "成功!":"失败!"));
 
         long s3 = System.currentTimeMillis();
-        //Arrays.sort(randomInt2);
+        Arrays.sort(randomInt2);
         long s4 = System.currentTimeMillis();
 
         long s5 = System.currentTimeMillis();

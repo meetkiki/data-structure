@@ -7,6 +7,11 @@ public class BucketFrame implements SortVisual {
 
 
     @Override
+    public String getCnName() {
+        return "桶排序";
+    }
+
+    @Override
     public void sort(AlgoFrame frame) {
 
     }

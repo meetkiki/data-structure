@@ -52,5 +52,9 @@ public class QuickFrame implements SortVisual {
         return j;
     }
 
+    @Override
+    public String getCnName() {
+        return "快速排序";
+    }
 
 }

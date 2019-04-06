@@ -1,5 +1,7 @@
 package miniapp.abstraction;
 
+import miniapp.Enum.LineColorEnum;
+
 import java.util.Arrays;
 
 /**
@@ -38,9 +40,9 @@ public interface SortMethod extends Sort {
     }
 
     /**
-     * 排序方法的中文名称
+     * 排序线颜色
      * @return
      */
-    String getCnName();
+    LineColorEnum lineColor();
 
 }

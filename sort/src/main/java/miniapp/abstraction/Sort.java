@@ -30,6 +30,12 @@ public interface Sort {
     default String methodName(){return "";}
 
     /**
+     * 排序方法的中文名称
+     * @return
+     */
+    default String getCnName(){return "";}
+
+    /**
      * 判断是否有序
      * @param arr
      * @return

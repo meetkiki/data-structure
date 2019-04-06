@@ -5,6 +5,11 @@ import miniapp.view.manoeuvre.AlgoFrame;
 
 public class ShellFrame implements SortVisual {
 
+    @Override
+    public String getCnName() {
+        return "希尔排序";
+    }
+
 
     /**
      * 希尔排序可视化

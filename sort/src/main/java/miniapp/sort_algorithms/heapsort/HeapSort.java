@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.heapsort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 /**
@@ -63,6 +64,10 @@ public class HeapSort implements SortMethod {
         }
     }
 
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("DeepPurple");
+    }
 
     public static void main(String[] args) {
         HeapSort heapSort = new HeapSort();

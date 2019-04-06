@@ -1,5 +1,7 @@
 package miniapp.sort_algorithms.quicksort;
 
+import miniapp.Enum.LineColorEnum;
+
 public class Quick3waySort extends QuickSort {
 
     /**
@@ -22,6 +24,11 @@ public class Quick3waySort extends QuickSort {
         // 现在arr[l...i-1] < v < arr[i...j] < arr[k+1,r]成立
         quickSort(arr,l,i-1);
         quickSort(arr,k+1,r);
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("LightGreen");
     }
 
     @Override

@@ -2,7 +2,6 @@ package miniapp.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class SortData implements Cloneable{
     /**
@@ -36,12 +35,20 @@ public class SortData implements Cloneable{
     /**
      * 等待时间
      */
-    private int DELAY = 100;
+    private int DELAY = 10;
 
-    public SortData(int N,int height){
+    public static final int DEFAULT_WIN_WIDTH = 1280;
+    public static final int DEFAULT_WIN_HEIGHT = 720;
+    public static final int DEFAULT_BAR_WIDTH = 5;
+    public static final int NUM_BARS = DEFAULT_WIN_WIDTH / DEFAULT_BAR_WIDTH;
+    public static final int NUM_HEIGHT = DEFAULT_WIN_HEIGHT - 100;
+
+    public SortData(){
         ordereds = new ArrayList<>();
-        numbers = new int[N];
-        shuffle(height);
+        numbers = new int[NUM_BARS];
+        for (int i = 0; i < NUM_BARS; i++) {
+            numbers[i] = i * (NUM_HEIGHT / NUM_BARS);
+        }
     }
 
     public SortData(int[] numbers) {
@@ -160,11 +167,14 @@ public class SortData implements Cloneable{
         ordereds.add(new Ordered(orderedstart,orderedIndex));
     }
 
-    public void shuffle(int height) {
-        Random rng = new Random();
-        for (int i = 0; i < arraySize(); i++) {
-            this.set(i,rng.nextInt(height));
-        }
+    /**
+     * 初始化排序区间
+     */
+    public void initOrdereds() {
+        ordereds.clear();
+    }
+
+    public void initChange(){
         arrayChanges = 0;
         arrayCompare = 0;
     }

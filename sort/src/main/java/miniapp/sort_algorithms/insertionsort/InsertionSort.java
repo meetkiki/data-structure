@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.insertionsort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 public class InsertionSort implements SortMethod {
@@ -34,6 +35,11 @@ public class InsertionSort implements SortMethod {
             arr[j + 1] = temp;
         }
         return arr;
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Indigo");
     }
 
 

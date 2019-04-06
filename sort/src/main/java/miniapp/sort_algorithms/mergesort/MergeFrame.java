@@ -4,11 +4,15 @@ import miniapp.abstraction.SortVisual;
 import miniapp.view.manoeuvre.AlgoFrame;
 
 public class MergeFrame implements SortVisual {
+    @Override
+    public String getCnName() {
+        return "归并排序";
+    }
 
     /**
      * 临时数组
      */
-    public static AlgoFrame auxData;
+    protected static AlgoFrame auxData;
 
     @Override
     public void sort(AlgoFrame frame) {
@@ -72,6 +76,6 @@ public class MergeFrame implements SortVisual {
 
     @Override
     public String methodName() {
-        return "merge default sort";
+        return "merge sort";
     }
 }

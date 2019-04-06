@@ -36,7 +36,10 @@ public class Quick3wayFrame extends QuickFrame {
         quick3waySort(frame,k + 1,r);
         frame.updateOrdereds(k + 1,r);
     }
-
+    @Override
+    public String getCnName() {
+        return "三向切分快速排序";
+    }
 
     @Override
     public String methodName() {

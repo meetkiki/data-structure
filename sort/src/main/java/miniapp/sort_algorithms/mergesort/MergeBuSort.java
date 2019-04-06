@@ -1,5 +1,7 @@
 package miniapp.sort_algorithms.mergesort;
 
+import miniapp.Enum.LineColorEnum;
+
 public class MergeBuSort extends MergeSort {
 
     /**
@@ -19,6 +21,11 @@ public class MergeBuSort extends MergeSort {
                 // 归并子数组
                 merge(arr,j,j+i-1,Math.min(j+(i<<1)-1,n-1));
         return arr;
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Blue");
     }
 
     @Override

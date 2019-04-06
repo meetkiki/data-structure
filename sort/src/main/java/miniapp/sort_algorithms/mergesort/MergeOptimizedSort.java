@@ -2,6 +2,7 @@ package miniapp.sort_algorithms.mergesort;
 
 
 import miniapp.Enum.Constant;
+import miniapp.Enum.LineColorEnum;
 
 public class MergeOptimizedSort extends MergeSort {
 
@@ -40,6 +41,10 @@ public class MergeOptimizedSort extends MergeSort {
         return fastMerge(arr,aux,l,mid,r);
     }
 
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("LightBlue");
+    }
 
     public static void main(String[] args) {
         MergeOptimizedSort mergeOptimizedSort = new MergeOptimizedSort();

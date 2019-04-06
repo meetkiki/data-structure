@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.quicksort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 public class QuickSort implements SortMethod {
@@ -74,6 +75,11 @@ public class QuickSort implements SortMethod {
         }
         swap(arr,l,j);
         return j;
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Lime");
     }
 
     public static void main(String[] args) {

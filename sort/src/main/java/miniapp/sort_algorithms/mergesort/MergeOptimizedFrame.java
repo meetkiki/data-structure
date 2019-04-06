@@ -5,6 +5,10 @@ import miniapp.Enum.Constant;
 import miniapp.view.manoeuvre.AlgoFrame;
 
 public class MergeOptimizedFrame extends MergeFrame {
+    @Override
+    public String getCnName() {
+        return "优化归并排序";
+    }
 
     /**
      * 优化接口实现

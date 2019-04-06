@@ -23,4 +23,10 @@ public interface SortVisual extends Sort{
     @Override
     String methodName();
 
+    /**
+     * 排序方法中文名称
+     * @return
+     */
+    @Override
+    String getCnName();
 }

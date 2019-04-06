@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.mergesort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 public class MergeSort implements SortMethod{
@@ -9,6 +10,11 @@ public class MergeSort implements SortMethod{
         return "归并排序";
     }
 
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Cyan");
+    }
     /**
      * 临时数组
      */

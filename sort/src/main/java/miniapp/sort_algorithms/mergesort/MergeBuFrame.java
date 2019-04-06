@@ -29,5 +29,8 @@ public class MergeBuFrame extends MergeFrame {
         return "MergeBuSort Sort";
     }
 
-
+    @Override
+    public String getCnName() {
+        return "自底而上的归并排序";
+    }
 }

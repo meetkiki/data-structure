@@ -5,6 +5,10 @@ import miniapp.view.manoeuvre.AlgoFrame;
 
 public class HeapFrame implements SortVisual {
 
+    @Override
+    public String getCnName() {
+        return "堆排序";
+    }
 
     @Override
     public void sort(AlgoFrame frame) {

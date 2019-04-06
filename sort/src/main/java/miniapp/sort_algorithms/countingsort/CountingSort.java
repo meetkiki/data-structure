@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.countingsort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 public class CountingSort implements SortMethod {
@@ -54,6 +55,11 @@ public class CountingSort implements SortMethod {
         CountingSort countingSort = new CountingSort();
         long sort = countingSort.testSort(1000000);
         System.out.println("花费时间"+sort+"ms");
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Purple");
     }
 
 }

@@ -20,9 +20,10 @@ public class SortFrameCommand implements ICommand {
     @Override
     public void Execute() {
         // 初始化区间
-        frame.updateOrdereds(0);
+        frame.initOrdereds();
         target.sort(frame);
         // 排序空间
+        frame.finish();
         frame.updateOrdereds(frame.length());
     }
 }

@@ -27,4 +27,9 @@ public class BubbleFrame implements SortVisual {
     public String methodName() {
         return "Bubble Sort";
     }
+
+    @Override
+    public String getCnName() {
+        return "冒泡排序";
+    }
 }

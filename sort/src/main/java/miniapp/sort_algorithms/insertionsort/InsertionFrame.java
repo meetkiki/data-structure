@@ -5,6 +5,11 @@ import miniapp.view.manoeuvre.AlgoFrame;
 
 public class InsertionFrame implements SortVisual {
 
+    @Override
+    public String getCnName() {
+        return "插入排序";
+    }
+
     /**
      * 可视化插入排序
      *

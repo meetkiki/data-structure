@@ -2,19 +2,42 @@ package miniapp.view.manoeuvre;
 
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.OperatingArray;
+import miniapp.abstraction.SortVisual;
 import miniapp.entity.SortData;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
 import javax.swing.*;
 
-public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
+public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
     private int canvasWidth;
     private int canvasHeight;
+    private boolean playSounds;
+    private int width;
+    private SortVisual sortVisual;
     /**
      * 是否为主
      */
-    private boolean master = true;
-
+    private boolean master = false;
+    /**
+     * 副Frame
+     */
+    private AlgoFrame auxFrame;
+    /**
+     * 算法名称
+     */
+    private String algorithmName = "";
+    /**
+     * 间隔输入框
+     */
+    private JSpinner spinner;
+    /**
+     * 等待时间
+     */
+    private int delay = 10;
     /**
      * 判断是否为主
      * @return
@@ -28,24 +51,38 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      */
     private SortData data;
 
-    public AlgoFrame(){}
-    public AlgoFrame(String title, SortData data, int canvasWidth, int canvasHeight){
-        super(title);
+    public AlgoFrame(SortData data,boolean playSounds){
+        // 双缓存
+        super(true);
 
         this.data = data;
+        this.canvasWidth = SortData.DEFAULT_WIN_WIDTH;
+        this.canvasHeight = SortData.DEFAULT_WIN_HEIGHT;
+        this.delay = data.getDELAY();
 
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
+        this.playSounds = playSounds;
+        this.width = canvasWidth / data.size();
 
-        AlgoCanvas canvas = new AlgoCanvas();
-        setContentPane(canvas);
-        pack();
+        this.spinner = new JSpinner(new SpinnerNumberModel(data.getDELAY(), 1, 200, 1));
+        this.spinner.addChangeListener((event) -> {
+            this.delay = (Integer) spinner.getValue();
+            this.data.setDELAY(delay);
+            if (auxFrame != null){
+                this.auxFrame.getData().setDELAY(delay);
+                this.auxFrame.delay = delay;
+            }
+        });
+        this.add(spinner);
+        this.spinner.setValue(data.getDELAY());
+    }
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setResizable(false);
-        // 居中
-        setLocationRelativeTo(null);
-        setVisible(true);
+    public SortVisual getSortVisual() {
+        return sortVisual;
+    }
+
+    public void setSortVisual(SortVisual sortVisual) {
+        this.sortVisual = sortVisual;
+        this.algorithmName = sortVisual.methodName();
     }
 
     public int getCanvasWidth(){return canvasWidth;}
@@ -94,7 +131,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      * @param isStep                是否等待
      */
     public void setData(int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex,boolean isStep){
-        data.addOrdereds(orderedStart,orderedIndex);
+        this.data.addOrdereds(orderedStart,orderedIndex);
         // 更新参数
         updateData(currentCompareIndex,currentChangeIndex,isStep);
     }
@@ -121,6 +158,13 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
     }
 
     /**
+     * 初始化排序区间
+     */
+    public void initOrdereds() {
+        data.initOrdereds();
+    }
+
+    /**
      * 更新参数
      * @param currentCompareIndex   当前数据索引
      * @param currentChangeIndex    待交换数据索引
@@ -135,10 +179,10 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      * @param currentChangeIndex    待交换数据索引
      */
     public void updateData(int currentCompareIndex, int currentChangeIndex,boolean isStep){
-        data.currentCompareIndex = currentCompareIndex;
-        data.currentChangeIndex = currentChangeIndex;
-        this.render(data);
-        if (isStep) AlgoVisHelper.pause(data.getDELAY());
+        this.data.currentCompareIndex = currentCompareIndex;
+        this.data.currentChangeIndex = currentChangeIndex;
+        if (isStep) pause(this.data.getDELAY());
+        this.render(this.data);
 //        System.out.println(data.getOrdereds());
 //        System.out.println("change --- " + this.getChange());
 //        System.out.println("compare --- " + this.getCompare());
@@ -165,8 +209,17 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      */
     public int compare(int curl, int curr){
         data.compareIncrement();
-        AlgoVisHelper.pause(data.getDELAY());
+        pause(data.getDELAY());
         return curl - curr;
+    }
+
+    public void pause(int dalay){
+        repaint();
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            Thread.interrupted();
+        }
     }
 
     /**
@@ -244,10 +297,10 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
     public void swap(int currentCompareIndex, int currentChangeIndex){
         // 设置指向
         updateData(currentCompareIndex,currentChangeIndex);
-        // 交换两个数据的值需要3次操作 再等待2次
-        AlgoVisHelper.pause(data.getDELAY());
-        AlgoVisHelper.pause(data.getDELAY());
-        data.swap(currentCompareIndex,currentChangeIndex);
+//        // 交换两个数据的值需要3次操作 再等待2次
+//        pause(this.data.getDELAY());
+//        pause(this.data.getDELAY());
+        this.data.swap(currentCompareIndex,currentChangeIndex);
     }
 
     /**
@@ -255,20 +308,21 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      * @return
      */
     public AlgoFrame cloneData(){
-        AlgoFrame frame = null;
         try {
             SortData sortData = (SortData)data.getClone();
             sortData.setNumbers(data.cloneData());
             this.master = true;
             // 克隆为副 this为主
-            frame = (AlgoFrame)this.clone();
-            frame.master = false;
-            frame.data = sortData;
+            auxFrame = (AlgoFrame)super.clone();
+            auxFrame.spinner = this.spinner;
+            auxFrame.auxFrame = this;
+            auxFrame.master = false;
+            auxFrame.data = sortData;
         } catch (CloneNotSupportedException e) {
             e.printStackTrace();
             throw new RuntimeException("Clone Error!");
         }
-        return frame;
+        return auxFrame;
     }
     /**
      *  获得数据长度
@@ -336,7 +390,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      * @param orderedIndex
      */
     public void optimizeUpdateOrdered(AlgoFrame frame, int orderedStart, int orderedIndex){
-        optimizeSetData(frame,this,false,orderedStart,orderedIndex,-1,-1,true);
+        optimizeSetData(frame,this,false,orderedStart,orderedIndex,-1,-1);
     }
 
     /**
@@ -348,7 +402,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      * @param currentChangeIndex
      */
     public void optimizeSetData(AlgoFrame frame, int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex){
-        optimizeSetData(frame,this,true,orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,true);
+        optimizeSetData(frame,this,true,orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex);
     }
 
     /**
@@ -360,7 +414,7 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      * @param currentChangeIndex
      */
     public void optimizeSetData(AlgoFrame frame,boolean isStep, int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex){
-        optimizeSetData(frame,this,isStep,orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,true);
+        optimizeSetData(frame,this,isStep,orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex);
     }
 
     /**
@@ -373,22 +427,8 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
      * @param currentChangeIndex
      */
     public void optimizeSetData(AlgoFrame frame, AlgoFrame auxFrame,boolean isStep, int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex){
-        optimizeSetData(frame,auxFrame,isStep,orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,true);
-    }
-
-    /**
-     * 归并优化后可视化更新显示
-     * @param frame             原数组
-     * @param auxFrame          拷贝数组
-     * @param orderedStart
-     * @param orderedIndex
-     * @param currentCompareIndex
-     * @param currentChangeIndex
-     */
-    public void optimizeSetData(AlgoFrame frame, AlgoFrame auxFrame,boolean isStep, int orderedStart, int orderedIndex, int currentCompareIndex, int currentChangeIndex,boolean showMaster){
-        // 判断是否需要将子数组显示 true 只显示master false 显示从
-        if (showMaster == frame.isMaster()) frame.setData(orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,isStep);
-        if (showMaster == auxFrame.isMaster()) auxFrame.setData(orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,isStep);
+        frame.setData(orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,isStep);
+        auxFrame.setData(orderedStart,orderedIndex,currentCompareIndex,currentChangeIndex,isStep);
     }
 
     /**
@@ -405,56 +445,131 @@ public class AlgoFrame extends JFrame implements Cloneable, OperatingArray {
         }
     }
 
-    /**
-     * 比较次数
-     * @return
-     */
-    public int getCompare() {
-        return data.getArrayCompare();
+    public void shuffle() {
+        shuffle(SortData.NUM_HEIGHT);
     }
 
-    private class AlgoCanvas extends JPanel{
-
-        public AlgoCanvas(){
-            // 双缓存
-            super(true);
-            w = canvasWidth / data.size();
+    public void shuffle(int height) {
+        Random rng = new Random();
+        for (int i = 0; i < data.size(); i++) {
+            int swapWithIndex = rng.nextInt(data.size() - 1);
+            data.swap(i,swapWithIndex);
         }
+        data.initChange();
+    }
 
-        private int w = 0;
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D)g;
+        boolean isSlave = auxFrame != null;
+        try
+        {
+            Map<RenderingHints.Key, Object> renderingHints = new HashMap<>();
+            renderingHints.put(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2d.addRenderingHints(renderingHints);
+                g2d.setFont(new Font("Monospaced", Font.BOLD, 20));
+                g2d.drawString("    Sort algorithm: " + algorithmName, 10, 30);
+                g2d.drawString("        Step delay: " + (isSlave ? ((this.isMaster() ? this.delay : auxFrame.delay)) : this.delay) + "ms", 10, 55);
+                g2d.drawString("     Array Changes: " + (isSlave ? (this.isMaster() ? this.data.getArrayChanges() : auxFrame.data.getArrayChanges())
+                        : this.data.getArrayChanges()), 10, 80);
+                g2d.drawString("     Array Compare: " + (isSlave ? (this.isMaster() ? this.data.getArrayCompare() : auxFrame.data.getArrayCompare())
+                        : this.data.getArrayCompare()), 10, 105);
+                // 如果含有双frame
+            if (isSlave){
+                g2d.drawString("   Slave Step delay: " + (!this.isMaster() ? this.delay : auxFrame.delay) + "ms", getWidth() - 380, 55);
+                g2d.drawString("Slave Array Changes: " + (!this.isMaster() ? this.data.getArrayChanges() : auxFrame.data.getArrayChanges()), getWidth() - 380, 80);
+                g2d.drawString("Slave Array Compare: " + (!this.isMaster() ? this.data.getArrayCompare() : auxFrame.data.getArrayCompare()), getWidth() - 380, 105);
+            }
+            drawBars(g2d);
+        } finally {
+            g2d.dispose();
+        }
+    }
 
-        @Override
-        public void paintComponent(Graphics g) {
-            super.paintComponent(g);
+    private void drawBars(Graphics2D g2d) {
+        int bufferedImageWidth = getWidth();
+        int bufferedImageHeight = getHeight();
 
-            Graphics2D g2d = (Graphics2D)g;
+        if(bufferedImageHeight > 0 && bufferedImageWidth > 0) {
+            if(bufferedImageWidth < 256) {
+                bufferedImageWidth = 256;
+            }
 
-            // 抗锯齿
-            RenderingHints hints = new RenderingHints(
-                    RenderingHints.KEY_ANTIALIASING,
-                    RenderingHints.VALUE_ANTIALIAS_ON);
-            hints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-            g2d.addRenderingHints(hints);
+            BufferedImage bufferedImage = new BufferedImage(bufferedImageWidth, bufferedImageHeight, BufferedImage.TYPE_INT_ARGB);
+            makeBufferedImageTransparent(bufferedImage);
+            Graphics2D bufferedGraphics = null;
+            try {
+                bufferedGraphics = bufferedImage.createGraphics();
+                // 具体绘制
+                for(int i = 0; i < data.size() ; i ++ ) {
+                    // 先画主 后画备
+                    drawCanvas(this.isMaster() ? this : auxFrame, bufferedGraphics, i);
+                    drawCanvas(this.isMaster() ? auxFrame : this, bufferedGraphics, i);
+                }
+            }finally {
+                if(bufferedGraphics != null)
+                {
+                    bufferedGraphics.dispose();
+                }
+            }
+            g2d.drawImage(bufferedImage, 0, 0, getWidth(), getHeight(), 0, 0, bufferedImage.getWidth(), bufferedImage.getHeight(), null);
+        }
+    }
 
-            // 具体绘制
-            for(int i = 0; i < data.size() ; i ++ ) {
-                // 排序好空间
-                if (data.isSorted(i))
-                    AlgoVisHelper.setColor(g2d, LineColorEnum.Red);
-                else
-                    AlgoVisHelper.setColor(g2d, LineColorEnum.Grey);
+    private void drawCanvas(AlgoFrame data, Graphics2D bufferedGraphics, int i) {
+        if (data == null) return;
+        // 是否含有备
+        boolean isSlave = this.auxFrame != null;
+        int rise = SortData.NUM_HEIGHT / 2 + 10,barWidth = width;
+        if (data.getData().isSorted(i))
+            bufferedGraphics.setColor(LineColorEnum.Red.getColor());
+        else
+            bufferedGraphics.setColor(LineColorEnum.Grey.getColor());
 
-                if(i == data.currentCompareIndex)
-                    AlgoVisHelper.setColor(g2d, LineColorEnum.LightBlue);
-                if(i == data.currentChangeIndex)
-                    AlgoVisHelper.setColor(g2d, LineColorEnum.Indigo);
-                AlgoVisHelper.fillRectangle(g2d,  i * w, canvasHeight - data.get(i), w - 1, data.get(i));
+        if(i == data.getData().currentCompareIndex)
+            bufferedGraphics.setColor(LineColorEnum.LightBlue.getColor());
+        if(i == data.getData().currentChangeIndex)
+            bufferedGraphics.setColor(LineColorEnum.Indigo.getColor());
+        // 双frame处理
+        bufferedGraphics.fillRect(i * barWidth,
+                isSlave ?
+                        (data.isMaster() ?
+                                canvasHeight - rise - (data.get(i) / 2)
+                                : canvasHeight - (data.get(i) / 2))
+                        : canvasHeight - data.get(i),
+                barWidth - 1,
+                // 有备高度缩减
+                isSlave ? data.get(i) / 2 : data.get(i));
+    }
+
+    private void makeBufferedImageTransparent(BufferedImage image)
+    {
+        Graphics2D bufferedGraphics = null;
+        try
+        {
+            bufferedGraphics = image.createGraphics();
+
+            bufferedGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
+            bufferedGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+            bufferedGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
+        }
+        finally
+        {
+            if(bufferedGraphics != null)
+            {
+                bufferedGraphics.dispose();
             }
         }
+    }
 
-        @Override
-        public Dimension getPreferredSize(){
-            return new Dimension(canvasWidth, canvasHeight);
-        }
+    @Override
+    public Dimension getPreferredSize(){
+        return new Dimension(canvasWidth, canvasHeight);
+    }
+
+    public void finish() {
+        auxFrame = null;
+        render(this.data);
     }
 }

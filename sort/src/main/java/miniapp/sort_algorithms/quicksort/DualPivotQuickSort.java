@@ -1,6 +1,7 @@
 package miniapp.sort_algorithms.quicksort;
 
 import miniapp.Enum.Constant;
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 public class DualPivotQuickSort implements SortMethod {
@@ -10,6 +11,10 @@ public class DualPivotQuickSort implements SortMethod {
         return "双轴快速排序";
     }
 
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Teal");
+    }
     @Override
     public int[] sort(int[] arr) {
         int length = arr.length;

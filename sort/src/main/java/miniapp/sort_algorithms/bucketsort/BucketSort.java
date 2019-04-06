@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.bucketsort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 import java.util.Arrays;
@@ -53,6 +54,11 @@ public class BucketSort implements SortMethod {
         BucketSort bucketSort = new BucketSort();
         long sort = bucketSort.testSort(100000000);
         System.out.println("花费时间"+sort+"ms");
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Pink");
     }
 
 }

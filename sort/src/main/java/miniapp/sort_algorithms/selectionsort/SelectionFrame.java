@@ -25,4 +25,9 @@ public class SelectionFrame implements SortVisual {
     public String methodName() {
         return "Selection Sort";
     }
+
+    @Override
+    public String getCnName() {
+        return "选择排序";
+    }
 }

@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.selectionsort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 public class SelectionSort implements SortMethod {
@@ -40,6 +41,10 @@ public class SelectionSort implements SortMethod {
         return arr;
     }
 
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Yellow");
+    }
 
     public static void main(String[] args) {
         //int[] arr = {1,2,32,3,22,11,21};

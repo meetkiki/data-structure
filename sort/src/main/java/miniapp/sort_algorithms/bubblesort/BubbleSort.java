@@ -1,7 +1,9 @@
 package miniapp.sort_algorithms.bubblesort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
+import java.awt.Color;
 import java.util.Arrays;
 
 public class BubbleSort implements SortMethod {
@@ -34,6 +36,10 @@ public class BubbleSort implements SortMethod {
         return arr;
     }
 
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Red");
+    }
 
     public static void main(String[] args) {
         int[] arr = {1,2,3,4,5,6,22,2};

@@ -5,6 +5,10 @@ import miniapp.view.manoeuvre.AlgoFrame;
 
 public class DualPivotQuickFrame implements SortVisual {
 
+    @Override
+    public String getCnName() {
+        return "双轴快速排序";
+    }
 
     @Override
     public void sort(AlgoFrame frame) {

@@ -1,5 +1,7 @@
 package miniapp.sort_algorithms.quicksort;
 
+import miniapp.Enum.LineColorEnum;
+
 public class Quick1ScanSort extends QuickSort {
 
 
@@ -24,6 +26,11 @@ public class Quick1ScanSort extends QuickSort {
         }
         swap(arr,i,r);
         return i;
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Green");
     }
 
     @Override

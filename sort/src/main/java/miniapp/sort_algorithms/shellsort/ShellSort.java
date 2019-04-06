@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.shellsort;
 
+import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 import java.util.Arrays;
@@ -12,6 +13,11 @@ public class ShellSort implements SortMethod {
     @Override
     public String getCnName() {
         return "希尔排序";
+    }
+
+    @Override
+    public LineColorEnum lineColor() {
+        return LineColorEnum.valueOf("Amber");
     }
 
     /**

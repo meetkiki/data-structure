@@ -15,4 +15,9 @@ public class Quick1ScanFrame extends QuickFrame {
         frame.swap(i,r);
         return i;
     }
+
+    @Override
+    public String getCnName() {
+        return "单向扫描快速排序";
+    }
 }
