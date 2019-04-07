@@ -4,6 +4,7 @@ import miniapp.Enum.LineColorEnum;
 import miniapp.Enum.SortEnum;
 
 import java.awt.*;
+import java.util.Map;
 
 /**
  *  // 主画布
@@ -43,26 +44,14 @@ public class MyCanvas extends Canvas {
     private LineColorEnum[] lineColor;
 
     /**
-     * /缓存要显示的数组
-     */
-    private static int[] Select;
-    private static int[] Insert;
-    private static int[] Bubble;
-    private static int[] Heap;
-    private static int[] Merge;
-    private static int[] Radix;
-    private static int[] Shell;
-    private static int[] Quick;
-
-    /**
      * /排序总数组
      */
-    private static int[][] sortArray;
+    private static Map<String, long[]> sortArray;
 
     /**
      * /每次画线时的缓存数组
      */
-    private int[] tempArray;
+    private long[] tempArray;
 
     /**
      * /画线的的名称
@@ -78,16 +67,12 @@ public class MyCanvas extends Canvas {
 
         //获取画线的名称
         sortEnums = SortEnum.values();
-        //为排序数组获取数值
-//        Select = SortFile.getSelect();
-//        Insert = SortFile.getInsert();
-//        Bubble = SortFile.getBubble();
-//        Heap = SortFile.getHeap();
-//        Merge = SortFile.getMerge();
-//        Radix = SortFile.getRadix();
-//        Shell = SortFile.getShell();
-//        Quick = SortFile.getQuick();
-        sortArray = new int[][]{Select, Bubble, Quick, Shell, Insert, Heap, Radix, Merge};
+        sortArray = DoSortTask.getCacheMap();
+    }
+
+    public void paint(){
+        sortArray = DoSortTask.getCacheMap();
+        repaint();
     }
 
     /**
@@ -145,16 +130,17 @@ public class MyCanvas extends Canvas {
         // 排序算法绘制
         for (int k = 0; k < sortEnums.length; k++) {
             g.setColor(sortEnums[k].getSortMethod().lineColor().getColor());
-            if (sortArray[k] != null) {
-                tempArray = new int[sortArray[k].length];
-                tempArray = sortArray[k];
-            } else
+            if (sortArray.get(sortEnums[k].getSortMethod().methodName()) != null) {
+                long[] times = sortArray.get(sortEnums[k].getSortMethod().methodName());
+                tempArray = times;
+            } else{
                 continue;
+            }
             //绘制直线，通过循环，将所有的点连线
-            for (int i = 0; i < 20; i++) {
-                g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - tempArray[i],
-                        Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - tempArray[i + 1]);
-                if (i == 19) {
+            for (int i = 0; i < DoSortTask.abscissa - 1; i++) {
+                g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - (int)tempArray[i],
+                        Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - (int)tempArray[i + 1]);
+                if (i == (DoSortTask.abscissa - 2)) {
                     g2D.drawString(sortEnums[k].getCnName(), Origin_X + (i + 1) * LENGTH_INTERVAL + 10, Origin_Y - tempArray[i + 1]);
                 }
             }

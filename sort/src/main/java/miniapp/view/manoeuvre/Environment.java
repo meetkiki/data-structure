@@ -2,6 +2,7 @@ package miniapp.view.manoeuvre;
 
 import miniapp.abstraction.ICommand;
 
+
 /**
  * 环境角色
  * @author Tao
@@ -15,7 +16,16 @@ public class Environment {
 
     private long start = 0;
     private long end = 0;
+    public Environment(){}
     public Environment(ICommand command){
+        this.command = command;
+    }
+
+    public ICommand getCommand() {
+        return command;
+    }
+
+    public void setCommand(ICommand command) {
         this.command = command;
     }
 

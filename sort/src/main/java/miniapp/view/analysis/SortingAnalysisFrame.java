@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 
 /**
  *    选择具体的排序方法
@@ -37,6 +38,9 @@ public class SortingAnalysisFrame extends JFrame {
 
     private MiniApp miniApp;
 
+    public static final int DEFAULT_WIDTH = 1400;
+    public static final int DEFAULT_HEIGHT = 700;
+
     /**
      * /排序线的颜色
      */
@@ -44,8 +48,7 @@ public class SortingAnalysisFrame extends JFrame {
 
     //构造函数
     public SortingAnalysisFrame(MiniApp miniApp) {
-        super("排序时间复杂度：");
-        this.setBounds(0, 0, 1400, 700);
+        super("排序算法时间复杂度分析");
         this.setLayout(new BorderLayout());
         this.miniApp = miniApp;
 
@@ -56,7 +59,7 @@ public class SortingAnalysisFrame extends JFrame {
         fittingCanvas = new FittingCanvas();
         ButtonAndLine = new JPanel();
         button = new ButtonPanel();
-        line = new LinePanel();
+        line = new LinePanel(trendChartCanvas);
         this.add(trendChartCanvas, BorderLayout.CENTER);
         this.add(trendChartCanvas, BorderLayout.CENTER);
 
@@ -76,4 +79,8 @@ public class SortingAnalysisFrame extends JFrame {
         return lineColor;
     }
 
+    @Override
+    public Dimension getPreferredSize() {
+        return new Dimension(DEFAULT_WIDTH,DEFAULT_HEIGHT);
+    }
 }

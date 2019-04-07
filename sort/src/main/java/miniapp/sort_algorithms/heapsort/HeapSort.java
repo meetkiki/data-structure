@@ -13,6 +13,11 @@ public class HeapSort implements SortMethod {
         return "堆排序";
     }
 
+
+    @Override
+    public String methodName() {
+        return "HeapSort";
+    }
     /**
      * 堆排序
      *  1.构建最大堆，完成之后则顶部为则为最大值

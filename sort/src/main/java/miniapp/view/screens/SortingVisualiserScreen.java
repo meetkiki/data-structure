@@ -22,7 +22,6 @@ import miniapp.view.manoeuvre.SortFrameCommand;
  */
 public final class SortingVisualiserScreen extends Screen {
     private final AlgoFrame algoFrame;
-    private final SortData sortData;
     private final ArrayList<SortVisual> sortQueue;
     private Environment environment;
 
@@ -35,8 +34,7 @@ public final class SortingVisualiserScreen extends Screen {
     public SortingVisualiserScreen(ArrayList<SortVisual> algorithms, boolean playSounds, MiniApp app) {
         super(app);
         setLayout(new BorderLayout());
-        sortData = new SortData();
-        algoFrame = new AlgoFrame(sortData,playSounds);
+        algoFrame = new AlgoFrame(new SortData(),playSounds);
         sortQueue = algorithms;
         add(algoFrame, BorderLayout.CENTER);
     }

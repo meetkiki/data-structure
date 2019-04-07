@@ -44,6 +44,10 @@ public class BucketSort implements SortMethod {
         return arr;
     }
 
+    @Override
+    public String methodName() {
+        return "BucketSort";
+    }
 
     public static void main(String[] args) {
         int[] arr = {2,23,213,22,11,14,5};

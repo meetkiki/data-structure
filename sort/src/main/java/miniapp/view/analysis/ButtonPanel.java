@@ -14,7 +14,6 @@ class ButtonPanel extends JPanel {
     private JButton derivativeButton;
     private JButton fittingButton;
 
-    private SortingAnalysisFrame analysisFrame;
     private MyCanvas trendChartCanvas = new MyCanvas();
     private CommonCanvas commonCanvas = new CommonCanvas();
     private DerivativeCanvas derivativeCanvas = new DerivativeCanvas();

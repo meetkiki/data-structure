@@ -6,6 +6,11 @@ import miniapp.abstraction.SortMethod;
 public class QuickSort implements SortMethod {
 
     @Override
+    public String methodName() {
+        return "QuickSort";
+    }
+
+    @Override
     public String getCnName() {
         return "快速排序";
     }

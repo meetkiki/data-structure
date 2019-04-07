@@ -4,7 +4,10 @@ import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 public class SelectionSort implements SortMethod {
-
+    @Override
+    public String methodName() {
+        return "SelectionSort";
+    }
 
     @Override
     public String getCnName() {

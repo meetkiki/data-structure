@@ -24,6 +24,10 @@ public class MergeBuSort extends MergeSort {
     }
 
     @Override
+    public String methodName() {
+        return "MergeBuSort";
+    }
+    @Override
     public LineColorEnum lineColor() {
         return LineColorEnum.valueOf("Blue");
     }

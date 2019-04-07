@@ -95,7 +95,12 @@ public class MainMenuScreen extends Screen {
 
         JButton startAnalysis = new JButton("Begin Analysis Sorter");
         // 添加按钮监听
-        startAnalysis.addActionListener((ActionEvent e) -> analysisFrame = new SortingAnalysisFrame(app));
+        startAnalysis.addActionListener((ActionEvent e) -> {
+            if (analysisFrame == null) {
+                analysisFrame = new SortingAnalysisFrame(app);
+            }
+            analysisFrame.requestFocus();
+        });
         startAnalysis.setAlignmentX(Component.CENTER_ALIGNMENT);
         outerContainer.add(optionsContainer);
         outerContainer.add(Box.createRigidArea(new Dimension(5,0)));

@@ -26,16 +26,11 @@ public interface SortMethod extends Sort {
      */
     default long testSort(int n){
         int[] ints = this.randomInt(n);
-        int[] clone = ints.clone();
         long s1 = System.currentTimeMillis();
         this.sort(ints);
         long e1 = System.currentTimeMillis();
-        long s2 = System.currentTimeMillis();
-        Arrays.sort(clone);
-        long e2 = System.currentTimeMillis();
-        System.out.println("sorted is " + isSorted(ints));
-        System.out.println("this Sort is " + (e1 - s1) + "ms");
-        System.out.println("Arrays sort is " + (e2 - s2) + "ms");
+        boolean sorted = isSorted(ints);
+        System.out.println("Array sorted is " + sorted);
         return e1 - s1;
     }
 
@@ -44,5 +39,12 @@ public interface SortMethod extends Sort {
      * @return
      */
     LineColorEnum lineColor();
+
+    /**
+     * 排序方法名称
+     * @return
+     */
+    @Override
+    String methodName();
 
 }

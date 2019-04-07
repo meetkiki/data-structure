@@ -24,7 +24,7 @@ public enum SortEnum {
     /**
      * 插入排序
      */
-    InsertSort("InsertSort"),
+    InsertionSort("InsertionSort"),
     /**
      * 选择排序
      */
@@ -79,7 +79,7 @@ public enum SortEnum {
 
     static {
         Map<String,SortMethod> map = new HashMap<>(32);
-        map.put("InsertSort",           new InsertionSort());
+        map.put("InsertionSort",        new InsertionSort());
         map.put("SelectionSort",        new SelectionSort());
         map.put("BubbleSort",           new BubbleSort());
         map.put("BucketSort",           new BucketSort());

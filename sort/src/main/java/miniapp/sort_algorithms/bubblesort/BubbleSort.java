@@ -14,6 +14,11 @@ public class BubbleSort implements SortMethod {
         return "冒泡排序";
     }
 
+    @Override
+    public String methodName() {
+        return "BubbleSort";
+    }
+
     /**
      * 冒泡排序
      */

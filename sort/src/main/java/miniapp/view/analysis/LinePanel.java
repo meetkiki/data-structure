@@ -2,9 +2,14 @@ package miniapp.view.analysis;
 
 import miniapp.Enum.LineColorEnum;
 import miniapp.Enum.SortEnum;
+import miniapp.abstraction.ICommand;
+import miniapp.abstraction.SortMethod;
+import miniapp.view.manoeuvre.Environment;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -17,9 +22,12 @@ class LinePanel extends JPanel {
     private int Y_Change = 10;
     private SortEnum[] sortType;
     private LineColorEnum[] lineColor;
+    private Environment environment;
+    private MyCanvas myCanvas;
 
-    public LinePanel() {
+    public LinePanel(MyCanvas myCanvas) {
         //初始化
+        environment = new Environment();
         sortType = SortEnum.values();
         lineColor = SortingAnalysisFrame.getLineColor();
 
@@ -31,12 +39,62 @@ class LinePanel extends JPanel {
         Y_Start = this.getY() + 10;
 
         for (SortEnum sortEnum : sortType) {
-            JButton lineButton = new JButton(sortEnum.getCnName());
+            LineButton lineButton = new LineButton(sortEnum.getCnName(),sortEnum.getSortMethod());
             Color color = sortEnum.getSortMethod().lineColor().getColor();
             lineButton.setBackground(color);
             lineButton.setBorder(BorderFactory.createEmptyBorder());
             add(lineButton);
             add(new LineCanve(color));
+            lineButton.addActionListener((ActionEvent e) ->{
+                LineButton lButton  = (LineButton)e.getSource();
+                if (lButton.isRunning()){
+                    return;
+                }else {
+                    doSort(new DoSortTask(lButton.sortMethod.methodName()),myCanvas);
+                }
+            });
+        }
+    }
+
+    public void doSort(ICommand command,MyCanvas myCanvas){
+        SwingWorker<Void, Void> swingWorker = new SwingWorker<Void,Void>() {
+            @Override
+            protected Void doInBackground(){
+                environment.setCommand(command);
+                environment.invoke();
+                return null;
+            }
+            @Override
+            public void done() {
+                myCanvas.paint();
+            }
+        };
+        swingWorker.execute();
+    }
+
+    /**
+     * 右侧按钮控制排序启动
+     */
+    class LineButton extends JButton{
+        private SortMethod sortMethod;
+        private boolean running;
+
+        public LineButton(String text,SortMethod sortMethod) {
+            super(text);
+            this.sortMethod = sortMethod;
+            this.running = false;
+        }
+
+        public SortMethod getSortMethod() {
+            return sortMethod;
+        }
+
+        public boolean isRunning() {
+            return running;
+        }
+
+        public void setRunning(boolean running) {
+            this.running = running;
         }
     }
 
@@ -63,7 +121,7 @@ class LinePanel extends JPanel {
             // 轴线粗度
             g2D.setStroke(new BasicStroke(Float.parseFloat("2.0F")));
 
-            //对八种排序绘制
+            //对排序绘制
             g.setColor(color);
             //绘制直线，通过循环，将所有的点连线
             g2D.drawLine(X_Start, Y_Start, X_Start + 80, Y_Start);

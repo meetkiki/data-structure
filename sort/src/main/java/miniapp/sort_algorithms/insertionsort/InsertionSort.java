@@ -10,6 +10,11 @@ public class InsertionSort implements SortMethod {
         return "插入排序";
     }
 
+
+    @Override
+    public String methodName() {
+        return "InsertionSort";
+    }
     /**
      * 插入排序
      *  我们将数组中的数据分为两个区间，已排序区间和未排序区间。

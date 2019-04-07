@@ -11,6 +11,11 @@ public class MergeOptimizedSort extends MergeSort {
         return "优化归并排序";
     }
 
+    @Override
+    public String methodName() {
+        return "MergeOptimizedSort";
+    }
+
     /**
      * 优化接口实现
      * @param arr

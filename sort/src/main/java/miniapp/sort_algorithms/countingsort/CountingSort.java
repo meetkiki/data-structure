@@ -6,6 +6,11 @@ import miniapp.abstraction.SortMethod;
 public class CountingSort implements SortMethod {
 
     @Override
+    public String methodName() {
+        return "CountingSort";
+    }
+
+    @Override
     public String getCnName() {
         return "计数排序";
     }

@@ -22,6 +22,11 @@ public class DualPivotQuickSort implements SortMethod {
         return arr;
     }
 
+    @Override
+    public String methodName() {
+        return "DualPivotQuickSort";
+    }
+
     /**
      * 双轴快速排序
      * @param arr

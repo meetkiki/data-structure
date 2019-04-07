@@ -50,7 +50,7 @@ public class MergeSort implements SortMethod{
         // 递归终止条件
         if (l >= r) return;
         // 取 l到r中间的位置
-        int mid = (l+r)/2;
+        int mid = l  + ((r - l) / 2);
         // 分治递归
         mergesort(arr,l,mid);
         mergesort(arr,mid+1,r);
@@ -97,10 +97,19 @@ public class MergeSort implements SortMethod{
         return arr;
     }
 
+
+    @Override
+    public String methodName() {
+        return "MergeSort";
+    }
+
     public static void main(String[] args) {
-        MergeSort mergeBu = new MergeSort();
-        long sort = mergeBu.testSort(10000000);
-        System.out.println("花费时间"+sort+"ms");
+        for (int i = 0; i < 10; i++) {
+            MergeSort mergeBu = new MergeSort();
+            long sort = mergeBu.testSort(10000000);
+            System.out.println("花费时间"+sort+"ms");
+        }
+
         //花费时间1562ms 花费时间1596ms 花费时间1606ms
     }
 

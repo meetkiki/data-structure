@@ -11,6 +11,10 @@ import java.util.Arrays;
 public class ShellSort implements SortMethod {
 
     @Override
+    public String methodName() {
+        return "ShellSort";
+    }
+    @Override
     public String getCnName() {
         return "希尔排序";
     }

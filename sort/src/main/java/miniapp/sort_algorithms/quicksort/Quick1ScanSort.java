@@ -3,7 +3,10 @@ package miniapp.sort_algorithms.quicksort;
 import miniapp.Enum.LineColorEnum;
 
 public class Quick1ScanSort extends QuickSort {
-
+    @Override
+    public String methodName() {
+        return "Quick1ScanSort";
+    }
 
     /**
      * 这里的处理有点类似选择排序。我们通过游标 i 把 A[p…r-1] 分成两部分。

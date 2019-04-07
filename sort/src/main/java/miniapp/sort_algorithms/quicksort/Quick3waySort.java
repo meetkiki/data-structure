@@ -3,6 +3,10 @@ package miniapp.sort_algorithms.quicksort;
 import miniapp.Enum.LineColorEnum;
 
 public class Quick3waySort extends QuickSort {
+    @Override
+    public String methodName() {
+        return "Quick3waySort";
+    }
 
     /**
      * 三向切分快速排序
