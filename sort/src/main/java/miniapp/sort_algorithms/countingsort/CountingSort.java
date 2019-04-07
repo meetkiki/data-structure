@@ -54,7 +54,8 @@ public class CountingSort implements SortMethod {
         }
         return arr;
     }
-
+    @Override
+    public void destory() {}
 
     public static void main(String[] args) {
         CountingSort countingSort = new CountingSort();

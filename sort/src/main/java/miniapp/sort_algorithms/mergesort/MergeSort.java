@@ -12,6 +12,11 @@ public class MergeSort implements SortMethod{
 
 
     @Override
+    public void destory() {
+        auxThread.remove();
+    }
+
+    @Override
     public LineColorEnum lineColor() {
         return LineColorEnum.valueOf("Cyan");
     }

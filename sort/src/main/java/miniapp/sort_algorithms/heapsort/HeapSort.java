@@ -74,6 +74,9 @@ public class HeapSort implements SortMethod {
         return LineColorEnum.valueOf("DeepPurple");
     }
 
+    @Override
+    public void destory() {}
+
     public static void main(String[] args) {
         HeapSort heapSort = new HeapSort();
         long sort = heapSort.testSort(100000);

@@ -43,6 +43,8 @@ public class SelectionSort implements SortMethod {
         }
         return arr;
     }
+    @Override
+    public void destory() {}
 
     @Override
     public LineColorEnum lineColor() {

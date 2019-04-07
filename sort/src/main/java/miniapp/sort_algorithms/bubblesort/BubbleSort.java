@@ -42,6 +42,9 @@ public class BubbleSort implements SortMethod {
     }
 
     @Override
+    public void destory() {}
+
+    @Override
     public LineColorEnum lineColor() {
         return LineColorEnum.valueOf("Red");
     }

@@ -9,9 +9,10 @@ import miniapp.view.manoeuvre.Environment;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 右侧：画线面板
@@ -22,13 +23,18 @@ class LinePanel extends JPanel {
     private int Y_Change = 10;
     private SortEnum[] sortType;
     private LineColorEnum[] lineColor;
-    private Environment environment;
+    private Environment<Map<String, Double[]>> environment;
     private MyCanvas myCanvas;
+    private ProgressBarPanel progressPanel;
+    private Map<String,SwingWorker> workerMap;
 
-    public LinePanel(MyCanvas myCanvas) {
-        this.myCanvas = myCanvas;
+    public LinePanel(SortingAnalysisFrame frame) {
+        this.myCanvas = frame.getTrendChartCanvas();
+        this.progressPanel = frame.getProgrees();
+        this.workerMap = new ConcurrentHashMap<>();
+
         //初始化
-        this.environment = new Environment();
+        this.environment = new Environment<>();
         this.sortType = SortEnum.values();
         this.lineColor = SortingAnalysisFrame.getLineColor();
 
@@ -38,7 +44,6 @@ class LinePanel extends JPanel {
         //获取画线位置
         this.X_Start = this.getX() + 10;
         this.Y_Start = this.getY() + 10;
-
         for (SortEnum sortEnum : sortType) {
             LineButton lineButton = new LineButton(sortEnum.getCnName(),sortEnum.getSortMethod());
             Color color = sortEnum.getSortMethod().lineColor().getColor();
@@ -46,37 +51,83 @@ class LinePanel extends JPanel {
             lineButton.setBorder(BorderFactory.createEmptyBorder());
             add(lineButton);
             add(new LineCanve(color));
-            lineButton.addActionListener((ActionEvent e) ->{
-                LineButton lButton  = (LineButton)e.getSource();
-                if (lButton.isRunning()){
-                    return;
-                }else {
-                    doSort(new DoSortTask(lButton.sortMethod.methodName(),myCanvas));
+            lineButton.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent evt) {
+                    if (evt.isMetaDown()){
+                        LineButton lButton = (LineButton)evt.getSource();
+                        String name = lButton.sortMethod.methodName();
+                        // 双击取消
+                        SwingWorker worker = workerMap.get(name);
+                        if (worker != null && !worker.isDone()){
+                            worker.cancel(true);
+                            workerMap.remove(name);
+                            SortCommand.getCacheMap().remove(name);
+                            progressPanel.remove(name);
+                            myCanvas.paint();
+                        }
+                    }else if(evt.getClickCount() == 1){
+                        LineButton lButton  = (LineButton)evt.getSource();
+                        if (lButton.isRunning()){
+                            return;
+                        }else {
+                            try {
+                                String name = lButton.sortMethod.methodName();
+                                RunProgressBar addBar = progressPanel.addBar(name);
+                                if (addBar == null) {
+                                    JOptionPane.showMessageDialog(null, workerMap.get(name) != null ?
+                                            "The execution queue is full ! You can double-click to cancel the task !"
+                                            : "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
+                                    return;
+                                }
+                                workerMap.put(name,doSort(new DoSortTask(name, frame), lButton));
+                            } catch (Exception e1) {
+                                e1.printStackTrace();
+                            }
+                        }
+                    }
                 }
             });
         }
     }
 
-    public void doSort(ICommand command){
-        SwingWorker<Void, Void> swingWorker = new SwingWorker<Void,Void>() {
+    /**
+     * 线程安全的执行方法
+     * @param command
+     * @param lineButton
+     */
+    private SwingWorker doSort(ICommand command,LineButton lineButton){
+        SwingWorker<Map, Void> swingWorker = new SwingWorker<Map,Void>() {
             @Override
-            protected Void doInBackground(){
+            protected Map doInBackground(){
+                lineButton.setRunning(true);
                 environment.setCommand(command);
-                environment.invoke();
-                return null;
+                return environment.invoke();
             }
+
             @Override
             public void done() {
-                myCanvas.paint();
+                try {
+                    String name = lineButton.sortMethod.methodName();
+                    Double[] times = SortCommand.getCacheMap().get(name);
+                    progressPanel.updateBar(name,times == null ? new Double[1] : times);
+                    lineButton.setRunning(false);
+                    progressPanel.remove(name);
+                    workerMap.remove(name);
+                    myCanvas.paint();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         };
         swingWorker.execute();
+        return swingWorker;
     }
 
     /**
      * 右侧按钮控制排序启动
      */
-    class LineButton extends JButton{
+    private class LineButton extends JButton{
         private SortMethod sortMethod;
         private boolean running;
 

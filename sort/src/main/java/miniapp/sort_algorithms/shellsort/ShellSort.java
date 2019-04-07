@@ -11,6 +11,9 @@ import java.util.Arrays;
 public class ShellSort implements SortMethod {
 
     @Override
+    public void destory() {}
+
+    @Override
     public String methodName() {
         return "ShellSort";
     }

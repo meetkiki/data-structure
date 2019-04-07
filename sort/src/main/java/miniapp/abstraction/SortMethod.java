@@ -47,4 +47,9 @@ public interface SortMethod extends Sort {
     @Override
     String methodName();
 
+    /**
+     * 销毁方法
+     */
+    void destory();
+
 }

@@ -49,6 +49,9 @@ public class BucketSort implements SortMethod {
         return "BucketSort";
     }
 
+    @Override
+    public void destory() {}
+
     public static void main(String[] args) {
         int[] arr = {2,23,213,22,11,14,5};
         System.out.println(Arrays.toString(new BucketSort().sort(arr)));

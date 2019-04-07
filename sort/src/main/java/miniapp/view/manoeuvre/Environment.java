@@ -7,17 +7,17 @@ import miniapp.abstraction.ICommand;
  * 环境角色
  * @author Tao
  */
-public class Environment {
+public class Environment<T> {
 
     /**
      * 维护一个目标对象
      */
-    private ICommand command;
+    private ICommand<T> command;
 
     private long start = 0;
     private long end = 0;
     public Environment(){}
-    public Environment(ICommand command){
+    public Environment(ICommand<T> command){
         this.command = command;
     }
 
@@ -25,7 +25,7 @@ public class Environment {
         return command;
     }
 
-    public void setCommand(ICommand command) {
+    public void setCommand(ICommand<T> command) {
         this.command = command;
     }
 
@@ -37,12 +37,13 @@ public class Environment {
     /**
      * 执行排序方法
      */
-    public void invoke(){
+    public T invoke(){
         // 初始化
         init();
         start = System.currentTimeMillis();
-        command.Execute();
+        T execute = command.Execute();
         end = System.currentTimeMillis();
+        return execute;
     }
 
     /**

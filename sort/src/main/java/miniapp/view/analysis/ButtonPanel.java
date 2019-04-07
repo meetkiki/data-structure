@@ -14,11 +14,6 @@ class ButtonPanel extends JPanel {
     private JButton derivativeButton;
     private JButton fittingButton;
 
-    private MyCanvas trendChartCanvas = new MyCanvas();
-    private CommonCanvas commonCanvas = new CommonCanvas();
-    private DerivativeCanvas derivativeCanvas = new DerivativeCanvas();
-    private FittingCanvas fittingCanvas = new FittingCanvas();
-
     public ButtonPanel() {
 
         commonButton = new JButton("普通曲线");
@@ -36,7 +31,7 @@ class ButtonPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //打开普通画布
-                System.out.println("hello");
+
             }
         });
 
@@ -45,7 +40,7 @@ class ButtonPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //打开导数画布
-                new DerivativeCanvas();
+                //new DerivativeCanvas();
             }
         });
         add(fittingButton);
@@ -53,7 +48,7 @@ class ButtonPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //打开拟合画布
-                new FittingCanvas();
+                //new FittingCanvas();
             }
         });
     }

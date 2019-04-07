@@ -99,6 +99,7 @@ public class MainMenuScreen extends Screen {
             if (analysisFrame == null) {
                 analysisFrame = new SortingAnalysisFrame(app);
             }
+            analysisFrame.setVisible(true);
             analysisFrame.requestFocus();
         });
         startAnalysis.setAlignmentX(Component.CENTER_ALIGNMENT);

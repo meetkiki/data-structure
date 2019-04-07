@@ -4,7 +4,6 @@ import miniapp.Enum.LineColorEnum;
 
 public class MergeBuSort extends MergeSort {
 
-
     /**
      * 自底而上的归并模式
      *  循序渐进的解决问题

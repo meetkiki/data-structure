@@ -35,10 +35,16 @@ public class UnequalConversion {
                     (res.length() > 3) ? format.format(re / 1000) + " s" : format.format(re) + " ms";
     }
 
-
+    /**
+     * 求对数方法
+     * @param value
+     * @param base
+     * @return
+     */
     public static double log(double value, double base){
         return Math.log(value) / Math.log(base);
     }
+
 
 
 

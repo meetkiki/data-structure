@@ -6,6 +6,9 @@ import miniapp.abstraction.SortMethod;
 public class InsertionSort implements SortMethod {
 
     @Override
+    public void destory() {}
+
+    @Override
     public String getCnName() {
         return "插入排序";
     }

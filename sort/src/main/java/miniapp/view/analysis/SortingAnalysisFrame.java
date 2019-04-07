@@ -29,12 +29,14 @@ public class SortingAnalysisFrame extends JFrame {
     private DerivativeCanvas derivativeCanvas;
     private FittingCanvas fittingCanvas;
 
+    private JPanel centerPanel;
     /**
      * 辅助栏面板
      */
     private LinePanel line;
     private ButtonPanel button;
     private JPanel ButtonAndLine;
+    private ProgressBarPanel progrees;
 
     private MiniApp miniApp;
 
@@ -52,16 +54,20 @@ public class SortingAnalysisFrame extends JFrame {
         this.setLayout(new BorderLayout());
         this.miniApp = miniApp;
 
+        centerPanel = new JPanel();
         //添加主画布到中心
-        trendChartCanvas = new MyCanvas();
+        trendChartCanvas = new MyCanvas(this);
         commonCanvas = new CommonCanvas();
         derivativeCanvas = new DerivativeCanvas();
         fittingCanvas = new FittingCanvas();
         ButtonAndLine = new JPanel();
+        progrees = new ProgressBarPanel();
         button = new ButtonPanel();
-        line = new LinePanel(trendChartCanvas);
-        this.add(trendChartCanvas, BorderLayout.CENTER);
-        this.add(trendChartCanvas, BorderLayout.CENTER);
+        line = new LinePanel(this);
+        centerPanel.setLayout(new BorderLayout(0, 10));
+        centerPanel.add(trendChartCanvas, BorderLayout.CENTER);
+        centerPanel.add(progrees, BorderLayout.SOUTH);
+        this.add(centerPanel, BorderLayout.CENTER);
 
         //边侧辅助面板
         ButtonAndLine.setBorder(BorderFactory.createLineBorder(Color.RED));
@@ -73,6 +79,14 @@ public class SortingAnalysisFrame extends JFrame {
         this.setVisible(true);
         this.setResizable(false);
         pack();
+    }
+
+    public ProgressBarPanel getProgrees() {
+        return progrees;
+    }
+
+    public MyCanvas getTrendChartCanvas() {
+        return trendChartCanvas;
     }
 
     //获取线的颜色

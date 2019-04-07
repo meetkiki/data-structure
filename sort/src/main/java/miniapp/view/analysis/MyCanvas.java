@@ -48,32 +48,33 @@ public class MyCanvas extends Canvas {
     /**
      * 排序总数组
      */
-    private static Map<String, double[]> sortArray;
+    private static Map<String, Double[]> sortArray;
 
     /**
      * /每次画线时的缓存数组
      */
-    private double[] tempArray;
+    private Double[] tempArray;
 
     /**
      * /画线的的名称
      */
     private SortEnum[] sortEnums;
 
-    /**
-     * /获取每个排序的时间（原单位：毫秒）
-     */
-    public MyCanvas() {
-        //获取画线颜色
-        lineColor = SortingAnalysisFrame.getLineColor();
+    private SortingAnalysisFrame sortingAnalysisFrame;
 
+
+    public MyCanvas(SortingAnalysisFrame sortingAnalysisFrame) {
+        //获取画线颜色
+        this.sortingAnalysisFrame = sortingAnalysisFrame;
+        this.lineColor = SortingAnalysisFrame.getLineColor();
         //获取画线的名称
-        sortEnums = SortEnum.values();
+        this.sortEnums = SortEnum.values();
         sortArray = DoSortTask.getCacheMap();
     }
 
     public void paint(){
         sortArray = DoSortTask.getCacheMap();
+        sortingAnalysisFrame.getProgrees().updateBar(sortArray);
         repaint();
     }
 
@@ -84,8 +85,7 @@ public class MyCanvas extends Canvas {
     public void paint(Graphics g) {
         Graphics2D g2D = (Graphics2D) g;
         //定义颜色
-        Color c = new Color(200, 70, 0);
-        g.setColor(c);
+        g.setColor(Color.red);
         //绘图提示-消除锯齿
         g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         // 画坐标轴 // 轴线粗度
@@ -104,13 +104,16 @@ public class MyCanvas extends Canvas {
         g.setColor(Color.BLUE);
         g2D.setStroke(new BasicStroke(Float.parseFloat("1.0f")));
         // X轴刻度依次变化情况
-        for (int i = Origin_X, j = 0; j <= 1000; i += LENGTH_INTERVAL, j += 50) {
+        int last = 0;
+        for (int i = Origin_X, j = 0; j <= 1000; last = i += LENGTH_INTERVAL, j += 50) {
             g.drawString(" " + j, i - 10, Origin_Y + 20);
         }
+        // 最后一次10000w
+        g.drawString(10000+" ", last - 5, Origin_Y + 20);
         g.drawString("数组大小/万", XAxis_X - 20, XAxis_Y + 20);
         // 画Y轴上时间刻度（从坐标原点起，每隔10像素画一格，到1000止）
         for (int i = Origin_Y, j = 0; j <= NUM_INTERVAL; i -= TIME_INTERVAL, j += 1) {
-            g.drawString( UnequalConversion.conversionTo(j), Origin_X - 60, i + 3);
+            g.drawString(UnequalConversion.conversionTo(j), Origin_X - 60, i + 3);
         }
         // 时间刻度小箭头值
         g.drawString("时间/ms", YAxis_X - 5, YAxis_Y - 15);
@@ -125,7 +128,7 @@ public class MyCanvas extends Canvas {
             g.drawLine(i, Origin_Y, i, YAxis_Y);
         }
 
-        g.setColor(c);
+        g.setColor(Color.red);
         // 轴线粗度
         g2D.setStroke(new BasicStroke(Float.parseFloat("2.0F")));
 
@@ -133,13 +136,18 @@ public class MyCanvas extends Canvas {
         for (int k = 0; k < sortEnums.length; k++) {
             g.setColor(sortEnums[k].getSortMethod().lineColor().getColor());
             if (sortArray.get(sortEnums[k].getSortMethod().methodName()) != null) {
-                double[] times = sortArray.get(sortEnums[k].getSortMethod().methodName());
+                Double[] times = sortArray.get(sortEnums[k].getSortMethod().methodName());
                 tempArray = times;
             } else{
                 continue;
             }
             //绘制直线，通过循环，将所有的点连线
             for (int i = 0; i < DoSortTask.abscissa - 1; i++) {
+                // 排除空数组情况
+                boolean zero = tempArray[i + 1] == null || tempArray[i] == null;
+                if (zero){
+                    continue;
+                }
                 g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i]) * NUM_INTERVAL),
                         Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i + 1]) * NUM_INTERVAL));
                 if (i == (DoSortTask.abscissa - 2)) {

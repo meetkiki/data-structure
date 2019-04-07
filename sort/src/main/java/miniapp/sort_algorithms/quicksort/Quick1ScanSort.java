@@ -30,6 +30,8 @@ public class Quick1ScanSort extends QuickSort {
         swap(arr,i,r);
         return i;
     }
+    @Override
+    public void destory() {}
 
     @Override
     public LineColorEnum lineColor() {

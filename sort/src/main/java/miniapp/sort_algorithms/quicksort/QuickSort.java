@@ -83,6 +83,9 @@ public class QuickSort implements SortMethod {
     }
 
     @Override
+    public void destory() {}
+
+    @Override
     public LineColorEnum lineColor() {
         return LineColorEnum.valueOf("DeepOrange");
     }

@@ -71,6 +71,8 @@ public class DualPivotQuickSort implements SortMethod {
         dualPivotQuickSort(arr,j + 1,r);
     }
 
+    @Override
+    public void destory() {}
 
 
     public static void main(String[] args) {
