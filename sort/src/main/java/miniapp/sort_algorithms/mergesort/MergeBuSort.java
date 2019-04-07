@@ -4,6 +4,7 @@ import miniapp.Enum.LineColorEnum;
 
 public class MergeBuSort extends MergeSort {
 
+
     /**
      * 自底而上的归并模式
      *  循序渐进的解决问题
@@ -13,7 +14,7 @@ public class MergeBuSort extends MergeSort {
     @Override
     public int[] sort(int[] arr) {
         int n = arr.length;
-        aux = new int[n];
+        auxThread.set(new int[n]);
         // i为子数组的大小
         for (int i = 1; i < n; i = i<<1)
             // j为子数组的索引

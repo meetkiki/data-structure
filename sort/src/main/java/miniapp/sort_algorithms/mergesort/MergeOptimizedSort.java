@@ -24,8 +24,8 @@ public class MergeOptimizedSort extends MergeSort {
     @Override
     public int[] sort(int[] arr) {
         int length = arr.length,l = 0,r = length - 1;
-        aux = arr.clone();
-        mergesort(arr,aux,l,r);
+        auxThread.set(arr.clone());
+        mergesort(arr,auxThread.get(),l,r);
         return arr;
     }
 

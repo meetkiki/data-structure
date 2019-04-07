@@ -3,8 +3,8 @@ package miniapp.abstraction;
 /**
  * 命令模式
  */
-public interface ICommand {
+public interface ICommand<T> {
 
-    void Execute();
+    T Execute();
 
 }

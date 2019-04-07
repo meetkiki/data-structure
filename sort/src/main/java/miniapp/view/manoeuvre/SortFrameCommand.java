@@ -7,7 +7,7 @@ import miniapp.abstraction.Sort;
  * 排序渲染命令
  * @author Tao
  */
-public class SortFrameCommand implements ICommand {
+public class SortFrameCommand<T> implements ICommand<T> {
 
     private Sort target;
     private AlgoFrame frame;
@@ -19,12 +19,13 @@ public class SortFrameCommand implements ICommand {
     }
 
     @Override
-    public void Execute() {
+    public T Execute() {
         // 初始化区间
         frame.initOrdereds();
         target.sort(frame);
         // 排序空间
         frame.finish();
         frame.updateOrdereds(frame.length());
+        return null;
     }
 }

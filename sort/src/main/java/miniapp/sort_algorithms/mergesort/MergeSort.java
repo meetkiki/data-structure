@@ -17,8 +17,9 @@ public class MergeSort implements SortMethod{
     }
     /**
      * 临时数组
+     *  线程不安全的用ThreadLocal
      */
-    protected static int[] aux;
+    protected ThreadLocal<int[]> auxThread = new ThreadLocal<>();
 
     /**
      * 归并排序
@@ -35,7 +36,7 @@ public class MergeSort implements SortMethod{
     @Override
     public int[] sort(int[] arr){
         int length = arr.length,l = 0,r = length - 1;
-        aux = new int[length];
+        auxThread.set(new int[length]);
         mergesort(arr,l,r);
         return arr;
     }
@@ -62,15 +63,16 @@ public class MergeSort implements SortMethod{
      * 合并方法
      * @param arr
      * @param l
-     * @param q
+     * @param mid
      * @param r
      */
-    protected void merge(int[] arr, int l,int q, int r) {
+    protected void merge(int[] arr, int l,int mid, int r) {
+        int[] aux = auxThread.get();
         // 将l r复制到aux临时数组
         for (int k = l; k <= r; k++) {
             aux[k] = arr[k];
         }
-        fastMerge(arr,aux,l,q,r);
+        fastMerge(arr,aux,l,mid,r);
     }
 
     /**
@@ -78,16 +80,16 @@ public class MergeSort implements SortMethod{
      * @param arr 目标数组
      * @param aux 临时数组
      * @param l   左指针
-     * @param q   右指针
-     * @param r   中指针
+     * @param mid 中指针
+     * @param r   右指针
      * @return
      */
-    protected int[] fastMerge(int[] arr,int[] aux, int l,int q, int r){
-        int i = l,j = q + 1;
+    protected int[] fastMerge(int[] arr,int[] aux, int l,int mid, int r){
+        int i = l,j = mid + 1;
         // 合并排序 如果左半边取尽 取右边数组 如果右半边取尽 取左边数组
         for (int k = l; k <= r; k++) {
             // 如果左边取尽 取右边
-            if (i > q) arr[k] = aux[j++];
+            if (i > mid) arr[k] = aux[j++];
                 // 如果右边取尽 取左边
             else if (j > r) arr[k] = aux[i++];
                 // 合并方法 哪边小先进
@@ -104,12 +106,9 @@ public class MergeSort implements SortMethod{
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            MergeSort mergeBu = new MergeSort();
-            long sort = mergeBu.testSort(10000000);
-            System.out.println("花费时间"+sort+"ms");
-        }
-
+        MergeSort mergeBu = new MergeSort();
+        long sort = mergeBu.testSort(10000000);
+        System.out.println("花费时间"+sort+"ms");
         //花费时间1562ms 花费时间1596ms 花费时间1606ms
     }
 

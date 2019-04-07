@@ -71,6 +71,7 @@ public class SortingAnalysisFrame extends JFrame {
         this.add(ButtonAndLine, BorderLayout.EAST);
 
         this.setVisible(true);
+        this.setResizable(false);
         pack();
     }
 

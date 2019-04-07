@@ -26,17 +26,18 @@ class LinePanel extends JPanel {
     private MyCanvas myCanvas;
 
     public LinePanel(MyCanvas myCanvas) {
+        this.myCanvas = myCanvas;
         //初始化
-        environment = new Environment();
-        sortType = SortEnum.values();
-        lineColor = SortingAnalysisFrame.getLineColor();
+        this.environment = new Environment();
+        this.sortType = SortEnum.values();
+        this.lineColor = SortingAnalysisFrame.getLineColor();
 
         setBorder(BorderFactory.createEtchedBorder());
         setLayout(new GridLayout(16, 1, 0, 10));
 
         //获取画线位置
-        X_Start = this.getX() + 10;
-        Y_Start = this.getY() + 10;
+        this.X_Start = this.getX() + 10;
+        this.Y_Start = this.getY() + 10;
 
         for (SortEnum sortEnum : sortType) {
             LineButton lineButton = new LineButton(sortEnum.getCnName(),sortEnum.getSortMethod());
@@ -50,13 +51,13 @@ class LinePanel extends JPanel {
                 if (lButton.isRunning()){
                     return;
                 }else {
-                    doSort(new DoSortTask(lButton.sortMethod.methodName()),myCanvas);
+                    doSort(new DoSortTask(lButton.sortMethod.methodName(),myCanvas));
                 }
             });
         }
     }
 
-    public void doSort(ICommand command,MyCanvas myCanvas){
+    public void doSort(ICommand command){
         SwingWorker<Void, Void> swingWorker = new SwingWorker<Void,Void>() {
             @Override
             protected Void doInBackground(){

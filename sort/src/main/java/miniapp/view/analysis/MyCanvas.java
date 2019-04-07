@@ -2,6 +2,7 @@ package miniapp.view.analysis;
 
 import miniapp.Enum.LineColorEnum;
 import miniapp.Enum.SortEnum;
+import miniapp.utils.UnequalConversion;
 
 import java.awt.*;
 import java.util.Map;
@@ -40,18 +41,19 @@ public class MyCanvas extends Canvas {
      */
     private final int LENGTH_INTERVAL = 40;
     private final int TIME_INTERVAL = 20;
+    private final int NUM_INTERVAL = FREAME_HEIGHT / TIME_INTERVAL;
 
     private LineColorEnum[] lineColor;
 
     /**
-     * /排序总数组
+     * 排序总数组
      */
-    private static Map<String, long[]> sortArray;
+    private static Map<String, double[]> sortArray;
 
     /**
      * /每次画线时的缓存数组
      */
-    private long[] tempArray;
+    private double[] tempArray;
 
     /**
      * /画线的的名称
@@ -102,16 +104,16 @@ public class MyCanvas extends Canvas {
         g.setColor(Color.BLUE);
         g2D.setStroke(new BasicStroke(Float.parseFloat("1.0f")));
         // X轴刻度依次变化情况
-        for (int i = Origin_X, j = 0; j <= 100; i += LENGTH_INTERVAL, j += 5) {
+        for (int i = Origin_X, j = 0; j <= 1000; i += LENGTH_INTERVAL, j += 50) {
             g.drawString(" " + j, i - 10, Origin_Y + 20);
         }
         g.drawString("数组大小/万", XAxis_X - 20, XAxis_Y + 20);
         // 画Y轴上时间刻度（从坐标原点起，每隔10像素画一格，到1000止）
-        for (int i = Origin_Y, j = 0; j <= 500; i -= TIME_INTERVAL, j += TIME_INTERVAL) {
-            g.drawString(j + " ", Origin_X - 30, i + 3);
+        for (int i = Origin_Y, j = 0; j <= NUM_INTERVAL; i -= TIME_INTERVAL, j += 1) {
+            g.drawString( UnequalConversion.conversionTo(j), Origin_X - 60, i + 3);
         }
         // 时间刻度小箭头值
-        g.drawString("时间/秒", YAxis_X - 5, YAxis_Y - 15);
+        g.drawString("时间/ms", YAxis_X - 5, YAxis_Y - 15);
         // 画网格线
         g.setColor(Color.LIGHT_GRAY);
         // 坐标内部横线
@@ -131,17 +133,18 @@ public class MyCanvas extends Canvas {
         for (int k = 0; k < sortEnums.length; k++) {
             g.setColor(sortEnums[k].getSortMethod().lineColor().getColor());
             if (sortArray.get(sortEnums[k].getSortMethod().methodName()) != null) {
-                long[] times = sortArray.get(sortEnums[k].getSortMethod().methodName());
+                double[] times = sortArray.get(sortEnums[k].getSortMethod().methodName());
                 tempArray = times;
             } else{
                 continue;
             }
             //绘制直线，通过循环，将所有的点连线
             for (int i = 0; i < DoSortTask.abscissa - 1; i++) {
-                g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - (int)tempArray[i],
-                        Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - (int)tempArray[i + 1]);
+                g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i]) * NUM_INTERVAL),
+                        Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i + 1]) * NUM_INTERVAL));
                 if (i == (DoSortTask.abscissa - 2)) {
-                    g2D.drawString(sortEnums[k].getCnName(), Origin_X + (i + 1) * LENGTH_INTERVAL + 10, Origin_Y - tempArray[i + 1]);
+                    g2D.setFont(new Font("黑体", Font.BOLD, 16));
+                    g2D.drawString(sortEnums[k].getCnName(), Origin_X + (i + 1) * LENGTH_INTERVAL + 10, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i + 1]) * NUM_INTERVAL));
                 }
             }
         }

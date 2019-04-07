@@ -13,41 +13,43 @@ import java.util.concurrent.RecursiveTask;
 /**
  * @author Tao
  */
-public class DoSortTask extends RecursiveTask implements ICommand {
+public class DoSortTask<T> extends RecursiveTask implements ICommand<T> {
 
     public static final int abscissa = 21;
-    public static final int increment = 50000;
+    public static final int increment = 500000;
 
     /**每个doSort对象对应的排序方式*/
     private SortMethod sortMethod;
     private Integer bounds;
+    private MyCanvas myCanvas;
 
-    public DoSortTask(){}
-    public DoSortTask(String sortType){
-        this(sortType,null);
+    public DoSortTask(String sortType,MyCanvas myCanvas){
+        this(sortType,myCanvas,null);
     }
 
-    public DoSortTask(String sortType, Integer bounds) {
+    public DoSortTask(String sortType,MyCanvas myCanvas, Integer bounds) {
         this.sortMethod = SortEnum.valueOf(sortType).getSortMethod();
         this.bounds = bounds;
+        this.myCanvas = myCanvas;
     }
 
     private static final ForkJoinPool forkJoinPool = new ForkJoinPool();
 
     @Override
-    public void Execute() {
+    public T Execute() {
         try {
-            forkJoinPool.submit(this).get();
+            return (T)forkJoinPool.submit(this).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return (T)getCacheMap();
     }
 
     @Override
     protected Object compute() {
         List<SortAnalysisTask> analysisTasks = new ArrayList<>();
         // 数组初始长度
-        int length = increment;
+        int length = 0;
         for (int i = 0; i < abscissa; i++,length += increment) {
             // 重新定义数组长度
             int[] array = sortMethod.randomInt(length,bounds == null ? length : bounds);
@@ -55,13 +57,12 @@ public class DoSortTask extends RecursiveTask implements ICommand {
             analysisTasks.add(new SortAnalysisTask(new SortCommand(sortMethod, array)));
         }
         invokeAll(analysisTasks);
-        for (SortAnalysisTask task : analysisTasks) {
-            task.join();
-        }
+        analysisTasks.forEach((a) -> a.join());
+        analysisTasks.clear();
         return SortCommand.getCacheMap();
     }
 
-    public static ConcurrentHashMap<String, long[]> getCacheMap() {
+    public static ConcurrentHashMap<String, double[]> getCacheMap() {
         return SortCommand.getCacheMap();
     }
 }
