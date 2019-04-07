@@ -44,7 +44,7 @@ public class DoSortTask extends RecursiveAction implements ICommand {
         this.myCanvas = frame.getTrendChartCanvas();
     }
 
-    private static final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    private static final ForkJoinPool forkJoinPool = new ForkJoinPool(ProgressBarPanel.QueueSize);
 
     @Override
     public Void Execute() {
@@ -73,10 +73,10 @@ public class DoSortTask extends RecursiveAction implements ICommand {
     }
 
     public static Void cancel(){
-        boolean terminated = forkJoinPool.isTerminated();
-        if (!terminated){
-            forkJoinPool.shutdownNow();
-        }
+//        boolean terminated = forkJoinPool.isTerminated();
+//        if (!terminated){
+//            forkJoinPool.shutdown();
+//        }
         return null;
     }
 

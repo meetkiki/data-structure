@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ProgressBarPanel extends JPanel {
 
     private Map<String,RunProgressBar> barList;
-    private static final int QueueSize = 3;
+    public static final int QueueSize = 3;
     private static final int Height = 80;
 
     public ProgressBarPanel() {
@@ -92,5 +92,7 @@ public class ProgressBarPanel extends JPanel {
         return barList.size();
     }
 
-
+    public boolean isFull(){
+        return barList.size() >= QueueSize;
+    }
 }

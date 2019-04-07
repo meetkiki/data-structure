@@ -27,11 +27,13 @@ class LinePanel extends JPanel {
     private MyCanvas myCanvas;
     private ProgressBarPanel progressPanel;
     private Map<String,SwingWorker> workerMap;
+    private ConcurrentHashMap<String, Double[]> cacheMap;
 
     public LinePanel(SortingAnalysisFrame frame) {
         this.myCanvas = frame.getTrendChartCanvas();
         this.progressPanel = frame.getProgrees();
         this.workerMap = new ConcurrentHashMap<>();
+        this.cacheMap = SortCommand.getCacheMap();
 
         //初始化
         this.environment = new Environment<>();
@@ -55,29 +57,27 @@ class LinePanel extends JPanel {
                 @Override
                 public void mouseClicked(MouseEvent evt) {
                     if (evt.isMetaDown()){
-                        LineButton lButton = (LineButton)evt.getSource();
-                        String name = lButton.sortMethod.methodName();
-                        // 双击取消
-                        SwingWorker worker = workerMap.get(name);
-                        if (worker != null && !worker.isDone()){
-                            worker.cancel(true);
-                            workerMap.remove(name);
-                            SortCommand.getCacheMap().remove(name);
-                            DoSortTask.cancel();
-                            progressPanel.remove(name);
-                            myCanvas.paint();
-                        }
+//                        LineButton lButton = (LineButton)evt.getSource();
+//                        String name = lButton.sortMethod.methodName();
+                        // 右击隐藏
+//                        SwingWorker worker = workerMap.get(name);
+//                        if (worker != null && !worker.isDone()){
+//                            cacheMap.remove(name);
+//                            DoSortTask.cancel();
+//                            myCanvas.paint();
+//                        }
                     }else if(evt.getClickCount() == 1){
                         LineButton lButton  = (LineButton)evt.getSource();
                         if (lButton.isRunning()){
+                            JOptionPane.showMessageDialog(null,"The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
                             return;
                         }else {
                             try {
                                 String name = lButton.sortMethod.methodName();
                                 RunProgressBar addBar = progressPanel.addBar(name);
                                 if (addBar == null) {
-                                    JOptionPane.showMessageDialog(null, workerMap.get(name) != null ?
-                                            "The execution queue is full ! You can double-click to cancel the task !"
+                                    JOptionPane.showMessageDialog(null, progressPanel.isFull() ?
+                                            "The execution queue is full ! "
                                             : "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
                                     return;
                                 }
