@@ -54,9 +54,7 @@ public class ProgressBarPanel extends JPanel {
     public void updateBar(String name,Double[] times){
         RunProgressBar bar = barList.get(name);
         if (bar == null) {
-            if ((bar = addBar(name,times)) == null){
-                return;
-            }
+            return;
         }
         int value = bar.setTimes(times);
         // 移除100%

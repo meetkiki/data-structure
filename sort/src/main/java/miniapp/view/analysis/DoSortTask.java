@@ -72,6 +72,14 @@ public class DoSortTask extends RecursiveAction implements ICommand {
         analysisTasks.clear();
     }
 
+    public static Void cancel(){
+        boolean terminated = forkJoinPool.isTerminated();
+        if (!terminated){
+            forkJoinPool.shutdownNow();
+        }
+        return null;
+    }
+
     public static ConcurrentHashMap<String, Double[]> getCacheMap() {
         return SortCommand.getCacheMap();
     }

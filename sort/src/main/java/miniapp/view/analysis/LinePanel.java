@@ -63,6 +63,7 @@ class LinePanel extends JPanel {
                             worker.cancel(true);
                             workerMap.remove(name);
                             SortCommand.getCacheMap().remove(name);
+                            DoSortTask.cancel();
                             progressPanel.remove(name);
                             myCanvas.paint();
                         }
