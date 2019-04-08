@@ -13,8 +13,6 @@ import java.awt.GridLayout;
  */
 public class RunProgressBar extends JPanel {
 
-    public static final int Hundred = 100;
-
     private JLabel runing;
     private InnerProgressBar rProgressBar;
 
@@ -44,10 +42,6 @@ public class RunProgressBar extends JPanel {
 
         public InnerProgressBar(Double[] times) {
             this.times = times;
-        }
-
-        public Double[] getTimes() {
-            return times;
         }
 
         public void setTimes(Double[] times) {

@@ -1,5 +1,7 @@
 package miniapp.view.analysis;
 
+import miniapp.Enum.Constant;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -16,7 +18,7 @@ public class ProgressBarPanel extends JPanel {
 
     private Map<String,RunProgressBar> barList;
     public static final int QueueSize = 3;
-    private static final int Height = 80;
+    private static final int Height = 100;
 
     public ProgressBarPanel() {
         this.barList = new ConcurrentHashMap<>();
@@ -28,7 +30,7 @@ public class ProgressBarPanel extends JPanel {
      * @param name
      */
     public RunProgressBar addBar(String name){
-        return this.addBar(name,new Double[1]);
+        return this.addBar(name,new Double[DoSortTask.abscissa]);
     }
 
     /**
@@ -36,7 +38,7 @@ public class ProgressBarPanel extends JPanel {
      * @param name
      */
     public RunProgressBar addBar(String name,Double[] times){
-        if (barSize() >= QueueSize || barList.containsKey(name)){
+        if (barSize() >= QueueSize || isRunning(name)){
             return null;
         }
         RunProgressBar progressBar = new RunProgressBar(name,times);
@@ -58,7 +60,7 @@ public class ProgressBarPanel extends JPanel {
         }
         int value = bar.setTimes(times);
         // 移除100%
-        if (value >= RunProgressBar.Hundred){
+        if (value >= Constant.Hundred){
             this.remove(name);
         }
         this.revalidate();
@@ -81,6 +83,15 @@ public class ProgressBarPanel extends JPanel {
         this.remove(run);
         this.repaint();
         this.revalidate();
+    }
+
+    /**
+     * 判断排序算法是否正在执行
+     * @param name
+     * @return
+     */
+    public boolean isRunning(String name){
+        return barList.get(name) != null;
     }
 
     @Override

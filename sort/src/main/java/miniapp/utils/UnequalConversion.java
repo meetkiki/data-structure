@@ -45,14 +45,25 @@ public class UnequalConversion {
         return Math.log(value) / Math.log(base);
     }
 
-
+    /**
+     * 获取边界数
+     * @param length
+     * @param multiplicity
+     * @return
+     */
+    public static int getBounds(int length,double multiplicity){
+        if (multiplicity == 1.0) return 1;
+        if (multiplicity == 0.0) return Integer.MAX_VALUE;
+        double bounds = (length + 0.00) * (1 - multiplicity);
+        return (int)bounds;
+    }
 
 
     public static void main(String[] args) {
-        double v = conversionLoad(0.108) * 25.0;
+        double v = conversionLoad(35271.0);
         System.out.println(v);
 
-        String ss = conversionTo(2);
+        String ss = conversionTo(35271.0);
         System.out.println(ss);
     }
 }

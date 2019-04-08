@@ -15,14 +15,14 @@ public class MiniApp {
 
     private final JFrame window;
 
-    public static final int WIN_WIDTH = 1280;
-    public static final int WIN_HEIGHT = 868;
+    public static final int WIN_WIDTH = 1360;
+    public static final int WIN_HEIGHT = 768;
     private final ArrayList<Screen> screens;
 
 
     public MiniApp() {
         screens = new ArrayList<>();
-        window = new JFrame ("算法分析 及图形化演示");
+        window = new JFrame ("Algorithm analysis and graphical demonstration");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
         window.pack();

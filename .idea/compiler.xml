@@ -20,8 +20,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8">
-      <module name="hashtable" target="1.5" />
-      <module name="leet-code" target="1.5" />
+      <module name="hashtable" target="8" />
     </bytecodeTargetLevel>
   </component>
 </project>

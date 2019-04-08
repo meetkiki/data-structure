@@ -10,4 +10,10 @@ public class Constant {
      */
     public static final int INSERTSIZE = 47;
 
+
+    /**
+     * 百
+     */
+    public static final int Hundred = 100;
+
 }

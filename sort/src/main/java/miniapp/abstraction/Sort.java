@@ -149,7 +149,7 @@ public interface Sort {
      */
     default int[] insertSort(int[] arr,int l,int r){
         for (int i = l,j = i; i < r; j = ++i) {
-            int temp = arr[i];
+            int temp = arr[i + 1];
             while (temp < arr[j]){
                 // 选取temp放在该放的位置上 这里是temp小于arr[j]时将arr[j]右移
                 arr[j + 1] = arr[j];

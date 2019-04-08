@@ -4,6 +4,11 @@ import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
+import java.util.Arrays;
+
+/**
+ * @author Tao
+ */
 public class DualPivotQuickSort implements SortMethod {
 
     @Override
@@ -34,7 +39,7 @@ public class DualPivotQuickSort implements SortMethod {
      * @param r
      */
     private void dualPivotQuickSort(int[] arr, int l, int r) {
-        if (r - l < Constant.INSERTSIZE) {
+        if (r - l < 1) {
             insertSort(arr,l,r);
             return;
         }
@@ -77,7 +82,11 @@ public class DualPivotQuickSort implements SortMethod {
 
     public static void main(String[] args) {
         DualPivotQuickSort dualPivotQuickSort = new DualPivotQuickSort();
-        long sort = dualPivotQuickSort.testSort(100000000);
-        System.out.println("DualPivotQuickSort 花费时间"+sort+"ms");
+        int[] arr = dualPivotQuickSort.randomInt(20, 3);
+        System.out.println(Arrays.toString(arr));
+        dualPivotQuickSort.sort(arr);
+        System.out.println(Arrays.toString(arr));
+//        long sort = dualPivotQuickSort.testSort(100000000);
+//        System.out.println("DualPivotQuickSort 花费时间"+sort+"ms");
     }
 }

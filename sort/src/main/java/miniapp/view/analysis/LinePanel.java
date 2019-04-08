@@ -1,14 +1,13 @@
 package miniapp.view.analysis;
 
-import miniapp.Enum.LineColorEnum;
 import miniapp.Enum.SortEnum;
 import miniapp.abstraction.ICommand;
 import miniapp.abstraction.SortMethod;
 import miniapp.view.manoeuvre.Environment;
+import miniapp.view.screens.SortingAnalysisScreen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
@@ -17,28 +16,21 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 右侧：画线面板
  */
-class LinePanel extends JPanel {
+public class LinePanel extends JPanel {
     private int X_Start;
     private int Y_Start;
-    private int Y_Change = 10;
     private SortEnum[] sortType;
-    private LineColorEnum[] lineColor;
     private Environment<Map<String, Double[]>> environment;
     private MyCanvas myCanvas;
     private ProgressBarPanel progressPanel;
-    private Map<String,SwingWorker> workerMap;
-    private ConcurrentHashMap<String, Double[]> cacheMap;
 
-    public LinePanel(SortingAnalysisFrame frame) {
+    public LinePanel(SortingAnalysisScreen frame) {
         this.myCanvas = frame.getTrendChartCanvas();
         this.progressPanel = frame.getProgrees();
-        this.workerMap = new ConcurrentHashMap<>();
-        this.cacheMap = SortCommand.getCacheMap();
-
+        // 移除之前计算的值
         //初始化
         this.environment = new Environment<>();
         this.sortType = SortEnum.values();
-        this.lineColor = SortingAnalysisFrame.getLineColor();
 
         setBorder(BorderFactory.createEtchedBorder());
         setLayout(new GridLayout(16, 1, 0, 10));
@@ -46,6 +38,7 @@ class LinePanel extends JPanel {
         //获取画线位置
         this.X_Start = this.getX() + 10;
         this.Y_Start = this.getY() + 10;
+        final ConcurrentHashMap<String, Double[]> cacheMap = SortCommand.getCacheMap();
         for (SortEnum sortEnum : sortType) {
             LineButton lineButton = new LineButton(sortEnum.getCnName(),sortEnum.getSortMethod());
             Color color = sortEnum.getSortMethod().lineColor().getColor();
@@ -56,35 +49,31 @@ class LinePanel extends JPanel {
             lineButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent evt) {
+                    LineButton lButton  = (LineButton)evt.getSource();
+                    String name = lButton.sortMethod.methodName();
+                    boolean running = progressPanel.isRunning(name);
+                    if (running){
+                        JOptionPane.showMessageDialog(null, "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
+                    // 右键取消
                     if (evt.isMetaDown()){
-//                        LineButton lButton = (LineButton)evt.getSource();
-//                        String name = lButton.sortMethod.methodName();
-                        // 右击隐藏
-//                        SwingWorker worker = workerMap.get(name);
-//                        if (worker != null && !worker.isDone()){
-//                            cacheMap.remove(name);
-//                            DoSortTask.cancel();
-//                            myCanvas.paint();
-//                        }
-                    }else if(evt.getClickCount() == 1){
-                        LineButton lButton  = (LineButton)evt.getSource();
-                        if (lButton.isRunning()){
-                            JOptionPane.showMessageDialog(null,"The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
-                            return;
-                        }else {
-                            try {
-                                String name = lButton.sortMethod.methodName();
-                                RunProgressBar addBar = progressPanel.addBar(name);
-                                if (addBar == null) {
-                                    JOptionPane.showMessageDialog(null, progressPanel.isFull() ?
-                                            "The execution queue is full ! "
-                                            : "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
-                                    return;
-                                }
-                                workerMap.put(name,doSort(new DoSortTask(name, frame), lButton));
-                            } catch (Exception e1) {
-                                e1.printStackTrace();
+                        cacheMap.remove(name);
+                        myCanvas.paint();
+                    }else{
+                        try {
+                            RunProgressBar addBar = progressPanel.addBar(name);
+                            if (addBar == null) {
+                                JOptionPane.showMessageDialog(null, progressPanel.isFull() ?
+                                        "The execution queue is full ! "
+                                        : "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
+                                return;
                             }
+                            // 移除之前计算的值
+                            cacheMap.remove(name);
+                            doSort(new DoSortTask(name, frame), lButton);
+                        } catch (Exception e1) {
+                            e1.printStackTrace();
                         }
                     }
                 }
@@ -101,7 +90,6 @@ class LinePanel extends JPanel {
         SwingWorker<Map, Void> swingWorker = new SwingWorker<Map,Void>() {
             @Override
             protected Map doInBackground(){
-                lineButton.setRunning(true);
                 environment.setCommand(command);
                 return environment.invoke();
             }
@@ -111,10 +99,8 @@ class LinePanel extends JPanel {
                 try {
                     String name = lineButton.sortMethod.methodName();
                     Double[] times = SortCommand.getCacheMap().get(name);
-                    progressPanel.updateBar(name,times == null ? new Double[1] : times);
-                    lineButton.setRunning(false);
+                    progressPanel.updateBar(name,times);
                     progressPanel.remove(name);
-                    workerMap.remove(name);
                     myCanvas.paint();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -130,25 +116,16 @@ class LinePanel extends JPanel {
      */
     private class LineButton extends JButton{
         private SortMethod sortMethod;
-        private boolean running;
 
         public LineButton(String text,SortMethod sortMethod) {
             super(text);
             this.sortMethod = sortMethod;
-            this.running = false;
         }
 
         public SortMethod getSortMethod() {
             return sortMethod;
         }
 
-        public boolean isRunning() {
-            return running;
-        }
-
-        public void setRunning(boolean running) {
-            this.running = running;
-        }
     }
 
     /**

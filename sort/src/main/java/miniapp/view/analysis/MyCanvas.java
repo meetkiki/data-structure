@@ -3,6 +3,7 @@ package miniapp.view.analysis;
 import miniapp.Enum.LineColorEnum;
 import miniapp.Enum.SortEnum;
 import miniapp.utils.UnequalConversion;
+import miniapp.view.screens.SortingAnalysisScreen;
 
 import java.awt.*;
 import java.util.Map;
@@ -16,7 +17,7 @@ public class MyCanvas extends Canvas {
      * / 画布框架起点坐标
      */
     private final int FREAME_X = 50;
-    private final int FREAME_Y = 50;
+    private final int FREAME_Y = 80;
     // 横
     private final int FREAME_WIDTH = 1000;
     // 纵
@@ -60,13 +61,13 @@ public class MyCanvas extends Canvas {
      */
     private SortEnum[] sortEnums;
 
-    private SortingAnalysisFrame sortingAnalysisFrame;
+    private SortingAnalysisScreen sortingAnalysisFrame;
 
 
-    public MyCanvas(SortingAnalysisFrame sortingAnalysisFrame) {
+    public MyCanvas(SortingAnalysisScreen sortingAnalysisFrame) {
         //获取画线颜色
         this.sortingAnalysisFrame = sortingAnalysisFrame;
-        this.lineColor = SortingAnalysisFrame.getLineColor();
+        this.lineColor = SortingAnalysisScreen.getLineColor();
         //获取画线的名称
         this.sortEnums = SortEnum.values();
         sortArray = DoSortTask.getCacheMap();
@@ -148,11 +149,11 @@ public class MyCanvas extends Canvas {
                 if (zero){
                     continue;
                 }
-                g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i]) * NUM_INTERVAL),
-                        Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i + 1]) * NUM_INTERVAL));
+                g2D.drawLine(Origin_X + i * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i]) * TIME_INTERVAL),
+                        Origin_X + (i + 1) * LENGTH_INTERVAL, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i + 1]) * TIME_INTERVAL));
                 if (i == (DoSortTask.abscissa - 2)) {
                     g2D.setFont(new Font("黑体", Font.BOLD, 16));
-                    g2D.drawString(sortEnums[k].getCnName(), Origin_X + (i + 1) * LENGTH_INTERVAL + 10, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i + 1]) * NUM_INTERVAL));
+                    g2D.drawString(sortEnums[k].getCnName(), Origin_X + (i + 1) * LENGTH_INTERVAL + 10, Origin_Y - (int)(UnequalConversion.conversionLoad(tempArray[i + 1]) * TIME_INTERVAL));
                 }
             }
         }
