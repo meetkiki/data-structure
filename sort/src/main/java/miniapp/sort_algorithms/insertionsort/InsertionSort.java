@@ -56,4 +56,5 @@ public class InsertionSort implements SortMethod {
         long sort = insertionSort.testSort(1000000);
         System.out.println("花费时间"+sort+"ms");
     }
+
 }

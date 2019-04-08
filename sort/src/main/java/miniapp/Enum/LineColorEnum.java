@@ -26,8 +26,10 @@ public enum LineColorEnum{
         Lime            (new Color(0xCDDC39)),
         Yellow          (new Color(0xFFEB3B)),
         Amber           (new Color(0xFFC107)),
+        Gold            (new Color(255,215,0)),
         Orange          (new Color(0xFF9800)),
         DeepOrange      (new Color(0xFF5722)),
+        Tomato          (new Color(255,99,71)),
         Brown           (new Color(0x795548)),
         /**
          * 灰

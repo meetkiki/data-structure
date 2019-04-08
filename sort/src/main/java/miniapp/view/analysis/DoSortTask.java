@@ -75,16 +75,8 @@ public class DoSortTask extends RecursiveAction implements ICommand {
         analysisTasks.add(new SortAnalysisTask(new SortCommand(sortMethod,progrees, array)));
         invokeAll(analysisTasks);
         analysisTasks.forEach((a) -> {a.join();myCanvas.paint();});
-        analysisTasks.clear();
     }
 
-    public static Void cancel(){
-//        boolean terminated = forkJoinPool.isTerminated();
-//        if (!terminated){
-//            forkJoinPool.shutdown();
-//        }
-        return null;
-    }
 
     public static double getMultiplicity() {
         return multiplicity;

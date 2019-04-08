@@ -92,7 +92,7 @@ public class SortingAnalysisScreen extends Screen {
 
         //边侧辅助面板
         ButtonAndLine.setBorder(BorderFactory.createLineBorder(Color.RED));
-        ButtonAndLine.setLayout(new BorderLayout(0, 10));
+        ButtonAndLine.setLayout(new BorderLayout(0, 5));
         ButtonAndLine.add(button, BorderLayout.NORTH);
         ButtonAndLine.add(line, BorderLayout.CENTER);
         ButtonAndLine.add(backPanel,BorderLayout.SOUTH);

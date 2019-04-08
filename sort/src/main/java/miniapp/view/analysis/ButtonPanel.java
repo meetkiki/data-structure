@@ -17,13 +17,11 @@ public class ButtonPanel extends JPanel {
 
     //普通按钮，导数按钮，拟合按钮
     private JButton commonButton;
-    private JButton derivativeButton;
     private JButton fittingButton;
     private JSlider slider;
 
     public ButtonPanel() {
         commonButton = new JButton("普通曲线");
-        derivativeButton = new JButton("一阶导数");
         fittingButton = new JButton("拟合曲线");
         slider = new JSlider(0,100,0);
 
@@ -42,14 +40,6 @@ public class ButtonPanel extends JPanel {
             }
         });
 
-        add(derivativeButton);
-        derivativeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                //打开导数画布
-                //new DerivativeCanvas();
-            }
-        });
         add(fittingButton);
         fittingButton.addActionListener(new ActionListener() {
             @Override

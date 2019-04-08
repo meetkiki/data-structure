@@ -9,16 +9,23 @@ import miniapp.sort_algorithms.insertionsort.InsertionSort;
 import miniapp.sort_algorithms.mergesort.MergeBuSort;
 import miniapp.sort_algorithms.mergesort.MergeSort;
 import miniapp.sort_algorithms.mergesort.MergeOptimizedSort;
+import miniapp.sort_algorithms.parallelsort.merge.ParallelMergeSort;
 import miniapp.sort_algorithms.quicksort.DualPivotQuickSort;
 import miniapp.sort_algorithms.quicksort.Quick1ScanSort;
 import miniapp.sort_algorithms.quicksort.Quick3waySort;
 import miniapp.sort_algorithms.quicksort.QuickSort;
 import miniapp.sort_algorithms.selectionsort.SelectionSort;
 import miniapp.sort_algorithms.shellsort.ShellSort;
+import miniapp.sort_algorithms.jdksort.ArraysSort;
+import miniapp.sort_algorithms.jdksort.ArraysParallelSort;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+/**
+ * @author Tao
+ */
 
 public enum SortEnum {
     /**
@@ -72,7 +79,19 @@ public enum SortEnum {
     /**
      * 希尔排序
      */
-    ShellSort("ShellSort");
+    ShellSort("ShellSort"),
+    /**
+     * Arrays排序
+     */
+    ArraysSort("ArraysSort"),
+    /**
+     * 多线程归并排序
+     */
+    ArraysParallelSort("ArraysParallelSort"),
+    /**
+     * 多线程归并排序
+     */
+    ParallelMergeSort("ParallelMergeSort");
 
     private String name;
     private static Map<String,SortMethod> cache;
@@ -93,6 +112,9 @@ public enum SortEnum {
         map.put("Quick3waySort",        new Quick3waySort());
         map.put("DualPivotQuickSort",   new DualPivotQuickSort());
         map.put("ShellSort",            new ShellSort());
+        map.put("ArraysSort",           new ArraysSort());
+        map.put("ArraysParallelSort",   new ArraysParallelSort());
+        map.put("ParallelMergeSort",    new ParallelMergeSort());
         cache = Collections.unmodifiableMap(map);
     }
 
