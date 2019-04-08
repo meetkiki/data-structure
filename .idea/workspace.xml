@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/MyCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/MyCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/RunProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/RunProgressBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortingAnalysisFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/SortingAnalysisScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/MainMenuScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/MainMenuScreen.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -71,19 +58,44 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DerivativeCanvas.java">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
+            <state relative-caret-position="592">
+              <caret line="74" column="45" lean-forward="true" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="562">
+              <caret line="57" column="27" lean-forward="true" selection-start-line="57" selection-start-column="27" selection-end-line="57" selection-end-column="27" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-230">
-              <caret line="12" column="41" lean-forward="true" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
+            <state relative-caret-position="239">
+              <caret line="66" column="36" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-154">
+              <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
+              <folding>
+                <element signature="e#212#213#0" expanded="true" />
+                <element signature="e#246#247#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -97,7 +109,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="718">
@@ -116,30 +137,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortCommand.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="36" selection-start-line="36" selection-end-line="36" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/RunProgressBar.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="20" column="44" selection-start-line="20" selection-start-column="8" selection-end-line="20" selection-end-column="44" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="253">
@@ -151,15 +148,6 @@
                 <element signature="e#1833#1834#0" expanded="true" />
                 <element signature="e#1867#1868#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/FittingCanvas.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="88">
-              <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -262,14 +250,14 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/SortingAnalysisScreen.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/RunProgressBar.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortCommand.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java" />
       </list>
     </option>
   </component>
@@ -370,6 +358,17 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="miniapp" type="462c0819:PsiDirectoryNode" />
+              <item name="sort_algorithms" type="462c0819:PsiDirectoryNode" />
+              <item name="selectionsort" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
+              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
+              <item name="sort" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="miniapp" type="462c0819:PsiDirectoryNode" />
               <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -415,7 +414,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554731144657" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554732438932" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -447,7 +446,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.DualPivotQuickSort">
+  <component name="RunManager" selected="Application.MiniApp">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -673,8 +672,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.DualPivotQuickSort" />
         <item itemvalue="Application.MiniApp" />
+        <item itemvalue="Application.DualPivotQuickSort" />
         <item itemvalue="Application.UnequalConversion" />
         <item itemvalue="Application.MergeSort" />
         <item itemvalue="Application.TestExecute" />
@@ -712,7 +711,7 @@
       <workItem from="1554535875914" duration="24049000" />
       <workItem from="1554602212060" duration="19918000" />
       <workItem from="1554628834255" duration="25081000" />
-      <workItem from="1554721391643" duration="9436000" />
+      <workItem from="1554721391643" duration="10733000" />
     </task>
     <task id="LOCAL-00001" summary="Default Changelist">
       <created>1553564515624</created>
@@ -1022,11 +1021,18 @@
       <option name="project" value="LOCAL" />
       <updated>1554654096925</updated>
     </task>
-    <option name="localTasksCounter" value="45" />
+    <task id="LOCAL-00045" summary="增加排序算法图形化分析重复率滑块">
+      <created>1554731189318</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1554731189318</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="273975000" />
+    <option name="totallyTimeSpent" value="275272000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1051,8 +1057,8 @@
       <window_info id="Nl-Palette" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49960256" weight="0.29563183" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.49880764" visible="true" weight="0.31669268" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49960256" visible="true" weight="0.29563183" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49880764" weight="0.31669268" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32917318" />
@@ -1118,7 +1124,8 @@
     <MESSAGE value="排序算法功能完善" />
     <MESSAGE value="线程取消问题" />
     <MESSAGE value="修改fork join最大线程数" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改fork join最大线程数" />
+    <MESSAGE value="增加排序算法图形化分析重复率滑块" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加排序算法图形化分析重复率滑块" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1176,6 +1183,12 @@
           <line>73</line>
           <properties />
           <option name="timeStamp" value="30" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java</url>
+          <line>45</line>
+          <properties />
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1272,17 +1285,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="584">
           <caret line="33" column="28" selection-start-line="33" selection-start-column="28" selection-end-line="33" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1804">
-          <caret line="85" column="28" selection-start-line="85" selection-start-column="28" selection-end-line="85" selection-end-column="28" />
-          <folding>
-            <element signature="e#212#213#0" expanded="true" />
-            <element signature="e#246#247#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1516,16 +1518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="89" column="78" selection-start-line="89" selection-start-column="63" selection-end-line="89" selection-end-column="78" />
-          <folding>
-            <element signature="e#1861#1882#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bubblesort/BubbleSort.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
@@ -1540,13 +1532,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="28" column="26" lean-forward="true" selection-start-line="28" selection-start-column="26" selection-end-line="28" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortAnalysisTask.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
@@ -1556,13 +1541,6 @@
             <element signature="e#286#287#0" expanded="true" />
             <element signature="e#324#325#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="496">
-          <caret line="48" column="12" lean-forward="true" selection-start-line="48" selection-start-column="12" selection-end-line="48" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1655,17 +1633,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-230">
-          <caret line="12" column="41" lean-forward="true" selection-start-line="12" selection-start-column="41" selection-end-line="12" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="283">
           <caret line="26" column="17" selection-start-line="26" selection-start-column="17" selection-end-line="26" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="718">
+          <caret line="161" selection-start-line="161" selection-end-line="161" />
         </state>
       </provider>
     </entry>
@@ -1676,10 +1654,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="718">
-          <caret line="161" selection-start-line="161" selection-end-line="161" />
+        <state relative-caret-position="176">
+          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="239">
+          <caret line="66" column="36" selection-start-line="66" selection-start-column="36" selection-end-line="66" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-154">
+          <caret line="44" column="16" lean-forward="true" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
+          <folding>
+            <element signature="e#212#213#0" expanded="true" />
+            <element signature="e#246#247#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="592">
+          <caret line="74" column="45" lean-forward="true" selection-start-line="74" selection-start-column="45" selection-end-line="74" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="562">
+          <caret line="57" column="27" lean-forward="true" selection-start-line="57" selection-start-column="27" selection-end-line="57" selection-end-column="27" />
         </state>
       </provider>
     </entry>

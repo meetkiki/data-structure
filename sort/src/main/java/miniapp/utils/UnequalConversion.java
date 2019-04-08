@@ -54,7 +54,7 @@ public class UnequalConversion {
     public static int getBounds(int length,double multiplicity){
         if (multiplicity == 1.0) return 1;
         if (multiplicity == 0.0) return Integer.MAX_VALUE;
-        double bounds = (length + 0.00) * (1 - multiplicity);
+        double bounds = (length + 0.00) * Math.pow((1 - multiplicity),3);
         return (int)bounds;
     }
 

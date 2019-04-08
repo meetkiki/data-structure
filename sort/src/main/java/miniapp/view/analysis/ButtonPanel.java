@@ -64,7 +64,7 @@ public class ButtonPanel extends JPanel {
         // 设置 主刻度标记间隔
         slider.setMajorTickSpacing(25);
         // 设置单个主刻度内的 次刻度标记间隔
-        slider.setMinorTickSpacing(5);
+        slider.setMinorTickSpacing(2);
         /*
          * 给指定的刻度值显示自定义标签
          */
