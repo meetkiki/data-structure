@@ -1,4 +1,4 @@
-package miniapp.entity;
+package miniapp.view.manoeuvre;
 
 public class Ordered {
 

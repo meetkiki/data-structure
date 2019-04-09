@@ -3,13 +3,11 @@ package miniapp.view.screens;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingWorker;
 
 import miniapp.MiniApp;
 import miniapp.abstraction.SortVisual;
-import miniapp.entity.SortData;
+import miniapp.view.manoeuvre.SortData;
 import miniapp.view.Screen;
 import miniapp.view.manoeuvre.AlgoFrame;
 import miniapp.view.manoeuvre.Environment;

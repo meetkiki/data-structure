@@ -1,6 +1,6 @@
 package miniapp.abstraction;
 
-import miniapp.entity.SortData;
+import miniapp.view.manoeuvre.SortData;
 import miniapp.view.manoeuvre.AlgoFrame;
 
 import java.util.Random;

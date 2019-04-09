@@ -1,4 +1,6 @@
-package miniapp.entity;
+package miniapp.view.manoeuvre;
+
+import miniapp.MiniApp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +39,8 @@ public class SortData implements Cloneable{
      */
     private int DELAY = 10;
 
-    public static final int DEFAULT_WIN_WIDTH = 1280;
-    public static final int DEFAULT_WIN_HEIGHT = 868;
+    public static final int DEFAULT_WIN_WIDTH = MiniApp.WIN_WIDTH;
+    public static final int DEFAULT_WIN_HEIGHT = MiniApp.WIN_HEIGHT;
     public static final int DEFAULT_BAR_WIDTH = 5;
     public static final int NUM_BARS = DEFAULT_WIN_WIDTH / DEFAULT_BAR_WIDTH;
     public static final int NUM_HEIGHT = DEFAULT_WIN_HEIGHT - 100;

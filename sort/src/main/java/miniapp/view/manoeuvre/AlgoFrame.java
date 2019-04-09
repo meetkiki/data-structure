@@ -3,7 +3,6 @@ package miniapp.view.manoeuvre;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.OperatingArray;
 import miniapp.abstraction.SortVisual;
-import miniapp.entity.SortData;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
