@@ -13,9 +13,11 @@ import java.util.concurrent.RecursiveAction;
 public class ParallelMergeSort implements SortMethod {
 
 
-    public static final ForkJoinPool forkJoinPool = new ForkJoinPool();
+    private static ForkJoinPool forkJoinPool;
 
-    public ParallelMergeSort(){}
+    public ParallelMergeSort(){
+        forkJoinPool = new ForkJoinPool();
+    }
 
     @Override
     public int[] sort(int[] arr) {
@@ -66,9 +68,13 @@ public class ParallelMergeSort implements SortMethod {
             // 合并结果
             merge(value.data,value.aux,value.l,mid,value.r);
             // 释放空间
-            value.aux = null;
-            value.data = null;
+            taskleft.destroy();
+            taskright.destroy();
             return;
+        }
+
+        public void destroy(){
+            this.dataThread.destroy();
         }
 
         private void merge(int[] data, int[] aux, int l, int mid, int r) {
@@ -90,7 +96,7 @@ public class ParallelMergeSort implements SortMethod {
 
     @Override
     public String getCnName() {
-        return "多线程归并排序";
+        return "并行归并排序";
     }
 
     @Override
@@ -99,5 +105,6 @@ public class ParallelMergeSort implements SortMethod {
     }
 
     @Override
-    public void destory() {}
+    public void destory() {
+    }
 }

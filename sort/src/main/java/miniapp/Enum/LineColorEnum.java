@@ -14,14 +14,17 @@ public enum LineColorEnum{
          * 粉
          */
         Pink            (new Color(0xE91E63)),
+        HotPink         (new Color(	255,105,180)),
         Purple          (new Color(0x9C27B0)),
         DeepPurple      (new Color(0x673AB7)),
         Indigo          (new Color(0x3F51B5)),
         Blue            (new Color(0x2196F3)),
         LightBlue       (new Color(0x03A9F4)),
+        DarkBlue        (new Color(0,0,139)),
         Cyan            (new Color(0x00BCD4)),
         Teal            (new Color(0x009688)),
         Green           (new Color(0x4CAF50)),
+        Aqua            (new Color(0,255,255)),
         LightGreen      (new Color(0x8BC34A)),
         Lime            (new Color(0xCDDC39)),
         Yellow          (new Color(0xFFEB3B)),
@@ -36,6 +39,7 @@ public enum LineColorEnum{
          */
         Grey            (new Color(0x9E9E9E)),
         BlueGrey        (new Color(0x607D8B)),
+        LightSlateGray  (new Color(	119,136,153)),
         Black           (new Color(0x000000)),
         White           (new Color(0xFFFFFF));
 

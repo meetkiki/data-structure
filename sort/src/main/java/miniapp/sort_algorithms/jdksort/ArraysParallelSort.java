@@ -12,7 +12,7 @@ public class ArraysParallelSort implements SortMethod {
 
     @Override
     public String getCnName() {
-        return "JDK ArraysParallel 排序";
+        return "JDK 并行排序";
     }
 
     @Override

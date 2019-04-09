@@ -19,6 +19,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class LinePanel extends JPanel {
     private int X_Start;
     private int Y_Start;
+    private int Y_HEIGHT = 8;
+    private int X_WIDTH = 12;
+    private static final int plies = 18;
     private SortEnum[] sortType;
     private Environment<Map<String, Double[]>> environment;
     private MyCanvas myCanvas;
@@ -33,11 +36,11 @@ public class LinePanel extends JPanel {
         this.sortType = SortEnum.values();
 
         setBorder(BorderFactory.createEtchedBorder());
-        setLayout(new GridLayout(16, 1, 0, 10));
+        setLayout(new GridLayout(plies, 1, 0, Y_HEIGHT));
 
         //获取画线位置
-        this.X_Start = this.getX() + 10;
-        this.Y_Start = this.getY() + 10;
+        this.X_Start = this.getX() + X_WIDTH;
+        this.Y_Start = this.getY() + Y_HEIGHT;
         final ConcurrentHashMap<String, Double[]> cacheMap = SortCommand.getCacheMap();
         for (SortEnum sortEnum : sortType) {
             LineButton lineButton = new LineButton(sortEnum.getCnName(),sortEnum.getSortMethod());

@@ -8,9 +8,6 @@ import miniapp.Enum.LineColorEnum;
 import miniapp.MiniApp;
 import miniapp.view.Screen;
 import miniapp.view.analysis.ButtonPanel;
-import miniapp.view.analysis.CommonCanvas;
-import miniapp.view.analysis.DerivativeCanvas;
-import miniapp.view.analysis.FittingCanvas;
 import miniapp.view.analysis.LinePanel;
 import miniapp.view.analysis.MyCanvas;
 import miniapp.view.analysis.ProgressBarPanel;
@@ -35,9 +32,6 @@ public class SortingAnalysisScreen extends Screen {
      * /主坐标图
      */
     private MyCanvas trendChartCanvas;
-    private CommonCanvas commonCanvas;
-    private DerivativeCanvas derivativeCanvas;
-    private FittingCanvas fittingCanvas;
 
     private JPanel centerPanel;
     /**
@@ -72,9 +66,6 @@ public class SortingAnalysisScreen extends Screen {
         backPanel = new JPanel();
         //添加主画布到中心
         trendChartCanvas = new MyCanvas(this);
-        commonCanvas = new CommonCanvas();
-        derivativeCanvas = new DerivativeCanvas();
-        fittingCanvas = new FittingCanvas();
         ButtonAndLine = new JPanel();
         progrees = new ProgressBarPanel();
         button = new ButtonPanel();

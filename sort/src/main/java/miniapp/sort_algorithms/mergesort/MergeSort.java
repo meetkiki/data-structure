@@ -10,7 +10,9 @@ public class MergeSort implements SortMethod{
         return "归并排序";
     }
 
-
+    /**
+     * ThreadLocal调用remove  防止内存泄漏
+     */
     @Override
     public void destory() {
         auxThread.remove();

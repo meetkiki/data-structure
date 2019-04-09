@@ -10,6 +10,8 @@ import miniapp.sort_algorithms.mergesort.MergeBuSort;
 import miniapp.sort_algorithms.mergesort.MergeSort;
 import miniapp.sort_algorithms.mergesort.MergeOptimizedSort;
 import miniapp.sort_algorithms.parallelsort.merge.ParallelMergeSort;
+import miniapp.sort_algorithms.parallelsort.merge.ParallelMergeNwaySort;
+import miniapp.sort_algorithms.parallelsort.quick.ParallelQuickSort;
 import miniapp.sort_algorithms.quicksort.DualPivotQuickSort;
 import miniapp.sort_algorithms.quicksort.Quick1ScanSort;
 import miniapp.sort_algorithms.quicksort.Quick3waySort;
@@ -85,36 +87,46 @@ public enum SortEnum {
      */
     ArraysSort("ArraysSort"),
     /**
-     * 多线程归并排序
+     * Arrays并行排序
      */
     ArraysParallelSort("ArraysParallelSort"),
     /**
+     * 多线程快速排序
+     */
+    ParallelQuickSort("ParallelQuickSort"),
+    /**
+     * Arrays多线程归并排序
+     */
+    ParallelMergeSort("ParallelMergeSort"),
+    /**
      * 多线程归并排序
      */
-    ParallelMergeSort("ParallelMergeSort");
+    ParallelMergeNwaySort("ParallelMergeNwaySort");
 
     private String name;
     private static Map<String,SortMethod> cache;
 
     static {
         Map<String,SortMethod> map = new HashMap<>(32);
-        map.put("InsertionSort",        new InsertionSort());
-        map.put("SelectionSort",        new SelectionSort());
-        map.put("BubbleSort",           new BubbleSort());
-        map.put("BucketSort",           new BucketSort());
-        map.put("CountingSort",         new CountingSort());
-        map.put("HeapSort",             new HeapSort());
-        map.put("MergeSort",            new MergeSort());
-        map.put("MergeBuSort",          new MergeBuSort());
-        map.put("MergeOptimizedSort",   new MergeOptimizedSort());
-        map.put("QuickSort",            new QuickSort());
-        map.put("Quick1ScanSort",       new Quick1ScanSort());
-        map.put("Quick3waySort",        new Quick3waySort());
-        map.put("DualPivotQuickSort",   new DualPivotQuickSort());
-        map.put("ShellSort",            new ShellSort());
-        map.put("ArraysSort",           new ArraysSort());
-        map.put("ArraysParallelSort",   new ArraysParallelSort());
-        map.put("ParallelMergeSort",    new ParallelMergeSort());
+        map.put("InsertionSort",            new InsertionSort());
+        map.put("SelectionSort",            new SelectionSort());
+        map.put("BubbleSort",               new BubbleSort());
+        map.put("BucketSort",               new BucketSort());
+        map.put("CountingSort",             new CountingSort());
+        map.put("HeapSort",                 new HeapSort());
+        map.put("MergeSort",                new MergeSort());
+        map.put("MergeBuSort",              new MergeBuSort());
+        map.put("MergeOptimizedSort",       new MergeOptimizedSort());
+        map.put("QuickSort",                new QuickSort());
+        map.put("Quick1ScanSort",           new Quick1ScanSort());
+        map.put("Quick3waySort",            new Quick3waySort());
+        map.put("DualPivotQuickSort",       new DualPivotQuickSort());
+        map.put("ShellSort",                new ShellSort());
+        map.put("ArraysSort",               new ArraysSort());
+        map.put("ArraysParallelSort",       new ArraysParallelSort());
+        map.put("ParallelQuickSort",        new ParallelQuickSort());
+        map.put("ParallelMergeSort",        new ParallelMergeSort());
+        map.put("ParallelMergeNwaySort",    new ParallelMergeNwaySort());
         cache = Collections.unmodifiableMap(map);
     }
 

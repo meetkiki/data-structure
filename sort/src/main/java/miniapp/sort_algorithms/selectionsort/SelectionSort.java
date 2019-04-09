@@ -48,7 +48,7 @@ public class SelectionSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Yellow");
+        return LineColorEnum.LightSlateGray;
     }
 
     public static void main(String[] args) {

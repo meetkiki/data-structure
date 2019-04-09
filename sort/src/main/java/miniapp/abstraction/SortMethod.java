@@ -26,10 +26,13 @@ public interface SortMethod extends Sort {
      */
     default long testSort(int n){
         int[] ints = this.randomInt(n);
+        int[] clone = ints.clone();
         long s1 = System.currentTimeMillis();
         this.sort(ints);
         long e1 = System.currentTimeMillis();
-        boolean sorted = isSorted(ints);
+        Arrays.sort(clone);
+        boolean sorted = Arrays.equals(clone, ints);
+        //boolean sorted = isSorted(ints);
         System.out.println("Array sorted is " + sorted);
         return e1 - s1;
     }
@@ -46,6 +49,13 @@ public interface SortMethod extends Sort {
      */
     @Override
     String methodName();
+
+    /**
+     * 排序方法中文名称
+     * @return
+     */
+    @Override
+    String getCnName();
 
     /**
      * 销毁方法
