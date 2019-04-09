@@ -5,16 +5,23 @@ import miniapp.MiniApp;
 import miniapp.abstraction.SortVisual;
 import miniapp.view.Screen;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -22,10 +29,8 @@ import java.util.ArrayList;
  */
 public class MainMenuScreen extends Screen {
 
-    private static final Color BACKGROUND_COLOUR = Color.DARK_GRAY;
+    private static final Color BACKGROUND_COLOUR = new Color(84,84,84);
     private final ArrayList<AlgorithmCheckBox> checkBoxes;
-    private JFrame analysisFrame;
-
 
     public MainMenuScreen(MiniApp app) {
         super(app);
@@ -61,6 +66,17 @@ public class MainMenuScreen extends Screen {
 
         outerContainer.setBackground(BACKGROUND_COLOUR);
         outerContainer.setLayout(new BoxLayout(outerContainer, BoxLayout.LINE_AXIS));
+
+        try {
+            ClassLoader loader = this.getClass().getClassLoader();
+            InputStream inputStream = loader.getResourceAsStream("logo.png");
+            BufferedImage image = ImageIO.read(inputStream);
+            JLabel label = new JLabel(new ImageIcon(image));
+            label.setAlignmentX(Component.CENTER_ALIGNMENT);
+            add(label);
+        } catch (IOException e) {
+            System.out.println("Unable to load logo");
+        }
 
         sortAlgorithmContainer.setAlignmentX(Component.CENTER_ALIGNMENT);
         SortFrameEnum[] sortFrameEnums = SortFrameEnum.values();
