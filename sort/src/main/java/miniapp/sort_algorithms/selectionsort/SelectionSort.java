@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.selectionsort;
 
+import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
@@ -43,6 +44,16 @@ public class SelectionSort implements SortMethod {
         }
         return arr;
     }
+
+    /**
+     * 是否为慢排序
+     * @return
+     */
+    @Override
+    public String efficiency() {
+        return Constant.slow;
+    }
+
     @Override
     public void destory() {}
 

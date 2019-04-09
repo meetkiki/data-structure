@@ -43,12 +43,13 @@ public class LinePanel extends JPanel {
         this.Y_Start = this.getY() + Y_HEIGHT;
         final ConcurrentHashMap<String, Double[]> cacheMap = SortCommand.getCacheMap();
         for (SortEnum sortEnum : sortType) {
-            LineButton lineButton = new LineButton(sortEnum.getCnName(),sortEnum.getSortMethod());
+            SortMethod sortMethod = sortEnum.getSortMethod();
+            LineButton lineButton = new LineButton(sortEnum.getCnName(),sortMethod);
             Color color = sortEnum.getSortMethod().lineColor().getColor();
             lineButton.setBackground(color);
             lineButton.setBorder(BorderFactory.createEmptyBorder());
             add(lineButton);
-            add(new LineCanve(color));
+            add(new LineCanve(color,sortMethod.efficiency()));
             lineButton.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent evt) {
@@ -124,11 +125,6 @@ public class LinePanel extends JPanel {
             super(text);
             this.sortMethod = sortMethod;
         }
-
-        public SortMethod getSortMethod() {
-            return sortMethod;
-        }
-
     }
 
     /**
@@ -136,10 +132,12 @@ public class LinePanel extends JPanel {
      */
     class LineCanve extends Canvas {
         private Color color;
+        private String slow;
 
-        public LineCanve(Color linecoler) {
+        public LineCanve(Color linecoler,String slow) {
             //获取颜色
-            color = linecoler;
+            this.color = linecoler;
+            this.slow = slow;
         }
 
         /**
@@ -158,6 +156,8 @@ public class LinePanel extends JPanel {
             g.setColor(color);
             //绘制直线，通过循环，将所有的点连线
             g2D.drawLine(X_Start, Y_Start, X_Start + 80, Y_Start);
+            // 增加提示
+            //g2D.drawString(slow,X_Start + 90, Y_Start);
         }
     }
 }

@@ -13,12 +13,14 @@ import java.util.concurrent.RecursiveAction;
  * @author Tao
  */
 public class ParallelMergeNwaySort implements SortMethod {
-
+    /**
+     * 多线程排序必须要自己的线程池 否则效率不精确
+     */
     private static ForkJoinPool forkJoinPool;
     /**
      * 多路归并排序
      */
-    private int N = 8;
+    private int N = Runtime.getRuntime().availableProcessors();
 
     public ParallelMergeNwaySort() {
         forkJoinPool = new ForkJoinPool();

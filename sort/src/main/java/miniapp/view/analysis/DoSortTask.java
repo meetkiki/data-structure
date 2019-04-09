@@ -4,13 +4,13 @@ import miniapp.Enum.Constant;
 import miniapp.Enum.SortEnum;
 import miniapp.abstraction.ICommand;
 import miniapp.abstraction.SortMethod;
+import miniapp.utils.ThreadUtils;
 import miniapp.utils.UnequalConversion;
 import miniapp.view.screens.SortingAnalysisScreen;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
 
 /**
@@ -46,15 +46,9 @@ public class DoSortTask extends RecursiveAction implements ICommand {
         this.myCanvas = frame.getTrendChartCanvas();
     }
 
-    private static final ForkJoinPool forkJoinPool = new ForkJoinPool(ProgressBarPanel.QueueSize);
-
     @Override
     public Void Execute() {
-        try {
-            forkJoinPool.submit(this).get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        ThreadUtils.executeVoid(this);
         return null;
     }
 

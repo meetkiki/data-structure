@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 /**
  * 排序接口
+ * @author Tao
  */
 public interface SortMethod extends Sort {
 
@@ -62,4 +63,9 @@ public interface SortMethod extends Sort {
      */
     void destory();
 
+    /**
+     * 排序效率
+     * @return
+     */
+    default String efficiency(){return "fast";}
 }

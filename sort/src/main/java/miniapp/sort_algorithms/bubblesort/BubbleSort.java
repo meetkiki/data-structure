@@ -1,11 +1,15 @@
 package miniapp.sort_algorithms.bubblesort;
 
+import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 import java.awt.Color;
 import java.util.Arrays;
 
+/**
+ * @author Tao
+ */
 public class BubbleSort implements SortMethod {
 
 
@@ -39,6 +43,15 @@ public class BubbleSort implements SortMethod {
             if (!flag) break;
         }
         return arr;
+    }
+
+    /**
+     * 是否为慢排序
+     * @return
+     */
+    @Override
+    public String efficiency() {
+        return Constant.slow;
     }
 
     @Override

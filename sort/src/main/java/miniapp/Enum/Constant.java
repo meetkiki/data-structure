@@ -16,4 +16,19 @@ public class Constant {
      */
     public static final int Hundred = 100;
 
+
+    /**
+     * 排序效率快
+     */
+    public static final String fast = "fast";
+    /**
+     * 排序效率中
+     */
+    public static final String mid = "mid";
+    /**
+     * 排序效率慢
+     */
+    public static final String slow = "slow";
+
+
 }

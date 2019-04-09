@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.insertionsort;
 
+import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
@@ -43,6 +44,14 @@ public class InsertionSort implements SortMethod {
             arr[j + 1] = temp;
         }
         return arr;
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public String efficiency() {
+        return Constant.mid;
     }
 
     @Override

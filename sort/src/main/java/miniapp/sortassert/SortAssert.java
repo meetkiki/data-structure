@@ -24,7 +24,7 @@ public final class SortAssert {
      * @throws RuntimeException if the object is not {@code null}
      */
     public static void isNull(@Nullable Object object, String message) throws RuntimeException {
-        if (object != null) {
+        if (object == null) {
             throw new RuntimeException(message);
         }
     }

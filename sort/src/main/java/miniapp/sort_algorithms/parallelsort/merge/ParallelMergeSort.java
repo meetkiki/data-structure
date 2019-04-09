@@ -11,8 +11,9 @@ import java.util.concurrent.RecursiveAction;
  * @author Tao
  */
 public class ParallelMergeSort implements SortMethod {
-
-
+    /**
+     * 多线程排序必须要自己的线程池 否则效率不精确
+     */
     private static ForkJoinPool forkJoinPool;
 
     public ParallelMergeSort(){

@@ -17,6 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
 public class ProgressBarPanel extends JPanel {
 
     private Map<String,RunProgressBar> barList;
+    /**
+     * 最大队列数
+     */
     public static final int QueueSize = 3;
     private static final int Height = 100;
 
