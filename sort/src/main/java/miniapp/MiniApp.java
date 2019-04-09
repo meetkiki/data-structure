@@ -67,7 +67,9 @@ public class MiniApp {
 
     public static void main(String[] args) {
         System.setProperty("sun.java2d.opengl", "true");
-        SwingUtilities.invokeLater(() -> new MiniApp().start());
+        SwingUtilities.invokeLater(() -> {
+            new MiniApp().start();
+        });
     }
 
 
