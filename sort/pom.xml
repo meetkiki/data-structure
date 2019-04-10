@@ -9,14 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <dependencies>
-        <!--<dependency>-->
-            <!--<groupId>org.jb2011</groupId>-->
-            <!--<artifactId>beautyeye</artifactId>-->
-            <!--<version>1.0.0</version>-->
-        <!--</dependency>-->
-    </dependencies>
-
     <artifactId>sort</artifactId>
     <build>
         <plugins>

@@ -3,6 +3,8 @@ package miniapp.view.manoeuvre;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.OperatingArray;
 import miniapp.abstraction.SortVisual;
+import miniapp.utils.GraphicsUtil;
+import miniapp.utils.ThreadUtils;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -220,17 +222,13 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
      */
     public int compare(int curl, int curr){
         data.compareIncrement();
-        pause(data.getDELAY());
+//        pause(data.getDELAY()/2);
         return curl - curr;
     }
 
     public void pause(int dalay){
         repaint();
-        try {
-            Thread.sleep(delay);
-        } catch (InterruptedException e) {
-            Thread.interrupted();
-        }
+        ThreadUtils.sleep(delay);
     }
 
     /**
@@ -510,7 +508,7 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
             }
 
             BufferedImage bufferedImage = new BufferedImage(bufferedImageWidth, bufferedImageHeight, BufferedImage.TYPE_INT_ARGB);
-            makeBufferedImageTransparent(bufferedImage);
+            GraphicsUtil.makeBufferedImageTransparent(bufferedImage);
             Graphics2D bufferedGraphics = null;
             try {
                 bufferedGraphics = bufferedImage.createGraphics();
@@ -554,26 +552,6 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
                 barWidth - 1,
                 // 有备高度缩减
                 isSlave ? data.get(i) / 2 : data.get(i));
-    }
-
-    private void makeBufferedImageTransparent(BufferedImage image)
-    {
-        Graphics2D bufferedGraphics = null;
-        try
-        {
-            bufferedGraphics = image.createGraphics();
-
-            bufferedGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.CLEAR));
-            bufferedGraphics.fillRect(0, 0, image.getWidth(), image.getHeight());
-            bufferedGraphics.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-        }
-        finally
-        {
-            if(bufferedGraphics != null)
-            {
-                bufferedGraphics.dispose();
-            }
-        }
     }
 
     @Override

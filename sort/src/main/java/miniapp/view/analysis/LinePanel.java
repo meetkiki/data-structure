@@ -57,7 +57,7 @@ public class LinePanel extends JPanel {
                     String name = lButton.sortMethod.methodName();
                     boolean running = progressPanel.isRunning(name);
                     if (running){
-                        JOptionPane.showMessageDialog(null, "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                     // 右键取消
@@ -68,7 +68,7 @@ public class LinePanel extends JPanel {
                         try {
                             RunProgressBar addBar = progressPanel.addBar(name);
                             if (addBar == null) {
-                                JOptionPane.showMessageDialog(null, progressPanel.isFull() ?
+                                JOptionPane.showMessageDialog(frame, progressPanel.isFull() ?
                                         "The execution queue is full ! "
                                         : "The execution queue is running !", "warning", JOptionPane.WARNING_MESSAGE);
                                 return;

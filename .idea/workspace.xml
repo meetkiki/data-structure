@@ -2,20 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/GraphicsUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bubblesort/BubbleSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bubblesort/BubbleSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/insertionsort/InsertionSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/insertionsort/InsertionSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/selectionsort/SelectionSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/selectionsort/SelectionSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sortassert/SortAssert.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sortassert/SortAssert.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/ThreadUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/ThreadUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sort/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeSort.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -64,109 +57,62 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="655">
-              <caret line="159" column="14" selection-start-line="159" selection-start-column="14" selection-end-line="159" selection-end-column="14" />
-              <folding>
-                <element signature="e#1827#3410#0" expanded="true" />
-                <element signature="e#3409#3410#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="638">
+              <caret line="69" column="49" lean-forward="true" selection-start-line="69" selection-start-column="49" selection-end-line="69" selection-end-column="49" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bubblesort/BubbleSort.java">
+        <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/JButton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="47" selection-start-line="47" selection-end-line="54" selection-end-column="5" />
-              <folding>
-                <element signature="e#987#988#0" expanded="true" />
-                <element signature="e#1015#1016#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="160">
+              <caret line="78" column="13" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/selectionsort/SelectionSort.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/ch3_button/BEButtonUI.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="547">
-              <caret line="52" column="20" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
-              <folding>
-                <element signature="e#1147#1148#0" expanded="true" />
-                <element signature="e#1183#1184#0" expanded="true" />
-                <element signature="e#1237#1238#0" expanded="true" />
-                <element signature="e#1288#1289#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="-3237">
+              <caret line="62" column="43" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/SortingAnalysisScreen.java">
+        <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/ch3_button/BEToggleButtonUI.class">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-269">
-              <caret line="71" column="12" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="12" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="198">
+              <caret line="45" selection-start-line="45" selection-end-line="45" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java">
+        <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/plaf/basic/BasicToggleButtonUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
+            <state relative-caret-position="220">
+              <caret line="73" column="32" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/insertionsort/InsertionSort.java">
+        <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/plaf/basic/BasicButtonUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
-              <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
-              <folding>
-                <element signature="e#1196#1197#0" expanded="true" />
-                <element signature="e#1232#1233#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="6292">
+              <caret line="465" column="13" selection-start-line="465" selection-start-column="13" selection-end-line="465" selection-end-column="13" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
-              <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/quick/ParallelQuickSort.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="19" column="5" lean-forward="true" selection-start-line="19" selection-start-column="5" selection-end-line="19" selection-end-column="5" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#463#464#0" expanded="true" />
-                <element signature="e#512#513#0" expanded="true" />
-                <element signature="e#874#875#0" expanded="true" />
-                <element signature="e#964#965#0" expanded="true" />
-                <element signature="e#1042#1043#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="466">
+              <caret line="519" column="17" lean-forward="true" selection-start-line="519" selection-start-column="17" selection-end-line="519" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -174,11 +120,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="738">
-              <caret line="72" column="5" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+            <state relative-caret-position="303">
+              <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="418">
+              <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/plaf/ComponentUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="132" column="16" selection-start-line="132" selection-start-column="16" selection-end-line="132" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -195,8 +159,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>midiSoundPlayer</find>
-      <find>finis</find>
       <find>Box</find>
       <find>sortType</find>
       <find>WIN_WIDTH</find>
@@ -225,6 +187,8 @@
       <find>parallelSort</find>
       <find>forkJoinPool</find>
       <find>sortMethod</find>
+      <find>JBu</find>
+      <find>g</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -238,8 +202,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ExecutionSort.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeBuSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/heapsort/HeapSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/countingsort/CountingSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketSort.java" />
@@ -258,7 +220,6 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/jdksort/ArraysSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/forkjoin/TestExecute.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/DataValue.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/SortingAnalysisScreen.java" />
@@ -269,12 +230,9 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/entity/SortData.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/SortData.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/MainMenuScreen.java" />
-        <option value="$PROJECT_DIR$/sort/pom.xml" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java" />
         <option value="$PROJECT_DIR$/leet-code/pom.xml" />
         <option value="$PROJECT_DIR$/hashtable/src/main/java/Hash01.java" />
         <option value="$PROJECT_DIR$/hashtable/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DoSortTask.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sortassert/SortAssert.java" />
@@ -288,6 +246,12 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bubblesort/BubbleSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/selectionsort/SelectionSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/insertionsort/InsertionSort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeSort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/GraphicsUtil.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java" />
+        <option value="$PROJECT_DIR$/sort/pom.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java" />
       </list>
     </option>
@@ -326,6 +290,12 @@
           <item name="sort" type="9519ce18:MavenProjectsStructure$ProjectNode" />
           <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
         </path>
+        <path>
+          <item name="" type="16c1761:MavenProjectsStructure$RootNode" />
+          <item name="sort" type="9519ce18:MavenProjectsStructure$ProjectNode" />
+          <item name="Dependencies" type="f4be9f2a:MavenProjectsStructure$DependenciesNode" />
+          <item name="junit:junit:4.12" type="c0821a7e:MavenProjectsStructure$DependencyNode" />
+        </path>
       </expand>
       <select />
     </treeState>
@@ -344,8 +314,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -396,29 +364,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="miniapp" type="462c0819:PsiDirectoryNode" />
-              <item name="sort_algorithms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
-              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
-              <item name="sort" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="miniapp" type="462c0819:PsiDirectoryNode" />
-              <item name="sort_algorithms" type="462c0819:PsiDirectoryNode" />
-              <item name="insertionsort" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
-              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
-              <item name="sort" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="miniapp" type="462c0819:PsiDirectoryNode" />
-              <item name="sort_algorithms" type="462c0819:PsiDirectoryNode" />
-              <item name="selectionsort" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
@@ -450,19 +396,25 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="miniapp" type="462c0819:PsiDirectoryNode" />
               <item name="view" type="462c0819:PsiDirectoryNode" />
-              <item name="screens" type="462c0819:PsiDirectoryNode" />
+              <item name="manoeuvre" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554828180019" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/hashtable" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554899789458" />
+    <property name="last_opened_file_path" value="D:/OpenSource/beautyeye/demo2" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
@@ -759,14 +711,8 @@
       <workItem from="1554602212060" duration="19918000" />
       <workItem from="1554628834255" duration="25081000" />
       <workItem from="1554721391643" duration="17656000" />
-      <workItem from="1554809736287" duration="15019000" />
-    </task>
-    <task id="LOCAL-00003" summary="Default Changelist">
-      <created>1553564666300</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1553564666300</updated>
+      <workItem from="1554809736287" duration="15458000" />
+      <workItem from="1554895068483" duration="3141000" />
     </task>
     <task id="LOCAL-00004" summary="Default Changelist">
       <created>1553565310064</created>
@@ -1104,11 +1050,18 @@
       <option name="project" value="LOCAL" />
       <updated>1554824243174</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="调整项目结构 修正bug">
+      <created>1554828209249</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1554828209249</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="297214000" />
+    <option name="totallyTimeSpent" value="300794000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1123,7 +1076,7 @@
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13513513" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13593005" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -1134,7 +1087,7 @@
       <window_info id="Nl-Palette" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49960256" visible="true" weight="0.29563183" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49960256" visible="true" weight="0.29563183" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49880764" weight="0.31669268" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1181,7 +1134,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Default Changelist" />
     <MESSAGE value="排序二探" />
     <MESSAGE value="排序二探 --- 希尔排序" />
     <MESSAGE value="集成排序可视化" />
@@ -1206,7 +1158,8 @@
     <MESSAGE value="完善算法分析功能" />
     <MESSAGE value="完善UI界面" />
     <MESSAGE value="调整项目结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="调整项目结构" />
+    <MESSAGE value="调整项目结构 修正bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整项目结构 修正bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1328,154 +1281,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortAnalysisTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#286#287#0" expanded="true" />
-            <element signature="e#324#325#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/DataValue.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="611">
-          <caret line="47" column="16" selection-start-line="47" selection-start-column="16" selection-end-line="47" selection-end-column="16" />
-          <folding>
-            <element signature="e#369#370#0" expanded="true" />
-            <element signature="e#426#427#0" expanded="true" />
-            <element signature="e#495#496#0" expanded="true" />
-            <element signature="e#531#532#0" expanded="true" />
-            <element signature="e#487#488#0" expanded="true" />
-            <element signature="e#523#524#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/CommonCanvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/DerivativeCanvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/FittingCanvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/forkjoin/quicksort/QuickRunTask.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="655">
-          <caret line="47" column="5" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="47" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/SortFrameEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="75" column="20" selection-start-line="75" selection-start-column="20" selection-end-line="75" selection-end-column="20" />
-          <folding>
-            <element signature="e#1308#1309#0" expanded="true" />
-            <element signature="e#1359#1360#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/selectionsort/SelectionFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/LineColorEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="27" column="46" lean-forward="true" selection-start-line="27" selection-start-column="46" selection-end-line="27" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/jdksort/ArraysSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="20" column="19" selection-start-line="20" selection-start-column="19" selection-end-line="20" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#455#456#0" expanded="true" />
-            <element signature="e#500#501#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/SortEnum.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="525">
-          <caret line="93" column="14" lean-forward="true" selection-start-line="93" selection-start-column="14" selection-end-line="93" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="67" column="37" selection-start-line="67" selection-start-column="37" selection-end-line="67" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
-          <folding>
-            <element signature="e#1058#1059#0" expanded="true" />
-            <element signature="e#1113#1114#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/MidiSoundPlayer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/SortFrameCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="782">
-          <caret line="536" column="34" selection-start-line="536" selection-start-column="34" selection-end-line="536" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/Ordered.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
@@ -1535,49 +1340,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="12" selection-start-line="12" selection-end-line="16" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="303">
-          <caret line="27" column="36" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/RecursiveAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="166" selection-start-line="166" selection-end-line="166" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/MyCanvas.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/RunProgressBar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="633">
-          <caret line="64" selection-start-line="64" selection-end-line="64" />
-          <folding>
-            <element signature="e#984#985#0" expanded="true" />
-            <element signature="e#1042#1043#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
         </state>
       </provider>
     </entry>
@@ -1619,18 +1385,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="275">
           <caret line="13" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/ThreadUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1621#1622#0" expanded="true" />
-            <element signature="e#1656#1657#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1691,59 +1445,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="10" column="17" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bubblesort/BubbleSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
+        <state relative-caret-position="836">
           <caret line="47" selection-start-line="47" selection-end-line="54" selection-end-column="5" />
-          <folding>
-            <element signature="e#987#988#0" expanded="true" />
-            <element signature="e#1015#1016#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/selectionsort/SelectionSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="547">
-          <caret line="52" column="20" selection-start-line="52" selection-start-column="20" selection-end-line="52" selection-end-column="20" />
+        <state relative-caret-position="88">
+          <caret line="6" column="43" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="43" />
           <folding>
             <element signature="e#1147#1148#0" expanded="true" />
             <element signature="e#1183#1184#0" expanded="true" />
-            <element signature="e#1237#1238#0" expanded="true" />
-            <element signature="e#1288#1289#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/insertionsort/InsertionSort.java">
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/SortingAnalysisScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
-          <folding>
-            <element signature="e#1196#1197#0" expanded="true" />
-            <element signature="e#1232#1233#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="738">
-          <caret line="72" column="5" selection-start-line="72" selection-start-column="5" selection-end-line="72" selection-end-column="5" />
+        <state relative-caret-position="1232">
+          <caret line="71" column="12" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1752,15 +1475,212 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
+        <state relative-caret-position="352">
           <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/SortingAnalysisScreen.java">
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/insertionsort/InsertionSort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-269">
-          <caret line="71" column="12" selection-start-line="71" selection-start-column="8" selection-end-line="71" selection-end-column="12" />
+        <state relative-caret-position="1012">
+          <caret line="53" column="28" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1342">
+          <caret line="63" column="13" selection-start-line="63" selection-start-column="13" selection-end-line="63" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="440">
+          <caret line="20" column="12" selection-start-line="20" selection-start-column="12" selection-end-line="20" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="925">
+          <caret line="117" column="41" selection-start-line="117" selection-start-column="41" selection-end-line="117" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/RunProgressBar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="633">
+          <caret line="64" selection-start-line="64" selection-end-line="64" />
+          <folding>
+            <element signature="e#984#985#0" expanded="true" />
+            <element signature="e#1042#1043#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="63" selection-start-line="63" selection-end-line="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/ThreadUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="62" column="23" selection-start-line="62" selection-start-column="23" selection-end-line="62" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1621#1622#0" expanded="true" />
+            <element signature="e#1656#1657#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/GraphicsUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/MyCanvas.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22">
+          <caret line="28" column="41" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/utils/Platform.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="94" column="31" lean-forward="true" selection-start-line="94" selection-start-column="31" selection-end-line="94" selection-end-column="31" />
+          <folding>
+            <element signature="e#3459#3460#0" expanded="true" />
+            <element signature="e#3515#3516#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/BeautyEyeLNFHelper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="92" column="30" lean-forward="true" selection-start-line="92" selection-start-column="30" selection-end-line="92" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/UIManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-148">
+          <caret line="580" column="14" lean-forward="true" selection-start-line="580" selection-start-column="14" selection-end-line="580" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="21" column="21" selection-start-line="21" selection-start-column="21" selection-end-line="21" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/ch3_button/__Icon9Factory__.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-99">
+          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/ch3_button/__UI__.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="352">
+          <caret line="28" column="49" selection-start-line="28" selection-start-column="30" selection-end-line="28" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/ch3_button/BEToggleButtonUI.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="45" selection-start-line="45" selection-end-line="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/plaf/basic/BasicToggleButtonUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="220">
+          <caret line="73" column="32" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/plaf/ComponentUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="132" column="16" selection-start-line="132" selection-start-column="16" selection-end-line="132" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/resources/beautyeye_zh_CN.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="17" lean-forward="true" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/resources/beautyeye.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/plaf/basic/BasicButtonUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6292">
+          <caret line="465" column="13" selection-start-line="465" selection-start-column="13" selection-end-line="465" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/JButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="78" column="13" selection-start-line="78" selection-start-column="13" selection-end-line="78" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/org/jb2011/beautyeye/1.0.0/beautyeye-1.0.0.jar!/org/jb2011/lnf/beautyeye/ch3_button/BEButtonUI.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3237">
+          <caret line="62" column="43" selection-start-line="62" selection-start-column="34" selection-end-line="62" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="25" column="18" selection-start-line="25" selection-start-column="18" selection-end-line="25" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="466">
+          <caret line="519" column="17" lean-forward="true" selection-start-line="519" selection-start-column="17" selection-end-line="519" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="303">
+          <caret line="57" column="13" lean-forward="true" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1769,12 +1689,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="655">
-          <caret line="159" column="14" selection-start-line="159" selection-start-column="14" selection-end-line="159" selection-end-column="14" />
-          <folding>
-            <element signature="e#1827#3410#0" expanded="true" />
-            <element signature="e#3409#3410#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="638">
+          <caret line="69" column="49" lean-forward="true" selection-start-line="69" selection-start-column="49" selection-end-line="69" selection-end-column="49" />
         </state>
       </provider>
     </entry>

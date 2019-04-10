@@ -3,6 +3,9 @@ package miniapp.sort_algorithms.mergesort;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
+/**
+ * @author Tao
+ */
 public class MergeSort implements SortMethod{
 
     @Override
