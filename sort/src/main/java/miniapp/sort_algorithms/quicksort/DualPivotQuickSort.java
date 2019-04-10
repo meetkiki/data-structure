@@ -82,11 +82,7 @@ public class DualPivotQuickSort implements SortMethod {
 
     public static void main(String[] args) {
         DualPivotQuickSort dualPivotQuickSort = new DualPivotQuickSort();
-        int[] arr = dualPivotQuickSort.randomInt(20, 3);
-        System.out.println(Arrays.toString(arr));
-        dualPivotQuickSort.sort(arr);
-        System.out.println(Arrays.toString(arr));
-//        long sort = dualPivotQuickSort.testSort(100000000);
-//        System.out.println("DualPivotQuickSort 花费时间"+sort+"ms");
+        long sort = dualPivotQuickSort.testSort(10000000);
+        System.out.println("DualPivotQuickSort 花费时间"+sort+"ms");
     }
 }

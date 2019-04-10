@@ -31,10 +31,12 @@ public interface SortMethod extends Sort {
         long s1 = System.currentTimeMillis();
         this.sort(ints);
         long e1 = System.currentTimeMillis();
+        long s2 = System.currentTimeMillis();
         Arrays.sort(clone);
-        boolean sorted = Arrays.equals(clone, ints);
-        //boolean sorted = isSorted(ints);
-        System.out.println("Array sorted is " + sorted);
+        long e2 = System.currentTimeMillis();
+        boolean sorted = isSorted(ints);
+        System.out.println("this sorted is " + sorted);
+        System.out.println("Array sorted is " + (e2 - s2) + "ms");
         return e1 - s1;
     }
 

@@ -42,4 +42,10 @@ public class Quick3waySort extends QuickSort {
     public String getCnName() {
         return "三向切分快速排序";
     }
+
+    public static void main(String[] args) {
+        Quick3waySort quick3waySort = new Quick3waySort();
+        long sort = quick3waySort.testSort(10000000);
+        System.out.println("DualPivotQuickSort 花费时间"+sort+"ms");
+    }
 }

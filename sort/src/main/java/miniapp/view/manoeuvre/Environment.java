@@ -60,7 +60,7 @@ public class Environment<T> {
      *
      * @return
      */
-    public long takeTime() {
+    public long costTime() {
         if (end == 0){
 //            throw new RuntimeException("this algorithms is Running!");
             return getTime();
