@@ -30,7 +30,7 @@ public class SortCommand<T> implements ICommand<T> {
         long s = System.currentTimeMillis();
         target.sort(array);
         long e = System.currentTimeMillis();
-        SortAssert.isTrue(target.isSorted(array),target.getCnName() + "失败!");
+        SortAssert.mustTrue(target.isSorted(array),target.getCnName() + "失败!");
         Double[] times = checkCache();
         int i = array.length / DoSortTask.increment > DoSortTask.abscissa ? DoSortTask.abscissa - 1 : array.length / DoSortTask.increment;
         times[i] = Double.valueOf(e) - Double.valueOf(s);

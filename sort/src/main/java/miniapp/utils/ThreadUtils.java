@@ -22,7 +22,7 @@ public class ThreadUtils {
      * @param recursiveAction
      */
     public static void submitVoid(RecursiveAction recursiveAction){
-        SortAssert.isNull(recursiveAction);
+        SortAssert.isNotNull(recursiveAction);
         forkJoinPool.execute(recursiveAction);
     }
 
@@ -32,7 +32,7 @@ public class ThreadUtils {
      * @param recursiveAction
      */
     public static void executeVoid(RecursiveAction recursiveAction){
-        SortAssert.isNull(recursiveAction);
+        SortAssert.isNotNull(recursiveAction);
         try {
             forkJoinPool.submit(recursiveAction).get();
         } catch (Exception e) {
@@ -46,7 +46,7 @@ public class ThreadUtils {
      * @param recursiveTask
      */
     public static<T> T executeTask(RecursiveTask<T> recursiveTask){
-        SortAssert.isNull(recursiveTask);
+        SortAssert.isNotNull(recursiveTask);
         try {
             forkJoinPool.submit(recursiveTask).get();
         } catch (Exception e) {

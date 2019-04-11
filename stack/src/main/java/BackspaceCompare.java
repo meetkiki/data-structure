@@ -1,9 +1,7 @@
-import java.util.Stack;
-
 /**
  * 844. 比较含退格的字符串
  */
-public class backspaceCompare {
+public class BackspaceCompare {
 
 
     public boolean backspaceCompare(String S, String T) {
@@ -36,6 +34,6 @@ public class backspaceCompare {
     }
 
     public static void main(String[] args) {
-        System.out.println(new backspaceCompare().backspaceCompare("ab#c","ad#c"));
+        System.out.println(new BackspaceCompare().backspaceCompare("ab#c","ad#c"));
     }
 }
