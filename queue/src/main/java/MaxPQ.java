@@ -123,10 +123,10 @@ public class MaxPQ<T extends Comparable<T>> {
      */
     private void sink(int k){
         // 直到k下沉到叶子结点结束
-        while ((k << 1) <= count){
-            int i = (k << 1);
+        int i;
+        while ((i = (k << 1)) <= count){
             // 如果右子结点比左子节点大 则交换元素为右子节点
-            if (i < count && less(i + 1,i)) i++;
+            if (i < count && less(i,i + 1)) i++;
             // 如果k比i小 则交换
             if (less(k,i)){
                 each(k,i);
