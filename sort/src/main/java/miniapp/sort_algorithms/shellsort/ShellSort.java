@@ -7,6 +7,7 @@ import java.util.Arrays;
 
 /**
  * 希尔排序
+ * @author Tao
  */
 public class ShellSort implements SortMethod {
 

@@ -28,7 +28,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * @param t
      */
     public void insert(T t){
-        if (count == data.length){
+        if ((count + 1) == data.length){
             resize(count<<1);
         }
         // 插入到叶子结点的位置
@@ -41,7 +41,13 @@ public class MaxPQ<T extends Comparable<T>> {
      * 扩容
      */
     private void resize(int n) {
-
+        T[] temp = (T[])new Comparable[n + 1];
+        int min = Math.min(n, count);
+        for (int i = 1; i <= min; i++) {
+            temp[i] = data[i];
+            data[i] = null;
+        }
+        data = temp;
     }
 
     /**
@@ -49,7 +55,7 @@ public class MaxPQ<T extends Comparable<T>> {
      * @return
      */
     public T max(){
-        return null;
+        return data[1];
     }
 
     /**
@@ -66,6 +72,9 @@ public class MaxPQ<T extends Comparable<T>> {
         data[count+1] = null;
         // 下沉
         sink(1);
+        if (count <= (data.length >> 2) && data.length > 1){
+            resize(data.length >> 1);
+        }
         return ret;
     }
 
