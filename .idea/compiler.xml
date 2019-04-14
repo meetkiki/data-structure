@@ -24,4 +24,9 @@
       <module name="hashtable" target="8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="sort" options="-bootclasspath D:/dev/jdk1.8.0_192/jre\lib\rt.jar;D:/dev/jdk1.8.0_192/jre\lib\jce.jar -Xlint:deprecation" />
+    </option>
+  </component>
 </project>

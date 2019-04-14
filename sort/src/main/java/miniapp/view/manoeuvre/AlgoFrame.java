@@ -563,7 +563,7 @@ public class AlgoFrame extends JPanel implements Cloneable, OperatingArray {
         auxFrame = null;
         render(this.data);
         for (int i = 0; i < data.size(); i++) {
-            pause(data.getDELAY());
+            //pause(data.getDELAY());
             updateData(i,i);
         }
     }

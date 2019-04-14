@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 /**
  * 使用堆来实现一个有序队列
@@ -9,8 +8,8 @@ import java.util.Arrays;
  */
 public class MaxPQ<T extends Comparable<T>> {
 
-    private T[] data;
-    private int count;
+    protected T[] data;
+    protected int count;
 
     MaxPQ(){
         this(10);
@@ -100,14 +99,14 @@ public class MaxPQ<T extends Comparable<T>> {
      * @param j
      * @return
      */
-    private boolean less(int i,int j){
+    protected boolean less(int i,int j){
         return data[i].compareTo(data[j]) < 0;
     }
 
     /**
      * 交换两个数据 的值
      */
-    public void each(int i,int j){
+    protected void each(int i,int j){
         Comparable a = data[i];data[i] = data[j];data[j] = (T)a;
     }
 
@@ -116,7 +115,7 @@ public class MaxPQ<T extends Comparable<T>> {
      *  我们可以将它与父节点交换（交换后 它比这两个子节点都大 因为另外一个是父节点 的子节点 一定是比父节点小）
      * @param k
      */
-    private void swim(int k){
+    protected void swim(int k){
         // 直到k不大于父节点结束循环
         while (k > 1 && less((k >> 1),k)){
             // 交换父节点和当前节点的值
@@ -130,7 +129,7 @@ public class MaxPQ<T extends Comparable<T>> {
      *  这里我们需要交换父节点和子节点中的较小者
      * @param k
      */
-    private void sink(int k){
+    protected void sink(int k){
         // 直到k下沉到叶子结点结束
         int i;
         while ((i = (k << 1)) <= count){

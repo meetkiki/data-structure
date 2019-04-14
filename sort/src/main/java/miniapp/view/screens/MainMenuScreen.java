@@ -58,7 +58,6 @@ public class MainMenuScreen extends Screen {
         JPanel optionsContainer = new JPanel();
         // 外边框
         JPanel outerContainer = new JPanel();
-        //outerContainer.setBorder(BorderFactory.createLineBorder(Color.WHITE));
 
         initContainer(this);
         initContainer(optionsContainer);
