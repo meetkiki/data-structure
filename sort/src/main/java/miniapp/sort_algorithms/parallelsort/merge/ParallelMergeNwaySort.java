@@ -5,6 +5,7 @@ import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
@@ -129,11 +130,10 @@ public class ParallelMergeNwaySort implements SortMethod {
                     minPQ.insert(i,aux[pos[i][0]++]);
                 }
             }
-            int i = l;
             // 如果不为空则继续读取合并
             while (!minPQ.isEmpty()){
                 int min = minPQ.min();
-                desc[i++] = min;
+                desc[l++] = min;
                 // 得到最小数组组的索引 (第index组数组)
                 int index = minPQ.deleteMin();
                 // 如果还有值 继续入队
@@ -185,9 +185,9 @@ public class ParallelMergeNwaySort implements SortMethod {
     }
 
     /**
-     * 索引优先队列
+     * 索引优先队列 最小堆
      */
-    private class IndexMinPQ{
+    private static class IndexMinPQ{
         // 用于存储data的索引k
         private int[] pq;
         // 用于存储pq的反序 即存储k在pq中的位置 pq[i] = k qp[k] = i
@@ -195,32 +195,34 @@ public class ParallelMergeNwaySort implements SortMethod {
         // 数据项
         private int[] data;
         // 计数
-        private int count;
+        private int count = 0;
         // 构造函数
         public IndexMinPQ(int N) {
             this.pq = new int[N + 1];
             this.qp = new int[N + 1];
             this.data = new int[N + 1];
-            for (int i = 0; i < qp.length; i++) {
+            for (int i = 1; i < qp.length; i++) {
                 qp[i] = -1;
             }
         }
         /**  上浮 即子节点的值比父节点小时*/
         private void swim(int i){
             while (i > 1 && more(i >> 1,i)){
-                swap(i >> 1,i);
+                swap(i >> 1, i);
                 i = i >> 1;
             }
         }
+
         /** 下沉 即父节点的值比子节点大时 */
         private void sink(int i){
             while ((i<<1) <= count){
+                // 子节点
                 int k = i << 1;
                 // 找出较小的儿子
-                if (k < count && more(k,k+1)) k++;
-                // 如果儿子小于父亲
-                if (more(i,k)){
-                    swap(i,k);
+                if (k < count && more(k,k + 1)) k++;
+                // 如果儿子小于父亲 则将儿子放到父亲的位置
+                if (more(i, k)){
+                    swap(i, k);
                     i = k;
                 }else{
                     break;
@@ -249,10 +251,12 @@ public class ParallelMergeNwaySort implements SortMethod {
         public void insert(int k,int t){
             // 关联整数k可以取0
             k++;
-            data[++count] = t;
-            pq[k] = count;
-            qp[count] = k;
-            swim(k);
+            count++;
+            pq[count] = k;
+            qp[k] = count;
+            data[k] = t;
+            // 维护pq数组
+            swim(count);
         }
 
         /**
@@ -284,11 +288,28 @@ public class ParallelMergeNwaySort implements SortMethod {
         public boolean isEmpty(){
             return count == 0;
         }
+
+        @Override
+        public String toString() {
+            StringBuffer buffer = new StringBuffer();
+            buffer.append("[");
+            for (int i = 1; i <= count; i++) {
+                buffer.append(data[pq[i]]);
+                if (i != count){
+                    buffer.append(", ");
+                }
+            }
+            buffer.append("]");
+            return buffer.toString();
+        }
     }
 
     public static void main(String[] args) {
         ParallelMergeNwaySort parallelMergeNwaySort = new ParallelMergeNwaySort();
-        long sort = parallelMergeNwaySort.testSort(500000);
+//        int[] arr = parallelMergeNwaySort.randomInt(200, 1000);
+//        parallelMergeNwaySort.sort(arr);
+//        System.out.println(Arrays.toString(arr));
+        long sort = parallelMergeNwaySort.testSort(50000000);
         System.out.println("花费时间"+sort+"ms");
     }
 

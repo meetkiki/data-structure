@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queue/src/main/java/IndexMinPQ.java" beforeDir="false" afterPath="$PROJECT_DIR$/queue/src/main/java/IndexMinPQ.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/queue/src/test/java/TestIndexMinPQ.java" beforeDir="false" afterPath="$PROJECT_DIR$/queue/src/test/java/TestIndexMinPQ.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
@@ -67,8 +66,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2980">
-              <caret line="107" selection-start-line="107" selection-end-line="107" />
+            <state relative-caret-position="391">
+              <caret line="76" column="52" selection-start-line="76" selection-start-column="52" selection-end-line="76" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#601#602#0" expanded="true" />
@@ -89,10 +88,19 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="242">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/queue/src/main/java/IndexMinPQ.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="589">
-              <caret line="136" column="13" lean-forward="true" selection-start-line="136" selection-start-column="13" selection-end-line="136" selection-end-column="13" />
+            <state relative-caret-position="413">
+              <caret line="128" selection-start-line="128" selection-end-line="140" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -100,8 +108,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/queue/src/test/java/TestIndexMinPQ.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="242">
+              <caret line="11" column="56" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -112,26 +120,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="31" selection-start-line="31" selection-end-line="31" />
+            <state relative-caret-position="594">
+              <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/SortFrameCommand.java">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="550">
-              <caret line="26" column="15" selection-start-line="26" selection-start-column="15" selection-end-line="26" selection-end-column="15" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10560">
-              <caret line="517" column="60" selection-start-line="517" selection-start-column="60" selection-end-line="517" selection-end-column="60" />
+            <state relative-caret-position="88">
+              <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+              <folding>
+                <element signature="e#1466#1467#0" expanded="true" />
+                <element signature="e#1503#1504#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -263,7 +269,6 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick3waySort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeOptimizedSort.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/backspaceCompare.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/backspacecompare.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/LeetCode844.java" />
@@ -276,9 +281,10 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/screens/MainMenuScreen.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/AlgoFrame.java" />
         <option value="$PROJECT_DIR$/queue/src/main/java/MaxPQ.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java" />
         <option value="$PROJECT_DIR$/queue/src/test/java/TestIndexMinPQ.java" />
         <option value="$PROJECT_DIR$/queue/src/main/java/IndexMinPQ.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" />
       </list>
     </option>
   </component>
@@ -471,7 +477,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555337118517" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555341965174" />
     <property name="last_opened_file_path" value="D:/OpenSource/JAdventure" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -512,7 +518,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.TestIndexMinPQ.TestName">
+  <component name="RunManager" selected="Application.ParallelMergeNwaySort">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -739,8 +745,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TestIndexMinPQ.TestName" />
         <item itemvalue="Application.ParallelMergeNwaySort" />
+        <item itemvalue="JUnit.TestIndexMinPQ.TestName" />
         <item itemvalue="Application.MiniApp" />
         <item itemvalue="JUnit.TestMaxPQ.TestName" />
         <item itemvalue="Application.MergeOptimizedSort" />
@@ -786,14 +792,7 @@
       <workItem from="1555130865389" duration="5547000" />
       <workItem from="1555222878721" duration="1199000" />
       <workItem from="1555235764622" duration="8626000" />
-      <workItem from="1555330591700" duration="6507000" />
-    </task>
-    <task id="LOCAL-00010" summary="排序二探 --- 希尔排序">
-      <created>1553873807659</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1553873807659</updated>
+      <workItem from="1555330591700" duration="11291000" />
     </task>
     <task id="LOCAL-00011" summary="排序二探 --- 希尔排序">
       <created>1553874142555</created>
@@ -1131,13 +1130,17 @@
       <option name="project" value="LOCAL" />
       <updated>1555251797384</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="优先队列及其二叉堆实现 fix bug">
+      <created>1555337144382</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1555337144383</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestIndexMinPQ_TestName - 2019.04.15 at 20h 30m 39s.xml">
-      <configuration name="TestIndexMinPQ.TestName" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="TestIndexMinPQ_TestName - 2019.04.15 at 20h 31m 13s.xml">
       <configuration name="TestIndexMinPQ.TestName" configurationId="JUnit" />
     </history-entry>
@@ -1165,9 +1168,12 @@
     <history-entry file="TestIndexMinPQ_TestName - 2019.04.15 at 22h 04m 42s.xml">
       <configuration name="TestIndexMinPQ.TestName" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="TestIndexMinPQ_TestName - 2019.04.15 at 22h 05m 09s.xml">
+      <configuration name="TestIndexMinPQ.TestName" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="348779000" />
+    <option name="totallyTimeSpent" value="353563000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1329,6 +1335,36 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>minPQ.toString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>minPQ.isEmpty()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>this.toString()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>this</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>data</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>minPQ</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>aux[pos[0][0]]</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -1345,31 +1381,6 @@
       </expression>
       <expression>
         <expression-string>aux[pos[i][0]</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>aux[pos[index][0]--]</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>aux[pos[index][0]]</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>this</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>minPQ</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>minPQ.count</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
@@ -1473,13 +1484,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="660">
           <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="26" column="34" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -1617,17 +1621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1870">
-          <caret line="96" selection-start-line="96" selection-end-line="101" selection-end-column="18" />
-          <folding>
-            <element signature="e#1466#1467#0" expanded="true" />
-            <element signature="e#1503#1504#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/array/src/main/java/Array.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2640">
@@ -1756,17 +1749,55 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
+    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/io/PrintStream.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="292">
-          <caret line="31" selection-start-line="31" selection-end-line="31" />
+          <caret line="819" column="16" selection-start-line="819" selection-start-column="16" selection-end-line="819" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queue/src/test/java/TestIndexMinPQ.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="242">
+          <caret line="11" column="56" lean-forward="true" selection-start-line="11" selection-start-column="8" selection-end-line="11" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/queue/src/main/java/IndexMinPQ.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="413">
+          <caret line="128" selection-start-line="128" selection-end-line="140" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="7" column="17" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="17" />
+          <folding>
+            <element signature="e#1466#1467#0" expanded="true" />
+            <element signature="e#1503#1504#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeNwaySort.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2980">
-          <caret line="107" selection-start-line="107" selection-end-line="107" />
+        <state relative-caret-position="391">
+          <caret line="76" column="52" selection-start-line="76" selection-start-column="52" selection-end-line="76" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#601#602#0" expanded="true" />
@@ -1785,27 +1816,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/io/PrintStream.java">
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="819" column="16" selection-start-line="819" selection-start-column="16" selection-end-line="819" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queue/src/test/java/TestIndexMinPQ.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="13" lean-forward="true" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/queue/src/main/java/IndexMinPQ.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="589">
-          <caret line="136" column="13" lean-forward="true" selection-start-line="136" selection-start-column="13" selection-end-line="136" selection-end-column="13" />
+        <state relative-caret-position="242">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
         </state>
       </provider>
     </entry>
