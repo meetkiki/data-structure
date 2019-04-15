@@ -1,5 +1,10 @@
 /**
  * 索引优先队列
+ *
+ *  优先队列的缺点是不能随机支持访问并更新他们
+ *  1.索引优先队列的目的则是通过维护pq索引数组来达到实现优先队列，而data数组的值则不用改变
+ *
+ * @author Tao
  */
 public class IndexMinPQ<T extends Comparable<T>> extends MaxPQ<T> {
 
@@ -10,6 +15,8 @@ public class IndexMinPQ<T extends Comparable<T>> extends MaxPQ<T> {
     /**
      * 索引逆序 qp[pq[i]] = pa[qp[i]] = i
      *  即用qp存储i在pq中的位置  索引j qp[j] = i
+     * 维护qp数组的原因是pq维护了data的优先队列，
+     *  而原生的k则需要重新遍历数组，所以这里需要用到索引逆序快速找到整数k的值在pq的位置
      */
     private int[] qp;
     /**
@@ -105,13 +112,31 @@ public class IndexMinPQ<T extends Comparable<T>> extends MaxPQ<T> {
 
     @Override
     protected boolean less(int i, int j) {
-        return data[i].compareTo(data[j]) > 0;
+        return data[pq[i]].compareTo(data[pq[j]]) > 0;
+    }
+
+    /**
+     * 维护pq和qp数组的值
+     * @param i
+     * @param j
+     */
+    @Override
+    protected void each(int i, int j) {
+        int a = pq[i];pq[i] = pq[j];pq[j] = a;
+        int b = qp[i];qp[i] = qp[j];qp[j] = b;
     }
 
     @Override
-    protected void each(int i, int j) {
-        Comparable a = data[i];data[i] = data[j];data[j] = (T)a;
-        int b = qp[i];qp[i] = qp[j];qp[j] = b;
-        int c = pq[i];pq[i] = pq[j];pq[j] = c;
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("[");
+        for (int i = 1; i <= count; i++) {
+            buffer.append(data[pq[i]].toString());
+            if (i != count){
+                buffer.append(", ");
+            }
+        }
+        buffer.append("]");
+        return buffer.toString();
     }
 }

@@ -15,17 +15,23 @@ public class TestIndexMinPQ {
         }
 
         System.out.println(pq);
-
-        Random random = new Random();
-        for (int i = 0; i < n; i++) {
-            int i1 = random.nextInt(n);
-            pq.insert(i,i1);
-            if (i1 < min){
-                min = i1;
-            }
+        for (int i = 0; i < arr.length; i++) {
+            pq.deleteMin();
+            System.out.println(pq);
         }
-
         System.out.println(pq);
+
+
+//        Random random = new Random();
+//        for (int i = 0; i < n; i++) {
+//            int i1 = random.nextInt(n);
+//            pq.insert(i,i1);
+//            if (i1 < min){
+//                min = i1;
+//            }
+//        }
+//
+//        System.out.println(pq);
 
 
     }
