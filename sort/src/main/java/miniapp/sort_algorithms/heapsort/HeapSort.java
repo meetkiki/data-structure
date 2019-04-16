@@ -25,7 +25,7 @@ public class HeapSort implements SortMethod {
      * 堆排序
      *  1.构建最大堆，完成之后则顶部为则为最大值
      *  2.将最大值放在最后，在剩下的n-1个元素中构建最大堆
-     *  3.将最大值放在最后，重复上面的操作，直到
+     *  3.将最大值放在最后，重复上面的操作，直到整个数组有序
      * @param arr
      * @return
      */
@@ -33,7 +33,7 @@ public class HeapSort implements SortMethod {
     public int[] sort(int[] arr){
         buildHeap(arr);
         int k = arr.length - 1;
-        while (k > 1){
+        while (k >= 1){
             // 每次循环都是将最大值放在k的位置，k为排序好的索引
             swap(arr,0, k--);
             sink(arr,k,0);
@@ -61,7 +61,7 @@ public class HeapSort implements SortMethod {
      */
     private void sink(int[] arr, int r, int i) {
         int k;
-        while ((k = (i<<1)) <= r){
+        while ((k = (i<<1) + 1) <= r){
             // 找到最大子节点
             if ((k < r - 1) && less(arr, k,k + 1)) k++;
             // 如果子节点比父节点小 则直接退出
