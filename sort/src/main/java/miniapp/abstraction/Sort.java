@@ -104,20 +104,6 @@ public interface Sort {
 
     /**
      * 交换方法
-     * @param arr
-     * @param i
-     * @param j
-     */
-    default void swap(int[] arr, int i, int j) {
-        if (i != j){
-            arr[i] = arr[i] ^ arr[j];
-            arr[j] = arr[i] ^ arr[j];
-            arr[i] = arr[i] ^ arr[j];
-        }
-    }
-
-    /**
-     * 交换方法
      * @param src       源数组
      * @param l1        起始指针
      * @param desc      目标数组
@@ -128,6 +114,20 @@ public interface Sort {
         int r = l1 + length;
         while (l1 < r){
             desc[l2++] = src[l1++];
+        }
+    }
+
+    /**
+     * 交换方法
+     * @param arr
+     * @param i
+     * @param j
+     */
+    default void swap(int[] arr, int i, int j) {
+        if (i != j){
+            arr[i] = arr[i] ^ arr[j];
+            arr[j] = arr[i] ^ arr[j];
+            arr[i] = arr[i] ^ arr[j];
         }
     }
 
