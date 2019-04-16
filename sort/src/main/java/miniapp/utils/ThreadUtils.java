@@ -9,6 +9,7 @@ import java.util.concurrent.RecursiveTask;
 
 /**
  * 全局线程池
+ * @author Tao
  */
 public class ThreadUtils {
     /**
@@ -47,12 +48,13 @@ public class ThreadUtils {
      */
     public static<T> T executeTask(RecursiveTask<T> recursiveTask){
         SortAssert.isNotNull(recursiveTask);
+        T data = null;
         try {
-            forkJoinPool.submit(recursiveTask).get();
+            data = forkJoinPool.submit(recursiveTask).get();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return data;
     }
 
 
