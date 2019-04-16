@@ -56,7 +56,7 @@ public class InsertionSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Indigo");
+        return LineColorEnum.Indigo;
     }
 
 

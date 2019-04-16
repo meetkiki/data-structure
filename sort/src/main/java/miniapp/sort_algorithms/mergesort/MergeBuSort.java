@@ -29,7 +29,7 @@ public class MergeBuSort extends MergeSort {
     }
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Blue");
+        return LineColorEnum.Blue;
     }
 
     @Override

@@ -65,7 +65,7 @@ public class CountingSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Purple");
+        return LineColorEnum.Purple;
     }
 
 }

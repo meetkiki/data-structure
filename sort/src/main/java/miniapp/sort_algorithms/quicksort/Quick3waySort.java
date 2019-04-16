@@ -35,7 +35,7 @@ public class Quick3waySort extends QuickSort {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("LightGreen");
+        return LineColorEnum.LightGreen;
     }
 
     @Override

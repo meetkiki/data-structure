@@ -35,7 +35,7 @@ public class Quick1ScanSort extends QuickSort {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Green");
+        return LineColorEnum.Green;
     }
 
     @Override

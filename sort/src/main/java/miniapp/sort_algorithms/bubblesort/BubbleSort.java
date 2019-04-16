@@ -59,7 +59,7 @@ public class BubbleSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Red");
+        return LineColorEnum.Red;
     }
 
     public static void main(String[] args) {

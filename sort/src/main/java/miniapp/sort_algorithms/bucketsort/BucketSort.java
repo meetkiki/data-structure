@@ -65,7 +65,7 @@ public class BucketSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Pink");
+        return LineColorEnum.Pink;
     }
 
 }

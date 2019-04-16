@@ -23,7 +23,7 @@ public class MergeSort implements SortMethod{
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Cyan");
+        return LineColorEnum.Cyan;
     }
     /**
      * 临时数组

@@ -48,7 +48,7 @@ public class MergeOptimizedSort extends MergeSort {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Brown");
+        return LineColorEnum.Brown;
     }
 
     public static void main(String[] args) {

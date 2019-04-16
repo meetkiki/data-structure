@@ -18,7 +18,7 @@ public class DualPivotQuickSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Teal");
+        return LineColorEnum.Teal;
     }
     @Override
     public int[] sort(int[] arr) {

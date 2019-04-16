@@ -25,7 +25,7 @@ public class ShellSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return LineColorEnum.valueOf("Amber");
+        return LineColorEnum.Amber;
     }
 
     /**
