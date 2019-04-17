@@ -94,7 +94,7 @@ public class HeapSort implements SortMethod {
 
     public static void main(String[] args) {
         HeapSort heapSort = new HeapSort();
-        long sort = heapSort.testSort(10000000);
+        long sort = heapSort.testSort(100000);
         System.out.println("花费时间"+sort+"ms");
     }
 }

@@ -4,6 +4,7 @@
  *  二叉堆是一组能够用堆有序的完全二叉树排序的元素，并且在数组中按照层级存储（不使用数组的第一个位置）
  *
  *  在一个堆中，位置k的结点的父节点位置为k/2，而它的两个子节点为2k和2k+1
+ * @author Tao
  * @param <T>
  */
 public class MaxPQ<T extends Comparable<T>> {
@@ -39,7 +40,7 @@ public class MaxPQ<T extends Comparable<T>> {
     /**
      * 扩容
      */
-    private void resize(int n) {
+    protected void resize(int n) {
         T[] temp = (T[])new Comparable[n + 1];
         int min = Math.min(n, count);
         for (int i = 1; i <= min; i++) {
