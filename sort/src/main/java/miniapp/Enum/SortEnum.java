@@ -5,6 +5,7 @@ import miniapp.sort_algorithms.bubblesort.BubbleSort;
 import miniapp.sort_algorithms.bucketsort.BucketSort;
 import miniapp.sort_algorithms.countingsort.CountingSort;
 import miniapp.sort_algorithms.heapsort.HeapSort;
+import miniapp.sort_algorithms.radixsort.RadixSort;
 import miniapp.sort_algorithms.insertionsort.InsertionSort;
 import miniapp.sort_algorithms.mergesort.MergeBuSort;
 import miniapp.sort_algorithms.mergesort.MergeSort;
@@ -54,6 +55,10 @@ public enum SortEnum {
      * 堆排序
      */
     HeapSort("HeapSort"),
+    /**
+     * 堆排序
+     */
+    RadixSort("RadixSort"),
     /**
      * 自下而上归并排序
      */
@@ -114,6 +119,7 @@ public enum SortEnum {
         map.put("BucketSort",               new BucketSort());
         map.put("CountingSort",             new CountingSort());
         map.put("HeapSort",                 new HeapSort());
+        map.put("RadixSort",                new RadixSort());
         map.put("MergeSort",                new MergeSort());
         map.put("MergeBuSort",              new MergeBuSort());
         map.put("MergeOptimizedSort",       new MergeOptimizedSort());

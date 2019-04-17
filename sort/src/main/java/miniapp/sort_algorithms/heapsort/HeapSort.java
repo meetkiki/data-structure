@@ -3,8 +3,6 @@ package miniapp.sort_algorithms.heapsort;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
-import java.util.Arrays;
-
 /**
  * 堆排序
  * @author Tao
@@ -63,7 +61,7 @@ public class HeapSort implements SortMethod {
         int k;
         while ((k = (i<<1) + 1) <= r){
             // 找到最大子节点
-            if ((k < r - 1) && less(arr, k,k + 1)) k++;
+            if ((k < r) && less(arr, k,k + 1)) k++;
             // 如果子节点比父节点小 则直接退出
             if (!less(arr ,i ,k)){
                 break;
@@ -94,7 +92,7 @@ public class HeapSort implements SortMethod {
 
     public static void main(String[] args) {
         HeapSort heapSort = new HeapSort();
-        long sort = heapSort.testSort(100000);
+        long sort = heapSort.testSort(1000000);
         System.out.println("花费时间"+sort+"ms");
     }
 }

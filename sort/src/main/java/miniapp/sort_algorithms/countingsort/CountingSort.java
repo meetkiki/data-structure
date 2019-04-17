@@ -59,7 +59,7 @@ public class CountingSort implements SortMethod {
 
     public static void main(String[] args) {
         CountingSort countingSort = new CountingSort();
-        long sort = countingSort.testSort(1000000);
+        long sort = countingSort.testSort(10000000);
         System.out.println("花费时间"+sort+"ms");
     }
 

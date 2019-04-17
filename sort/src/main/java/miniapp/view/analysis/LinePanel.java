@@ -21,7 +21,7 @@ public class LinePanel extends JPanel {
     private int Y_Start;
     private int Y_HEIGHT = 8;
     private int X_WIDTH = 12;
-    private static final int plies = 18;
+    private static final int plies = SortEnum.values().length;
     private SortEnum[] sortType;
     private Environment<Map<String, Double[]>> environment;
     private MyCanvas myCanvas;

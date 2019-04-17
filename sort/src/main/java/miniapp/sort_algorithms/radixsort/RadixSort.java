@@ -3,8 +3,6 @@ package miniapp.sort_algorithms.radixsort;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
-import java.util.Arrays;
-
 
 /**
  * 基数排序
@@ -25,8 +23,8 @@ public class RadixSort implements SortMethod {
     public int[] sort(int[] arr) {
         int ex = 1,max = getMax(arr);
         // 从个位开始对数组进行排序
-        aux = new int[arr.length];
-        buckets = new int[TEN];
+        auxs.set(new int[arr.length]);
+        buckets.set(new int[TEN]);
         for (;max/ex > 0; ex*=TEN) {
             // 对每一位进行排序
             countSort(arr,ex);
@@ -37,11 +35,11 @@ public class RadixSort implements SortMethod {
     /**
      * 临时数组
      */
-    private int[] aux;
+    private ThreadLocal<int[]> auxs = new ThreadLocal<>();;
     /**
      * 桶
      */
-    private int[] buckets;
+    private ThreadLocal<int[]> buckets = new ThreadLocal<>();;
 
     /**
      * 获取数组最大值
@@ -68,26 +66,28 @@ public class RadixSort implements SortMethod {
      *    (03) 当exp=100表示按照"百位"对数组a进行排序
      */
     private void countSort(int[] arr,int ex){
+        int[] bucket = buckets.get();
+        int[] aux = auxs.get();
         // 清空
-        for (int i = 0; i < buckets.length; i++) {
-            buckets[i] = 0;
+        for (int i = 0; i < buckets.get().length; i++) {
+            bucket[i] = 0;
         }
         // 存储每一位的出现次数
         for (int i = 0; i < arr.length; i++) {
-            buckets[(arr[i]/ex) % TEN]++;
+            bucket[(arr[i]/ex) % TEN]++;
         }
         // 更改buckets[i]。目的是让更改后的buckets[i]的值，是该数据在output[]中的位置
         // 如果50, 52 , 51, 53 那么 2的桶的值为小于2的所有桶的值 即索引位置 为3-1 = 2
         //     1   3    3   4
         for (int i = 1; i < TEN; i++){
-            buckets[i] += buckets[i - 1];
+            bucket[i] += bucket[i - 1];
         }
         // 存储到临时数组
         for (int i = arr.length - 1; i >= 0; i--) {
             // 位数的值
             int i1 = (arr[i] / ex) % TEN;
             // 排序后的位置
-            aux[--buckets[i1]] = arr[i];
+            aux[--bucket[i1]] = arr[i];
         }
         // 排序好的数组赋值给arr
         for (int i = 0; i < arr.length; i++) {
@@ -97,7 +97,7 @@ public class RadixSort implements SortMethod {
 
     @Override
     public LineColorEnum lineColor() {
-        return null;
+        return LineColorEnum.Orange;
     }
 
     @Override
@@ -111,7 +111,10 @@ public class RadixSort implements SortMethod {
     }
 
     @Override
-    public void destory() {}
+    public void destory() {
+        auxs.remove();
+        buckets.remove();
+    }
 
 
     public static void main(String[] args) {
