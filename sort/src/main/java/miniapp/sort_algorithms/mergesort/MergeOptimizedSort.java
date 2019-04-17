@@ -4,6 +4,9 @@ package miniapp.sort_algorithms.mergesort;
 import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 
+/**
+ * @author Tao
+ */
 public class MergeOptimizedSort extends MergeSort {
 
     @Override
