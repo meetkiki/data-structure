@@ -4,7 +4,6 @@ import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
-import java.util.Arrays;
 
 /**
  * @author Tao
@@ -39,41 +38,52 @@ public class DualPivotQuickSort implements SortMethod {
      * @param r
      */
     private void dualPivotQuickSort(int[] arr, int l, int r) {
-        if (r - l < 1) {
-            insertSort(arr,l,r);
+//        if (r - l < Constant.INSERTSIZE) {
+//            insertSort(arr,l,r);
+//            return;
+//        }
+        if (r - l <= 0) {
+//            insertSort(arr,l,r);
             return;
         }
         // 保证pivot1 小于等于pivot2
         if (arr[l] > arr[r]){
             swap(arr,l,r);
+            // 排除相等情况
+        }else if (arr[l] == arr[r]){
+            while (arr[l] == arr[r] && l < r){
+                l++;
+            }
         }
-        int i = l,j = r,k = l + 1,pivot1 = arr[l],pivot2 = arr[r];
-        OUT_LOOP:while (k < j){
-            if (arr[k] < pivot1){
-                swap(arr,++i,k++);
-            }else if (arr[k] >= pivot1 && arr[k] <= pivot2){
-                k++;
-            }else{
-                // j先增减，j首次扫描pivot2就不参与其中
-                while (arr[--j] > pivot2) {
-                    if (j <= k) {
-                        // 扫描终止
-                        break OUT_LOOP;
-                    }
+        // 类似于三路快排 有两个中枢 lt 左边小于pivot1 lt和gt之间大于pivot1小于pivot2 gt右边大于pivot2
+        int i = l + 1,lt = l,gt = r,pivot1 = arr[l],pivot2 = arr[r];
+        out:
+        while (i < gt){
+            if (arr[i] < pivot1){
+                swap(arr, ++lt, i++);
+                // 介于pivot1和pivot2之间的数据
+            }else if (arr[i] <= pivot2) {
+                i++;
+            }else { // arr[i] 大于pivot2
+                // 先过滤大于pivot2的数据
+                while(arr[--gt] > pivot2){
+                    if (gt <= i) break out;
                 }
-                if (arr[j] < pivot1) {
-                    swap(arr, j, k);
-                    swap(arr, ++i, k++);
-                } else {
-                    swap(arr, j, k++);
+                // arr[gt]小于pivot1的数据放在lt左边
+                if (arr[gt] < pivot1) {
+                    swap(arr, gt, i);
+                    swap(arr, ++lt, i++);
+                } else { // A[gt] 大于等于pivot1 && A[gt] 小于等于pivot2
+                    swap(arr, gt, i++);
                 }
             }
         }
-        swap(arr, l, i);
-        swap(arr, r, j);
-        dualPivotQuickSort(arr,l,i - 1);
-        dualPivotQuickSort(arr,i + 1,j - 1);
-        dualPivotQuickSort(arr,j + 1,r);
+        swap(arr, l, lt);
+        swap(arr, r, gt);
+        // 一次三向切分确定两个元素的位置 这两个元素将数组分为三份
+        dualPivotQuickSort(arr,l,lt - 1);
+        dualPivotQuickSort(arr,lt + 1,gt - 1);
+        dualPivotQuickSort(arr,gt + 1,r);
     }
 
     @Override
@@ -81,7 +91,9 @@ public class DualPivotQuickSort implements SortMethod {
 
 
     public static void main(String[] args) {
+        int[] arr = {1,2,32,3,22,11,21};
         DualPivotQuickSort dualPivotQuickSort = new DualPivotQuickSort();
+        dualPivotQuickSort.sort(arr);
         long sort = dualPivotQuickSort.testSort(10000000);
         System.out.println("DualPivotQuickSort 花费时间"+sort+"ms");
     }

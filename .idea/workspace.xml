@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
+    <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="温习桶排序">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketFrame.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/countingsort/CountingSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/countingsort/CountingSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick3waySort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick3waySort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/radixsort/RadixSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/radixsort/RadixSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick1ScanSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick1ScanSort.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -56,9 +53,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="726">
-              <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
+            <state relative-caret-position="328">
+              <caret line="127" column="23" lean-forward="true" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
               <folding>
+                <element signature="e#1316#1317#0" expanded="true" />
+                <element signature="e#1367#1368#0" expanded="true" />
                 <element signature="e#1466#1467#0" expanded="true" />
                 <element signature="e#1503#1504#0" expanded="true" />
               </folding>
@@ -67,26 +66,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/radixsort/RadixSort.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="352">
-              <caret line="16" column="21" selection-start-line="16" selection-start-column="21" selection-end-line="16" selection-end-column="21" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2519#2520#0" expanded="true" />
-                <element signature="e#2553#2554#0" expanded="true" />
-                <element signature="e#2600#2601#0" expanded="true" />
-                <element signature="e#2629#2630#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1210">
-              <caret line="81" column="17" lean-forward="true" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
+            <state relative-caret-position="545">
+              <caret line="93" column="42" lean-forward="true" selection-start-line="93" selection-start-column="10" selection-end-line="93" selection-end-column="42" />
               <folding>
                 <element signature="e#2001#2002#0" expanded="true" />
                 <element signature="e#2048#2049#0" expanded="true" />
@@ -96,19 +79,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick3waySort.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="23" column="40" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-              <folding>
-                <element signature="e#837#838#0" expanded="true" />
-                <element signature="e#884#885#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketSort.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="484">
@@ -121,11 +91,47 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/countingsort/CountingSort.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1232">
-              <caret line="64" column="30" selection-start-line="64" selection-start-column="30" selection-end-line="64" selection-end-column="30" />
+            <state relative-caret-position="457">
+              <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#384#385#0" expanded="true" />
+                <element signature="e#425#426#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick1ScanSort.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+              <folding>
+                <element signature="e#908#909#0" expanded="true" />
+                <element signature="e#950#951#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickFrame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="506">
+              <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
             </state>
           </provider>
         </entry>
@@ -149,21 +155,6 @@
                 <element signature="e#249#250#0" expanded="true" />
                 <element signature="e#434#435#0" expanded="true" />
                 <element signature="e#470#471#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/Environment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-              <folding>
-                <element signature="e#479#480#0" expanded="true" />
-                <element signature="e#517#518#0" expanded="true" />
-                <element signature="e#910#911#0" expanded="true" />
-                <element signature="e#967#968#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -194,7 +185,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>double</find>
       <find>Teal</find>
       <find>Green</find>
       <find>DeepOrange</find>
@@ -224,6 +214,7 @@
       <find>index</find>
       <find>minIndex</find>
       <find>RadixSort</find>
+      <find>i</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -250,7 +241,6 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/MiniApp.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/manoeuvre/Environment.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/backspaceCompare.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/backspacecompare.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/LeetCode844.java" />
@@ -269,8 +259,6 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/ThreadUtils.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/shellsort/ShellSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick1ScanSort.java" />
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeBuSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/insertionsort/InsertionSort.java" />
@@ -288,6 +276,9 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/countingsort/CountingSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketFrame.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick1ScanSort.java" />
+        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java" />
       </list>
     </option>
   </component>
@@ -421,29 +412,7 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="miniapp" type="462c0819:PsiDirectoryNode" />
               <item name="sort_algorithms" type="462c0819:PsiDirectoryNode" />
-              <item name="bucketsort" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
-              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
-              <item name="sort" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="miniapp" type="462c0819:PsiDirectoryNode" />
-              <item name="sort_algorithms" type="462c0819:PsiDirectoryNode" />
-              <item name="countingsort" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
-              <item name="data-structure" type="462c0819:PsiDirectoryNode" />
-              <item name="sort" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="miniapp" type="462c0819:PsiDirectoryNode" />
-              <item name="sort_algorithms" type="462c0819:PsiDirectoryNode" />
-              <item name="radixsort" type="462c0819:PsiDirectoryNode" />
+              <item name="quicksort" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="data-structure" type="b2602c69:ProjectViewProjectNode" />
@@ -465,7 +434,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555596955178" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555603371503" />
     <property name="last_opened_file_path" value="D:/OpenSource/JAdventure" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -506,7 +475,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.CountingSort">
+  <component name="RunManager" selected="Application.DualPivotQuickSort">
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
       <module name="" />
       <option name="TESTING_TYPE" value="0" />
@@ -568,13 +537,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="HeapSort" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="miniapp.sort_algorithms.heapsort.HeapSort" />
+    <configuration name="DualPivotQuickSort" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="miniapp.sort_algorithms.quicksort.DualPivotQuickSort" />
       <module name="sort" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="miniapp.sort_algorithms.heapsort.*" />
+          <option name="PATTERN" value="miniapp.sort_algorithms.quicksort.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -582,13 +551,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="MiniApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="miniapp.MiniApp" />
+    <configuration name="QuickSort" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="miniapp.sort_algorithms.quicksort.QuickSort" />
       <module name="sort" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="miniapp.*" />
+          <option name="PATTERN" value="miniapp.sort_algorithms.quicksort.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -731,19 +700,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.MiniApp" />
       <item itemvalue="Application.RadixSort" />
       <item itemvalue="Application.CountingSort" />
-      <item itemvalue="Application.HeapSort" />
       <item itemvalue="Application.BucketSort" />
+      <item itemvalue="Application.DualPivotQuickSort" />
+      <item itemvalue="Application.QuickSort" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.DualPivotQuickSort" />
+        <item itemvalue="Application.QuickSort" />
         <item itemvalue="Application.CountingSort" />
         <item itemvalue="Application.BucketSort" />
         <item itemvalue="Application.RadixSort" />
-        <item itemvalue="Application.MiniApp" />
-        <item itemvalue="Application.HeapSort" />
       </list>
     </recent_temporary>
   </component>
@@ -789,14 +758,7 @@
       <workItem from="1555330591700" duration="11963000" />
       <workItem from="1555413748702" duration="10367000" />
       <workItem from="1555500178998" duration="13457000" />
-      <workItem from="1555586361110" duration="4881000" />
-    </task>
-    <task id="LOCAL-00021" summary="归并排序可视化实现">
-      <created>1554041126405</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1554041126405</updated>
+      <workItem from="1555586361110" duration="11102000" />
     </task>
     <task id="LOCAL-00022" summary="归并排序可视化fix bug">
       <created>1554047347087</created>
@@ -1134,7 +1096,14 @@
       <option name="project" value="LOCAL" />
       <updated>1555516455562</updated>
     </task>
-    <option name="localTasksCounter" value="70" />
+    <task id="LOCAL-00070" summary="温习桶排序">
+      <created>1555596975438</created>
+      <option name="number" value="00070" />
+      <option name="presentableId" value="LOCAL-00070" />
+      <option name="project" value="LOCAL" />
+      <updated>1555596975439</updated>
+    </task>
+    <option name="localTasksCounter" value="71" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1170,7 +1139,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="382940000" />
+    <option name="totallyTimeSpent" value="389161000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1185,7 +1154,7 @@
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14626391" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14626391" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -1196,7 +1165,7 @@
       <window_info id="Nl-Palette" order="8" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49960256" visible="true" weight="0.29563183" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49960256" visible="true" weight="0.29563183" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49880764" weight="0.31669268" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1243,7 +1212,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="快速排序多线程排序实现" />
     <MESSAGE value="多路归并排序多线程排序尝试" />
     <MESSAGE value="调整排序模块信息" />
     <MESSAGE value="增加算法分析模块" />
@@ -1268,7 +1236,8 @@
     <MESSAGE value="堆排序及其可视化实现" />
     <MESSAGE value="基数排序实现" />
     <MESSAGE value="堆排序bug fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="堆排序bug fix" />
+    <MESSAGE value="温习桶排序" />
+    <option name="LAST_COMMIT_MESSAGE" value="温习桶排序" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1332,6 +1301,21 @@
     </expressions>
     <expressions id="evaluateExpression">
       <expression>
+        <expression-string>i</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>arr[i]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>arr[i - 1]</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
         <expression-string>SortEnum.values().length</expression-string>
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
@@ -1361,45 +1345,9 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>this</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>data</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>minPQ</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/javax/swing/SwingUtilities.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="1293" column="23" selection-start-line="1293" selection-start-column="23" selection-end-line="1293" selection-end-column="23" />
-          <folding>
-            <element signature="e#52022#52023#0" expanded="true" />
-            <element signature="e#52067#52068#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/GraphicsUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="17" column="19" lean-forward="true" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/utils/UnequalConversion.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
@@ -1436,29 +1384,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-604">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick1ScanSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="584">
-          <caret line="37" column="34" selection-start-line="37" selection-start-column="34" selection-end-line="37" selection-end-column="34" />
-          <folding>
-            <element signature="e#908#909#0" expanded="true" />
-            <element signature="e#950#951#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="20" column="33" lean-forward="true" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#384#385#0" expanded="true" />
-            <element signature="e#425#426#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1766,28 +1691,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="726">
-          <caret line="36" lean-forward="true" selection-start-line="36" selection-end-line="36" />
-          <folding>
-            <element signature="e#1466#1467#0" expanded="true" />
-            <element signature="e#1503#1504#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1210">
-          <caret line="81" column="17" lean-forward="true" selection-start-line="81" selection-start-column="17" selection-end-line="81" selection-end-column="17" />
-          <folding>
-            <element signature="e#2001#2002#0" expanded="true" />
-            <element signature="e#2048#2049#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick3waySort.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -1858,6 +1761,67 @@
           <folding>
             <element signature="e#1758#1759#0" expanded="true" />
             <element signature="e#1799#1800#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/SortMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="27" column="17" selection-start-line="27" selection-start-column="17" selection-end-line="27" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/abstraction/Sort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="127" column="23" lean-forward="true" selection-start-line="127" selection-start-column="23" selection-end-line="127" selection-end-column="23" />
+          <folding>
+            <element signature="e#1316#1317#0" expanded="true" />
+            <element signature="e#1367#1368#0" expanded="true" />
+            <element signature="e#1466#1467#0" expanded="true" />
+            <element signature="e#1503#1504#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/Quick1ScanSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="7" column="21" selection-start-line="7" selection-start-column="21" selection-end-line="7" selection-end-column="21" />
+          <folding>
+            <element signature="e#908#909#0" expanded="true" />
+            <element signature="e#950#951#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/QuickSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="545">
+          <caret line="93" column="42" lean-forward="true" selection-start-line="93" selection-start-column="10" selection-end-line="93" selection-end-column="42" />
+          <folding>
+            <element signature="e#2001#2002#0" expanded="true" />
+            <element signature="e#2048#2049#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/quicksort/DualPivotQuickSort.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="457">
+          <caret line="65" column="20" lean-forward="true" selection-start-line="65" selection-start-column="20" selection-end-line="65" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#384#385#0" expanded="true" />
+            <element signature="e#425#426#0" expanded="true" />
           </folding>
         </state>
       </provider>

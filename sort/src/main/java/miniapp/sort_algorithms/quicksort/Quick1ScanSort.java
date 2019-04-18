@@ -2,6 +2,9 @@ package miniapp.sort_algorithms.quicksort;
 
 import miniapp.Enum.LineColorEnum;
 
+/**
+ * @author Tao
+ */
 public class Quick1ScanSort extends QuickSort {
     @Override
     public String methodName() {
