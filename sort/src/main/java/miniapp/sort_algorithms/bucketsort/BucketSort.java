@@ -8,6 +8,9 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * @author Tao
+ */
 public class BucketSort implements SortMethod {
 
     @Override
@@ -29,13 +32,17 @@ public class BucketSort implements SortMethod {
     public int[] sort(int[] arr) {
         if (arr == null || arr.length <= 1) return arr;
         int max = Integer.MIN_VALUE;
+        // 得到最大值
         for (int i = 0; i < arr.length; i++) {
             max = Math.max(arr[i],max);
         }
+        // 创建max个桶来表示特殊值
         int[] ints = new int[max + 1];
+        // 求每个特殊值的个数 并且index处的值为arr数组中的位置
         for (int i = 0; i < arr.length; i++) {
             ints[arr[i]]++;
         }
+        // 逐个扫描每个桶 从小到大取出桶中的值放入源数组
         for (int i = 0,j = 0; i < ints.length; i++) {
             while (ints[i] -- > 0){
                 arr[j++] = i;

@@ -3,6 +3,9 @@ package miniapp.sort_algorithms.countingsort;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
+/**
+ * @author Tao
+ */
 public class CountingSort implements SortMethod {
 
     @Override
@@ -17,6 +20,8 @@ public class CountingSort implements SortMethod {
 
     /**
      * 计数排序
+     *  计数排序扩展于桶排序 计算每一个桶出现的次数，每个桶再将前面的桶的依次次数叠加
+     *      这样就可以得到每个桶中的值该在源数组出现的位置
      * @param arr
      * @return
      */

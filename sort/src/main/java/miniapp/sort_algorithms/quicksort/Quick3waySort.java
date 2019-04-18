@@ -19,7 +19,10 @@ public class Quick3waySort extends QuickSort {
     protected void quickSort(int[] arr, int l, int r) {
         if (r <= l) return;
         int i = l,j = l + 1,k = r,v = arr[l];
-        // 荷兰国旗问题
+        /**
+         * / 荷兰国旗问题
+         *  保证i左边都小于v i和k之间都相等于v k右边都大于v
+         */
         while (j <= k){
             if (arr[j] < v) swap(arr,i++,j++);
             else if (arr[j] > v) swap(arr,j,k--);
