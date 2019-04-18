@@ -59,13 +59,14 @@ public class DualPivotQuickSort implements SortMethod {
         int i = l + 1,lt = l,gt = r,pivot1 = arr[l],pivot2 = arr[r];
         out:
         while (i < gt){
+            // 小于pivot1
             if (arr[i] < pivot1){
                 swap(arr, ++lt, i++);
                 // 介于pivot1和pivot2之间的数据
             }else if (arr[i] <= pivot2) {
                 i++;
             }else { // arr[i] 大于pivot2
-                // 先过滤大于pivot2的数据
+                // 先过滤gt 大于pivot2的数据
                 while(arr[--gt] > pivot2){
                     if (gt <= i) break out;
                 }
