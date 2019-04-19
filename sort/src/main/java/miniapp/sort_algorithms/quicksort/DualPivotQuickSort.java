@@ -54,8 +54,11 @@ public class DualPivotQuickSort implements SortMethod {
      * @param r
      */
     private void dualPivotQuickSort(int[] arr, int l, int r) {
-        if (r - l < Constant.INSERTSIZE) {
-            insertSort(arr,l,r);
+//        if (r - l < Constant.INSERTSIZE) {
+//            insertSort(arr,l,r);
+//            return;
+//        }
+        if (r - l < 1) {
             return;
         }
         // 保证pivot1 小于等于pivot2
@@ -93,7 +96,7 @@ public class DualPivotQuickSort implements SortMethod {
 
 
     public static void main(String[] args) {
-//        int[] arr = {21,2,11,3,2,32,3,22,11,21};
+//        int[] arr = {2,2,2,2,2,2,2,2,2,2,2};
         DualPivotQuickSort dualPivotQuickSort = new DualPivotQuickSort();
 //        System.out.println(Arrays.toString(dualPivotQuickSort.sort(arr)));
         long sort = dualPivotQuickSort.testSort(10000000);
