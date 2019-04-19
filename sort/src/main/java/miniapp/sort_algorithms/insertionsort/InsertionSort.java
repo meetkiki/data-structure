@@ -4,6 +4,11 @@ import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
+import java.util.Arrays;
+
+/**
+ * @author Tao
+ */
 public class InsertionSort implements SortMethod {
 
     @Override
@@ -30,16 +35,12 @@ public class InsertionSort implements SortMethod {
     @Override
     public int[] sort(int[] arr){
         int temp;
-        for (int i = 1; i < arr.length; i++) {
+        for (int i = 2; i < arr.length; i++) {
             int j = i - 1;
             temp = arr[i];
-            for (; j >= 0; j--) {
+            for (; j >=0 && arr[j] > temp; j--) {
                 // 选取temp放在该放的位置上 这里是temp小于arr[j]时将arr[j]右移
-                if (temp < arr[j]){
-                    arr[j + 1] = arr[j];
-                }else{
-                    break;
-                }
+                arr[j + 1] = arr[j];
             }
             arr[j + 1] = temp;
         }
@@ -61,8 +62,11 @@ public class InsertionSort implements SortMethod {
 
 
     public static void main(String[] args) {
+        int[] arr = {122,223,32,3,22,11,21};
         InsertionSort insertionSort = new InsertionSort();
-        long sort = insertionSort.testSort(1000000);
+        insertionSort.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        long sort = insertionSort.testSort(10000);
         System.out.println("花费时间"+sort+"ms");
     }
 

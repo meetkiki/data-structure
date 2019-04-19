@@ -94,7 +94,7 @@ public class QuickSort implements SortMethod {
 //        int[] arr = {1,2,32,3,22,11,21};
 //        System.out.println(Arrays.toString(new miniapp.sort_algorithms.quicksort.QuickSort().sort(arr)));
         QuickSort quickSort = new QuickSort();
-        long sort = quickSort.testSort(100000000);
+        long sort = quickSort.testSort(10000000);
         System.out.println("花费时间"+sort+"ms");
         // 花费时间1061ms   花费时间1424ms  花费时间1165ms
     }

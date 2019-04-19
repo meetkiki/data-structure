@@ -70,4 +70,15 @@ public interface SortMethod extends Sort {
      * @return
      */
     default String efficiency(){return "fast";}
+
+    /**
+     * 比较方法
+     * @param arr
+     * @param l
+     * @param r
+     * @return
+     */
+    default boolean less(int[] arr, int l, int r){
+        return arr[l] < arr[r];
+    }
 }

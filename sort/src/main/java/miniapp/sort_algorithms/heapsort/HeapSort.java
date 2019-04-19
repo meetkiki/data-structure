@@ -71,17 +71,6 @@ public class HeapSort implements SortMethod {
         }
     }
 
-    /**
-     * 比较方法
-     * @param arr
-     * @param l
-     * @param r
-     * @return
-     */
-    private boolean less(int[] arr, int l, int r){
-        return arr[l] < arr[r];
-    }
-
     @Override
     public LineColorEnum lineColor() {
         return LineColorEnum.DeepPurple;
