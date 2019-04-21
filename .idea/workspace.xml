@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/leet-code/src/main/java/LeetCode215.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java" beforeDir="false" afterPath="$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -80,20 +80,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="484">
+              <caret line="22" selection-start-line="22" selection-end-line="22" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/leet-code/src/main/java/LeetCode215.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="20" column="50" lean-forward="true" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+            <state relative-caret-position="462">
+              <caret line="21" column="38" lean-forward="true" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -165,7 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/hashtable/pom.xml" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ProgressBarPanel.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/SortCommand.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeSort.java" />
@@ -216,6 +215,7 @@
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/Enum/Constant.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketSort.java" />
         <option value="$PROJECT_DIR$/leet-code/src/main/java/LeetCode215.java" />
+        <option value="$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java" />
       </list>
     </option>
   </component>
@@ -382,7 +382,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555844374331" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555844513372" />
     <property name="last_opened_file_path" value="D:/OpenSource/JAdventure" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -708,14 +708,7 @@
       <workItem from="1555500178998" duration="13457000" />
       <workItem from="1555586361110" duration="11683000" />
       <workItem from="1555674463790" duration="10231000" />
-      <workItem from="1555821702623" duration="5844000" />
-    </task>
-    <task id="LOCAL-00028" summary="快速排序多线程排序实现">
-      <created>1554303623769</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1554303623770</updated>
+      <workItem from="1555821702623" duration="5983000" />
     </task>
     <task id="LOCAL-00029" summary="多路归并排序多线程排序尝试">
       <created>1554392948558</created>
@@ -1053,7 +1046,14 @@
       <option name="project" value="LOCAL" />
       <updated>1555840198203</updated>
     </task>
-    <option name="localTasksCounter" value="77" />
+    <task id="LOCAL-00077" summary="快排运用 topk">
+      <created>1555844397267</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1555844397267</updated>
+    </task>
+    <option name="localTasksCounter" value="78" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1089,7 +1089,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="405817000" />
+    <option name="totallyTimeSpent" value="405956000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1162,7 +1162,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="增加算法分析模块" />
     <MESSAGE value="增加排序算法分析模块" />
     <MESSAGE value="增加归并排序多Frame绘制" />
     <MESSAGE value="排序图形化功能完善" />
@@ -1187,7 +1186,8 @@
     <MESSAGE value="温习桶排序" />
     <MESSAGE value="修正双轴排序的bug" />
     <MESSAGE value="优化 增加重复元素判断 防止Stack Overflow" />
-    <option name="LAST_COMMIT_MESSAGE" value="优化 增加重复元素判断 防止Stack Overflow" />
+    <MESSAGE value="快排运用 topk" />
+    <option name="LAST_COMMIT_MESSAGE" value="快排运用 topk" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1662,13 +1662,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://D:/dev/jdk1.8.0_192/src.zip!/java/util/concurrent/CountedCompleter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="446">
@@ -1731,8 +1724,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/leet-code/src/main/java/LeetCode215.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="20" column="50" lean-forward="true" selection-start-line="20" selection-start-column="50" selection-end-line="20" selection-end-column="50" />
+        <state relative-caret-position="462">
+          <caret line="21" column="38" lean-forward="true" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="484">
+          <caret line="22" selection-start-line="22" selection-end-line="22" />
         </state>
       </provider>
     </entry>
