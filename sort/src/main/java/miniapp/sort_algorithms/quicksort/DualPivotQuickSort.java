@@ -1,10 +1,7 @@
 package miniapp.sort_algorithms.quicksort;
 
-import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
-
-import java.util.Arrays;
 
 
 /**
@@ -65,13 +62,7 @@ public class DualPivotQuickSort implements SortMethod {
         if (arr[l] > arr[r]){
             swap(arr,l,r);
         }
-        // 排除相等情况
-//        else if (arr[l] == arr[r]){
-//            while (arr[l] == arr[r] && l < r){
-//                l++;
-//            }
-//        }
-//        // 类似于三路快排 有两个中枢 lt 左边小于pivot1 lt和gt之间大于pivot1小于pivot2 gt右边大于pivot2
+        // 类似于三路快排 有两个中枢 lt 左边小于pivot1 lt和gt之间大于pivot1小于pivot2 gt右边大于pivot2
         int i = l + 1,lt = l + 1,gt = r - 1,pivot1 = arr[l],pivot2 = arr[r];
         while (i <= gt){
             if (arr[i] < pivot1){
@@ -86,8 +77,11 @@ public class DualPivotQuickSort implements SortMethod {
         swap(arr, l, --lt);
         swap(arr, r, ++gt);
         // 一次三向切分确定两个元素的位置 这两个元素将数组分为三份
+        // 优化 增加重复元素判断 防止Stack Overflow
         dualPivotQuickSort(arr, l,lt - 1);
-        dualPivotQuickSort(arr,lt + 1,gt - 1);
+        if (arr[lt] < arr[gt]){
+            dualPivotQuickSort(arr,lt + 1,gt - 1);
+        }
         dualPivotQuickSort(arr,gt + 1,r);
     }
 
