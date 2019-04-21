@@ -62,9 +62,6 @@ public class BucketSort implements SortMethod {
     public static void main(String[] args) {
         int[] arr = {2,23,213,22,11,14,5};
         System.out.println(Arrays.toString(new BucketSort().sort(arr)));
-
-        List<Integer> list = new LinkedList<>();
-        Collections.sort(list);
         BucketSort bucketSort = new BucketSort();
         long sort = bucketSort.testSort(100000000);
         System.out.println("花费时间"+sort+"ms");

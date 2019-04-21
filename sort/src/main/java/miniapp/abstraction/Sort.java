@@ -5,6 +5,9 @@ import miniapp.view.manoeuvre.AlgoFrame;
 
 import java.util.Random;
 
+/**
+ * @author Tao
+ */
 public interface Sort {
 
 
@@ -97,7 +100,7 @@ public interface Sort {
         int[] rs = new int[n];
         Random random = new Random();
         for (int i = 0; i < n; i++) {
-            rs[i] = random.nextInt(bound);
+            rs[i] = random.nextInt(Math.abs(bound));
         }
         return rs;
     }

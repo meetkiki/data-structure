@@ -1,5 +1,6 @@
 package miniapp.sort_algorithms.quicksort;
 
+import miniapp.Enum.Constant;
 import miniapp.Enum.LineColorEnum;
 import miniapp.abstraction.SortMethod;
 
@@ -51,11 +52,8 @@ public class DualPivotQuickSort implements SortMethod {
      * @param r
      */
     private void dualPivotQuickSort(int[] arr, int l, int r) {
-//        if (r - l < Constant.INSERTSIZE) {
-//            insertSort(arr,l,r);
-//            return;
-//        }
-        if (r - l < 1) {
+        if (r - l < Constant.INSERTSIZE) {
+            insertSort(arr,l,r);
             return;
         }
         // 保证pivot1 小于等于pivot2
@@ -77,8 +75,8 @@ public class DualPivotQuickSort implements SortMethod {
         swap(arr, l, --lt);
         swap(arr, r, ++gt);
         // 一次三向切分确定两个元素的位置 这两个元素将数组分为三份
-        // 优化 增加重复元素判断 防止Stack Overflow
         dualPivotQuickSort(arr, l,lt - 1);
+        // 优化 增加重复元素判断 防止Stack Overflow
         if (arr[lt] < arr[gt]){
             dualPivotQuickSort(arr,lt + 1,gt - 1);
         }
