@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="374dbb29-311a-4f98-8cce-8716730699d3" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/graph/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/graph/src/main/java/Graph.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/skipList/target/" />
     <ignored path="$PROJECT_DIR$/stack/target/" />
@@ -88,15 +85,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/mergesort/MergeBuSort.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/bucketsort/BucketFrame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="418">
@@ -144,11 +132,20 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graph/src/main/java/Graph.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="616">
               <caret line="28" column="28" lean-forward="true" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -208,7 +205,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/merge/ParallelMergeSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/parallelsort/quick/ParallelQuickSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/sort_algorithms/selectionsort/SelectionSort.java" />
         <option value="$PROJECT_DIR$/sort/src/main/java/miniapp/utils/GraphicsUtil.java" />
@@ -259,6 +255,7 @@
         <option value="$PROJECT_DIR$/leet-code/src/main/java/LeetCode5.java" />
         <option value="$PROJECT_DIR$/graph/src/main/java/Grapg.java" />
         <option value="$PROJECT_DIR$/graph/src/main/java/Graph.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -361,7 +358,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555943547789" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555944950295" />
     <property name="last_opened_file_path" value="D:/OpenSource/Luyten" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -689,14 +686,7 @@
       <workItem from="1555674463790" duration="10231000" />
       <workItem from="1555821702623" duration="5983000" />
       <workItem from="1555847737036" duration="5341000" />
-      <workItem from="1555934997750" duration="3259000" />
-    </task>
-    <task id="LOCAL-00029" summary="多路归并排序多线程排序尝试">
-      <created>1554392948558</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1554392948558</updated>
+      <workItem from="1555934997750" duration="3288000" />
     </task>
     <task id="LOCAL-00030" summary="多路归并排序多线程排序尝试">
       <created>1554398731639</created>
@@ -1034,7 +1024,14 @@
       <option name="project" value="LOCAL" />
       <updated>1555844397267</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="抽象图">
+      <created>1555944930996</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1555944930996</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1070,7 +1067,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="414556000" />
+    <option name="totallyTimeSpent" value="414585000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1083,6 +1080,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15103339" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -1142,7 +1140,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="增加排序算法分析模块" />
     <MESSAGE value="增加归并排序多Frame绘制" />
     <MESSAGE value="排序图形化功能完善" />
     <MESSAGE value="排序算法分析初步功能完成" />
@@ -1167,7 +1164,8 @@
     <MESSAGE value="修正双轴排序的bug" />
     <MESSAGE value="优化 增加重复元素判断 防止Stack Overflow" />
     <MESSAGE value="快排运用 topk" />
-    <option name="LAST_COMMIT_MESSAGE" value="快排运用 topk" />
+    <MESSAGE value="抽象图" />
+    <option name="LAST_COMMIT_MESSAGE" value="抽象图" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1278,13 +1276,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/ButtonPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-665">
-          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sort/src/main/java/miniapp/view/analysis/LinePanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="358">
@@ -1710,6 +1701,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="616">
           <caret line="28" column="28" lean-forward="true" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="7" column="6" lean-forward="true" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
         </state>
       </provider>
     </entry>
