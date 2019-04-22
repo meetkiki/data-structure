@@ -21,6 +21,7 @@
         <module>leet-code</module>
         <module>hashtable</module>
         <module>othre</module>
+        <module>graph</module>
     </modules>
 
     <dependencies>

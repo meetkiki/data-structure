@@ -9,12 +9,13 @@
         <module name="array" />
         <module name="binary_search" />
         <module name="binary_search_tree" />
+        <module name="graph" />
         <module name="hash-table" />
         <module name="leet-code" />
         <module name="linked" />
         <module name="othre" />
         <module name="queue" />
-        <module name="Shape" />
+        <module name="shape" />
         <module name="skipList" />
         <module name="sort" />
         <module name="stack" />
