@@ -3,11 +3,12 @@ import java.util.ListIterator;
 
 /**
  * 基于双向链表实现的背包
+ * @author Tao
  * @param <T>
  */
 public class Bag<T> implements Iterable<T>{
 
-    private Node<T> head;
+    private Node<T> head = new Node<>();
 
     /**
      * 插入一个元素
@@ -15,9 +16,9 @@ public class Bag<T> implements Iterable<T>{
      */
     public void add(T t){
         Node oldNode = head;
-        Node<T> node = new Node<>(t);
-        node.next = oldNode;
-        oldNode.parent = node;
+        head = new Node<>(t);
+        head.next = oldNode;
+        oldNode.parent = head;
     }
 
     @Override
@@ -28,7 +29,7 @@ public class Bag<T> implements Iterable<T>{
 
             @Override
             public boolean hasNext() {
-                return current != null;
+                return current.next != null;
             }
 
             @Override

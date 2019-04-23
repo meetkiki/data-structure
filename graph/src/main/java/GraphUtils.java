@@ -1,13 +1,18 @@
 import java.io.InputStream;
 import java.util.Scanner;
 
+/**
+ * @author Tao
+ */
 public class GraphUtils {
 
+    private static Scanner scanner;
 
     public static int readInt(InputStream in){
-        Scanner scanner = new Scanner(in);
-        int E = scanner.nextInt();
-        return E;
+        if (scanner == null){
+            scanner = new Scanner(in);
+        }
+        return scanner.nextInt();
     }
 
 

@@ -47,8 +47,8 @@ public abstract class Graph {
         // 创建邻近表
         adjs = new Bag[V];
         // 初始化每个邻近表的链表
-        for (Bag<Integer> adj : adjs) {
-            adj = new Bag<>();
+        for (int i = 0; i < adjs.length; i++) {
+            adjs[i] = new Bag<>();
         }
     }
 

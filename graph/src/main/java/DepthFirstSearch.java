@@ -1,9 +1,16 @@
 /**
  * 深度优先搜索
+ * @author Tao
  */
 public class DepthFirstSearch extends Search {
 
-    private boolean marked[];
+    /**
+     * 标记能否通过
+     */
+    private boolean[] marked;
+    /**
+     * 顶点数
+     */
     private int count;
 
     public DepthFirstSearch(Graph g, int s) {
@@ -22,10 +29,8 @@ public class DepthFirstSearch extends Search {
         count++;
         // 与s相连的所有顶点
         for (Integer w : g.adj(s)) {
-            // 如果未搜索 执行搜索
-            if (!marked[w]){
-                dfs(g,s);
-            }
+            // 如果未搜索 执行搜索 判断与当前节点是否连通
+            if (!marked[w]) dfs(g,w);
         }
     }
 
