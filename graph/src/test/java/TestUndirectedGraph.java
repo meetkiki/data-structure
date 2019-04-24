@@ -1,6 +1,7 @@
 import org.junit.Test;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class TestUndirectedGraph {
 
@@ -28,7 +29,42 @@ public class TestUndirectedGraph {
         System.out.println("search.marked(3)---> " + search.marked(3));
         System.out.println("search.marked(4)---> " + search.marked(4));
         System.out.println("search.marked(7)---> " + search.marked(7));
+        System.out.println("search.marked(12)---> " + search.marked(12));
 
+    }
+
+    @Test
+    public void TestDepthPaths() throws Exception{
+        InputStream inputStream = this.getClass().getResourceAsStream("tinyCG.txt");
+
+        UndirectedGraph graph = new UndirectedGraph(inputStream);
+
+        System.out.println(graph);
+
+        DepthFirstPaths paths = new DepthFirstPaths(graph, 0);
+
+        System.out.println("paths.pathTo(1)---> " + paths.pathTo(1));
+        System.out.println("paths.pathTo(2)---> " + paths.pathTo(2));
+        System.out.println("paths.pathTo(3)---> " + paths.pathTo(3));
+        System.out.println("paths.pathTo(4)---> " + paths.pathTo(4));
+        System.out.println("paths.pathTo(5)---> " + paths.pathTo(5));
+    }
+
+    @Test
+    public void TestBreadthDepthPaths() throws Exception{
+        InputStream inputStream = this.getClass().getResourceAsStream("tinyCG.txt");
+
+        UndirectedGraph graph = new UndirectedGraph(inputStream);
+
+        System.out.println(graph);
+
+        BreadthFirstPaths paths = new BreadthFirstPaths(graph, 0);
+
+        System.out.println("paths.pathTo(1)---> " + paths.pathTo(1));
+        System.out.println("paths.pathTo(2)---> " + paths.pathTo(2));
+        System.out.println("paths.pathTo(3)---> " + paths.pathTo(3));
+        System.out.println("paths.pathTo(4)---> " + paths.pathTo(4));
+        System.out.println("paths.pathTo(5)---> " + paths.pathTo(5));
     }
 
 }

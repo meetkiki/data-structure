@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.ListIterator;
 
 /**
  * 基于双向链表实现的背包
@@ -23,8 +22,7 @@ public class Bag<T> implements Iterable<T>{
 
     @Override
     public Iterator<T> iterator() {
-        return new ListIterator<T>() {
-
+        return new Iterator<T>() {
             Node<T> current = head;
 
             @Override
@@ -40,43 +38,29 @@ public class Bag<T> implements Iterable<T>{
             }
 
             @Override
-            public boolean hasPrevious() {
-                return current.parent != null;
-            }
-
-            @Override
-            public T previous() {
-                T t = current.t;
-                current = current.parent;
-                return t;
-            }
-
-            @Override
-            public int nextIndex() {
-                return 0;
-            }
-
-            @Override
-            public int previousIndex() {
-                return 0;
-            }
-
-            @Override
             public void remove() {
                 Node parent = current.parent;
                 parent.next = current.next;
             }
-
-            @Override
-            public void set(T t) {
-            }
-
-            @Override
-            public void add(T t) {
-            }
         };
     }
 
+    @Override
+    public String toString() {
+        Iterator<T> it = iterator();
+        if (! it.hasNext())
+            return "[]";
+
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        for (;;) {
+            T e = it.next();
+            sb.append(e == this ? "(this Collection)" : e);
+            if (! it.hasNext())
+                return sb.append(']').toString();
+            sb.append(',').append(' ');
+        }
+    }
 
     /**
      * 结点类
