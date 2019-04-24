@@ -1,10 +1,14 @@
+package undriect;
+
+import abstraction.Graph;
+
 import java.io.InputStream;
 
 /**
  * 无向图
  * @author Tao
  */
-public class UndirectedGraph extends Graph{
+public class UndirectedGraph extends Graph {
 
     public UndirectedGraph(InputStream in) {
         super(in);

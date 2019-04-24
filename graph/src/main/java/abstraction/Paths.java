@@ -1,3 +1,5 @@
+package abstraction;
+
 /**
  * 寻找路径
  * @author Tao
@@ -10,7 +12,7 @@ public abstract class Paths {
      * @param graph
      * @param s
      */
-    public Paths(Graph graph,int s){}
+    public Paths(Graph graph, int s){}
 
     /**
      * 是否存在从s到v的路径

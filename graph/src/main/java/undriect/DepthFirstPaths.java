@@ -1,3 +1,9 @@
+package undriect;
+
+import abstraction.Graph;
+import abstraction.Paths;
+import common.Bag;
+
 /**
  *  深度优先搜索
  *

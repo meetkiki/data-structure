@@ -1,3 +1,7 @@
+package utils;
+
+import abstraction.Graph;
+
 import java.io.InputStream;
 import java.util.Scanner;
 
@@ -22,7 +26,7 @@ public class GraphUtils {
      * @param v
      * @return
      */
-    public static int degree(Graph graph,int v){
+    public static int degree(Graph graph, int v){
         int degree = 0;
         for (Integer w : graph.adj(v)) {
             degree++;

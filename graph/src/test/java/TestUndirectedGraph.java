@@ -1,7 +1,12 @@
+import common.Bag;
 import org.junit.Test;
+import undriect.BreadthFirstPaths;
+import undriect.CC;
+import undriect.DepthFirstPaths;
+import undriect.DepthFirstSearch;
+import undriect.UndirectedGraph;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class TestUndirectedGraph {
 
@@ -65,6 +70,33 @@ public class TestUndirectedGraph {
         System.out.println("paths.pathTo(3)---> " + paths.pathTo(3));
         System.out.println("paths.pathTo(4)---> " + paths.pathTo(4));
         System.out.println("paths.pathTo(5)---> " + paths.pathTo(5));
+    }
+
+    @Test
+    public void TestCC() throws Exception{
+        InputStream inputStream = this.getClass().getResourceAsStream("tinyG.txt");
+
+        UndirectedGraph graph = new UndirectedGraph(inputStream);
+
+        System.out.println(graph);
+
+        CC cc = new CC(graph);
+
+        int count = cc.count();
+        System.out.println(count + "components");
+        // 表示每一个连通顶点
+        Bag<Integer>[] bags = new Bag[count];
+        for (int i = 0; i < bags.length; i++) {
+            bags[i] = new Bag<>();
+        }
+        // 赋值
+        for (int i = 0; i < graph.V(); i++) {
+            bags[cc.id(i)].add(i);
+        }
+        // 显示输出
+        for (int i = 0; i < bags.length; i++) {
+            System.out.println("bags："+i+" --- > " + bags[i]);
+        }
     }
 
 }

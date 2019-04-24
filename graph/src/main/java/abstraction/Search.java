@@ -1,3 +1,7 @@
+package abstraction;
+
+import abstraction.Graph;
+
 /**
  * 搜索
  */
@@ -8,7 +12,7 @@ public abstract class Search {
      * @param g
      * @param s
      */
-    public Search(Graph g,int s){}
+    public Search(Graph g, int s){}
 
     /**
      * 返回v和s是否连同
