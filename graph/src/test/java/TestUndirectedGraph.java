@@ -2,6 +2,7 @@ import common.Bag;
 import org.junit.Test;
 import undriect.BreadthFirstPaths;
 import undriect.CC;
+import undriect.Cycle;
 import undriect.DepthFirstPaths;
 import undriect.DepthFirstSearch;
 import undriect.UndirectedGraph;
@@ -97,6 +98,19 @@ public class TestUndirectedGraph {
         for (int i = 0; i < bags.length; i++) {
             System.out.println("bags："+i+" --- > " + bags[i]);
         }
+    }
+
+    @Test
+    public void TestCycle() throws Exception{
+        InputStream inputStream = this.getClass().getResourceAsStream("tinyCG.txt");
+
+        UndirectedGraph graph = new UndirectedGraph(inputStream);
+
+        System.out.println(graph);
+
+        Cycle cycle = new Cycle(graph);
+
+        System.out.println("cycle isHasCycle---> " + cycle.isHasCycle());
     }
 
 }
