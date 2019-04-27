@@ -108,8 +108,14 @@ public class GameRule {
     public static List<Move> make_move(Chess[][] chess, byte row, byte col, byte player, List<Move> changes){
         byte rowdelta,coldelta,x,y;
         byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
+        // 简洁操作
+        boolean only = changes == null;
         //将row和col的值更改为player //玩家状态
-        chess[row][col].setNewPlayer(player);
+        if (only){
+            chess[row][col].onlyChess(player);
+        }else {
+            chess[row][col].setNewPlayer(player);
+        }
         //遍历当前棋子 的周边棋子
         for(rowdelta = -1;rowdelta <= 1; ++rowdelta){
             for(coldelta = -1;coldelta <= 1; ++coldelta){
@@ -131,8 +137,8 @@ public class GameRule {
                             //循环吃子
                             while(chess[x -= rowdelta][y -= coldelta].getChess() == other){
                                 // 是否执行动画
-                                if (changes == null) {
-                                    chess[x][y].setChess(player);
+                                if (only) {
+                                    chess[x][y].onlyChess(player);
                                 } else {
                                     changes.add(new Move(x,y));
                                 }

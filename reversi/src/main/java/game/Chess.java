@@ -33,6 +33,14 @@ public class Chess extends JPanel {
 
 
     /**
+     * 仅仅设置棋子状态
+     * @param chess
+     */
+    public void onlyChess(byte chess){
+        this.chess = chess;
+    }
+
+    /**
      * //设置棋子状态
      * @param chess
      */
@@ -56,7 +64,7 @@ public class Chess extends JPanel {
                 break;
             default:break;
         }
-        this.chess = chess;
+        this.onlyChess(chess);
         this.repaint();
     }
 
@@ -71,7 +79,7 @@ public class Chess extends JPanel {
         }else if(chess == Constant.BLACK){
             this.image = imageIconMap.get(ImageConstant.NBLACK).getImage();
         }
-        this.chess = chess;
+        this.onlyChess(chess);
         this.repaint();
     }
 
