@@ -1,51 +1,89 @@
 package common;
 
-public class ImageConstant {
-
+/**
+ * 图片加载常量
+ * @author Tao
+ */
+public enum  ImageConstant {
     /**
      * 白子
      */
-    public static final String PLAYER_W = "white.JPG";
+    PLAYER_W("white.JPG"),
     /**
      * 黑子
      */
-    public static final String PLAYER_B = "black.JPG";
+    PLAYER_B("black.JPG"),
     /**
      * 能够移动的白
      */
-    public static final String CANMOVE_W = "Canmove_W.JPG";
+    CANMOVE_W("Canmove_W.JPG"),
     /**
      * 能够移动的黑
      */
-    public static final String CANMOVE_B = "Canmove_B.JPG";
+    CANMOVE_B("Canmove_B.JPG"),
     /**
      * 空地
      */
-    public static final String EMPTY = "blank.JPG";
+    EMPTY("blank.JPG"),
     /**
      * 新落下的白
      */
-    public static final String NWHITE = "Nwhite.JPG";
+    NWHITE("Nwhite.JPG"),
     /**
      * 新落下的黑
      */
-    public static final String NBLACK = "Nblack.JPG";
+    NBLACK("Nblack.JPG"),
     /**
      * 吃子旋转
      *      1 --- 6
      *     白     黑
      */
-    public static final String OVERTURN = "overturn%d.JPG";
-
+    OVERTURN1("overturn1.JPG"),
     /**
      * 吃子旋转
      *      1 --- 6
      *     白     黑
      */
-    public static final String BOARD = "board.JPG";
+    OVERTURN2("overturn2.JPG"),
+    /**
+     * 吃子旋转
+     *      1 --- 6
+     *     白     黑
+     */
+    OVERTURN3("overturn3.JPG"),
+    /**
+     * 吃子旋转
+     *      1 --- 6
+     *     白     黑
+     */
+    OVERTURN4("overturn4.JPG"),
+    /**
+     * 吃子旋转
+     *      1 --- 6
+     *     白     黑
+     */
+    OVERTURN5("overturn5.JPG"),
+    /**
+     * 吃子旋转
+     *      1 --- 6
+     *     白     黑
+     */
+    OVERTURN6("overturn6.JPG"),
+    /**
+     * 棋盘
+     */
+    BOARD("board.JPG");
 
+    String resources;
+    ImageConstant(String resources) {
+        this.resources = resources;
+    }
 
+    public String getResources() {
+        return resources;
+    }
 
-
-
+    public void setResources(String resources) {
+        this.resources = resources;
+    }
 }
