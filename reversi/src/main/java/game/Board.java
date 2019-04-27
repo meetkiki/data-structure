@@ -1,6 +1,7 @@
 package game;
 
 import bean.BoardData;
+import bean.Move;
 import common.Constant;
 import common.ImageConstant;
 import utils.BoardUtil;
@@ -55,11 +56,11 @@ public class Board extends JPanel {
                 byte[] move = getMove(e);
                 byte col = move[0];
                 byte row = move[1];
-                List<byte[]> changes = GameRule.make_move(boardChess, row, col);
+                List<Move> changes = GameRule.make_move(boardChess, new Move(row, col));
                 Chess[][] chess = boardChess.getChess();
-                for (byte[] bytes : changes) {
-                    byte ro = bytes[0];
-                    byte co = bytes[0];
+                for (Move mo : changes) {
+                    byte ro = mo.getRow();
+                    byte co = mo.getCol();
                     chess[ro][co].change(boardChess.getNextmove());
                 }
             }
@@ -141,7 +142,7 @@ public class Board extends JPanel {
                     chess[i][j].setChess(boardChess.getCanMove());
                 }
                 // 设置位置
-                chess[i][j].setBounds(SPAN + i * ROW,SPAN + j * COL, ROW ,COL);
+                chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
                 this.add(chess[i][j]);
             }
         }

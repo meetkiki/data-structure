@@ -1,6 +1,7 @@
 package game;
 
 import bean.BoardData;
+import bean.Move;
 import common.Constant;
 
 import java.util.ArrayList;
@@ -87,18 +88,16 @@ public class GameRule {
     /**
      * 走棋方法
      * @param data
-     * @param row
-     * @param col
+     * @param move
      */
-    public static List<byte[]> make_move(BoardData data,byte row,byte col){
+    public static List<Move> make_move(BoardData data,Move move){
         Chess[][] chess = data.getChess();
         boolean[][] moves = data.getMoves();
         byte nextmove = data.getNextmove();
-        if (!moves[row][col]){
+        if (!moves[move.getRow()][move.getCol()]){
             throw new IllegalArgumentException("当前位置不可走!");
         }
-        List<byte[]> move = make_move(chess, row, col, nextmove, new ArrayList<>());
-        return move;
+        return make_move(chess, move.getRow(), move.getCol(), nextmove, new ArrayList<>());
     }
 
     /**
@@ -106,7 +105,7 @@ public class GameRule {
      *
      *  changes 吃子数组
      */
-    public static List<byte[]> make_move(Chess[][] chess,byte row,byte col,byte player,List<byte[]> changes){
+    public static List<Move> make_move(Chess[][] chess, byte row, byte col, byte player, List<Move> changes){
         byte rowdelta,coldelta,x,y;
         byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
         //将row和col的值更改为player //玩家状态
@@ -135,7 +134,7 @@ public class GameRule {
                                 if (changes == null) {
                                     chess[x][y].setChess(player);
                                 } else {
-                                    changes.add(new byte[]{x,y});
+                                    changes.add(new Move(x,y));
                                 }
                             }
                             break;

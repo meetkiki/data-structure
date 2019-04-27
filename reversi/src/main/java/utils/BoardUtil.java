@@ -84,7 +84,7 @@ public class BoardUtil {
 	 */
 	public static void converSion(byte chess, Chess curr){
 		Timer timer = new Timer();
-		//根据传参的正负判断转变的棋子方向
+		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
 		TimerTask task = new TimerTask() {
 			private int count = tem;
@@ -97,6 +97,9 @@ public class BoardUtil {
 				}else{
 					//结束任务
 					cancel();
+					//修正图标
+					curr.setChess(chess);
+					curr.repaint();
 				}
 			}
 		};

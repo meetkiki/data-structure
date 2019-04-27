@@ -103,8 +103,6 @@ public class Chess extends JPanel {
      */
     public void change(byte player) {
         BoardUtil.converSion(player,this);
-        //修正图标
-        this.setChess(player);
     }
 
     @Override
