@@ -53,5 +53,5 @@ public class Constant {
 	/**
 	 * 动画图片
 	 */
-	public static final String OVERTURN = "OVERTURN%d";
+	public static final String OVERTURN = "OVERTURN%s";
 }

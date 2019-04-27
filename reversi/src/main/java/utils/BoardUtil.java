@@ -112,6 +112,7 @@ public class BoardUtil {
 		String url = String.format(Constant.OVERTURN, count + "");
 		Image image = GameContext.getResources().get(ImageConstant.valueOf(url)).getImage();
 		curr.setImage(image);
+		curr.repaint();
 	}
 
 	/**

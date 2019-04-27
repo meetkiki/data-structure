@@ -3,6 +3,7 @@ package game;
 import bean.BoardData;
 import common.Constant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static common.Constant.SIZE;
@@ -88,54 +89,53 @@ public class GameRule {
      * @param data
      * @param row
      * @param col
-     * @param player
      */
-    public static void make_move(BoardData data,byte row,byte col,byte player){
+    public static List<byte[]> make_move(BoardData data,byte row,byte col){
         Chess[][] chess = data.getChess();
         boolean[][] moves = data.getMoves();
+        byte nextmove = data.getNextmove();
         if (!moves[row][col]){
             throw new IllegalArgumentException("当前位置不可走!");
         }
-        make_move(chess,row,col,player,true);
+        List<byte[]> move = make_move(chess, row, col, nextmove, new ArrayList<>());
+        return move;
     }
 
     /**
      * 走棋方法,传入走棋坐标xy，走棋者
      *
-     *  isShow 是否显示动画
+     *  changes 吃子数组
      */
-    public static void make_move(Chess[][] chess,byte row,byte col,byte player,boolean isShow){
-        int rowdelta,coldelta,x,y;
+    public static List<byte[]> make_move(Chess[][] chess,byte row,byte col,byte player,List<byte[]> changes){
+        byte rowdelta,coldelta,x,y;
         byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
         //将row和col的值更改为player //玩家状态
         chess[row][col].setNewPlayer(player);
-        //遍历当前棋子
-        for(rowdelta=-1;rowdelta<=1;++rowdelta){
-            for(coldelta=-1;coldelta<=1;++coldelta){
+        //遍历当前棋子 的周边棋子
+        for(rowdelta = -1;rowdelta <= 1; ++rowdelta){
+            for(coldelta = -1;coldelta <= 1; ++coldelta){
                 //如果大于边界，则跳出本次判断
-                boolean border = isBorder(rowdelta, coldelta, row, col);
-                if(border)
+                if(isBorder(rowdelta, coldelta, row, col))
                     continue;
-                //当走棋的位置为可行子的周围时执行下一步
-                //【此步用于判断当前下棋者下子可行范围】
+                //当走棋的位置周边有对方子时下一步
                 if(chess [row + rowdelta][col + coldelta].getChess() == other){
-                    x = row + rowdelta;
-                    y = col + coldelta;
+                    x = (byte) (row + rowdelta);
+                    y = (byte) (col + coldelta);
                     while(true){
                         x += rowdelta;
                         y += coldelta;
                         //如果x超出边界或者y超出边界或者棋盘为空时跳出循环
                         if(isEmpty(x, y, chess[x][y]))
                             break;
-                        //如果数组中的可行位置为player时
+                        //如果在这个连线上找到己方子 则吃掉中间子
                         if(chess[x][y].getChess() == player){
                             //循环吃子
-                            while(chess[x -= rowdelta][y-=coldelta].getChess() == other){
+                            while(chess[x -= rowdelta][y -= coldelta].getChess() == other){
                                 // 是否执行动画
-                                if (isShow) {
-                                    chess[x][y].change(player);
-                                } else {
+                                if (changes == null) {
                                     chess[x][y].setChess(player);
+                                } else {
+                                    changes.add(new byte[]{x,y});
                                 }
                             }
                             break;
@@ -144,6 +144,7 @@ public class GameRule {
                 }
             }
         }
+        return changes;
     }
 
     private static boolean isEmpty(int x, int y, Chess chess2) {

@@ -57,6 +57,7 @@ public class Chess extends JPanel {
             default:break;
         }
         this.chess = chess;
+        this.repaint();
     }
 
     /**
@@ -71,6 +72,7 @@ public class Chess extends JPanel {
             this.image = imageIconMap.get(ImageConstant.NBLACK).getImage();
         }
         this.chess = chess;
+        this.repaint();
     }
 
     public byte getChess() {
@@ -92,7 +94,6 @@ public class Chess extends JPanel {
     public String toString() {
         return "Chess{" +
                 "chess=" + chess +
-                ", image=" + image +
                 '}';
     }
 
