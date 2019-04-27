@@ -21,8 +21,15 @@ public class Chess extends JPanel {
     private byte chess;
     /**
      * 图标
+     *
+     *  transient 不序列化
      */
-    private Image image;
+    private transient Image image;
+
+    /**
+     * 新下的地点
+     */
+    private transient boolean newMove;
 
     /**
      *  /设置棋子状态
@@ -79,6 +86,7 @@ public class Chess extends JPanel {
         }else if(chess == Constant.BLACK){
             this.image = imageIconMap.get(ImageConstant.NBLACK).getImage();
         }
+        this.setNewMove(true);
         this.onlyChess(chess);
         this.repaint();
     }
@@ -103,6 +111,14 @@ public class Chess extends JPanel {
         return "Chess{" +
                 "chess=" + chess +
                 '}';
+    }
+
+    public boolean isNewMove() {
+        return newMove;
+    }
+
+    public void setNewMove(boolean newMove) {
+        this.newMove = newMove;
     }
 
     /**

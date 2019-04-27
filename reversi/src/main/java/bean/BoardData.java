@@ -3,6 +3,7 @@ package bean;
 import common.Constant;
 import game.Chess;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import static common.Constant.SIZE;
 /**
  * @author Tao
  */
-public class BoardData {
+public class BoardData implements Serializable {
 
 
     /**
@@ -27,7 +28,7 @@ public class BoardData {
     /**
      * 可以下棋对
      */
-    private List<byte[]> canMoves = new ArrayList<>();
+    private List<Move> canMoves = new ArrayList<>();
     /**
      * 下一步棋子:白棋优先
      *  WHITE
@@ -59,11 +60,11 @@ public class BoardData {
         this.nextmove = nextmove;
     }
 
-    public List<byte[]> getCanMoves() {
+    public List<Move> getCanMoves() {
         return canMoves;
     }
 
-    public void setCanMoves(List<byte[]> canMoves) {
+    public void setCanMoves(List<Move> canMoves) {
         this.canMoves = canMoves;
     }
 

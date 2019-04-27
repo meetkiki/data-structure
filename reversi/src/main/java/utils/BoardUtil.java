@@ -1,6 +1,7 @@
 package utils;
 
 import bean.BoardData;
+import bean.Move;
 import common.Constant;
 import common.ImageConstant;
 import game.Chess;
@@ -12,10 +13,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.CountDownLatch;
 import java.util.function.IntFunction;
 
 import static common.Constant.DELAY;
@@ -86,6 +87,7 @@ public class BoardUtil {
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
+		CountDownLatch countDownLatch = new CountDownLatch(1);
 		TimerTask task = new TimerTask() {
 			private int count = tem;
 			@Override
@@ -97,6 +99,7 @@ public class BoardUtil {
 				}else{
 					//结束任务
 					cancel();
+					countDownLatch.countDown();
 					//修正图标
 					curr.setChess(chess);
 					curr.repaint();
@@ -104,6 +107,11 @@ public class BoardUtil {
 			}
 		};
 		timer.schedule(task,0,DELAY);
+		try {
+			countDownLatch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -156,12 +164,38 @@ public class BoardUtil {
 		System.out.println();
 
 		System.out.println("===================moves==================");
-		List<byte[]> canMoves = data.getCanMoves();
+		List<Move> canMoves = data.getCanMoves();
+		if (canMoves == null) return;
 		System.out.println("canMoves :");
 		canMoves.forEach((e)-> {
-			System.out.print(Arrays.toString(e) + ", ");
+			System.out.print(e + ", ");
 		});
 	}
 
+	/**
+	 * 改变棋盘方向
+	 * @param player
+	 * @return
+	 */
+	public static byte change(byte player){
+		if(player==Constant.WHITE){
+			return Constant.BLACK;
+		}else if(player==Constant.BLACK){
+			return Constant.WHITE;
+		}else if(player==Constant.DOT_W){
+			return Constant.DOT_B;
+		}else if(player==Constant.DOT_B){
+			return Constant.DOT_W;
+		}
+		return Constant.EMPTY;
+	}
 
+	/**
+	 * 深度拷贝棋盘
+	 * @param data
+	 * @return
+	 */
+	public static BoardData copyBoard(BoardData data) {
+		return deepCopy(data);
+	}
 }

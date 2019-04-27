@@ -3,6 +3,7 @@ package game;
 import bean.BoardData;
 import bean.Move;
 import common.Constant;
+import utils.BoardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,8 @@ public class GameRule {
     public static int valid_moves(BoardData data, byte player){
         Chess[][] chess = data.getChess();
         boolean[][] moves = data.getMoves();
-        List<byte[]> canMoves = data.getCanMoves();
+        List<Move> canMoves = data.getCanMoves();
+        canMoves.clear();
         //定义五个参数，rowdelta和coldelta为边界+1-1,x和y为棋盘坐标
         //no_of_moves为累计不能走的棋子数
         int rowdelta,coldelta,x,y,no_of_moves = 0;
@@ -51,14 +53,14 @@ public class GameRule {
                                 x += rowdelta;
                                 y += coldelta;
                                 //如果x超出边界或者y超出边界或者棋盘为空时跳出循环
-                                if(isEmpty(x, y, chess[x][y]))
+                                boolean empty = x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y].getChess() == Constant.EMPTY;
+                                if(empty)
                                     break;
                                 //如果棋盘上还有玩家可下的棋子时，将可移动数组设置为true，能走的步数自增
                                 if(chess[x][y].getChess() == player){
                                     moves[row][col] = true;
-                                    byte[] tem = new byte[2];
-                                    tem[0] = row; tem[1] = col;
-                                    canMoves.add(tem);
+
+                                    canMoves.add(new Move(row,col));
                                     no_of_moves++;
                                     break;
                                 }
@@ -97,7 +99,16 @@ public class GameRule {
         if (!moves[move.getRow()][move.getCol()]){
             throw new IllegalArgumentException("当前位置不可走!");
         }
-        return make_move(chess, move.getRow(), move.getCol(), nextmove, new ArrayList<>());
+        // 移除新的标志
+        removeNew(chess);
+        List<Move> make_move = make_move(chess, move.getRow(), move.getCol(), nextmove, new ArrayList<>());
+        for (Move mo : make_move) {
+            byte ro = mo.getRow();
+            byte co = mo.getCol();
+            chess[ro][co].change(data.getNextmove());
+        }
+        data.setNextmove(BoardUtil.change(data.getNextmove()));
+        return make_move;
     }
 
     /**
@@ -130,7 +141,8 @@ public class GameRule {
                         x += rowdelta;
                         y += coldelta;
                         //如果x超出边界或者y超出边界或者棋盘为空时跳出循环
-                        if(isEmpty(x, y, chess[x][y]))
+                        boolean empty = x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y].getChess() == Constant.EMPTY;
+                        if(empty)
                             break;
                         //如果在这个连线上找到己方子 则吃掉中间子
                         if(chess[x][y].getChess() == player){
@@ -152,14 +164,10 @@ public class GameRule {
         return changes;
     }
 
-    private static boolean isEmpty(int x, int y, Chess chess2) {
-        return x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess2.getChess() == Constant.EMPTY;
-    }
-
     /**
      * /棋子统计方法
      */
-    public int player_counters(Chess[][] chess,char player){
+    public static int player_counters(Chess[][] chess, byte player){
         int count = 0,row,col;
         for(row=0;row<SIZE;++row)
             for(col=0;col<SIZE;++col)
@@ -167,6 +175,44 @@ public class GameRule {
                     ++count;
         return count;
     }
+
+
+    /**
+     * 移除提示
+     * @param boardChess
+     */
+    public static void removeHint(BoardData boardChess) {
+        Chess[][] chess = boardChess.getChess();
+        byte nextmove = boardChess.getNextmove();
+        byte temp;
+        if(nextmove == Constant.WHITE){
+            temp = Constant.DOT_W;
+        }else if(nextmove == Constant.BLACK){
+            temp = Constant.DOT_B;
+        }else return;
+        for (int i = 0; i < chess.length; i++) {
+            for (int j = 0; j < chess[i].length; j++) {
+                if(chess[i][j].getChess() == temp){
+                    chess[i][j].setChess(Constant.EMPTY);
+                }
+            }
+        }
+    }
+
+    /**
+     * 移除新下的提示
+     */
+    public static void removeNew(Chess[][] chess) {
+        for (int i = 0; i < chess.length; i++) {
+            for (int j = 0; j < chess[i].length; j++) {
+                if(chess[i][j].isNewMove()){
+                    byte ch = chess[i][j].getChess();
+                    chess[i][j].setChess(ch);
+                }
+            }
+        }
+    }
+
 
 
 }

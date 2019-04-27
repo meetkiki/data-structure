@@ -1,6 +1,8 @@
 package game;
 
+import arithmetic.AlphaBeta;
 import bean.BoardData;
+import bean.MinimaxResult;
 import bean.Move;
 import common.Constant;
 import common.ImageConstant;
@@ -56,12 +58,19 @@ public class Board extends JPanel {
                 byte[] move = getMove(e);
                 byte col = move[0];
                 byte row = move[1];
-                List<Move> changes = GameRule.make_move(boardChess, new Move(row, col));
-                Chess[][] chess = boardChess.getChess();
-                for (Move mo : changes) {
-                    byte ro = mo.getRow();
-                    byte co = mo.getCol();
-                    chess[ro][co].change(boardChess.getNextmove());
+                GameRule.removeHint(boardChess);
+                GameRule.make_move(boardChess, new Move(row, col));
+                GameRule.valid_moves(boardChess,boardChess.getNextmove());
+                upshow();
+
+                MinimaxResult result = AlphaBeta.alpha_Beta(boardChess);
+
+                if (boardChess.getNextmove() == Constant.BLACK){
+                    System.out.println(result);
+                    GameRule.removeHint(boardChess);
+                    GameRule.make_move(boardChess, result.getMove());
+                    GameRule.valid_moves(boardChess,boardChess.getNextmove());
+                    upshow();
                 }
             }
         });
