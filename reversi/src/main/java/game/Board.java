@@ -58,7 +58,6 @@ public class Board extends JPanel {
                 byte[] move = getMove(e);
                 byte col = move[0];
                 byte row = move[1];
-                GameRule.removeHint(boardChess);
                 GameRule.make_move(boardChess, new Move(row, col));
                 GameRule.valid_moves(boardChess,boardChess.getNextmove());
                 upshow();
@@ -67,7 +66,6 @@ public class Board extends JPanel {
 
                 if (boardChess.getNextmove() == Constant.BLACK){
                     System.out.println(result);
-                    GameRule.removeHint(boardChess);
                     GameRule.make_move(boardChess, result.getMove());
                     GameRule.valid_moves(boardChess,boardChess.getNextmove());
                     upshow();

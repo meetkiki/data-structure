@@ -99,6 +99,8 @@ public class GameRule {
         if (!moves[move.getRow()][move.getCol()]){
             throw new IllegalArgumentException("当前位置不可走!");
         }
+        // 移除当前子的提示
+        GameRule.removeHint(data);
         // 移除新的标志
         removeNew(chess);
         List<Move> make_move = make_move(chess, move.getRow(), move.getCol(), nextmove, new ArrayList<>());
