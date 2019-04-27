@@ -22,6 +22,7 @@
         <module>hashtable</module>
         <module>othre</module>
         <module>graph</module>
+        <module>reversi</module>
     </modules>
 
     <dependencies>
@@ -29,6 +30,11 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.10</version>
         </dependency>
 
         <!--<dependency>-->
