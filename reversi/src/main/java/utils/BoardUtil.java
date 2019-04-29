@@ -16,7 +16,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.CountDownLatch;
 import java.util.function.IntFunction;
 
 import static common.Constant.DELAY;
@@ -87,7 +86,6 @@ public class BoardUtil {
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
-		CountDownLatch countDownLatch = new CountDownLatch(1);
 		TimerTask task = new TimerTask() {
 			private int count = tem;
 			@Override
@@ -99,7 +97,6 @@ public class BoardUtil {
 				}else{
 					//结束任务
 					cancel();
-					countDownLatch.countDown();
 					//修正图标
 					curr.setChess(chess);
 					curr.repaint();
@@ -107,11 +104,6 @@ public class BoardUtil {
 			}
 		};
 		timer.schedule(task,0,DELAY);
-		try {
-			countDownLatch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**

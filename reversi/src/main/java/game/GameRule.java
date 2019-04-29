@@ -92,25 +92,31 @@ public class GameRule {
      * @param data
      * @param move
      */
-    public static List<Move> make_move(BoardData data,Move move){
+    public static BoardData make_move(BoardData data,Move move){
         Chess[][] chess = data.getChess();
         boolean[][] moves = data.getMoves();
         byte nextmove = data.getNextmove();
         if (!moves[move.getRow()][move.getCol()]){
             throw new IllegalArgumentException("当前位置不可走!");
         }
+        BoardData tempData = BoardUtil.copyBoard(data);
         // 移除当前子的提示
         GameRule.removeHint(data);
         // 移除新的标志
         removeNew(chess);
         List<Move> make_move = make_move(chess, move.getRow(), move.getCol(), nextmove, new ArrayList<>());
-        for (Move mo : make_move) {
-            byte ro = mo.getRow();
-            byte co = mo.getCol();
-            chess[ro][co].change(data.getNextmove());
-        }
-        data.setNextmove(BoardUtil.change(data.getNextmove()));
-        return make_move;
+        GameContext.execute(() ->{
+            for (Move mo : make_move) {
+                byte ro = mo.getRow();
+                byte co = mo.getCol();
+                chess[ro][co].change(data.getNextmove());
+            }
+            data.setNextmove(BoardUtil.change(data.getNextmove()));
+        });
+        Chess[][] dataChess = tempData.getChess();
+        make_move(dataChess,move.getRow(),move.getCol(),nextmove,null);
+        tempData.setNextmove(BoardUtil.change(tempData.getNextmove()));
+        return tempData;
     }
 
     /**
