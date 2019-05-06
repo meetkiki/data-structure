@@ -21,8 +21,6 @@ public class GameRule {
     public static int valid_moves(BoardData data, byte player){
         Chess[][] chess = data.getChess();
         boolean[][] moves = data.getMoves();
-        List<Move> canMoves = data.getCanMoves();
-        canMoves.clear();
         //定义五个参数，rowdelta和coldelta为边界+1-1,x和y为棋盘坐标
         //no_of_moves为累计不能走的棋子数
         int rowdelta,coldelta,x,y,no_of_moves = 0;
@@ -59,8 +57,6 @@ public class GameRule {
                                 //如果棋盘上还有玩家可下的棋子时，将可移动数组设置为true，能走的步数自增
                                 if(chess[x][y].getChess() == player){
                                     moves[row][col] = true;
-
-                                    canMoves.add(new Move(row,col));
                                     no_of_moves++;
                                     break;
                                 }

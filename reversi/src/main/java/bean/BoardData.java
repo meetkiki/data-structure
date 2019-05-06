@@ -26,10 +26,6 @@ public class BoardData implements Serializable {
     private boolean[][] moves = new boolean[SIZE][SIZE];
 
     /**
-     * 可以下棋对
-     */
-    private List<Move> canMoves = new ArrayList<>();
-    /**
      * 下一步棋子:白棋优先
      *  WHITE
      *  BLACK
@@ -58,14 +54,6 @@ public class BoardData implements Serializable {
 
     public void setNextmove(byte nextmove) {
         this.nextmove = nextmove;
-    }
-
-    public List<Move> getCanMoves() {
-        return canMoves;
-    }
-
-    public void setCanMoves(List<Move> canMoves) {
-        this.canMoves = canMoves;
     }
 
     /**

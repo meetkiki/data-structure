@@ -14,7 +14,7 @@ import java.util.Map;
 /**
  * @author Tao
  */
-public class Chess extends JPanel {
+public class Chess extends JPanel implements Cloneable{
     /**
      * 棋子状态
      */
@@ -132,5 +132,17 @@ public class Chess extends JPanel {
     @Override
     public void repaint() {
         super.repaint();
+    }
+
+
+    @Override
+    public Chess clone(){
+        Chess clone = null;
+        try {
+            clone = (Chess) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return clone;
     }
 }

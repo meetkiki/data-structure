@@ -42,12 +42,12 @@ public class BoardUtil {
 	 * @param <T>
 	 * @return
 	 */
-	public static<T extends Serializable> T[][] copyBinary(IntFunction<T[]> desc1,IntFunction<T[][]> desc2,T[][] src){
+	public static<T extends Cloneable> T[][] copyBinary(IntFunction<T[]> desc1,IntFunction<T[][]> desc2,T[][] src){
 		T[][] desc = desc2.apply(src.length);
 		for (int i = 0; i < src.length; i++) {
 			T[] ts = desc1.apply(src[i].length);
 			for (int i1 = 0; i1 < src[i].length; i1++) {
-				ts[i1] = deepCopy(src[i][i1]);
+				ts[i1] = src[i][i1];
 			}
 		}
 		return desc;
@@ -162,14 +162,6 @@ public class BoardUtil {
 		for(col=0;col<SIZE;++col)
 			System.out.printf("---+");
 		System.out.println();
-
-		System.out.println("===================moves==================");
-		List<Move> canMoves = data.getCanMoves();
-		if (canMoves == null) return;
-		System.out.println("canMoves :");
-		canMoves.forEach((e)-> {
-			System.out.print(e + ", ");
-		});
 	}
 
 	/**
@@ -196,6 +188,11 @@ public class BoardUtil {
 	 * @return
 	 */
 	public static BoardData copyBoard(BoardData data) {
-		return deepCopy(data);
+//		return deepCopy(data);
+		BoardData boardData = new BoardData();
+		boardData.setChess(data.getChess().clone());
+		boardData.setMoves(data.getMoves().clone());
+		boardData.setNextmove(data.getNextmove());
+		return boardData;
 	}
 }
