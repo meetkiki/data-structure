@@ -69,13 +69,19 @@ public class BoardData implements Serializable {
      * 克隆棋盘
      * @return
      */
-    public Chess[][] cloneChess(){
+    public BoardData cloneData(){
+        BoardData copyData = new BoardData();
         Chess[][] clone = new Chess[SIZE][SIZE];
+        boolean[][] movesClone = new boolean[SIZE][SIZE];
         for(byte row=0;row<SIZE;++row){
             for(byte col=0;col<SIZE;++col) {
                 clone[row][col] = chess[row][col].clone();
+                movesClone[row][col] = moves[row][col];
             }
         }
-        return clone;
+        copyData.setChess(clone);
+        copyData.setMoves(movesClone);
+        copyData.setNextmove(nextmove);
+        return copyData;
     }
 }
