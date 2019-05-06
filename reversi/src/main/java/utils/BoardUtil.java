@@ -190,7 +190,7 @@ public class BoardUtil {
 	public static BoardData copyBoard(BoardData data) {
 //		return deepCopy(data);
 		BoardData boardData = new BoardData();
-		boardData.setChess(data.getChess().clone());
+		boardData.setChess(data.cloneChess());
 		boardData.setMoves(data.getMoves().clone());
 		boardData.setNextmove(data.getNextmove());
 		return boardData;

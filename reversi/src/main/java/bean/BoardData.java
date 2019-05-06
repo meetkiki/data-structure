@@ -64,4 +64,18 @@ public class BoardData implements Serializable {
     public byte getCanMove() {
         return nextmove == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
     }
+
+    /**
+     * 克隆棋盘
+     * @return
+     */
+    public Chess[][] cloneChess(){
+        Chess[][] clone = new Chess[SIZE][SIZE];
+        for(byte row=0;row<SIZE;++row){
+            for(byte col=0;col<SIZE;++col) {
+                clone[row][col] = chess[row][col].clone();
+            }
+        }
+        return clone;
+    }
 }

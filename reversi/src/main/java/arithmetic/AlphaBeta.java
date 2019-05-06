@@ -60,7 +60,8 @@ public class AlphaBeta {
 
 
     public static MinimaxResult alpha_Beta(BoardData data){
-        return new MinimaxResult(alpha_Beta(data,Depth),best);
+        BoardData copyBoard = BoardUtil.copyBoard(data);
+        return new MinimaxResult(alpha_Beta(copyBoard,Depth),best);
     }
     /**
      * alpha_Beta 算法
