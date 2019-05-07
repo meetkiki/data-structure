@@ -1,22 +1,17 @@
 package game;
 
-import arithmetic.AlphaBeta;
 import bean.BoardData;
-import bean.MinimaxResult;
-import bean.Move;
 import common.Constant;
 import common.ImageConstant;
+import interactive.MouseListener;
 import utils.BoardUtil;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 import java.util.Map;
 
 import static common.Constant.ROW;
@@ -30,9 +25,8 @@ import static common.Constant.SPAN;
  */
 public class Board extends JPanel {
 
-
-    private static final int BOARD_WIDTH = 448;
-    private static final int BOARD_HEIGHT = 448;
+    public static final int BOARD_WIDTH = 448;
+    public static final int BOARD_HEIGHT = 448;
     /**
      * 棋盘数组
      */
@@ -50,54 +44,7 @@ public class Board extends JPanel {
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
         initBoard();
-        JPanel curr = this;
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                curr.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                byte[] move = getMove(e);
-                byte col = move[0];
-                byte row = move[1];
-                GameRule.make_move(boardChess, new Move(row, col));
-                GameRule.valid_moves(boardChess,boardChess.getNextmove());
-                upshow();
-
-                MinimaxResult result = AlphaBeta.alpha_Beta(boardChess);
-
-                if (boardChess.getNextmove() == Constant.BLACK){
-                    System.out.println(result);
-                    GameRule.make_move(boardChess, result.getMove());
-                    GameRule.valid_moves(boardChess,boardChess.getNextmove());
-                    upshow();
-                }
-            }
-        });
-    }
-
-    /**
-     * 获取下棋的坐标
-     * @param e
-     * @return
-     */
-    private byte[] getMove(MouseEvent e){
-        int Point_x = e.getX();
-        int Point_y = e.getY();
-        //判断棋盘是否在下棋范围 //如果未越界
-        if(isBorder(Point_x, Point_y)){
-            byte[] x_y = new byte[2];
-            //转化为棋盘坐标 对应col
-            x_y[0] = (byte)((Point_x - Constant.SPAN) / Constant.ROW);
-            // 对应row
-            x_y[1] = (byte)((Point_y - Constant.SPAN) / Constant.COL);
-            return x_y;
-        }else{
-            return null;
-        }
-    }
-
-    private boolean isBorder(int point_x, int point_y) {
-        return !(point_x > (BOARD_WIDTH - Constant.SPAN - 5) || point_x < Constant.SPAN + 5 ||
-                point_y > (BOARD_HEIGHT - Constant.SPAN-5) || point_y < Constant.SPAN + 5);
+        this.addMouseListener(new MouseListener(this,boardChess));
     }
 
     @Override

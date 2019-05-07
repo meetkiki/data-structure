@@ -99,7 +99,7 @@ public class GameRule {
         GameRule.removeHint(data);
         // 移除新的标志
         removeNew(chess);
-        List<Move> make_move = make_move(chess, move.getRow(), move.getCol(), nextmove, new ArrayList<>());
+        List<Move> make_move = make_move(chess, move, nextmove, new ArrayList<>());
         for (Move mo : make_move) {
             byte ro = mo.getRow();
             byte co = mo.getCol();
@@ -114,8 +114,10 @@ public class GameRule {
      *
      *  changes 吃子数组
      */
-    public static List<Move> make_move(Chess[][] chess, byte row, byte col, byte player, List<Move> changes){
+    public static List<Move> make_move(Chess[][] chess, Move move, byte player, List<Move> changes){
         byte rowdelta,coldelta,x,y;
+        byte row = move.getRow();
+        byte col = move.getCol();
         byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
         // 简洁操作
         boolean only = changes == null;
