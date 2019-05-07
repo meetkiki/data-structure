@@ -27,13 +27,12 @@ public class BoardUtil {
 	 * @param chess
 	 * @param //repaint
 	 */
-	public static TimerRunTask converSion(byte chess, Chess curr,CountDownLatch latch){
+	public static void converSion(byte chess, Chess curr,CountDownLatch latch){
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
 		TimerRunTask task = new TimerRunTask(tem,chess,curr,latch);
 		timer.schedule(task,0,DELAY);
-		return task;
 	}
 
 	/**
@@ -54,21 +53,20 @@ public class BoardUtil {
 
 		@Override
 		public void run() {
-			try {
-				if(count > 0 && count <= 6){
-                    updateImg(count,curr);
-                    if(chess == Constant.WHITE) count--;
-                    else count++;
-                }else{
-                    //结束任务
-                    cancel();
-                    latch.countDown();
-                    //修正图标
-                    curr.setChess(chess);
-                    curr.repaint();
-                }
-			} finally {
-				latch.countDown();
+			if(count > 0 && count <= 6){
+				updateImg(count,curr);
+				if(chess == Constant.WHITE) count--;
+				else count++;
+			}else{
+				try {
+					//结束任务
+					cancel();
+					//修正图标
+					curr.setChess(chess);
+					curr.repaint();
+				} finally {
+					latch.countDown();
+				}
 			}
 		}
 

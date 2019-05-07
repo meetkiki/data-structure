@@ -126,8 +126,8 @@ public class Chess extends JPanel implements Cloneable{
      * //转变棋子动画
      * @param player
      */
-    public BoardUtil.TimerRunTask change(byte player, CountDownLatch latch) {
-        return BoardUtil.converSion(player,this,latch);
+    public void change(byte player, CountDownLatch latch) {
+        BoardUtil.converSion(player,this,latch);
     }
 
     @Override

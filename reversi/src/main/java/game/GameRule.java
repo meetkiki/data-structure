@@ -5,9 +5,11 @@ import bean.Move;
 import common.Constant;
 import utils.BoardUtil;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveTask;
 
 import static common.Constant.SIZE;
