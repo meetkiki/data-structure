@@ -58,23 +58,19 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         // 模拟棋盘
         GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),true);
 
-        try {
-            task.get();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
         // 更新数据
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
-
         int next = GameRule.valid_moves(copyBoard, copyBoard.getNextmove());
         if (next > 0){
             // 交给计算机处理
             GameContext.submit(new AiRun());
-        } else {
-            boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
-            GameRule.valid_moves(boardChess,boardChess.getNextmove());
-            board.upshow();
+            return;
         }
+        // 获得返回数据
+        GameContext.getCall(task);
+        boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
+        GameRule.valid_moves(boardChess,boardChess.getNextmove());
+        board.upshow();
     }
 
     /**

@@ -3,12 +3,16 @@ package interactive;
 import arithmetic.AlphaBeta;
 import bean.BoardData;
 import bean.MinimaxResult;
+import bean.Move;
 import common.Constant;
 import game.Board;
+import game.GameContext;
 import game.GameRule;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.ForkJoinTask;
 
 /**
  * @author ypt
@@ -38,7 +42,9 @@ public class AlphaBetaListener implements Observer {
         if (copyBoard.getNextmove() == Constant.BLACK){
             System.out.println(result);
             // 走这步棋
-            GameRule.make_move(boardChess, result.getMove());
+            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
+            ForkJoinTask<List<Move>> task = GameContext.submit(makeMove);
+            GameContext.getCall(task);
             GameRule.valid_moves(boardChess,boardChess.getNextmove());
             board.upshow();
         }

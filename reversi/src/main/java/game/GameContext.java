@@ -50,6 +50,21 @@ public class GameContext {
     }
 
 
+    /**
+     * 获得返回并阻塞
+     * @param <T>
+     * @return
+     */
+    public static<T> T getCall(ForkJoinTask<T> forkJoinTask){
+        try {
+            return forkJoinTask.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("线程执行异常",e);
+        }
+    }
+
+
     public static Map<ImageConstant, ImageIcon> getResources() {
         return resources;
     }
