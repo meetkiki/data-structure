@@ -3,16 +3,11 @@ package interactive;
 import arithmetic.AlphaBeta;
 import bean.BoardData;
 import bean.MinimaxResult;
-import bean.Move;
-import common.Constant;
 import game.Board;
-import game.GameContext;
 import game.GameRule;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.ForkJoinTask;
 
 /**
  * @author ypt
