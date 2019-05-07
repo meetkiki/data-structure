@@ -8,9 +8,6 @@ import game.Chess;
 import game.GameRule;
 import utils.BoardUtil;
 
-import java.util.Iterator;
-import java.util.List;
-
 import static common.Constant.SIZE;
 
 /**
@@ -55,13 +52,9 @@ public class AlphaBeta {
         return score;
     }
 
-
-    private static Move best;
-
-
     public static MinimaxResult alpha_Beta(BoardData data){
         BoardData copyBoard = BoardUtil.copyBoard(data);
-        return new MinimaxResult(alpha_Beta(copyBoard,Depth),best);
+        return alpha_Beta(copyBoard,Depth);
     }
     /**
      * alpha_Beta 算法
@@ -70,16 +63,17 @@ public class AlphaBeta {
      * @param depth
      * @return
      */
-    private static int alpha_Beta(BoardData data, int depth) {//α-β剪枝算法
+    private static MinimaxResult alpha_Beta(BoardData data, int depth) {//α-β剪枝算法
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
-            return currentValue(data, data.getNextmove());
+            return new MinimaxResult(currentValue(data, data.getNextmove()),null);
         }
         // 轮到已方走
         if (data.getNextmove() == Constant.WHITE) {
-            // 当前最佳估值，预设为负无穷大 己方估值为最小
             int best_value = MIN;
+            Move move = null;
+            // 当前最佳估值，预设为负无穷大 己方估值为最小
             if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
                 boolean[][] moves = data.getMoves();
                 // 遍历每一种走法
@@ -94,21 +88,30 @@ public class AlphaBeta {
                             temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
                             GameRule.valid_moves(temdata, temdata.getNextmove());
                             // 将产生的新局面给对方
-                            int value = alpha_Beta(temdata, depth - 1);
+                            int value = alpha_Beta(temdata, depth - 1).getMark();
                             if (best_value < value) {
                                 best_value = value;
                                 if (depth == Depth)
-                                    best = new Move(row, col);
+                                    move = new Move(row, col);
                             }
                         }
                     }
                 }
+            }else {
+                // 没有可走子 交给对方
+                data.setNextmove(BoardUtil.change(data.getNextmove()));
+                if (GameRule.valid_moves(data, data.getNextmove()) > 0){
+                    return alpha_Beta(data,depth);
+                }else{
+                    return new MinimaxResult(currentValue(data, data.getNextmove()), null);
+                }
             }
-            return best_value;
+            return new MinimaxResult(best_value,move);
             // 轮到对方走
         } else {
             // 当前最佳估值，预设为负无穷大 己方估值为最小
             int best_value = MAX;
+            Move move = null;
             if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
                 boolean[][] moves = data.getMoves();
                 // 遍历每一种走法
@@ -123,17 +126,25 @@ public class AlphaBeta {
                             temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
                             GameRule.valid_moves(temdata, temdata.getNextmove());
                             // 将产生的新局面给对方
-                            int value = alpha_Beta(temdata, depth - 1);
+                            int value = alpha_Beta(temdata, depth - 1).getMark();
                             if (best_value > value) {
                                 best_value = value;
                                 if (depth == Depth)
-                                    best = new Move(row, col);
+                                    move = new Move(row, col);
                             }
                         }
                     }
                 }
+            } else {
+                // 没有可走子 交给对方
+                data.setNextmove(BoardUtil.change(data.getNextmove()));
+                if (GameRule.valid_moves(data, data.getNextmove()) > 0){
+                    return alpha_Beta(data,depth);
+                }else{
+                    return new MinimaxResult(currentValue(data, data.getNextmove()), null);
+                }
             }
-            return best_value;
+            return new MinimaxResult(best_value,move);
         }
 
     }
