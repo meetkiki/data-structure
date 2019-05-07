@@ -38,11 +38,30 @@ public class BoardUtil {
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
-		CountDownLatch latch = new CountDownLatch(1);
-		TimerTask task = new TimerTask() {
-			private int count = tem;
-			@Override
-			public void run() {
+		TimerRunTask task = new TimerRunTask(tem,chess,curr);
+		timer.schedule(task,0,DELAY);
+		while (task.isRun()){
+			GameContext.sleep(2);
+		}
+	}
+
+
+	static class TimerRunTask extends TimerTask{
+		private int count;
+		private byte chess;
+		private Chess curr;
+		private volatile boolean isRun;
+
+		public TimerRunTask(int count, byte chess, Chess curr) {
+			this.count = count;
+			this.chess = chess;
+			this.curr = curr;
+		}
+
+		@Override
+		public void run() {
+			try {
+				isRun = true;
 				if(count > 0 && count <= 6){
 					updateImg(count,curr);
 					if(chess == Constant.WHITE) count--;
@@ -50,18 +69,16 @@ public class BoardUtil {
 				}else{
 					//结束任务
 					cancel();
-					latch.countDown();
 					//修正图标
 					curr.setChess(chess);
 					curr.repaint();
 				}
+			} finally {
+				isRun = false;
 			}
-		};
-		timer.schedule(task,0,DELAY);
-		try {
-			latch.await();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
+		}
+		public boolean isRun() {
+			return isRun;
 		}
 	}
 

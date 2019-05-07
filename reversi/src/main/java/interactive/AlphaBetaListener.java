@@ -42,12 +42,12 @@ public class AlphaBetaListener implements Observer {
 
         System.out.println(result);
         // 必须要先走玩家棋
-        GameContext.getCall(mouseListener.getTask());
+        mouseListener.getTask().join();
 
         // 走这步棋
         GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
-        ForkJoinTask<List<Move>> task = GameContext.submit(makeMove);
-        GameContext.getCall(task);
+        makeMove.fork();
+        makeMove.join();
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
         board.upshow();
     }

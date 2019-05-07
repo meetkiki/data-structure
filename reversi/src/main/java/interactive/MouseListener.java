@@ -12,9 +12,8 @@ import utils.BoardUtil;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveAction;
 
 import static game.Board.BOARD_HEIGHT;
 import static game.Board.BOARD_WIDTH;
@@ -42,7 +41,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     /**
      * 当前走棋的task
      */
-    private ForkJoinTask<java.util.List<Move>> task;
+    private GameRule.MakeMoveRun makeMove;
 
     public MouseListener(Board board,BoardData boardChess) {
         this.board = board;
@@ -57,36 +56,55 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         if (move == null){
             return;
         }
-        copyBoard = BoardUtil.copyBoard(boardChess);
-        // 显示棋盘
-        GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, move);
-        task = GameContext.submit(makeMove);
-        // 模拟棋盘
-        GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),true);
-        copyBoard.setNextmove(BoardUtil.change(copyBoard.getNextmove()));
+        MoveRun moveRun = new MoveRun(move);
+        ForkJoinTask submit = GameContext.submit(moveRun);
+        GameContext.getCall(submit);
+    }
 
-        int next = GameRule.valid_moves(copyBoard, copyBoard.getNextmove());
-        if (next > 0){
-            // 交给计算机处理
-            ForkJoinTask submit = GameContext.submit(new AiRun());
-            GameContext.getCall(submit);
-            return;
+    /**
+     * 走棋线程
+     */
+    class MoveRun implements Runnable{
+
+        private Move move;
+
+        public MoveRun(Move move) {
+            this.move = move;
         }
-        // 如果没有棋可以走 获得返回数据
-        GameContext.getCall(task);
-        // 更新数据
-        GameRule.valid_moves(boardChess,boardChess.getNextmove());
-        boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
-        GameRule.valid_moves(boardChess,boardChess.getNextmove());
-        board.upshow();
+
+        @Override
+        public void run() {
+            copyBoard = BoardUtil.copyBoard(boardChess);
+            // 显示棋盘
+            makeMove = GameRule.getMakeMove(boardChess, move);
+            makeMove.fork();
+            // 模拟棋盘
+            GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),true);
+            copyBoard.setNextmove(BoardUtil.change(copyBoard.getNextmove()));
+
+            int next = GameRule.valid_moves(copyBoard, copyBoard.getNextmove());
+            if (next > 0){
+                // 交给计算机处理
+                AiRun run = new AiRun();
+                GameContext.invoke(run);
+                return;
+            }
+            // 如果没有棋可以走 获得返回数据
+            makeMove.join();
+            // 更新数据
+            GameRule.valid_moves(boardChess,boardChess.getNextmove());
+            boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
+            GameRule.valid_moves(boardChess,boardChess.getNextmove());
+            board.upshow();
+        }
     }
 
     /**
      * 异步通知线程
      */
-    class AiRun implements Runnable{
+    class AiRun extends RecursiveAction{
         @Override
-        public void run() {
+        protected void compute() {
             setChanged();
             notifyObservers();
         }
@@ -147,7 +165,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     }
 
 
-    public ForkJoinTask<List<Move>> getTask() {
-        return task;
+    public GameRule.MakeMoveRun getTask() {
+        return makeMove;
     }
 }

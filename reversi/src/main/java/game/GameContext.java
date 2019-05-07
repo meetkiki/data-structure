@@ -11,6 +11,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.RecursiveTask;
 
 /**
  * @author Tao
@@ -49,6 +51,21 @@ public class GameContext {
         return forkJoinPool.submit(call);
     }
 
+    /**
+     * 异步提交一个子任务 有返回值
+     * @param recursiveTask
+     */
+    public static<T> T invoke(RecursiveTask<T> recursiveTask){
+        return forkJoinPool.invoke(recursiveTask);
+    }
+
+    /**
+     * 异步提交一个子任务 无返回值
+     * @param recursiveAction
+     */
+    public static void invoke(RecursiveAction recursiveAction){
+        forkJoinPool.invoke(recursiveAction);
+    }
 
     /**
      * 获得返回并阻塞
@@ -64,6 +81,17 @@ public class GameContext {
         }
     }
 
+    /**
+     * 线程睡眠
+     * @param ms
+     */
+    public static void sleep(int ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static Map<ImageConstant, ImageIcon> getResources() {
         return resources;
