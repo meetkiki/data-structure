@@ -53,8 +53,7 @@ public class AlphaBeta {
     }
 
     public static MinimaxResult alpha_Beta(BoardData data){
-        BoardData copyBoard = BoardUtil.copyBoard(data);
-        return alpha_Beta(copyBoard,Depth);
+        return alpha_Beta(data,Depth);
     }
     /**
      * alpha_Beta 算法
@@ -80,11 +79,12 @@ public class AlphaBeta {
                 for(byte row=0;row<SIZE;++row){
                     for(byte col=0;col<SIZE;++col) {
                         if (moves[row][col]) {
+                            Move curM = new Move(row, col);
                             BoardData temdata = BoardUtil.copyBoard(data);
                             Chess[][] chess = temdata.getChess();
                             GameRule.removeHint(temdata);
                             //尝试走这步棋
-                            GameRule.make_move(chess, row, col, temdata.getNextmove(), null);
+                            GameRule.make_move(chess, curM, temdata.getNextmove(), true);
                             temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
                             GameRule.valid_moves(temdata, temdata.getNextmove());
                             // 将产生的新局面给对方
@@ -92,7 +92,7 @@ public class AlphaBeta {
                             if (best_value < value) {
                                 best_value = value;
                                 if (depth == Depth)
-                                    move = new Move(row, col);
+                                    move = curM;
                             }
                         }
                     }
@@ -118,11 +118,12 @@ public class AlphaBeta {
                 for(byte row=0;row<SIZE;++row){
                     for(byte col=0;col<SIZE;++col) {
                         if (moves[row][col]) {
+                            Move curM = new Move(row, col);
                             BoardData temdata = BoardUtil.copyBoard(data);
                             Chess[][] chess = temdata.getChess();
                             GameRule.removeHint(temdata);
                             //尝试走这步棋
-                            GameRule.make_move(chess, row, col, temdata.getNextmove(), null);
+                            GameRule.make_move(chess, curM, temdata.getNextmove(), true);
                             temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
                             GameRule.valid_moves(temdata, temdata.getNextmove());
                             // 将产生的新局面给对方
@@ -130,7 +131,7 @@ public class AlphaBeta {
                             if (best_value > value) {
                                 best_value = value;
                                 if (depth == Depth)
-                                    move = new Move(row, col);
+                                    move = curM;
                             }
                         }
                     }

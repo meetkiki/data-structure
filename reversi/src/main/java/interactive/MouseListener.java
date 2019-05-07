@@ -5,12 +5,15 @@ import bean.BoardData;
 import bean.Move;
 import common.Constant;
 import game.Board;
+import game.GameContext;
 import game.GameRule;
 import utils.BoardUtil;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.Observable;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinTask;
 
 import static game.Board.BOARD_HEIGHT;
 import static game.Board.BOARD_WIDTH;
@@ -24,6 +27,8 @@ import static game.Board.BOARD_WIDTH;
 public class MouseListener extends Observable implements java.awt.event.MouseListener {
 
     private Board board;
+
+    private AlphaBetaListener alphaBetaListener;
     /**
      * 棋盘数组 ui显示
      */
@@ -36,6 +41,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public MouseListener(Board board,BoardData boardChess) {
         this.board = board;
         this.boardChess = boardChess;
+        this.alphaBetaListener = new AlphaBetaListener(this);
     }
 
     @Override
@@ -46,16 +52,24 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
             return;
         }
         copyBoard = BoardUtil.copyBoard(boardChess);
-        GameRule.make_move(boardChess, move);
-        GameRule.valid_moves(boardChess,boardChess.getNextmove());
-        board.upshow();
+        // 显示棋盘
+        GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, move);
+        ForkJoinTask<java.util.List<Move>> task = GameContext.submit(makeMove);
+        // 模拟棋盘
+        GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),true);
 
-        GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),null);
+        try {
+            task.get();
+        } catch (Exception e1) {
+            e1.printStackTrace();
+        }
+        // 更新数据
+        GameRule.valid_moves(boardChess,boardChess.getNextmove());
+
         int next = GameRule.valid_moves(copyBoard, copyBoard.getNextmove());
         if (next > 0){
             // 交给计算机处理
-            setChanged();
-            notifyObservers();
+            GameContext.submit(new AiRun());
         } else {
             boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
             GameRule.valid_moves(boardChess,boardChess.getNextmove());
@@ -63,6 +77,16 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         }
     }
 
+    /**
+     * 异步通知线程
+     */
+    class AiRun implements Runnable{
+        @Override
+        public void run() {
+            setChanged();
+            notifyObservers();
+        }
+    }
 
     public Board getBoard() {
         return board;
@@ -117,4 +141,5 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public void mouseExited(MouseEvent e) {
 
     }
+
 }

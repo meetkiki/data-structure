@@ -7,6 +7,7 @@ import utils.BoardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import static common.Constant.SIZE;
 
@@ -88,43 +89,65 @@ public class GameRule {
      * @param data
      * @param move
      */
-    public static List<Move> make_move(BoardData data,Move move){
-        Chess[][] chess = data.getChess();
-        boolean[][] moves = data.getMoves();
-        byte nextmove = data.getNextmove();
-        if (!moves[move.getRow()][move.getCol()]){
-            throw new IllegalArgumentException("当前位置不可走!");
-        }
-        // 移除当前子的提示
-        GameRule.removeHint(data);
-        // 移除新的标志
-        removeNew(chess);
-        List<Move> make_move = make_move(chess, move, nextmove, new ArrayList<>());
-        for (Move mo : make_move) {
-            byte ro = mo.getRow();
-            byte co = mo.getCol();
-            chess[ro][co].change(data.getNextmove());
-        }
-        data.setNextmove(BoardUtil.change(data.getNextmove()));
-        return make_move;
+    public static MakeMoveRun getMakeMove(BoardData data,Move move){
+        return new MakeMoveRun(data,move);
     }
+
+    /**
+     * 异步执行线程
+     */
+    public static class MakeMoveRun implements Callable<List<Move>>{
+
+        private BoardData data;
+        private Move move;
+
+        public MakeMoveRun(BoardData data, Move move) {
+            this.data = data;
+            this.move = move;
+        }
+
+        @Override
+        public List<Move> call() throws Exception {
+            Chess[][] chess = data.getChess();
+            boolean[][] moves = data.getMoves();
+            byte nextmove = data.getNextmove();
+            if (!moves[move.getRow()][move.getCol()]){
+                throw new IllegalArgumentException("当前位置不可走!");
+            }
+            // 移除当前子的提示
+            GameRule.removeHint(data);
+            // 移除新的标志
+            removeNew(chess);
+            List<Move> make_move = make_move(chess, move, nextmove, false);
+
+            for (Move mo : make_move) {
+                byte ro = mo.getRow();
+                byte co = mo.getCol();
+                chess[ro][co].change(data.getNextmove());
+            }
+            data.setNextmove(BoardUtil.change(data.getNextmove()));
+            return make_move;
+        }
+    }
+
 
     /**
      * 走棋方法,传入走棋坐标xy，走棋者
      *
      *  changes 吃子数组
+     *  only    简洁操作
      */
-    public static List<Move> make_move(Chess[][] chess, Move move, byte player, List<Move> changes){
+    public static List<Move> make_move(Chess[][] chess, Move move, byte player, boolean only){
         byte rowdelta,coldelta,x,y;
         byte row = move.getRow();
         byte col = move.getCol();
         byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
-        // 简洁操作
-        boolean only = changes == null;
         //将row和col的值更改为player //玩家状态
+        List<Move> changes = null;
         if (only){
             chess[row][col].onlyChess(player);
         }else {
+            changes = new ArrayList<>();
             chess[row][col].setNewPlayer(player);
         }
         //遍历当前棋子 的周边棋子

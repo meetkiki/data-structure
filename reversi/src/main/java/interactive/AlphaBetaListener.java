@@ -19,7 +19,6 @@ import java.util.Observer;
 public class AlphaBetaListener implements Observer {
 
     private Observable ob;
-    private String name;
 
     public AlphaBetaListener(Observable ob) {
         this.ob = ob;
@@ -29,11 +28,16 @@ public class AlphaBetaListener implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         MouseListener mouseListener = (MouseListener)o;
+        // 模拟棋盘
+        BoardData copyBoard = mouseListener.getCopyBoard();
+        // 显示棋盘
         BoardData boardChess = mouseListener.getBoardChess();
+        // 棋盘UI
         Board board = mouseListener.getBoard();
-        MinimaxResult result = AlphaBeta.alpha_Beta(boardChess);
-        if (boardChess.getNextmove() == Constant.BLACK){
+        MinimaxResult result = AlphaBeta.alpha_Beta(copyBoard);
+        if (copyBoard.getNextmove() == Constant.BLACK){
             System.out.println(result);
+            // 走这步棋
             GameRule.make_move(boardChess, result.getMove());
             GameRule.valid_moves(boardChess,boardChess.getNextmove());
             board.upshow();

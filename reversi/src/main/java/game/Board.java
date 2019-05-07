@@ -45,6 +45,7 @@ public class Board extends JPanel {
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
         initBoard();
         this.addMouseListener(new MouseListener(this,boardChess));
+
     }
 
     @Override
