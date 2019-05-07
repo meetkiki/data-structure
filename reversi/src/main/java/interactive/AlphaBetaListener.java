@@ -39,14 +39,16 @@ public class AlphaBetaListener implements Observer {
         // 棋盘UI
         Board board = mouseListener.getBoard();
         MinimaxResult result = AlphaBeta.alpha_Beta(copyBoard);
-        if (copyBoard.getNextmove() == Constant.BLACK){
-            System.out.println(result);
-            // 走这步棋
-            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
-            ForkJoinTask<List<Move>> task = GameContext.submit(makeMove);
-            GameContext.getCall(task);
-            GameRule.valid_moves(boardChess,boardChess.getNextmove());
-            board.upshow();
-        }
+
+        System.out.println(result);
+        // 必须要先走玩家棋
+        GameContext.getCall(mouseListener.getTask());
+
+        // 走这步棋
+        GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
+        ForkJoinTask<List<Move>> task = GameContext.submit(makeMove);
+        GameContext.getCall(task);
+        GameRule.valid_moves(boardChess,boardChess.getNextmove());
+        board.upshow();
     }
 }

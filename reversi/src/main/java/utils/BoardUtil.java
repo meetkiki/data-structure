@@ -38,6 +38,7 @@ public class BoardUtil {
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
+		CountDownLatch latch = new CountDownLatch(1);
 		TimerTask task = new TimerTask() {
 			private int count = tem;
 			@Override
@@ -49,6 +50,7 @@ public class BoardUtil {
 				}else{
 					//结束任务
 					cancel();
+					latch.countDown();
 					//修正图标
 					curr.setChess(chess);
 					curr.repaint();
@@ -56,6 +58,11 @@ public class BoardUtil {
 			}
 		};
 		timer.schedule(task,0,DELAY);
+		try {
+			latch.await();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

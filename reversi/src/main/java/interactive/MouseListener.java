@@ -12,6 +12,7 @@ import utils.BoardUtil;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinTask;
 
@@ -38,6 +39,11 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      */
     private BoardData copyBoard;
 
+    /**
+     * 当前走棋的task
+     */
+    private ForkJoinTask<java.util.List<Move>> task;
+
     public MouseListener(Board board,BoardData boardChess) {
         this.board = board;
         this.boardChess = boardChess;
@@ -54,20 +60,22 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         copyBoard = BoardUtil.copyBoard(boardChess);
         // 显示棋盘
         GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, move);
-        ForkJoinTask<java.util.List<Move>> task = GameContext.submit(makeMove);
+        task = GameContext.submit(makeMove);
         // 模拟棋盘
         GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),true);
+        copyBoard.setNextmove(BoardUtil.change(copyBoard.getNextmove()));
 
-        // 更新数据
-        GameRule.valid_moves(boardChess,boardChess.getNextmove());
         int next = GameRule.valid_moves(copyBoard, copyBoard.getNextmove());
         if (next > 0){
             // 交给计算机处理
-            GameContext.submit(new AiRun());
+            ForkJoinTask submit = GameContext.submit(new AiRun());
+            GameContext.getCall(submit);
             return;
         }
-        // 获得返回数据
+        // 如果没有棋可以走 获得返回数据
         GameContext.getCall(task);
+        // 更新数据
+        GameRule.valid_moves(boardChess,boardChess.getNextmove());
         boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
         board.upshow();
@@ -138,4 +146,8 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     }
 
+
+    public ForkJoinTask<List<Move>> getTask() {
+        return task;
+    }
 }
