@@ -50,10 +50,10 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
         board.upshow();
 
-        // 交给计算机处理
         GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),null);
         int next = GameRule.valid_moves(copyBoard, copyBoard.getNextmove());
         if (next > 0){
+            // 交给计算机处理
             setChanged();
             notifyObservers();
         } else {
