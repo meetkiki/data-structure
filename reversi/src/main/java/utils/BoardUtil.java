@@ -1,23 +1,15 @@
 package utils;
 
 import bean.BoardData;
-import bean.Move;
 import common.Constant;
 import common.ImageConstant;
 import game.Chess;
 import game.GameContext;
 
 import java.awt.Image;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
-import java.util.function.IntFunction;
 
 import static common.Constant.DELAY;
 import static common.Constant.SIZE;
@@ -27,6 +19,7 @@ import static common.Constant.SIZE;
  */
 public class BoardUtil {
 
+
 	/**
 	 * 棋子动画
 	 * 		1 --- 6
@@ -34,52 +27,51 @@ public class BoardUtil {
 	 * @param chess
 	 * @param //repaint
 	 */
-	public static void converSion(byte chess, Chess curr){
+	public static TimerRunTask converSion(byte chess, Chess curr,CountDownLatch latch){
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
-		TimerRunTask task = new TimerRunTask(tem,chess,curr);
+		TimerRunTask task = new TimerRunTask(tem,chess,curr,latch);
 		timer.schedule(task,0,DELAY);
-		while (task.isRun()){
-			GameContext.sleep(2);
-		}
+		return task;
 	}
 
-
-	static class TimerRunTask extends TimerTask{
+	/**
+	 * 反转棋子任务
+	 */
+	public static class TimerRunTask extends TimerTask{
 		private int count;
 		private byte chess;
 		private Chess curr;
-		private volatile boolean isRun;
+		private CountDownLatch latch;
 
-		public TimerRunTask(int count, byte chess, Chess curr) {
+		public TimerRunTask(int count, byte chess, Chess curr,CountDownLatch latch) {
 			this.count = count;
 			this.chess = chess;
 			this.curr = curr;
+			this.latch = latch;
 		}
 
 		@Override
 		public void run() {
 			try {
-				isRun = true;
 				if(count > 0 && count <= 6){
-					updateImg(count,curr);
-					if(chess == Constant.WHITE) count--;
-					else count++;
-				}else{
-					//结束任务
-					cancel();
-					//修正图标
-					curr.setChess(chess);
-					curr.repaint();
-				}
+                    updateImg(count,curr);
+                    if(chess == Constant.WHITE) count--;
+                    else count++;
+                }else{
+                    //结束任务
+                    cancel();
+                    latch.countDown();
+                    //修正图标
+                    curr.setChess(chess);
+                    curr.repaint();
+                }
 			} finally {
-				isRun = false;
+				latch.countDown();
 			}
 		}
-		public boolean isRun() {
-			return isRun;
-		}
+
 	}
 
 	/**

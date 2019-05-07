@@ -7,6 +7,7 @@ import utils.BoardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.RecursiveTask;
 
 import static common.Constant.SIZE;
@@ -94,7 +95,7 @@ public class GameRule {
     }
 
     /**
-     * 异步执行线程
+     * 异步执行走棋
      */
     public static class MakeMoveRun extends RecursiveTask<List<Move>> {
 
@@ -119,11 +120,13 @@ public class GameRule {
             // 移除新的标志
             removeNew(chess);
             List<Move> make_move = make_move(chess, move, nextmove, false);
+            CountDownLatch latch = new CountDownLatch(make_move.size());
             for (Move mo : make_move) {
                 byte ro = mo.getRow();
                 byte co = mo.getCol();
-                chess[ro][co].change(data.getNextmove());
+                chess[ro][co].change(data.getNextmove(), latch);
             }
+            GameContext.await(latch);
             // 更新棋手及规则
             data.setNextmove(BoardUtil.change(data.getNextmove()));
             GameRule.valid_moves(data,data.getNextmove());

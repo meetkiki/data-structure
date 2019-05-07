@@ -28,7 +28,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     private Board board;
 
-    private AlphaBetaListener alphaBetaListener;
     /**
      * 棋盘数组 ui显示
      */
@@ -46,8 +45,17 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public MouseListener(Board board,BoardData boardChess) {
         this.board = board;
         this.boardChess = boardChess;
-        this.alphaBetaListener = new AlphaBetaListener(this);
+        initListener();
     }
+
+    /**
+     * 初始化观察者
+     */
+    public void initListener(){
+        AlphaBetaListener alphaBetaListener = new AlphaBetaListener(this);
+
+    }
+
 
     @Override
     public void mouseReleased(MouseEvent e) {

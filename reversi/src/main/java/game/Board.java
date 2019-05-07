@@ -63,7 +63,7 @@ public class Board extends JPanel {
         initChess();
         // 获取行动力
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
-        BoardUtil.display(boardChess);
+        //BoardUtil.display(boardChess);
         // 显示棋盘
         upshow();
     }

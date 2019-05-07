@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
@@ -92,6 +93,20 @@ public class GameContext {
             e.printStackTrace();
         }
     }
+
+    /**
+     * 线程等待
+     * @param latch
+     */
+    public static void await(CountDownLatch latch){
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
     public static Map<ImageConstant, ImageIcon> getResources() {
         return resources;

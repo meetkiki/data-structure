@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Tao
@@ -125,8 +126,8 @@ public class Chess extends JPanel implements Cloneable{
      * //转变棋子动画
      * @param player
      */
-    public void change(byte player) {
-        BoardUtil.converSion(player,this);
+    public BoardUtil.TimerRunTask change(byte player, CountDownLatch latch) {
+        return BoardUtil.converSion(player,this,latch);
     }
 
     @Override
@@ -145,4 +146,7 @@ public class Chess extends JPanel implements Cloneable{
         }
         return clone;
     }
+
+
+
 }
