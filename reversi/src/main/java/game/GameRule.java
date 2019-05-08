@@ -130,9 +130,6 @@ public class GameRule {
             }
             // 转变
             BoardUtil.converSion(data.getNextmove(),chessList);
-            // 更新棋手及规则
-            data.setNextmove(BoardUtil.change(data.getNextmove()));
-            GameRule.valid_moves(data,data.getNextmove());
             return chessList;
         }
     }

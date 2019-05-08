@@ -24,7 +24,7 @@ public class AlphaBetaListener implements Observer {
 
     public AlphaBetaListener(Observable ob) {
         this.ob = ob;
-        ob.addObserver(this);
+        this.ob.addObserver(this);
     }
 
     @Override
@@ -40,13 +40,18 @@ public class AlphaBetaListener implements Observer {
 
         System.out.println(result);
         // 必须要先走玩家棋
-        List<Chess> chess = mouseListener.getTask().join();
-        BoardUtil.isRun(chess);
+        List<Chess> chessList = mouseListener.getTask().join();
+        BoardUtil.isRun(chessList);
+        boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
+        GameRule.valid_moves(boardChess,boardChess.getNextmove());
 
         // 走这步棋
         GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
         makeMove.fork();
-        makeMove.join();
+        List<Chess> join = makeMove.join();
+        BoardUtil.isRun(join);
+        // 更新棋手及规则
+        boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
         board.upshow();
     }

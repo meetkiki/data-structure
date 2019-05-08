@@ -53,7 +53,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      */
     public void initListener(){
         AlphaBetaListener alphaBetaListener = new AlphaBetaListener(this);
-
     }
 
 
@@ -124,6 +123,10 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     public BoardData getBoardChess() {
         return boardChess;
+    }
+
+    public void setBoardChess(BoardData boardChess) {
+        this.boardChess = boardChess;
     }
 
     public BoardData getCopyBoard() {

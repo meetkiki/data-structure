@@ -26,7 +26,7 @@ public class BoardUtil {
 	 * 处理流
 	 *  判断当前是否处理完成
 	 */
-	private static Map chessQueue = new ConcurrentHashMap();
+	private static final Map chessQueue = new ConcurrentHashMap();
 
 
 	/**

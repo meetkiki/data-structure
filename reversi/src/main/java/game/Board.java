@@ -25,6 +25,7 @@ import static common.Constant.SPAN;
  */
 public class Board extends JPanel {
 
+
     public static final int BOARD_WIDTH = 448;
     public static final int BOARD_HEIGHT = 448;
     /**
@@ -45,7 +46,6 @@ public class Board extends JPanel {
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
         initBoard();
         this.addMouseListener(new MouseListener(this,boardChess));
-
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Board extends JPanel {
         initChess();
         // 获取行动力
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
-        //BoardUtil.display(boardChess);
+        BoardUtil.display(boardChess);
         // 显示棋盘
         upshow();
     }
