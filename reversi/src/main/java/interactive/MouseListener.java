@@ -97,8 +97,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                 return;
             }
             // 如果没有棋可以走 获得返回数据
-            makeMove.join();
-            // 更新数据
             GameRule.valid_moves(boardChess,boardChess.getNextmove());
             boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
             GameRule.valid_moves(boardChess,boardChess.getNextmove());

@@ -6,6 +6,7 @@ import common.ImageConstant;
 import game.Chess;
 import game.GameContext;
 
+import javax.swing.*;
 import java.awt.Image;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,8 @@ public class BoardUtil {
 	 * @param //repaint
 	 */
 	public static void converSion(byte chess, List<Chess> curr){
+		// 优先修正图标
+		fixImg(chess,curr);
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
@@ -68,6 +71,7 @@ public class BoardUtil {
 				if(chess == Constant.WHITE) count--;
 				else count++;
 			}else{
+				System.out.println("update Thread : " + Thread.currentThread().getName());
 				//结束任务
 				cancel();
 				//修正图标
