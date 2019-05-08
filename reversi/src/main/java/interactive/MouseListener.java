@@ -12,7 +12,6 @@ import utils.BoardUtil;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
-import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 
 import static game.Board.BOARD_HEIGHT;
@@ -64,8 +63,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
             return;
         }
         MoveRun moveRun = new MoveRun(move);
-        ForkJoinTask submit = GameContext.submit(moveRun);
-        GameContext.getCall(submit);
+        GameContext.submit(moveRun);
     }
 
     /**
