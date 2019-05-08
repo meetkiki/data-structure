@@ -49,7 +49,7 @@ public class Evaluation {
         for(row=0;row<SIZE;++row)
             for(col=0;col<SIZE;++col)
                 if(chess[row][col].getChess() == player)
-                    ++count;
+                    count += 5;
         return count;
     }
 

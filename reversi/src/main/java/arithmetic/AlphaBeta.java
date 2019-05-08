@@ -18,7 +18,7 @@ import static common.Constant.SIZE;
 public class AlphaBeta {
 
 
-    public static int Depth = 5;
+    public static int Depth = 8;
     public static int MAX = 1000000;
     public static int MIN = -1000000;
 
@@ -44,23 +44,24 @@ public class AlphaBeta {
 
 
     public static MinimaxResult alphaBeta(BoardData data){
-        return alphaBeta(data,Depth);
+        return alphaBeta(data,MIN,MAX,Depth);
     }
     /**
      * alphaBeta 算法
      *
      * @param data
-     * @param depth
+     * @param depth 搜索深度
+     * @param alpha 下限
+     * @param beta  上限
      * @return
      */
-    private static MinimaxResult alphaBeta(BoardData data, int depth) {//α-β剪枝算法
+    private static MinimaxResult alphaBeta(BoardData data, int alpha, int beta, int depth) {//α-β剪枝算法
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
             return MinimaxResult.builder().mark(currentValue(data, data.getNextmove())).build();
         }
         // 轮到已方走
-        int best_value = MIN;
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
         if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
@@ -79,9 +80,14 @@ public class AlphaBeta {
                         temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
                         GameRule.valid_moves(temdata, temdata.getNextmove());
                         // 将产生的新局面给对方
-                        int value = -alphaBeta(temdata, depth - 1).getMark();
-                        if (best_value < value) {
-                            best_value = value;
+                        int value = -alphaBeta(temdata, -beta , -alpha, depth - 1).getMark();
+                        // 剪枝
+                        if (value >= beta){
+                            return MinimaxResult.builder().mark(beta).move(move).build();
+                        }
+                        // 通过向上传递的值修正上下限
+                        if (value > alpha) {
+                            alpha = value;
                             move = curM;
                         }
                     }
@@ -91,12 +97,12 @@ public class AlphaBeta {
             // 没有可走子 交给对方
             data.setNextmove(BoardUtil.change(data.getNextmove()));
             if (GameRule.valid_moves(data, data.getNextmove()) > 0){
-                return alphaBeta(data,depth);
+                return alphaBeta(data, -beta, -alpha, depth - 1);
             }else{
                 return MinimaxResult.builder().mark(currentValue(data, data.getNextmove())).build();
             }
         }
-        return MinimaxResult.builder().mark(best_value).move(move).build();
+        return MinimaxResult.builder().mark(alpha).move(move).build();
     }
 
 }
