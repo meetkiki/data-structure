@@ -11,7 +11,7 @@ import utils.BoardUtil;
 import static common.Constant.SIZE;
 
 /**
- * alpha_Beta 算法
+ * alphaBeta 算法
  *
  * @author Tao
  */
@@ -21,18 +21,8 @@ public class AlphaBeta {
     public static int Depth = 3;
     public static int MAX = 1000000;
     public static int MIN = -1000000;
-    /**
-     * //每一个棋子的权重
-     */
-    private final static int[][] evaluation = {
-            {90, -60, 10, 10, 10, 10, -60, 90},
-            {-60, -80, 5, 5, 5, 5, -80, -60},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {-60, -80, 5, 5, 5, 5, -80, -60},
-            {90, -60, 10, 10, 10, 10, -60, 90}};
+
+
 
     /**
      * 估值函数
@@ -42,27 +32,27 @@ public class AlphaBeta {
      * @return
      */
     private static int currentValue(BoardData data, byte player) {
-        int score;
+        int score = 0;
+        byte other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
         Chess[][] chess = data.getChess();
-        //基于棋子分数位置的估值
-        score = GameRule.player_counters(chess, player) - GameRule.player_counters(chess, player == Constant.WHITE ? Constant.BLACK : Constant.WHITE);
-
-
-
+        // 基于棋子数目的估值
+        score += Evaluation.player_counters(chess, player) - Evaluation.player_counters(chess, other);
+        // 基于棋子分数位置的估值
+        score += Evaluation.evaluation(chess, player) - Evaluation.evaluation(chess, other);
         return score;
     }
 
-    public static MinimaxResult alpha_Beta(BoardData data){
-        return alpha_Beta(data,Depth);
+    public static MinimaxResult alphaBeta(BoardData data){
+        return alphaBeta(data,Depth);
     }
     /**
-     * alpha_Beta 算法
+     * alphaBeta 算法
      *
      * @param data
      * @param depth
      * @return
      */
-    private static MinimaxResult alpha_Beta(BoardData data, int depth) {//α-β剪枝算法
+    private static MinimaxResult alphaBeta(BoardData data, int depth) {//α-β剪枝算法
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
@@ -88,7 +78,7 @@ public class AlphaBeta {
                             temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
                             GameRule.valid_moves(temdata, temdata.getNextmove());
                             // 将产生的新局面给对方
-                            int value = alpha_Beta(temdata, depth - 1).getMark();
+                            int value = alphaBeta(temdata, depth - 1).getMark();
                             if (best_value < value) {
                                 best_value = value;
                                 if (depth == Depth)
@@ -101,7 +91,7 @@ public class AlphaBeta {
                 // 没有可走子 交给对方
                 data.setNextmove(BoardUtil.change(data.getNextmove()));
                 if (GameRule.valid_moves(data, data.getNextmove()) > 0){
-                    return alpha_Beta(data,depth);
+                    return alphaBeta(data,depth);
                 }else{
                     return new MinimaxResult(currentValue(data, data.getNextmove()), null);
                 }
@@ -127,7 +117,7 @@ public class AlphaBeta {
                             temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
                             GameRule.valid_moves(temdata, temdata.getNextmove());
                             // 将产生的新局面给对方
-                            int value = alpha_Beta(temdata, depth - 1).getMark();
+                            int value = alphaBeta(temdata, depth - 1).getMark();
                             if (best_value > value) {
                                 best_value = value;
                                 if (depth == Depth)
@@ -140,7 +130,7 @@ public class AlphaBeta {
                 // 没有可走子 交给对方
                 data.setNextmove(BoardUtil.change(data.getNextmove()));
                 if (GameRule.valid_moves(data, data.getNextmove()) > 0){
-                    return alpha_Beta(data,depth);
+                    return alphaBeta(data,depth);
                 }else{
                     return new MinimaxResult(currentValue(data, data.getNextmove()), null);
                 }

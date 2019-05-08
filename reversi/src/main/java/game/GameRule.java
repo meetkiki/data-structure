@@ -191,17 +191,6 @@ public class GameRule {
         return changes;
     }
 
-    /**
-     * /棋子统计方法
-     */
-    public static int player_counters(Chess[][] chess, byte player){
-        int count = 0,row,col;
-        for(row=0;row<SIZE;++row)
-            for(col=0;col<SIZE;++col)
-                if(chess[row][col].getChess() == player)
-                    ++count;
-        return count;
-    }
 
 
     /**

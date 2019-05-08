@@ -26,14 +26,14 @@ public class AlphaBetaListener implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        MouseListener mouseListener = (MouseListener)o;
+        MouseListener mouseListener = (MouseListener) o;
         // 模拟棋盘
         BoardData copyBoard = mouseListener.getCopyBoard();
         // 显示棋盘
         BoardData boardChess = mouseListener.getBoardChess();
         // 棋盘UI
         Board board = mouseListener.getBoard();
-        MinimaxResult result = AlphaBeta.alpha_Beta(copyBoard);
+        MinimaxResult result = AlphaBeta.alphaBeta(copyBoard);
 
         System.out.println(result + "Thread : " + Thread.currentThread().getName());
         // 必须要先走玩家棋
