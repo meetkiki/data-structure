@@ -56,7 +56,7 @@ public class AlphaBeta {
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
-            return new MinimaxResult(currentValue(data, data.getNextmove()),null);
+            return MinimaxResult.builder().mark(currentValue(data, data.getNextmove())).build();
         }
         // 轮到已方走
         int best_value = MIN;
@@ -68,7 +68,8 @@ public class AlphaBeta {
             for(byte row=0;row<SIZE;++row){
                 for(byte col=0;col<SIZE;++col) {
                     if (moves[row][col]) {
-                        Move curM = new Move(row, col);
+                        // 创建模拟棋盘
+                        Move curM = Move.builder().row(row).col(col).build();
                         BoardData temdata = BoardUtil.copyBoard(data);
                         Chess[][] chess = temdata.getChess();
                         GameRule.removeHint(temdata);
@@ -92,10 +93,10 @@ public class AlphaBeta {
             if (GameRule.valid_moves(data, data.getNextmove()) > 0){
                 return alphaBeta(data,depth);
             }else{
-                return new MinimaxResult(currentValue(data, data.getNextmove()), null);
+                return MinimaxResult.builder().mark(currentValue(data, data.getNextmove())).build();
             }
         }
-        return new MinimaxResult(best_value,move);
+        return MinimaxResult.builder().mark(best_value).move(move).build();
     }
 
 }

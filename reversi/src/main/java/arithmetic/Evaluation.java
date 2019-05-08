@@ -7,7 +7,7 @@ import static common.Constant.SIZE;
 /**
  * @author ypt
  * @ClassName Evaluation
- * @Description TODO
+ * @Description 估值方法
  * @date 2019/5/8 13:58
  */
 public class Evaluation {
