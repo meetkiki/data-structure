@@ -3,7 +3,6 @@ package arithmetic;
 import bean.BoardData;
 import bean.MinimaxResult;
 import bean.Move;
-import common.Constant;
 import game.Chess;
 import game.GameRule;
 import utils.BoardUtil;
@@ -23,26 +22,6 @@ public class AlphaBeta {
     public static int MIN = -1000000;
 
 
-
-    /**
-     * 估值函数
-     *
-     * @param data
-     * @param player
-     * @return
-     */
-    private static int currentValue(BoardData data, byte player) {
-        int score = 0;
-        byte other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
-        Chess[][] chess = data.getChess();
-        // 基于棋子数目的估值
-        score += Evaluation.player_counters(chess, player) - Evaluation.player_counters(chess, other);
-        // 基于棋子分数位置的估值
-        score += Evaluation.evaluation(chess, player) - Evaluation.evaluation(chess, other);
-        return score;
-    }
-
-
     public static MinimaxResult alphaBeta(BoardData data){
         return alphaBeta(data,MIN,MAX,Depth);
     }
@@ -59,7 +38,7 @@ public class AlphaBeta {
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
-            return MinimaxResult.builder().mark(currentValue(data, data.getNextmove())).build();
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
         }
         // 轮到已方走
         Move move = null;
@@ -99,7 +78,7 @@ public class AlphaBeta {
             if (GameRule.valid_moves(data, data.getNextmove()) > 0){
                 return alphaBeta(data, -beta, -alpha, depth - 1);
             }else{
-                return MinimaxResult.builder().mark(currentValue(data, data.getNextmove())).build();
+                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
             }
         }
         return MinimaxResult.builder().mark(alpha).move(move).build();

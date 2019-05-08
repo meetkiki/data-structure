@@ -1,7 +1,8 @@
 package interactive;
 
 import arithmetic.AlphaBeta;
-import arithmetic.Evaluation;
+import arithmetic.ParallelAlphaBeta;
+import arithmetic.ReversiEvaluation;
 import bean.BoardData;
 import bean.MinimaxResult;
 import common.Constant;
@@ -33,7 +34,7 @@ public class AlphaBetaListener implements Observer {
         BoardData boardChess = mouseListener.getBoardChess();
         // 棋盘UI
         Board board = mouseListener.getBoard();
-//        while (GameRule.valid_moves(boardChess,boardChess.getNextmove()) > 0){
+        while (GameRule.valid_moves(boardChess,boardChess.getNextmove()) > 0){
             BoardData cloneData = boardChess.cloneData();
             MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
 
@@ -47,9 +48,9 @@ public class AlphaBetaListener implements Observer {
             makeMove.join();
             board.upshow();
 
-            System.out.println("WHITE" + Evaluation.player_counters(boardChess.getChess(), Constant.WHITE));
-            System.out.println("BLACK" + Evaluation.player_counters(boardChess.getChess(), Constant.BLACK));
-//        }
+            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
+            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
+        }
 
     }
 }
