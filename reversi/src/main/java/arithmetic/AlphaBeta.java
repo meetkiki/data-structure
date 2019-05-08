@@ -42,6 +42,7 @@ public class AlphaBeta {
         return score;
     }
 
+
     public static MinimaxResult alphaBeta(BoardData data){
         return alphaBeta(data,Depth);
     }
@@ -81,8 +82,7 @@ public class AlphaBeta {
                         int value = -alphaBeta(temdata, depth - 1).getMark();
                         if (best_value < value) {
                             best_value = value;
-                            if (depth == Depth)
-                                move = curM;
+                            move = curM;
                         }
                     }
                 }

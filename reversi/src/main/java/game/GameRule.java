@@ -117,7 +117,7 @@ public class GameRule {
             boolean[][] moves = data.getMoves();
             byte nextmove = data.getNextmove();
             if (!moves[move.getRow()][move.getCol()]){
-                throw new IllegalArgumentException("当前位置不可走!");
+                throw new IllegalArgumentException("当前位置不可下棋!");
             }
             // 移除当前子的提示
             GameRule.removeHint(data);
