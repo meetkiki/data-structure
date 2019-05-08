@@ -4,8 +4,11 @@ import arithmetic.AlphaBeta;
 import bean.BoardData;
 import bean.MinimaxResult;
 import game.Board;
+import game.Chess;
 import game.GameRule;
+import utils.BoardUtil;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,7 +40,8 @@ public class AlphaBetaListener implements Observer {
 
         System.out.println(result);
         // 必须要先走玩家棋
-        mouseListener.getTask().join();
+        List<Chess> chess = mouseListener.getTask().join();
+        BoardUtil.isRun(chess);
 
         // 走这步棋
         GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());

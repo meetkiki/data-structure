@@ -7,8 +7,11 @@ import game.Chess;
 import game.GameContext;
 
 import java.awt.Image;
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 
 import static common.Constant.DELAY;
@@ -19,20 +22,29 @@ import static common.Constant.SIZE;
  */
 public class BoardUtil {
 
+	/**
+	 * 处理流
+	 *  判断当前是否处理完成
+	 */
+	private static Map chessQueue = new ConcurrentHashMap();
+
 
 	/**
 	 * 棋子动画
+	 * 	//转变棋子动画
+	 *
 	 * 		1 --- 6
 	 *     白     黑
 	 * @param chess
 	 * @param //repaint
 	 */
-	public static void converSion(byte chess, Chess curr,CountDownLatch latch){
+	public static void converSion(byte chess, List<Chess> curr){
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
-		TimerRunTask task = new TimerRunTask(tem,chess,curr,latch);
+		TimerRunTask task = new TimerRunTask(tem,chess,curr);
 		timer.schedule(task,0,DELAY);
+		chessQueue.put(curr,Constant.START);
 	}
 
 	/**
@@ -41,14 +53,12 @@ public class BoardUtil {
 	public static class TimerRunTask extends TimerTask{
 		private int count;
 		private byte chess;
-		private Chess curr;
-		private CountDownLatch latch;
+		private List<Chess> curr;
 
-		public TimerRunTask(int count, byte chess, Chess curr,CountDownLatch latch) {
+		public TimerRunTask(int count, byte chess, List<Chess> curr) {
 			this.count = count;
 			this.chess = chess;
 			this.curr = curr;
-			this.latch = latch;
 		}
 
 		@Override
@@ -58,30 +68,53 @@ public class BoardUtil {
 				if(chess == Constant.WHITE) count--;
 				else count++;
 			}else{
-				try {
-					//结束任务
-					cancel();
-					//修正图标
-					curr.setChess(chess);
-					curr.repaint();
-				} finally {
-					latch.countDown();
-				}
+				//结束任务
+				cancel();
+				//修正图标
+				fixImg(chess,curr);
+				// 标识结束
+				chessQueue.put(curr,Constant.END);
 			}
 		}
+	}
 
+	/**
+	 * 是否正在执行转变
+	 *
+	 * 	如果是则阻塞
+	 * @param curr
+	 * @return
+	 */
+	public static boolean isRun(List<Chess> curr){
+		while (Constant.START.equals(chessQueue.get(curr))){
+			GameContext.sleep(10);
+		}
+		return Constant.END.equals(chessQueue.get(curr));
 	}
 
 	/**
 	 * 设置翻转图片
 	 * @param count
-	 * @param curr
+	 * @param chessList
 	 */
-	private static void updateImg(int count, Chess curr) {
-		String url = String.format(Constant.OVERTURN, count + "");
-		Image image = GameContext.getResources().get(ImageConstant.valueOf(url)).getImage();
-		curr.setImage(image);
-		curr.repaint();
+	private static void updateImg(int count, List<Chess> chessList) {
+		for (Chess curr : chessList) {
+			String url = String.format(Constant.OVERTURN, count + "");
+			Image image = GameContext.getResources().get(ImageConstant.valueOf(url)).getImage();
+			curr.setImage(image);
+			curr.repaint();
+		}
+	}
+	/**
+	 * 修正图标
+	 * @param chess
+	 * @param chessList
+	 */
+	private static void fixImg(byte chess, List<Chess> chessList) {
+		for (Chess curr : chessList) {
+			curr.setChess(chess);
+			curr.repaint();
+		}
 	}
 
 	/**

@@ -99,7 +99,7 @@ public class GameRule {
     /**
      * 异步执行走棋
      */
-    public static class MakeMoveRun extends RecursiveTask<List<Move>> {
+    public static class MakeMoveRun extends RecursiveTask<List<Chess>> {
 
         private BoardData data;
         private Move move;
@@ -110,7 +110,7 @@ public class GameRule {
         }
 
         @Override
-        public List<Move> compute() {
+        public List<Chess> compute() {
             Chess[][] chess = data.getChess();
             boolean[][] moves = data.getMoves();
             byte nextmove = data.getNextmove();
@@ -122,17 +122,18 @@ public class GameRule {
             // 移除新的标志
             removeNew(chess);
             List<Move> make_move = make_move(chess, move, nextmove, false);
-            CountDownLatch latch = new CountDownLatch(make_move.size());
+            List<Chess> chessList = new ArrayList<>();
             for (Move mo : make_move) {
                 byte ro = mo.getRow();
                 byte co = mo.getCol();
-                chess[ro][co].change(data.getNextmove(), latch);
+                chessList.add(chess[ro][co]);
             }
-            GameContext.await(latch);
+            // 转变
+            BoardUtil.converSion(data.getNextmove(),chessList);
             // 更新棋手及规则
             data.setNextmove(BoardUtil.change(data.getNextmove()));
             GameRule.valid_moves(data,data.getNextmove());
-            return make_move;
+            return chessList;
         }
     }
 

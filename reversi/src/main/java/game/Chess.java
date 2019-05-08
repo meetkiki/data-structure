@@ -122,14 +122,6 @@ public class Chess extends JPanel implements Cloneable{
         this.newMove = newMove;
     }
 
-    /**
-     * //转变棋子动画
-     * @param player
-     */
-    public void change(byte player, CountDownLatch latch) {
-        BoardUtil.converSion(player,this,latch);
-    }
-
     @Override
     public void repaint() {
         super.repaint();
