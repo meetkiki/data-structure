@@ -22,6 +22,11 @@ public class GameRule {
     public static int valid_moves(BoardData data, byte player){
         Chess[][] chess = data.getChess();
         boolean[][] moves = data.getMoves();
+        return valid_moves(chess,moves,player);
+    }
+
+
+    public static int valid_moves(Chess[][] chess,boolean[][] moves,byte player){
         //定义五个参数，rowdelta和coldelta为边界+1-1,x和y为棋盘坐标
         //no_of_moves为累计不能走的棋子数
         int rowdelta,coldelta,x,y,no_of_moves = 0;
@@ -229,6 +234,20 @@ public class GameRule {
         }
     }
 
-
+    /**
+     * 校验移动
+     * @param data
+     * @param player
+     */
+    public static boolean checkMove(BoardData data,Move move,byte player){
+        Chess[][] chess = data.getChess();
+        boolean[][] dataMoves = data.getMoves();
+        int moves = valid_moves(chess, dataMoves, player);
+        if (moves == 0){
+            return false;
+        }else {
+            return dataMoves[move.getRow()][move.getCol()];
+        }
+    }
 
 }
