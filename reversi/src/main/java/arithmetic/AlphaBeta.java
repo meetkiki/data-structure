@@ -59,85 +59,43 @@ public class AlphaBeta {
             return new MinimaxResult(currentValue(data, data.getNextmove()),null);
         }
         // 轮到已方走
-        if (data.getNextmove() == Constant.WHITE) {
-            int best_value = MIN;
-            Move move = null;
-            // 当前最佳估值，预设为负无穷大 己方估值为最小
-            if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
-                boolean[][] moves = data.getMoves();
-                // 遍历每一种走法
-                for(byte row=0;row<SIZE;++row){
-                    for(byte col=0;col<SIZE;++col) {
-                        if (moves[row][col]) {
-                            Move curM = new Move(row, col);
-                            BoardData temdata = BoardUtil.copyBoard(data);
-                            Chess[][] chess = temdata.getChess();
-                            GameRule.removeHint(temdata);
-                            //尝试走这步棋
-                            GameRule.make_move(chess, curM, temdata.getNextmove(), true);
-                            temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
-                            GameRule.valid_moves(temdata, temdata.getNextmove());
-                            // 将产生的新局面给对方
-                            int value = alphaBeta(temdata, depth - 1).getMark();
-                            if (best_value < value) {
-                                best_value = value;
-                                if (depth == Depth)
-                                    move = curM;
-                            }
+        int best_value = MIN;
+        Move move = null;
+        // 当前最佳估值，预设为负无穷大 己方估值为最小
+        if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
+            boolean[][] moves = data.getMoves();
+            // 遍历每一种走法
+            for(byte row=0;row<SIZE;++row){
+                for(byte col=0;col<SIZE;++col) {
+                    if (moves[row][col]) {
+                        Move curM = new Move(row, col);
+                        BoardData temdata = BoardUtil.copyBoard(data);
+                        Chess[][] chess = temdata.getChess();
+                        GameRule.removeHint(temdata);
+                        //尝试走这步棋
+                        GameRule.make_move(chess, curM, temdata.getNextmove(), true);
+                        temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
+                        GameRule.valid_moves(temdata, temdata.getNextmove());
+                        // 将产生的新局面给对方
+                        int value = -alphaBeta(temdata, depth - 1).getMark();
+                        if (best_value < value) {
+                            best_value = value;
+                            if (depth == Depth)
+                                move = curM;
                         }
                     }
                 }
-            }else {
-                // 没有可走子 交给对方
-                data.setNextmove(BoardUtil.change(data.getNextmove()));
-                if (GameRule.valid_moves(data, data.getNextmove()) > 0){
-                    return alphaBeta(data,depth);
-                }else{
-                    return new MinimaxResult(currentValue(data, data.getNextmove()), null);
-                }
             }
-            return new MinimaxResult(best_value,move);
-            // 轮到对方走
         } else {
-            // 当前最佳估值，预设为负无穷大 己方估值为最小
-            int best_value = MAX;
-            Move move = null;
-            if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
-                boolean[][] moves = data.getMoves();
-                // 遍历每一种走法
-                for(byte row=0;row<SIZE;++row){
-                    for(byte col=0;col<SIZE;++col) {
-                        if (moves[row][col]) {
-                            Move curM = new Move(row, col);
-                            BoardData temdata = BoardUtil.copyBoard(data);
-                            Chess[][] chess = temdata.getChess();
-                            GameRule.removeHint(temdata);
-                            //尝试走这步棋
-                            GameRule.make_move(chess, curM, temdata.getNextmove(), true);
-                            temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
-                            GameRule.valid_moves(temdata, temdata.getNextmove());
-                            // 将产生的新局面给对方
-                            int value = alphaBeta(temdata, depth - 1).getMark();
-                            if (best_value > value) {
-                                best_value = value;
-                                if (depth == Depth)
-                                    move = curM;
-                            }
-                        }
-                    }
-                }
-            } else {
-                // 没有可走子 交给对方
-                data.setNextmove(BoardUtil.change(data.getNextmove()));
-                if (GameRule.valid_moves(data, data.getNextmove()) > 0){
-                    return alphaBeta(data,depth);
-                }else{
-                    return new MinimaxResult(currentValue(data, data.getNextmove()), null);
-                }
+            // 没有可走子 交给对方
+            data.setNextmove(BoardUtil.change(data.getNextmove()));
+            if (GameRule.valid_moves(data, data.getNextmove()) > 0){
+                return alphaBeta(data,depth);
+            }else{
+                return new MinimaxResult(currentValue(data, data.getNextmove()), null);
             }
-            return new MinimaxResult(best_value,move);
         }
-
+        return new MinimaxResult(best_value,move);
     }
 
 }
