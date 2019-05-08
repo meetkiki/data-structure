@@ -31,10 +31,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      * 棋盘数组 ui显示
      */
     private BoardData boardChess;
-    /**
-     * 模拟棋盘
-     */
-    private BoardData copyBoard;
 
     /**
      * 当前走棋的task
@@ -79,15 +75,12 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
         @Override
         public void run() {
-            copyBoard = BoardUtil.copyBoard(boardChess);
             // 显示棋盘
             makeMove = GameRule.getMakeMove(boardChess, move);
             makeMove.fork();
-            // 模拟棋盘
-            GameRule.make_move(copyBoard.getChess(),move,copyBoard.getNextmove(),true);
-            copyBoard.setNextmove(BoardUtil.change(copyBoard.getNextmove()));
+            makeMove.join();
 
-            int next = GameRule.valid_moves(copyBoard, copyBoard.getNextmove());
+            int next = GameRule.valid_moves(boardChess, boardChess.getNextmove());
             if (next > 0){
                 // 交给计算机处理
                 AiRun run = new AiRun();
@@ -123,10 +116,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     public void setBoardChess(BoardData boardChess) {
         this.boardChess = boardChess;
-    }
-
-    public BoardData getCopyBoard() {
-        return copyBoard;
     }
 
     @Override

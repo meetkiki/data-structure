@@ -6,8 +6,7 @@ import common.ImageConstant;
 import interactive.MouseListener;
 import utils.BoardUtil;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -86,22 +85,31 @@ public class Board extends JPanel {
 
     /**
      * 更新棋子显示
+     *  这里使用SwingWorker异步更新UI
      */
     public void upshow(){
-        boolean[][] moves = boardChess.getMoves();
-        Chess[][] chess = boardChess.getChess();
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if(moves[i][j]){
-                    //显示可走的棋
-                    chess[i][j].setChess(boardChess.getCanMove());
+        JPanel panel = this;
+        SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                boolean[][] moves = boardChess.getMoves();
+                Chess[][] chess = boardChess.getChess();
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        if(moves[i][j]){
+                            //显示可走的棋
+                            chess[i][j].setChess(boardChess.getCanMove());
+                        }
+                        // 设置位置
+                        chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
+                        panel.add(chess[i][j]);
+                    }
                 }
-                // 设置位置
-                chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
-                this.add(chess[i][j]);
+                panel.repaint();
+                return null;
             }
-        }
-        this.repaint();
+        };
+        swingWorker.execute();
     }
 
 

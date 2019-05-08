@@ -1,8 +1,10 @@
 package interactive;
 
 import arithmetic.AlphaBeta;
+import arithmetic.Evaluation;
 import bean.BoardData;
 import bean.MinimaxResult;
+import common.Constant;
 import game.Board;
 import game.GameRule;
 
@@ -27,22 +29,27 @@ public class AlphaBetaListener implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         MouseListener mouseListener = (MouseListener) o;
-        // 模拟棋盘
-        BoardData copyBoard = mouseListener.getCopyBoard();
         // 显示棋盘
         BoardData boardChess = mouseListener.getBoardChess();
         // 棋盘UI
         Board board = mouseListener.getBoard();
-        MinimaxResult result = AlphaBeta.alphaBeta(copyBoard);
+//        while (GameRule.valid_moves(boardChess,boardChess.getNextmove()) > 0){
+            BoardData cloneData = boardChess.cloneData();
+            MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
 
-        System.out.println(result + "Thread : " + Thread.currentThread().getName());
-        // 必须要先走玩家棋
-        mouseListener.getTask().join();
+            System.out.println(result + "Thread : " + Thread.currentThread().getName());
+            // 必须要先走玩家棋
+            mouseListener.getTask().join();
 
-        // 走这步棋
-        GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
-        makeMove.fork();
-        makeMove.join();
-        board.upshow();
+            // 走这步棋
+            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
+            makeMove.fork();
+            makeMove.join();
+            board.upshow();
+
+            System.out.println("WHITE" + Evaluation.player_counters(boardChess.getChess(), Constant.WHITE));
+            System.out.println("BLACK" + Evaluation.player_counters(boardChess.getChess(), Constant.BLACK));
+//        }
+
     }
 }
