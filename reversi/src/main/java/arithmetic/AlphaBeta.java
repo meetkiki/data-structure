@@ -3,140 +3,105 @@ package arithmetic;
 import bean.BoardData;
 import bean.MinimaxResult;
 import bean.Move;
-import common.Constant;
 import game.Chess;
 import game.GameRule;
 import utils.BoardUtil;
 
-import java.util.Iterator;
-import java.util.List;
+import static common.Constant.SIZE;
 
 /**
- * alpha_Beta 算法
+ * alphaBeta 算法
  *
  * @author Tao
  */
 public class AlphaBeta {
 
 
-    public static int Depth = 3;
+    public static int Depth = 8;
     public static int MAX = 1000000;
     public static int MIN = -1000000;
-    /**
-     * //每一个棋子的权重
-     */
-    private final static int[][] evaluation = {
-            {90, -60, 10, 10, 10, 10, -60, 90},
-            {-60, -80, 5, 5, 5, 5, -80, -60},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {10, 5, 1, 1, 1, 1, 5, 10},
-            {-60, -80, 5, 5, 5, 5, -80, -60},
-            {90, -60, 10, 10, 10, 10, -60, 90}};
 
+    public static int getDepth() {
+        return Depth;
+    }
+
+    public static void setDepth(int depth) {
+        Depth = depth;
+    }
+
+    public static MinimaxResult alphaBeta(BoardData data){
+        return alphaBeta(data,MIN,MAX,Depth);
+    }
     /**
-     * 估值函数
+     * alphaBeta 算法
      *
      * @param data
-     * @param player
+     * @param depth 搜索深度
+     * @param alpha 下限
+     * @param beta  上限
      * @return
      */
-    private static int currentValue(BoardData data, byte player) {
-        int score = 0;
-        Chess[][] chess = data.getChess();
-        //基于棋子位置的估值
-        score = GameRule.player_counters(chess, player) - GameRule.player_counters(chess, player == Constant.WHITE ? Constant.BLACK : Constant.WHITE);
-        return score;
+    private static MinimaxResult alphaBeta(BoardData data, int alpha, int beta, int depth) {//α-β剪枝算法
+        // 如果到达预定的搜索深度
+        if (depth <= 0) {
+            // 直接给出估值
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
+        }
+        // 轮到已方走
+        Move move = null;
+        // 当前最佳估值，预设为负无穷大 己方估值为最小
+        if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
+            boolean[][] moves = data.getMoves();
+            // 遍历每一种走法
+            for(byte row=0;row<SIZE;++row){
+                for(byte col=0;col<SIZE;++col) {
+                    if (moves[row][col]) {
+                        Move curMove = Move.builder().row(row).col(col).build();
+                        int value = moveValue(data, curMove, alpha, beta, depth);
+                        // 剪枝
+                        if (value >= beta){
+                            return MinimaxResult.builder().mark(beta).move(move).build();
+                        }
+                        // 通过向上传递的值修正上下限
+                        if (value > alpha) {
+                            alpha = value;
+                            move = curMove;
+                        }
+                    }
+                }
+            }
+        } else {
+            // 没有可走子 交给对方
+            data.setNextmove(BoardUtil.change(data.getNextmove()));
+            if (GameRule.valid_moves(data, data.getNextmove()) > 0){
+                return alphaBeta(data, alpha , beta, depth);
+            }else{
+                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
+            }
+        }
+        return MinimaxResult.builder().mark(alpha).move(move).build();
     }
 
-
-    private static Move best;
-
-
-    public static MinimaxResult alpha_Beta(BoardData data){
-        return new MinimaxResult(alpha_Beta(data,Depth),best);
-    }
     /**
-     * alpha_Beta 算法
-     *
+     * 找到所有可行方案并返回估值
      * @param data
+     * @param alpha
+     * @param beta
      * @param depth
      * @return
      */
-    private static int alpha_Beta(BoardData data, int depth) {//α-β剪枝算法
-        // 如果到达预定的搜索深度
-        if (depth <= 0) {
-            return currentValue(data, data.getNextmove());// 直接给出估值
-        }
-        // 轮到已方走
-        if (data.getNextmove() == Constant.WHITE) {
-            // 当前最佳估值，预设为负无穷大 己方估值为最小
-            int best_value = MIN;
-            if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
-                List<Move> canMoves = data.getCanMoves();
-                Iterator<Move> it = canMoves.iterator();
-                // 遍历每一种走法
-                while (it.hasNext()) {
-                    Move temp = it.next();
-                    byte row = temp.getRow();
-                    byte col = temp.getCol();
-                    BoardData temdata = BoardUtil.copyBoard(data);
-                    Chess[][] chess = temdata.getChess();
-//                    System.out.println(data.getNextmove() + "下棋前");
-//                    BoardUtil.display(temdata);
-                    GameRule.removeHint(temdata);
-                    //尝试走这步棋
-                    GameRule.make_move(chess, row, col, temdata.getNextmove(), null);
-                    temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
-                    GameRule.valid_moves(temdata, temdata.getNextmove());
-//                    System.out.println(Constant.WHITE + "下棋后");
-//                    BoardUtil.display(temdata);
-                    // 将产生的新局面给对方
-                    int value = alpha_Beta(temdata, depth - 1);
-                    if (best_value < value){
-                        best_value = value;
-                        if (depth == Depth)
-                            best = temp;
-                    }
-                }
-            }
-            return best_value;
-            // 轮到对方走
-        } else {
-            // 当前最佳估值，预设为负无穷大 己方估值为最小
-            int best_value = MAX;
-            if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
-                List<Move> canMoves = data.getCanMoves();
-                Iterator<Move> it = canMoves.iterator();
-                // 遍历每一种走法
-                while (it.hasNext()) {
-                    Move temp = it.next();
-                    byte row = temp.getRow();
-                    byte col = temp.getCol();
-                    BoardData temdata = BoardUtil.copyBoard(data);
-                    Chess[][] chess = temdata.getChess();
-//                    System.out.println(Constant.BLACK + "下棋前");
-//                    BoardUtil.display(temdata);
-                    GameRule.removeHint(temdata);
-                    //尝试走这步棋
-                    GameRule.make_move(chess, row, col, temdata.getNextmove(), null);
-                    temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
-                    GameRule.valid_moves(temdata, temdata.getNextmove());
-//                    System.out.println(depth+"depth" + Constant.BLACK + "下棋后");
-//                    BoardUtil.display(temdata);
-                    // 将产生的新局面给对方
-                    int value = alpha_Beta(temdata, depth - 1);
-                    if (best_value > value){
-                        best_value = value;
-                        if (depth == Depth)
-                            best = temp;
-                    }
-                }
-            }
-            return best_value;
-        }
-
+    public static int moveValue(BoardData data,Move move, int alpha, int beta, int depth){
+        // 创建模拟棋盘
+        BoardData temdata = BoardUtil.copyBoard(data);
+        Chess[][] chess = temdata.getChess();
+        GameRule.removeHint(temdata);
+        //尝试走这步棋
+        GameRule.make_move(chess, move, temdata.getNextmove(), true);
+        temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
+        GameRule.valid_moves(temdata, temdata.getNextmove());
+        // 将产生的新局面给对方
+        return -alphaBeta(temdata, -beta , -alpha, depth - 1).getMark();
     }
+
 
 }

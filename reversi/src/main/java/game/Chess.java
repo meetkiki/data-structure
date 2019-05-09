@@ -10,11 +10,12 @@ import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Tao
  */
-public class Chess extends JPanel {
+public class Chess extends JPanel implements Cloneable{
     /**
      * 棋子状态
      */
@@ -52,6 +53,16 @@ public class Chess extends JPanel {
      * @param chess
      */
     public void setChess(byte chess) {
+        this.setImgChess(chess);
+        this.onlyChess(chess);
+        this.repaint();
+    }
+
+    /**
+     * //设置棋子状态
+     * @param chess
+     */
+    public void setImgChess(byte chess) {
         Map<ImageConstant, ImageIcon> imageIconMap = GameContext.getResources();
         switch (chess){
             case Constant.WHITE:
@@ -71,7 +82,6 @@ public class Chess extends JPanel {
                 break;
             default:break;
         }
-        this.onlyChess(chess);
         this.repaint();
     }
 
@@ -121,16 +131,23 @@ public class Chess extends JPanel {
         this.newMove = newMove;
     }
 
-    /**
-     * //转变棋子动画
-     * @param player
-     */
-    public void change(byte player) {
-        BoardUtil.converSion(player,this);
-    }
-
     @Override
     public void repaint() {
         super.repaint();
     }
+
+
+    @Override
+    public Chess clone(){
+        Chess clone = null;
+        try {
+            clone = (Chess) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+        return clone;
+    }
+
+
+
 }

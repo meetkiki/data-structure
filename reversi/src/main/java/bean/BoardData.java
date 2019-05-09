@@ -26,10 +26,6 @@ public class BoardData implements Serializable {
     private boolean[][] moves = new boolean[SIZE][SIZE];
 
     /**
-     * 可以下棋对
-     */
-    private List<Move> canMoves = new ArrayList<>();
-    /**
      * 下一步棋子:白棋优先
      *  WHITE
      *  BLACK
@@ -60,14 +56,6 @@ public class BoardData implements Serializable {
         this.nextmove = nextmove;
     }
 
-    public List<Move> getCanMoves() {
-        return canMoves;
-    }
-
-    public void setCanMoves(List<Move> canMoves) {
-        this.canMoves = canMoves;
-    }
-
     /**
      * 下一步棋子提示:白棋优先
      *  DOT_W
@@ -75,5 +63,25 @@ public class BoardData implements Serializable {
      */
     public byte getCanMove() {
         return nextmove == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
+    }
+
+    /**
+     * 克隆棋盘
+     * @return
+     */
+    public BoardData cloneData(){
+        BoardData copyData = new BoardData();
+        Chess[][] clone = new Chess[SIZE][SIZE];
+        boolean[][] movesClone = new boolean[SIZE][SIZE];
+        for(byte row=0;row<SIZE;++row){
+            for(byte col=0;col<SIZE;++col) {
+                clone[row][col] = chess[row][col].clone();
+                movesClone[row][col] = moves[row][col];
+            }
+        }
+        copyData.setChess(clone);
+        copyData.setMoves(movesClone);
+        copyData.setNextmove(nextmove);
+        return copyData;
     }
 }

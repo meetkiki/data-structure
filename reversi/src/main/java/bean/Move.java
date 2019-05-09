@@ -17,9 +17,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Move implements Serializable {
+public class Move {
 	private byte row;
 	private byte col;
-
-
 }

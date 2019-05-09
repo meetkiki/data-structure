@@ -54,4 +54,12 @@ public class Constant {
 	 * 动画图片
 	 */
 	public static final String OVERTURN = "OVERTURN%s";
+	/**
+	 * 动画处理开始
+	 */
+	public static final String START = "0";
+	/**
+	 * 动画处理结束
+	 */
+	public static final String END = "1";
 }

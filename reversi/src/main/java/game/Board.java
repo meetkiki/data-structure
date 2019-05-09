@@ -1,20 +1,15 @@
 package game;
 
-import arithmetic.AlphaBeta;
 import bean.BoardData;
-import bean.MinimaxResult;
-import bean.Move;
 import common.Constant;
 import common.ImageConstant;
+import interactive.MouseListener;
 import utils.BoardUtil;
 
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-import java.awt.Cursor;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
 
@@ -30,8 +25,8 @@ import static common.Constant.SPAN;
 public class Board extends JPanel {
 
 
-    private static final int BOARD_WIDTH = 448;
-    private static final int BOARD_HEIGHT = 448;
+    public static final int BOARD_WIDTH = 448;
+    public static final int BOARD_HEIGHT = 448;
     /**
      * 棋盘数组
      */
@@ -49,52 +44,7 @@ public class Board extends JPanel {
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
         initBoard();
-        JPanel curr = this;
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                curr.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                Move move = getMove(e);
-                BoardData tempData = GameRule.make_move(boardChess, move);
-                GameRule.valid_moves(boardChess,boardChess.getNextmove());
-                upshow();
-
-                MinimaxResult result = AlphaBeta.alpha_Beta(tempData);
-
-                if (boardChess.getNextmove() == Constant.BLACK){
-                    System.out.println(result);
-                    GameRule.make_move(boardChess, result.getMove());
-                    GameRule.valid_moves(boardChess,boardChess.getNextmove());
-                    upshow();
-                }
-            }
-        });
-    }
-
-    /**
-     * 获取下棋的坐标
-     * @param e
-     * @return
-     */
-    private Move getMove(MouseEvent e){
-        int Point_x = e.getX();
-        int Point_y = e.getY();
-        //判断棋盘是否在下棋范围 //如果未越界
-        if(isBorder(Point_x, Point_y)){
-            Move move = new Move();
-            //转化为棋盘坐标 对应col
-            move.setCol((byte)((Point_x - Constant.SPAN) / Constant.ROW));
-            // 对应row
-            move.setRow((byte)((Point_y - Constant.SPAN) / Constant.COL));
-            return move;
-        }else{
-            return null;
-        }
-    }
-
-    private boolean isBorder(int point_x, int point_y) {
-        return !(point_x > (BOARD_WIDTH - Constant.SPAN - 5) || point_x < Constant.SPAN + 5 ||
-                point_y > (BOARD_HEIGHT - Constant.SPAN-5) || point_y < Constant.SPAN + 5);
+        this.addMouseListener(new MouseListener(this,boardChess));
     }
 
     @Override
@@ -112,7 +62,7 @@ public class Board extends JPanel {
         initChess();
         // 获取行动力
         GameRule.valid_moves(boardChess,boardChess.getNextmove());
-        BoardUtil.display(boardChess);
+        //BoardUtil.display(boardChess);
         // 显示棋盘
         upshow();
     }
@@ -135,22 +85,31 @@ public class Board extends JPanel {
 
     /**
      * 更新棋子显示
+     *  这里使用SwingWorker异步更新UI
      */
     public void upshow(){
-        boolean[][] moves = boardChess.getMoves();
-        Chess[][] chess = boardChess.getChess();
-        for (int i = 0; i < SIZE; i++) {
-            for (int j = 0; j < SIZE; j++) {
-                if(moves[i][j]){
-                    //显示可走的棋
-                    chess[i][j].setChess(boardChess.getCanMove());
+        JPanel panel = this;
+        SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() throws Exception {
+                boolean[][] moves = boardChess.getMoves();
+                Chess[][] chess = boardChess.getChess();
+                for (int i = 0; i < SIZE; i++) {
+                    for (int j = 0; j < SIZE; j++) {
+                        if(moves[i][j]){
+                            //显示可走的棋
+                            chess[i][j].setChess(boardChess.getCanMove());
+                        }
+                        // 设置位置
+                        chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
+                        panel.add(chess[i][j]);
+                    }
                 }
-                // 设置位置
-                chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
-                this.add(chess[i][j]);
+                panel.repaint();
+                return null;
             }
-        }
-        this.repaint();
+        };
+        swingWorker.execute();
     }
 
 

@@ -1,17 +1,19 @@
 package game;
 
 
-import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import common.ImageConstant;
 
 import javax.swing.ImageIcon;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.ForkJoinTask;
+import java.util.concurrent.RecursiveAction;
+import java.util.concurrent.RecursiveTask;
 
 /**
  * @author Tao
@@ -22,16 +24,7 @@ public class GameContext {
      */
     private static Map<ImageConstant, ImageIcon> resources = new HashMap<>(32);
 
-
-    private static ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
-            .setNameFormat("context-pool-%d").build();
-
-    /**
-     *  全局线程池
-     */
-    private static ExecutorService executorService = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), Runtime.getRuntime().availableProcessors(),
-            1000L, TimeUnit.MILLISECONDS,
-            new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
+    private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
 
     /**
      * 加载图片资源
@@ -44,12 +37,75 @@ public class GameContext {
     }
 
     /**
-     * 执行一个任务
+     * 异步执行一个任务
      * @param run
      */
-    public static void execute(Runnable run){
-        executorService.execute(run);
+    public static ForkJoinTask submit(Runnable run){
+        return forkJoinPool.submit(run);
     }
+
+    /**
+     * 异步执行一个任务
+     * @param call
+     */
+    public static<T> ForkJoinTask<T> submit(Callable<T> call){
+        return forkJoinPool.submit(call);
+    }
+
+    /**
+     * 异步提交一个子任务 有返回值
+     * @param recursiveTask
+     */
+    public static<T> T invoke(RecursiveTask<T> recursiveTask){
+        return forkJoinPool.invoke(recursiveTask);
+    }
+
+    /**
+     * 异步提交一个子任务 无返回值
+     * @param recursiveAction
+     */
+    public static void invoke(RecursiveAction recursiveAction){
+        forkJoinPool.invoke(recursiveAction);
+    }
+
+    /**
+     * 获得返回并阻塞
+     * @param <T>
+     * @return
+     */
+    public static<T> T getCall(ForkJoinTask<T> forkJoinTask){
+        try {
+            return forkJoinTask.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("线程执行异常",e);
+        }
+    }
+
+    /**
+     * 线程睡眠
+     * @param ms
+     */
+    public static void sleep(int ms){
+        try {
+            Thread.sleep(ms);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 线程等待
+     * @param latch
+     */
+    public static void await(CountDownLatch latch){
+        try {
+            latch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 
     public static Map<ImageConstant, ImageIcon> getResources() {
