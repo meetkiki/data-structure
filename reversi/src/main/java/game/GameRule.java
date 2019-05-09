@@ -59,7 +59,6 @@ public class GameRule {
                                 //如果棋盘上还有玩家可下的棋子时，将可移动数组设置为true，能走的步数自增
                                 if(chess[x][y].getChess() == player){
                                     moves[row][col] = true;
-
                                     canMoves.add(new Move(row,col));
                                     no_of_moves++;
                                     break;
@@ -149,8 +148,7 @@ public class GameRule {
                         x += rowdelta;
                         y += coldelta;
                         //如果x超出边界或者y超出边界或者棋盘为空时跳出循环
-                        boolean empty = x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y].getChess() == Constant.EMPTY;
-                        if(empty)
+                        if(x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y].getChess() == Constant.EMPTY)
                             break;
                         //如果在这个连线上找到己方子 则吃掉中间子
                         if(chess[x][y].getChess() == player){
