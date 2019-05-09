@@ -53,6 +53,16 @@ public class Chess extends JPanel implements Cloneable{
      * @param chess
      */
     public void setChess(byte chess) {
+        this.setImgChess(chess);
+        this.onlyChess(chess);
+        this.repaint();
+    }
+
+    /**
+     * //设置棋子状态
+     * @param chess
+     */
+    public void setImgChess(byte chess) {
         Map<ImageConstant, ImageIcon> imageIconMap = GameContext.getResources();
         switch (chess){
             case Constant.WHITE:
@@ -72,7 +82,6 @@ public class Chess extends JPanel implements Cloneable{
                 break;
             default:break;
         }
-        this.onlyChess(chess);
         this.repaint();
     }
 

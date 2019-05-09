@@ -40,8 +40,8 @@ public class BoardUtil {
 	 * @param //repaint
 	 */
 	public static void converSion(byte chess, List<Chess> curr){
-		// 优先修正图标
-		fixImg(chess,curr);
+		// 优先修正棋子
+		fixChess(chess,curr);
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = chess == Constant.WHITE ? 6 : 1;
@@ -116,8 +116,18 @@ public class BoardUtil {
 	 */
 	private static void fixImg(byte chess, List<Chess> chessList) {
 		for (Chess curr : chessList) {
-			curr.setChess(chess);
+			curr.setImgChess(chess);
 			curr.repaint();
+		}
+	}
+	/**
+	 * 修正图标
+	 * @param chess
+	 * @param chessList
+	 */
+	private static void fixChess(byte chess, List<Chess> chessList) {
+		for (Chess curr : chessList) {
+			curr.onlyChess(chess);
 		}
 	}
 

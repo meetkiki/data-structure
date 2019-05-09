@@ -28,7 +28,7 @@ public class ReversiEvaluation {
         byte other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
         Chess[][] chess = data.getChess();
         // 基于棋子数目的估值
-        score += val * (ReversiEvaluation.player_counters(chess, player) - ReversiEvaluation.player_counters(chess, other));
+        //score += val * (ReversiEvaluation.player_counters(chess, player) - ReversiEvaluation.player_counters(chess, other));
         // 基于棋子分数位置的估值
         score += ReversiEvaluation.evaluation(chess, player) - ReversiEvaluation.evaluation(chess, other);
         return score;
