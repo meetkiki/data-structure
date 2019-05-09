@@ -21,6 +21,13 @@ public class AlphaBeta {
     public static int MAX = 1000000;
     public static int MIN = -1000000;
 
+    public static int getDepth() {
+        return Depth;
+    }
+
+    public static void setDepth(int depth) {
+        Depth = depth;
+    }
 
     public static MinimaxResult alphaBeta(BoardData data){
         return alphaBeta(data,MIN,MAX,Depth);

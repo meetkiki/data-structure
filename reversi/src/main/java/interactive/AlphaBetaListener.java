@@ -36,6 +36,11 @@ public class AlphaBetaListener implements Observer {
         Board board = mouseListener.getBoard();
         while (GameRule.valid_moves(boardChess,boardChess.getNextmove()) > 0){
             BoardData cloneData = boardChess.cloneData();
+            if (boardChess.getNextmove() == Constant.WHITE){
+                AlphaBeta.setDepth(5);
+            }else{
+                AlphaBeta.setDepth(7);
+            }
             MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
 
             System.out.println(result + "Thread : " + Thread.currentThread().getName());

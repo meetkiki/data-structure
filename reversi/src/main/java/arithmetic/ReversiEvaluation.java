@@ -14,7 +14,7 @@ import static common.Constant.SIZE;
  */
 public class ReversiEvaluation {
 
-    private static final int val = 5;
+    private static final int val = 2;
 
     /**
      * 估值函数
