@@ -1,7 +1,6 @@
 package interactive;
 
 import arithmetic.AlphaBeta;
-import arithmetic.ParallelAlphaBeta;
 import arithmetic.ReversiEvaluation;
 import bean.BoardData;
 import bean.MinimaxResult;
@@ -37,12 +36,14 @@ public class AlphaBetaListener implements Observer {
         while (GameRule.valid_moves(boardChess,boardChess.getNextmove()) > 0){
             BoardData cloneData = boardChess.cloneData();
             if (boardChess.getNextmove() == Constant.WHITE){
-                AlphaBeta.setDepth(5);
+                AlphaBeta.setDepth(4);
             }else{
-                AlphaBeta.setDepth(7);
+                AlphaBeta.setDepth(6);
             }
+            long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
-
+            long en = System.currentTimeMillis();
+            System.out.println("AlphaBeta 耗时 "+ (en - st) + "ms");
             System.out.println(result + "Thread : " + Thread.currentThread().getName());
             // 必须要先走玩家棋
             mouseListener.getTask().join();
