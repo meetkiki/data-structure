@@ -56,17 +56,8 @@ public class AlphaBeta {
             for(byte row=0;row<SIZE;++row){
                 for(byte col=0;col<SIZE;++col) {
                     if (moves[row][col]) {
-                        // 创建模拟棋盘
-                        Move curM = Move.builder().row(row).col(col).build();
-                        BoardData temdata = BoardUtil.copyBoard(data);
-                        Chess[][] chess = temdata.getChess();
-                        GameRule.removeHint(temdata);
-                        //尝试走这步棋
-                        GameRule.make_move(chess, curM, temdata.getNextmove(), true);
-                        temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
-                        GameRule.valid_moves(temdata, temdata.getNextmove());
-                        // 将产生的新局面给对方
-                        int value = -alphaBeta(temdata, -beta , -alpha, depth - 1).getMark();
+                        Move curMove = Move.builder().row(row).col(col).build();
+                        int value = moveValue(data, curMove, alpha, beta, depth);
                         // 剪枝
                         if (value >= beta){
                             return MinimaxResult.builder().mark(beta).move(move).build();
@@ -74,7 +65,7 @@ public class AlphaBeta {
                         // 通过向上传递的值修正上下限
                         if (value > alpha) {
                             alpha = value;
-                            move = curM;
+                            move = curMove;
                         }
                     }
                 }
@@ -83,12 +74,34 @@ public class AlphaBeta {
             // 没有可走子 交给对方
             data.setNextmove(BoardUtil.change(data.getNextmove()));
             if (GameRule.valid_moves(data, data.getNextmove()) > 0){
-                return alphaBeta(data, -beta, -alpha, depth - 1);
+                return alphaBeta(data, alpha , beta, depth);
             }else{
                 return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
             }
         }
         return MinimaxResult.builder().mark(alpha).move(move).build();
     }
+
+    /**
+     * 找到所有可行方案并返回估值
+     * @param data
+     * @param alpha
+     * @param beta
+     * @param depth
+     * @return
+     */
+    public static int moveValue(BoardData data,Move move, int alpha, int beta, int depth){
+        // 创建模拟棋盘
+        BoardData temdata = BoardUtil.copyBoard(data);
+        Chess[][] chess = temdata.getChess();
+        GameRule.removeHint(temdata);
+        //尝试走这步棋
+        GameRule.make_move(chess, move, temdata.getNextmove(), true);
+        temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
+        GameRule.valid_moves(temdata, temdata.getNextmove());
+        // 将产生的新局面给对方
+        return -alphaBeta(temdata, -beta , -alpha, depth - 1).getMark();
+    }
+
 
 }

@@ -36,7 +36,7 @@ public class AlphaBetaListener implements Observer {
         while (GameRule.valid_moves(boardChess,boardChess.getNextmove()) > 0){
             BoardData cloneData = boardChess.cloneData();
             if (boardChess.getNextmove() == Constant.WHITE){
-                AlphaBeta.setDepth(4);
+                AlphaBeta.setDepth(5);
             }else{
                 AlphaBeta.setDepth(6);
             }
@@ -50,8 +50,7 @@ public class AlphaBetaListener implements Observer {
 
             // 走这步棋
             GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
-            makeMove.fork();
-            makeMove.join();
+            makeMove.fork().join();
             board.upshow();
 
             System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
