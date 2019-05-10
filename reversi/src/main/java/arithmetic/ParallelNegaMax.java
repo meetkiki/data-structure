@@ -58,13 +58,13 @@ public class ParallelNegaMax {
             // 如果到达预定的搜索深度
             if (depth <= 0) {
                 // 直接给出估值
-                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
+                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
             }
             // 轮到已方走
             Move move = null;
             // 当前最佳估值，预设为负无穷大 己方估值为最小
             int best_value = MIN;
-            if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
+            if (GameRule.valid_moves(data, data.getCurrMove()) > 0) {
                 boolean[][] moves = data.getMoves();
                 List<Move> nextmoves = new ArrayList<>();
                 // 遍历每一种走法
@@ -79,9 +79,9 @@ public class ParallelNegaMax {
                     Chess[][] chess = temdata.getChess();
                     GameRule.removeHint(temdata);
                     //尝试走这步棋
-                    GameRule.make_move(chess, curM, temdata.getNextmove(), true);
-                    temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
-                    GameRule.valid_moves(temdata, temdata.getNextmove());
+                    GameRule.make_move(chess, curM, temdata.getCurrMove(), true);
+                    temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
+                    GameRule.valid_moves(temdata, temdata.getCurrMove());
                     // 将产生的新局面给对方
                     NegaMaxRun betaRun = new NegaMaxRun(temdata, depth - 1);
                     betaRunMoveMap.put(betaRun,curM);
@@ -99,11 +99,11 @@ public class ParallelNegaMax {
                 }
             } else {
                 // 没有可走子 交给对方
-                data.setNextmove(BoardUtil.change(data.getNextmove()));
-                if (GameRule.valid_moves(data, data.getNextmove()) > 0){
+                data.setCurrMove(BoardUtil.change(data.getCurrMove()));
+                if (GameRule.valid_moves(data, data.getCurrMove()) > 0){
                     return new NegaMaxRun(data, depth - 1).fork().join();
                 }else{
-                    return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
+                    return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
                 }
             }
             return MinimaxResult.builder().mark(best_value).move(move).build();

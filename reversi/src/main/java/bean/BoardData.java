@@ -4,8 +4,6 @@ import common.Constant;
 import game.Chess;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import static common.Constant.SIZE;
 
@@ -30,7 +28,7 @@ public class BoardData implements Serializable {
      *  WHITE
      *  BLACK
      */
-    private byte nextmove = Constant.WHITE;
+    private byte currMove = Constant.WHITE;
 
     public Chess[][] getChess() {
         return chess;
@@ -48,12 +46,12 @@ public class BoardData implements Serializable {
         this.moves = moves;
     }
 
-    public byte getNextmove() {
-        return nextmove;
+    public byte getCurrMove() {
+        return currMove;
     }
 
-    public void setNextmove(byte nextmove) {
-        this.nextmove = nextmove;
+    public void setCurrMove(byte currMove) {
+        this.currMove = currMove;
     }
 
     /**
@@ -62,7 +60,7 @@ public class BoardData implements Serializable {
      *  DOT_B
      */
     public byte getCanMove() {
-        return nextmove == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
+        return currMove == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
     }
 
     /**
@@ -81,7 +79,7 @@ public class BoardData implements Serializable {
         }
         copyData.setChess(clone);
         copyData.setMoves(movesClone);
-        copyData.setNextmove(nextmove);
+        copyData.setCurrMove(currMove);
         return copyData;
     }
 }

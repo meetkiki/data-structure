@@ -3,6 +3,7 @@ package arithmetic;
 import bean.BoardData;
 import bean.MinimaxResult;
 import bean.Move;
+import common.Constant;
 import game.Chess;
 import game.GameRule;
 import utils.BoardUtil;
@@ -45,38 +46,39 @@ public class AlphaBeta {
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
+        }
+        if (GameRule.valid_moves(data, data.getCurrMove()) <= 0) {
+            // 没有可走子 交给对方
+            if (GameRule.valid_moves(data, data.getCurrMove() == Constant.WHITE ? Constant.BLACK : Constant.WHITE) > 0){
+                data.setCurrMove(BoardUtil.change(data.getCurrMove()));
+                MinimaxResult result = alphaBeta(data, -beta, -alpha, depth);
+                result.setMark(-result.getMark());
+                return result;
+            }
+            // 终局
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
         }
         // 轮到已方走
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
-        if (GameRule.valid_moves(data, data.getNextmove()) > 0) {
-            boolean[][] moves = data.getMoves();
-            // 遍历每一种走法
-            for(byte row=0;row<SIZE;++row){
-                for(byte col=0;col<SIZE;++col) {
-                    if (moves[row][col]) {
-                        Move curMove = Move.builder().row(row).col(col).build();
-                        int value = moveValue(data, curMove, alpha, beta, depth);
-                        // 剪枝
+        boolean[][] moves = data.getMoves();
+        // 遍历每一种走法
+        for(byte row=0;row<SIZE;++row){
+            for(byte col=0;col<SIZE;++col) {
+                if (moves[row][col]) {
+                    Move curMove = Move.builder().row(row).col(col).build();
+                    int value = moveValue(data, curMove, alpha, beta, depth);
+                    // 通过向上传递的值修正上下限
+                    if (value > alpha) {
+                        // 当向上传递的值大于上限时 剪枝
                         if (value >= beta){
-                            return MinimaxResult.builder().mark(beta).move(move).build();
+                            return MinimaxResult.builder().mark(value).move(move).build();
                         }
-                        // 通过向上传递的值修正上下限
-                        if (value > alpha) {
-                            alpha = value;
-                            move = curMove;
-                        }
+                        alpha = value;
+                        move = curMove;
                     }
                 }
-            }
-        } else {
-            // 没有可走子 交给对方
-            data.setNextmove(BoardUtil.change(data.getNextmove()));
-            if (GameRule.valid_moves(data, data.getNextmove()) > 0){
-                return alphaBeta(data, alpha , beta, depth);
-            }else{
-                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getNextmove())).build();
             }
         }
         return MinimaxResult.builder().mark(alpha).move(move).build();
@@ -96,9 +98,9 @@ public class AlphaBeta {
         Chess[][] chess = temdata.getChess();
         GameRule.removeHint(temdata);
         //尝试走这步棋
-        GameRule.make_move(chess, move, temdata.getNextmove(), true);
-        temdata.setNextmove(BoardUtil.change(temdata.getNextmove()));
-        GameRule.valid_moves(temdata, temdata.getNextmove());
+        GameRule.make_move(chess, move, temdata.getCurrMove(), true);
+        temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
+        GameRule.valid_moves(temdata, temdata.getCurrMove());
         // 将产生的新局面给对方
         return -alphaBeta(temdata, -beta , -alpha, depth - 1).getMark();
     }

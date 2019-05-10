@@ -4,13 +4,11 @@ import bean.BoardData;
 import common.Constant;
 import common.ImageConstant;
 import interactive.MouseListener;
-import utils.BoardUtil;
 
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
 import java.util.Map;
 
 import static common.Constant.ROW;
@@ -61,7 +59,7 @@ public class Board extends JPanel {
         // 初始化棋子
         initChess();
         // 获取行动力
-        GameRule.valid_moves(boardChess,boardChess.getNextmove());
+        GameRule.valid_moves(boardChess,boardChess.getCurrMove());
         //BoardUtil.display(boardChess);
         // 显示棋盘
         upshow();

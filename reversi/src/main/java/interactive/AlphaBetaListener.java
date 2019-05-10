@@ -33,9 +33,9 @@ public class AlphaBetaListener implements Observer {
         BoardData boardChess = mouseListener.getBoardChess();
         // 棋盘UI
         Board board = mouseListener.getBoard();
-        while (GameRule.valid_moves(boardChess,boardChess.getNextmove()) > 0){
+        while (GameRule.valid_moves(boardChess,boardChess.getCurrMove()) > 0){
             BoardData cloneData = boardChess.cloneData();
-            if (boardChess.getNextmove() == Constant.WHITE){
+            if (boardChess.getCurrMove() == Constant.WHITE){
                 AlphaBeta.setDepth(5);
             }else{
                 AlphaBeta.setDepth(6);

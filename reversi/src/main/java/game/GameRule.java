@@ -115,7 +115,7 @@ public class GameRule {
         public List<Chess> compute() {
             Chess[][] chess = data.getChess();
             boolean[][] moves = data.getMoves();
-            byte nextmove = data.getNextmove();
+            byte nextmove = data.getCurrMove();
             if (!moves[move.getRow()][move.getCol()]){
                 throw new IllegalArgumentException("当前位置不可下棋!");
             }
@@ -131,10 +131,10 @@ public class GameRule {
                 chessList.add(chess[ro][co]);
             }
             // 转变
-            BoardUtil.converSion(data.getNextmove(),chessList);
+            BoardUtil.converSion(data.getCurrMove(),chessList);
             // 更新规则
-            data.setNextmove(BoardUtil.change(data.getNextmove()));
-            GameRule.valid_moves(data,data.getNextmove());
+            data.setCurrMove(BoardUtil.change(data.getCurrMove()));
+            GameRule.valid_moves(data,data.getCurrMove());
             return chessList;
         }
     }
@@ -204,7 +204,7 @@ public class GameRule {
      */
     public static void removeHint(BoardData boardChess) {
         Chess[][] chess = boardChess.getChess();
-        byte nextmove = boardChess.getNextmove();
+        byte nextmove = boardChess.getCurrMove();
         byte temp;
         if(nextmove == Constant.WHITE){
             temp = Constant.DOT_W;

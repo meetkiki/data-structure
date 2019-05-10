@@ -55,7 +55,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public void mouseReleased(MouseEvent e) {
         board.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Move move = getMove(e);
-        if (move == null || !GameRule.checkMove(boardChess,move,boardChess.getNextmove())){
+        if (move == null || !GameRule.checkMove(boardChess,move,boardChess.getCurrMove())){
             return;
         }
         MoveRun moveRun = new MoveRun(move);
@@ -80,7 +80,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
             makeMove.fork();
             makeMove.join();
 
-            int next = GameRule.valid_moves(boardChess, boardChess.getNextmove());
+            int next = GameRule.valid_moves(boardChess, boardChess.getCurrMove());
             if (next > 0){
                 // 交给计算机处理
                 AiRun run = new AiRun();
@@ -88,9 +88,9 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                 return;
             }
             // 如果没有棋可以走 获得返回数据
-            GameRule.valid_moves(boardChess,boardChess.getNextmove());
-            boardChess.setNextmove(BoardUtil.change(boardChess.getNextmove()));
-            GameRule.valid_moves(boardChess,boardChess.getNextmove());
+            GameRule.valid_moves(boardChess,boardChess.getCurrMove());
+            boardChess.setCurrMove(BoardUtil.change(boardChess.getCurrMove()));
+            GameRule.valid_moves(boardChess,boardChess.getCurrMove());
             board.upshow();
         }
     }
