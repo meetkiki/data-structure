@@ -19,3 +19,5 @@
 &ensp;1.深度优先搜索  
 &ensp;2.广度优先搜索  
 &ensp;3.连通分量  
+11.黑白棋AI  
+&ensp;1.AlphaBeta算法及实现  
