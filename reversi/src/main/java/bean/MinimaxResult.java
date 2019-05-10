@@ -17,6 +17,15 @@ import lombok.NoArgsConstructor;
 public class MinimaxResult {
 	private int mark;
 	private Move move;
+
+	/**
+	 * 分数取反
+	 * @return
+	 */
+	public MinimaxResult inverseMark(){
+		this.mark = -this.mark;
+		return this;
+	}
 }
 
 

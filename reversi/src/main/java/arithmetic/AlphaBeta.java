@@ -22,14 +22,6 @@ public class AlphaBeta {
     public static int MAX = 1000000;
     public static int MIN = -1000000;
 
-    public static int getDepth() {
-        return Depth;
-    }
-
-    public static void setDepth(int depth) {
-        Depth = depth;
-    }
-
     public static MinimaxResult alphaBeta(BoardData data){
         return alphaBeta(data,MIN,MAX,Depth);
     }
@@ -52,9 +44,7 @@ public class AlphaBeta {
             // 没有可走子 交给对方
             if (GameRule.valid_moves(data, data.getCurrMove() == Constant.WHITE ? Constant.BLACK : Constant.WHITE) > 0){
                 data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                MinimaxResult result = alphaBeta(data, -beta, -alpha, depth);
-                result.setMark(-result.getMark());
-                return result;
+                return alphaBeta(data, -beta, -alpha, depth).inverseMark();
             }
             // 终局
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
@@ -69,7 +59,7 @@ public class AlphaBeta {
                 if (moves[row][col]) {
                     Move curMove = Move.builder().row(row).col(col).build();
                     int value = moveValue(data, curMove, alpha, beta, depth);
-                    // 通过向上传递的值修正上下限
+                    // 通过向上传递的值修正下限
                     if (value > alpha) {
                         // 当向上传递的值大于上限时 剪枝
                         if (value >= beta){
@@ -85,14 +75,14 @@ public class AlphaBeta {
     }
 
     /**
-     * 找到所有可行方案并返回估值
+     * 执行方案并返回估值
      * @param data
      * @param alpha
      * @param beta
      * @param depth
      * @return
      */
-    public static int moveValue(BoardData data,Move move, int alpha, int beta, int depth){
+    private static int moveValue(BoardData data,Move move, int alpha, int beta, int depth){
         // 创建模拟棋盘
         BoardData temdata = BoardUtil.copyBoard(data);
         Chess[][] chess = temdata.getChess();
