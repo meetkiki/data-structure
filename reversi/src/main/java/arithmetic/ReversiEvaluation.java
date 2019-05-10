@@ -1,8 +1,7 @@
 package arithmetic;
 
-import bean.BoardData;
+import bean.BoardChess;
 import common.Constant;
-import game.Chess;
 
 import static common.Constant.SIZE;
 
@@ -23,10 +22,10 @@ public class ReversiEvaluation {
      * @param player
      * @return
      */
-    public static int currentValue(BoardData data, byte player) {
+    public static int currentValue(BoardChess data, byte player) {
         int score = 0;
         byte other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
-        Chess[][] chess = data.getChess();
+        byte[][] chess = data.getChess();
         // 基于棋子数目的估值
         //score += val * (ReversiEvaluation.player_counters(chess, player) - ReversiEvaluation.player_counters(chess, other));
         // 基于棋子分数位置的估值
@@ -53,11 +52,11 @@ public class ReversiEvaluation {
      * @param player
      * @return
      */
-    private static int evaluation(Chess[][] chess, byte player){
+    private static int evaluation(byte[][] chess, byte player){
         int count = 0,row,col;
         for(row=0;row<SIZE;++row)
             for(col=0;col<SIZE;++col)
-                if(chess[row][col].getChess() == player)
+                if(chess[row][col] == player)
                     count += evaluation[row][col];
         return count;
     }
@@ -66,11 +65,11 @@ public class ReversiEvaluation {
     /**
      * /棋子统计方法
      */
-    public static int player_counters(Chess[][] chess, byte player){
+    public static int player_counters(byte[][] chess, byte player){
         int count = 0,row,col;
         for(row=0;row<SIZE;++row)
             for(col=0;col<SIZE;++col)
-                if(chess[row][col].getChess() == player)
+                if(chess[row][col] == player)
                     ++count;
         return count;
     }

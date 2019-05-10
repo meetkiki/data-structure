@@ -2,6 +2,7 @@ package interactive;
 
 import arithmetic.AlphaBeta;
 import arithmetic.ReversiEvaluation;
+import bean.BoardChess;
 import bean.BoardData;
 import bean.MinimaxResult;
 import common.Constant;
@@ -33,12 +34,12 @@ public class AlphaBetaListener implements Observer {
         BoardData boardChess = mouseListener.getBoardChess();
         // 棋盘UI
         Board board = mouseListener.getBoard();
-        while (GameRule.valid_moves(boardChess,boardChess.getCurrMove()) > 0){
-            BoardData cloneData = boardChess.cloneData();
+        while (GameRule.valid_moves(board.getBoardData(),board.getMoves()) > 0){
+            BoardChess cloneData = boardChess.cloneChess();
             if (boardChess.getCurrMove() == Constant.WHITE){
                 AlphaBeta.Depth = 5;
             }else{
-                AlphaBeta.Depth = 6;
+                AlphaBeta.Depth = 8;
             }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
@@ -49,12 +50,12 @@ public class AlphaBetaListener implements Observer {
             mouseListener.getTask().join();
 
             // 走这步棋
-            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(boardChess, result.getMove());
+            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, result.getMove());
             makeMove.fork().join();
             board.upshow();
 
-            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
-            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
+            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.WHITE));
+            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.BLACK));
         }
 
     }

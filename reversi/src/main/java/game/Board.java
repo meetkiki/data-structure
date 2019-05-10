@@ -28,7 +28,11 @@ public class Board extends JPanel {
     /**
      * 棋盘数组
      */
-    private BoardData boardChess = new BoardData();
+    private BoardData boardData = new BoardData();
+    /**
+     * 可以下棋位置
+     */
+    private boolean[][] moves = new boolean[SIZE][SIZE];
     /**
      * 图标资源
      */
@@ -42,7 +46,7 @@ public class Board extends JPanel {
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
         initBoard();
-        this.addMouseListener(new MouseListener(this,boardChess));
+        this.addMouseListener(new MouseListener(this,boardData));
     }
 
     @Override
@@ -59,7 +63,7 @@ public class Board extends JPanel {
         // 初始化棋子
         initChess();
         // 获取行动力
-        GameRule.valid_moves(boardChess,boardChess.getCurrMove());
+        GameRule.valid_moves(boardData,moves);
         //BoardUtil.display(boardChess);
         // 显示棋盘
         upshow();
@@ -69,7 +73,7 @@ public class Board extends JPanel {
      * 初始化棋子
      */
     public void initChess(){
-        Chess[][] chess = boardChess.getChess();
+        Chess[][] chess = boardData.getChess();
         byte row,col;
         for(row=0; row<SIZE; ++row)
             for(col=0; col<SIZE; ++col)
@@ -86,24 +90,24 @@ public class Board extends JPanel {
      *  这里使用SwingWorker异步更新UI
      */
     public void upshow(){
-        JPanel panel = this;
+        Board board = this;
         SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() throws Exception {
-                boolean[][] moves = boardChess.getMoves();
-                Chess[][] chess = boardChess.getChess();
+                boolean[][] moves = board.getMoves();
+                Chess[][] chess = boardData.getChess();
                 for (int i = 0; i < SIZE; i++) {
                     for (int j = 0; j < SIZE; j++) {
                         if(moves[i][j]){
                             //显示可走的棋
-                            chess[i][j].setChess(boardChess.getCanMove());
+                            chess[i][j].setChess(boardData.getCanMove());
                         }
                         // 设置位置
                         chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
-                        panel.add(chess[i][j]);
+                        board.add(chess[i][j]);
                     }
                 }
-                panel.repaint();
+                board.repaint();
                 return null;
             }
         };
@@ -120,4 +124,28 @@ public class Board extends JPanel {
         return new Dimension(BOARD_WIDTH, BOARD_HEIGHT);
     }
 
+
+    public boolean[][] getMoves() {
+        return moves;
+    }
+
+    public void setMoves(boolean[][] moves) {
+        this.moves = moves;
+    }
+
+    public Chess[][] getChess() {
+        return boardData.getChess();
+    }
+
+    public byte getCurrMove() {
+        return boardData.getCurrMove();
+    }
+
+    public void setCurrMove(byte currMove) {
+        boardData.setCurrMove(currMove);
+    }
+
+    public BoardData getBoardData() {
+        return boardData;
+    }
 }

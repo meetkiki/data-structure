@@ -1,10 +1,8 @@
 package arithmetic;
 
-import bean.BoardData;
+import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
-import common.Constant;
-import game.Chess;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -22,7 +20,7 @@ public class AlphaBeta {
     public static int MAX = 1000000;
     public static int MIN = -1000000;
 
-    public static MinimaxResult alphaBeta(BoardData data){
+    public static MinimaxResult alphaBeta(BoardChess data){
         return alphaBeta(data,MIN,MAX,Depth);
     }
     /**
@@ -34,25 +32,28 @@ public class AlphaBeta {
      * @param beta  上限
      * @return
      */
-    private static MinimaxResult alphaBeta(BoardData data, int alpha, int beta, int depth) {//α-β剪枝算法
+    private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
         }
-        if (GameRule.valid_moves(data, data.getCurrMove()) <= 0) {
+        byte[][] chess = data.getChess();
+        if (GameRule.valid_moves(chess, data.getCurrMove()) <= 0) {
+            data.setCurrMove(BoardUtil.change(data.getCurrMove()));
             // 没有可走子 交给对方
-            if (GameRule.valid_moves(data, data.getCurrMove() == Constant.WHITE ? Constant.BLACK : Constant.WHITE) > 0){
+            if (GameRule.valid_moves(chess, data.getCurrMove()) > 0){
                 data.setCurrMove(BoardUtil.change(data.getCurrMove()));
                 return alphaBeta(data, -beta, -alpha, depth).inverseMark();
             }
+            data.setCurrMove(BoardUtil.change(data.getCurrMove()));
             // 终局
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
         }
+        boolean[][] moves = new boolean[SIZE][SIZE];
         // 轮到已方走
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
-        boolean[][] moves = data.getMoves();
         // 遍历每一种走法
         for(byte row=0;row<SIZE;++row){
             for(byte col=0;col<SIZE;++col) {
@@ -82,15 +83,14 @@ public class AlphaBeta {
      * @param depth
      * @return
      */
-    private static int moveValue(BoardData data,Move move, int alpha, int beta, int depth){
+    private static int moveValue(BoardChess data,Move move, int alpha, int beta, int depth){
         // 创建模拟棋盘
-        BoardData temdata = BoardUtil.copyBoard(data);
-        Chess[][] chess = temdata.getChess();
-        GameRule.removeHint(temdata);
+        BoardChess temdata = BoardUtil.cloneChess(data);
+        byte[][] chess = temdata.getChess();
         //尝试走这步棋
-        GameRule.make_move(chess, move, temdata.getCurrMove(), true);
+        GameRule.make_move(chess, move, temdata.getCurrMove());
         temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
-        GameRule.valid_moves(temdata, temdata.getCurrMove());
+        GameRule.valid_moves(chess,temdata.getCurrMove());
         // 将产生的新局面给对方
         return -alphaBeta(temdata, -beta , -alpha, depth - 1).getMark();
     }

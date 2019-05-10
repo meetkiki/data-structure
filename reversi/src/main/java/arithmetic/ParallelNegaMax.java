@@ -1,5 +1,6 @@
 package arithmetic;
 
+import bean.BoardChess;
 import bean.BoardData;
 import bean.MinimaxResult;
 import bean.Move;
@@ -31,7 +32,7 @@ public class ParallelNegaMax {
 
     private static final ForkJoinPool pool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() << 1);
 
-    public static MinimaxResult parallelNegaMax(BoardData data){
+    public static MinimaxResult parallelNegaMax(BoardChess data){
         NegaMaxRun run = new NegaMaxRun(data, Depth);
         try {
             return pool.submit(run).get();
@@ -45,10 +46,10 @@ public class ParallelNegaMax {
      * 异步执行计算线程
      */
     static class NegaMaxRun extends RecursiveTask<MinimaxResult>{
-        private BoardData data;
+        private BoardChess data;
         private int depth;
 
-        public NegaMaxRun(BoardData data, int depth) {
+        public NegaMaxRun(BoardChess data, int depth) {
             this.data = data;
             this.depth = depth;
         }
@@ -64,8 +65,8 @@ public class ParallelNegaMax {
             Move move = null;
             // 当前最佳估值，预设为负无穷大 己方估值为最小
             int best_value = MIN;
-            if (GameRule.valid_moves(data, data.getCurrMove()) > 0) {
-                boolean[][] moves = data.getMoves();
+            boolean[][] moves = new boolean[SIZE][SIZE];
+            if (GameRule.valid_moves(data, moves) > 0) {
                 List<Move> nextmoves = new ArrayList<>();
                 // 遍历每一种走法
                 for(byte row=0;row<SIZE;++row)
@@ -75,13 +76,11 @@ public class ParallelNegaMax {
                 Map<NegaMaxRun, Move> betaRunMoveMap = new HashMap<>();
                 for (Move curM : nextmoves) {
                     // 创建模拟棋盘
-                    BoardData temdata = BoardUtil.copyBoard(data);
-                    Chess[][] chess = temdata.getChess();
-                    GameRule.removeHint(temdata);
+                    BoardChess temdata = BoardUtil.cloneChess(data);
+                    byte[][] chess = temdata.getChess();
                     //尝试走这步棋
-                    GameRule.make_move(chess, curM, temdata.getCurrMove(), true);
+                    GameRule.make_move(chess, curM, temdata.getCurrMove());
                     temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
-                    GameRule.valid_moves(temdata, temdata.getCurrMove());
                     // 将产生的新局面给对方
                     NegaMaxRun betaRun = new NegaMaxRun(temdata, depth - 1);
                     betaRunMoveMap.put(betaRun,curM);
@@ -100,9 +99,10 @@ public class ParallelNegaMax {
             } else {
                 // 没有可走子 交给对方
                 data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                if (GameRule.valid_moves(data, data.getCurrMove()) > 0){
+                if (GameRule.valid_moves(data.getChess(), data.getCurrMove()) > 0){
                     return new NegaMaxRun(data, depth - 1).fork().join();
                 }else{
+                    data.setCurrMove(BoardUtil.change(data.getCurrMove()));
                     return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
                 }
             }

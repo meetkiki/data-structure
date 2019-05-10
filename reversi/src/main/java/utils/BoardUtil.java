@@ -1,19 +1,19 @@
 package utils;
 
+import bean.BoardChess;
 import bean.BoardData;
 import common.Constant;
 import common.ImageConstant;
 import game.Chess;
 import game.GameContext;
+import game.GameRule;
 
-import javax.swing.*;
 import java.awt.Image;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CountDownLatch;
 
 import static common.Constant.DELAY;
 import static common.Constant.SIZE;
@@ -134,11 +134,12 @@ public class BoardUtil {
 	/**
 	 *  /控制台显示棋盘
 	 */
-	public static void display(BoardData data){
+	public static void display(BoardChess data){
 		System.out.println("===================chess==================");
+		boolean[][] moves = new boolean[SIZE][SIZE];
+		GameRule.valid_moves(data,moves);
 
-		Chess[][] chess = data.getChess();
-		boolean[][] moves = data.getMoves();
+		byte[][] chess = data.getChess();
 		char col_label = 'a';
 		//打印第一行的a-z字母标识
 		byte col = 0,row=0;
@@ -157,7 +158,7 @@ public class BoardUtil {
 			System.out.printf("\n%2d |",row+1);
 			for(col = 0;col<SIZE;++col){
 				if(moves[row][col] == false){
-					byte bChess = chess[row][col].getChess();
+					byte bChess = chess[row][col];
 					char cChess = ' ';
 					switch (bChess){
 						case Constant.WHITE: cChess = 'o';break;
@@ -197,11 +198,17 @@ public class BoardUtil {
 	}
 
 	/**
-	 * 深度拷贝棋盘
-	 * @param data
+	 * 克隆棋盘数据
+	 * @param src
 	 * @return
 	 */
-	public static BoardData copyBoard(BoardData data) {
-		return data.cloneData();
+	public static BoardChess cloneChess(BoardChess src){
+		byte[][] srcChess = src.getChess();
+		byte[][] chess = new byte[SIZE][SIZE];
+		for (int i = 0; i < srcChess.length; i++) {
+			chess[i] = new byte[SIZE];
+			System.arraycopy(srcChess[i],0,chess[i],0,SIZE);
+		}
+		return BoardChess.builder().chess(chess).currMove(src.getCurrMove()).build();
 	}
 }

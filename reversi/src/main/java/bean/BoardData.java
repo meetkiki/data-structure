@@ -3,15 +3,12 @@ package bean;
 import common.Constant;
 import game.Chess;
 
-import java.io.Serializable;
-
 import static common.Constant.SIZE;
 
 /**
  * @author Tao
  */
-public class BoardData implements Serializable {
-
+public class BoardData {
 
     /**
      * 棋盘数组
@@ -19,18 +16,19 @@ public class BoardData implements Serializable {
     private Chess[][] chess = new Chess[SIZE][SIZE];
 
     /**
-     * 可以下棋位置
+     * 棋盘共享数据
      */
-    private boolean[][] moves = new boolean[SIZE][SIZE];
-
-    /**
-     * 下一步棋子:白棋优先
-     *  WHITE
-     *  BLACK
-     */
-    private byte currMove = Constant.WHITE;
+    private BoardChess boardChess = new BoardChess();
 
     public Chess[][] getChess() {
+        return chess;
+    }
+
+    public byte[][] getBytes() {
+        byte[][] chess = boardChess.getChess();
+        for(byte row=0;row<SIZE;++row)
+            for(byte col=0;col<SIZE;++col)
+                chess[row][col] = this.chess[row][col].getChess();
         return chess;
     }
 
@@ -38,20 +36,12 @@ public class BoardData implements Serializable {
         this.chess = chess;
     }
 
-    public boolean[][] getMoves() {
-        return moves;
-    }
-
-    public void setMoves(boolean[][] moves) {
-        this.moves = moves;
-    }
-
     public byte getCurrMove() {
-        return currMove;
+        return this.boardChess.getCurrMove();
     }
 
     public void setCurrMove(byte currMove) {
-        this.currMove = currMove;
+        this.boardChess.setCurrMove(currMove);
     }
 
     /**
@@ -60,26 +50,20 @@ public class BoardData implements Serializable {
      *  DOT_B
      */
     public byte getCanMove() {
-        return currMove == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
+        return this.boardChess.getCurrMove() == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
     }
 
     /**
      * 克隆棋盘
      * @return
      */
-    public BoardData cloneData(){
-        BoardData copyData = new BoardData();
-        Chess[][] clone = new Chess[SIZE][SIZE];
-        boolean[][] movesClone = new boolean[SIZE][SIZE];
+    public BoardChess cloneChess(){
+        byte[][] clone = new byte[SIZE][SIZE];
         for(byte row=0;row<SIZE;++row){
             for(byte col=0;col<SIZE;++col) {
-                clone[row][col] = chess[row][col].clone();
-                movesClone[row][col] = moves[row][col];
+                clone[row][col] = this.chess[row][col].getChess();
             }
         }
-        copyData.setChess(clone);
-        copyData.setMoves(movesClone);
-        copyData.setCurrMove(currMove);
-        return copyData;
+        return BoardChess.builder().chess(clone).currMove(this.boardChess.getCurrMove()).build();
     }
 }
