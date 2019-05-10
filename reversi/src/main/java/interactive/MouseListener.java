@@ -55,7 +55,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public void mouseReleased(MouseEvent e) {
         board.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Move move = getMove(e);
-        if (move == null || !GameRule.checkMove(board,move,boardChess.getCurrMove())){
+        if (move == null || !GameRule.checkMove(board,move)){
             return;
         }
         MoveRun moveRun = new MoveRun(move);

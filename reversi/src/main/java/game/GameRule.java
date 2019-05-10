@@ -251,13 +251,11 @@ public class GameRule {
      *  only    简洁操作
      */
     public static List<Move> make_move(Chess[][] chess, Move move, byte player){
-        byte rowdelta,coldelta,x,y;
-        byte row = move.getRow();
-        byte col = move.getCol();
+        byte rowdelta,coldelta,x,y,row = move.getRow(),col = move.getCol();
         byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
         //将row和col的值更改为player //玩家状态
         List<Move> changes = new ArrayList<>();
-        chess[row][col].setChess(player);
+        chess[row][col].setNewPlayer(player);
         //遍历当前棋子 的周边棋子
         for(rowdelta = -1;rowdelta <= 1; ++rowdelta){
             for(coldelta = -1;coldelta <= 1; ++coldelta){
@@ -296,7 +294,7 @@ public class GameRule {
 
     /**
      * 移除提示
-     * @param boardChess
+     * @param chess
      */
     public static void removeHint(Chess[][] chess,byte nextmove) {
         byte temp;
@@ -331,9 +329,8 @@ public class GameRule {
     /**
      * 校验移动
      * @param data
-     * @param player
      */
-    public static boolean checkMove(Board data,Move move,byte player){
+    public static boolean checkMove(Board data,Move move){
         BoardData boardData = data.getBoardData();
         Chess[][] chess = data.getChess();
         boolean[][] dataMoves = data.getMoves();
