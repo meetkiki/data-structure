@@ -59,11 +59,9 @@ public class BoardData {
      */
     public BoardChess cloneChess(){
         byte[][] clone = new byte[SIZE][SIZE];
-        for(byte row=0;row<SIZE;++row){
-            for(byte col=0;col<SIZE;++col) {
+        for(byte row=0;row<SIZE;++row)
+            for(byte col=0;col<SIZE;++col)
                 clone[row][col] = this.chess[row][col].getChess();
-            }
-        }
         return BoardChess.builder().chess(clone).currMove(this.boardChess.getCurrMove()).build();
     }
 }

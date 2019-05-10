@@ -46,7 +46,7 @@ public class Board extends JPanel {
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
         initBoard();
-        this.addMouseListener(new MouseListener(this,boardData));
+        this.addMouseListener(new MouseListener(this));
     }
 
     @Override

@@ -150,7 +150,7 @@ public class GameRule {
 
     /**
      * 走棋方法
-     * @param data
+     * @param board
      * @param move
      */
     public static MakeMoveRun getMakeMove(Board board,Move move){

@@ -37,9 +37,9 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      */
     private GameRule.MakeMoveRun makeMove;
 
-    public MouseListener(Board board,BoardData boardChess) {
+    public MouseListener(Board board) {
         this.board = board;
-        this.boardChess = boardChess;
+        this.boardChess = board.getBoardData();
         initListener();
     }
 

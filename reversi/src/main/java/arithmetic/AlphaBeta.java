@@ -3,6 +3,7 @@ package arithmetic;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
+import common.Constant;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -16,7 +17,7 @@ import static common.Constant.SIZE;
 public class AlphaBeta {
 
 
-    public static int Depth = 8;
+    public static int Depth = 10;
     public static int MAX = 1000000;
     public static int MIN = -1000000;
 
@@ -38,39 +39,42 @@ public class AlphaBeta {
             // 直接给出估值
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
         }
-        byte[][] chess = data.getChess();
-        boolean[][] moves = new boolean[SIZE][SIZE];
-        if (GameRule.valid_moves(data, moves) <= 0) {
-            data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-            // 没有可走子 交给对方
-            if (GameRule.valid_moves(chess, data.getCurrMove()) > 0){
-                data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                return alphaBeta(data, -beta, -alpha, depth).inverseMark();
-            }
-            data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-            // 终局
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
-        }
-        // 轮到已方走
         Move move = null;
-        // 当前最佳估值，预设为负无穷大 己方估值为最小
-        // 遍历每一种走法
-        for(byte row=0;row<SIZE;++row){
-            for(byte col=0;col<SIZE;++col) {
-                if (moves[row][col]) {
-                    Move curMove = Move.builder().row(row).col(col).build();
-                    int value = moveValue(data, curMove, alpha, beta, depth);
-                    // 通过向上传递的值修正下限
-                    if (value > alpha) {
-                        // 当向上传递的值大于上限时 剪枝
-                        if (value >= beta){
-                            return MinimaxResult.builder().mark(value).move(move).build();
+        try {
+            boolean[][] moves = new boolean[SIZE][SIZE];
+            byte[][] chess = data.getChess();
+            if (GameRule.valid_moves(data, moves) <= 0) {
+                // 没有可走子 交给对方
+                if (GameRule.valid_moves(chess, data.getCurrMove() == Constant.WHITE ? Constant.BLACK : Constant.WHITE) > 0){
+                    data.setCurrMove(BoardUtil.change(data.getCurrMove()));
+                    return alphaBeta(data, -beta, -alpha, depth).inverseMark();
+                }
+                // 终局
+                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
+            }
+            // 轮到已方走
+            move = null;
+            // 当前最佳估值，预设为负无穷大 己方估值为最小
+            // 遍历每一种走法
+            for(byte row=0;row<SIZE;++row){
+                for(byte col=0;col<SIZE;++col) {
+                    if (moves[row][col]) {
+                        Move curMove = Move.builder().row(row).col(col).build();
+                        int value = moveValue(data, curMove, alpha, beta, depth);
+                        // 通过向上传递的值修正下限
+                        if (value > alpha) {
+                            // 当向上传递的值大于上限时 剪枝
+                            if (value >= beta){
+                                return MinimaxResult.builder().mark(value).move(move).build();
+                            }
+                            alpha = value;
+                            move = curMove;
                         }
-                        alpha = value;
-                        move = curMove;
                     }
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return MinimaxResult.builder().mark(alpha).move(move).build();
     }
