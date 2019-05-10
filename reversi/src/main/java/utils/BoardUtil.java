@@ -157,7 +157,16 @@ public class BoardUtil {
 			System.out.printf("\n%2d |",row+1);
 			for(col = 0;col<SIZE;++col){
 				if(moves[row][col] == false){
-					System.out.printf(" %d |",chess[row][col].getChess());
+					byte bChess = chess[row][col].getChess();
+					char cChess = ' ';
+					switch (bChess){
+						case Constant.WHITE: cChess = 'o';break;
+						case Constant.BLACK: cChess = '*';break;
+						case Constant.DOT_B: cChess = '.';break;
+						case Constant.DOT_W: cChess = '\'';break;
+						default:break;
+					}
+					System.out.printf(" %s |", cChess);
 				}else
 					System.out.print(" . |");
 			}

@@ -36,9 +36,9 @@ public class AlphaBetaListener implements Observer {
         while (GameRule.valid_moves(boardChess,boardChess.getCurrMove()) > 0){
             BoardData cloneData = boardChess.cloneData();
             if (boardChess.getCurrMove() == Constant.WHITE){
-                AlphaBeta.setDepth(5);
+                AlphaBeta.setDepth(4);
             }else{
-                AlphaBeta.setDepth(6);
+                AlphaBeta.setDepth(7);
             }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
