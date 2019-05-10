@@ -175,6 +175,7 @@ public class GameRule {
             Chess[][] chess = board.getChess();
             boolean[][] moves = board.getMoves();
             byte nextmove = board.getCurrMove();
+            GameRule.valid_moves(board.getBoardData(),moves);
             if (!moves[move.getRow()][move.getCol()]){
                 throw new IllegalArgumentException("当前位置不可下棋!");
             }
@@ -193,7 +194,7 @@ public class GameRule {
             BoardUtil.converSion(board.getCurrMove(),chessList);
             // 更新规则
             board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-            GameRule.valid_moves(board.getBoardData(),board.getMoves());
+            GameRule.valid_moves(board.getBoardData(),moves);
             return chessList;
         }
     }
@@ -278,7 +279,7 @@ public class GameRule {
                         if(chess[x][y].getChess() == player){
                             //循环吃子
                             while(chess[x -= rowdelta][y -= coldelta].getChess() == other){
-                                chess[x][y].setChess(player);
+                                chess[x][y].onlyChess(player);
                                 // 是否执行动画
                                 changes.add(new Move(x,y));
                             }

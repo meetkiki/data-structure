@@ -75,25 +75,29 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
         @Override
         public void run() {
-            // 显示棋盘
-            makeMove = GameRule.getMakeMove(board, move);
-            makeMove.fork();
-            makeMove.join();
+            try {
+                // 显示棋盘
+                makeMove = GameRule.getMakeMove(board, move);
+                makeMove.fork();
+                makeMove.join();
 
-            BoardData boardData = board.getBoardData();
-            boolean[][] moves = board.getMoves();
-            int next = GameRule.valid_moves(boardData,moves);
-            if (next > 0){
-                // 交给计算机处理
-                AiRun run = new AiRun();
-                GameContext.invoke(run);
-                return;
+                BoardData boardData = board.getBoardData();
+                boolean[][] moves = board.getMoves();
+                int next = GameRule.valid_moves(boardData,moves);
+                if (next > 0){
+                    // 交给计算机处理
+                    AiRun run = new AiRun();
+                    GameContext.invoke(run);
+                    return;
+                }
+                // 如果没有棋可以走 获得返回数据
+                GameRule.valid_moves(boardData,moves);
+                boardChess.setCurrMove(BoardUtil.change(boardChess.getCurrMove()));
+                GameRule.valid_moves(boardData,moves);
+                board.upshow();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-            // 如果没有棋可以走 获得返回数据
-            GameRule.valid_moves(boardData,moves);
-            boardChess.setCurrMove(BoardUtil.change(boardChess.getCurrMove()));
-            GameRule.valid_moves(boardData,moves);
-            board.upshow();
         }
     }
 

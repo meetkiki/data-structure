@@ -39,7 +39,8 @@ public class AlphaBeta {
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
         }
         byte[][] chess = data.getChess();
-        if (GameRule.valid_moves(chess, data.getCurrMove()) <= 0) {
+        boolean[][] moves = new boolean[SIZE][SIZE];
+        if (GameRule.valid_moves(data, moves) <= 0) {
             data.setCurrMove(BoardUtil.change(data.getCurrMove()));
             // 没有可走子 交给对方
             if (GameRule.valid_moves(chess, data.getCurrMove()) > 0){
@@ -50,7 +51,6 @@ public class AlphaBeta {
             // 终局
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
         }
-        boolean[][] moves = new boolean[SIZE][SIZE];
         // 轮到已方走
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小

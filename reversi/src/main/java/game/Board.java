@@ -93,14 +93,14 @@ public class Board extends JPanel {
         Board board = this;
         SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>() {
             @Override
-            protected Void doInBackground() throws Exception {
+            protected Void doInBackground(){
                 boolean[][] moves = board.getMoves();
-                Chess[][] chess = boardData.getChess();
+                Chess[][] chess = board.getChess();
                 for (int i = 0; i < SIZE; i++) {
                     for (int j = 0; j < SIZE; j++) {
                         if(moves[i][j]){
                             //显示可走的棋
-                            chess[i][j].setChess(boardData.getCanMove());
+                            chess[i][j].setChess(board.getBoardData().getCanMove());
                         }
                         // 设置位置
                         chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
@@ -114,7 +114,6 @@ public class Board extends JPanel {
         swingWorker.execute();
     }
 
-
     /**
      * 宽高
      * @return
@@ -124,13 +123,8 @@ public class Board extends JPanel {
         return new Dimension(BOARD_WIDTH, BOARD_HEIGHT);
     }
 
-
     public boolean[][] getMoves() {
         return moves;
-    }
-
-    public void setMoves(boolean[][] moves) {
-        this.moves = moves;
     }
 
     public Chess[][] getChess() {

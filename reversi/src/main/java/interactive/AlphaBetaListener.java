@@ -29,34 +29,37 @@ public class AlphaBetaListener implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        MouseListener mouseListener = (MouseListener) o;
-        // 显示棋盘
-        BoardData boardChess = mouseListener.getBoardChess();
-        // 棋盘UI
-        Board board = mouseListener.getBoard();
-        while (GameRule.valid_moves(board.getBoardData(),board.getMoves()) > 0){
-            BoardChess cloneData = boardChess.cloneChess();
-            if (boardChess.getCurrMove() == Constant.WHITE){
-                AlphaBeta.Depth = 5;
-            }else{
-                AlphaBeta.Depth = 8;
+        try {
+            MouseListener mouseListener = (MouseListener) o;
+            // 棋盘UI
+            Board board = mouseListener.getBoard();
+            while (GameRule.valid_moves(board.getBoardData(),board.getMoves()) > 0){
+                // 棋盘数据
+                BoardData boardData = board.getBoardData();
+                BoardChess cloneData = boardData.cloneChess();
+                if (boardData.getCurrMove() == Constant.WHITE){
+                    AlphaBeta.Depth = 6;
+                }else{
+                    AlphaBeta.Depth = 6;
+                }
+                long st = System.currentTimeMillis();
+                MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
+                long en = System.currentTimeMillis();
+                System.out.println("AlphaBeta 耗时 "+ (en - st) + "ms");
+                System.out.println(result + "Thread : " + Thread.currentThread().getName());
+                // 必须要先走玩家棋
+                mouseListener.getTask().join();
+
+                // 走这步棋
+                GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, result.getMove());
+                makeMove.fork().join();
+                board.upshow();
+
+                System.out.println("WHITE -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.WHITE));
+                System.out.println("BLACK -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.BLACK));
             }
-            long st = System.currentTimeMillis();
-            MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
-            long en = System.currentTimeMillis();
-            System.out.println("AlphaBeta 耗时 "+ (en - st) + "ms");
-            System.out.println(result + "Thread : " + Thread.currentThread().getName());
-            // 必须要先走玩家棋
-            mouseListener.getTask().join();
-
-            // 走这步棋
-            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, result.getMove());
-            makeMove.fork().join();
-            board.upshow();
-
-            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.WHITE));
-            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.BLACK));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 }
