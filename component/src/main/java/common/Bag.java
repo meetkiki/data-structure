@@ -10,6 +10,8 @@ import java.util.Iterator;
 public class Bag<T> implements Iterable<T>{
 
     private Node<T> head = new Node<>();
+    private int size;
+
 
     /**
      * 插入一个元素
@@ -20,6 +22,7 @@ public class Bag<T> implements Iterable<T>{
         head = new Node<>(t);
         head.next = oldNode;
         oldNode.parent = head;
+        size++;
     }
 
     @Override
@@ -72,6 +75,13 @@ public class Bag<T> implements Iterable<T>{
         return head.next == null;
     }
 
+    /**
+     * 数据长度
+     * @return
+     */
+    public int size(){
+        return size;
+    }
     /**
      * 结点类
      * @param <T>

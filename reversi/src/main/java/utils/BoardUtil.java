@@ -16,6 +16,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static common.Constant.DELAY;
+import static common.Constant.MODEL;
 import static common.Constant.SIZE;
 
 /**
@@ -138,7 +139,6 @@ public class BoardUtil {
 		boolean[][] moves = new boolean[SIZE][SIZE];
 		GameRule.valid_moves(data,moves);
 
-		byte[][] chess = data.getChess();
 		char col_label = 'a';
 		//打印第一行的a-z字母标识
 		byte col = 0,row=0;
@@ -156,8 +156,8 @@ public class BoardUtil {
 			//打印第一列【1-SIZE】的值
 			System.out.printf("\n%2d |",row+1);
 			for(col = 0;col<SIZE;++col){
-				if(moves[row][col] == false){
-					byte bChess = chess[row][col];
+				if(!moves[row][col]){
+					byte bChess = data.square(row,col);
 					char cChess = ' ';
 					switch (bChess){
 						case Constant.WHITE: cChess = 'o';break;
@@ -202,12 +202,9 @@ public class BoardUtil {
 	 * @return
 	 */
 	public static BoardChess cloneChess(BoardChess src){
-		byte[][] srcChess = src.getChess();
-		byte[][] chess = new byte[SIZE][SIZE];
-		for (int i = 0; i < srcChess.length; i++) {
-			chess[i] = new byte[SIZE];
-			System.arraycopy(srcChess[i],0,chess[i],0,SIZE);
-		}
+		byte[] srcChess = src.getChess();
+		byte[] chess = new byte[MODEL];
+		System.arraycopy(srcChess,0,chess,0,MODEL);
 		return BoardChess.builder().chess(chess).currMove(src.getCurrMove()).build();
 	}
 }

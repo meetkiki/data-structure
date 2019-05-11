@@ -5,18 +5,23 @@ import bean.BoardData;
 import bean.Move;
 import common.Bag;
 import common.Constant;
+import common.DirEnum;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
+import static common.Constant.DIRALL;
 import static common.Constant.SIZE;
+import static common.Constant.dirInc;
+import static common.Constant.dirMask;
 
 /**
  * @author Tao
  */
 public class GameRule {
+
 
     /**
      * 获得行动力
@@ -26,12 +31,75 @@ public class GameRule {
         return valid_moves(chess,moves,data.getCurrMove());
     }
 
+
+
+    /**
+     * 单方向搜索判断是否可以走子
+     * @return
+     */
+    private static boolean canSingDirFlips(byte[] chess, byte dir, byte cell,byte player){
+        // 这个方向的棋子
+        int pt = cell + dir;
+        byte opt = BoardUtil.change(player);
+        // 有对方棋子才可走子
+        if (pt == opt){
+            // 朝这个方向前进 直到遇到边界或者非对手子
+            while (chess[pt] == opt){
+                pt += dir;
+            }
+            return chess[pt] == player;
+        }
+        return false;
+    }
+
+    /**
+     * 八方向搜索判断是否可以走子
+     * @return
+     */
+    public static boolean canFlips(byte[] chess, byte cell, byte player){
+        // 在八个方向试探 任意一个方向可以翻转对手就返回true
+        for (int i = 0; i < DIRALL; i++) {
+            int mask = 0x01 << i;
+            if ((dirMask[cell] & mask) != 0){
+                if (canSingDirFlips(chess,dirInc[i],cell,player));
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 获得行动力
+     * */
+    public static int valid_moves(BoardChess chess){
+        int canMove = 0;
+        byte[] bytes = chess.getChess();
+        byte player = chess.getCurrMove();
+        for (int i = 0; i < bytes.length; i++) {
+            if (canFlips(bytes, (byte) i,player)){
+                canMove++;
+            }
+        }
+        return canMove;
+    }
+
     /**
      * 获得行动力
      * */
     public static int valid_moves(BoardChess chess,boolean[][] moves){
-        return valid_moves(chess.getChess(),moves,chess.getCurrMove());
+        int canMove = 0;
+        byte[] bytes = chess.getChess();
+        byte player = chess.getCurrMove();
+        for (int i = 0; i < bytes.length; i++) {
+            if (canFlips(bytes, (byte) i,player)){
+                Move move = chess.move((byte) i);
+                moves[move.getRow()][move.getCol()] = true;
+                canMove++;
+            }
+        }
+        return canMove;
     }
+
 
     /**
      * 获得行动力
@@ -74,7 +142,7 @@ public class GameRule {
                                     break;
                                 //如果棋盘上还有玩家可下的棋子时，将可移动数组设置为true，能走的步数自增
                                 if(chess[x][y] == player){
-                                    bag.add(Move.builder().row((byte) x).col((byte)y).build());
+                                    bag.add(Move.builder().row((byte) x).col((byte) y).build());
                                     break;
                                 }
                             }
@@ -86,6 +154,7 @@ public class GameRule {
         //返回剩下能下的位置的no_of_moves的值
         return bag;
     }
+
 
     public static int valid_moves(byte[][] chess,boolean[][] moves,byte player){
         //定义五个参数，rowdelta和coldelta为边界+1-1,x和y为棋盘坐标
@@ -174,30 +243,35 @@ public class GameRule {
 
         @Override
         public Integer compute() {
-            Chess[][] chess = board.getChess();
-            boolean[][] moves = board.getMoves();
-            byte nextmove = board.getCurrMove();
-            GameRule.valid_moves(board.getBoardData(),moves);
-            if (!moves[move.getRow()][move.getCol()]){
-                throw new IllegalArgumentException("当前位置不可下棋!");
+            try {
+                Chess[][] chess = board.getChess();
+                boolean[][] moves = board.getMoves();
+                byte nextmove = board.getCurrMove();
+                GameRule.valid_moves(board.getBoardData(),moves);
+                if (!moves[move.getRow()][move.getCol()]){
+                    throw new IllegalArgumentException("当前位置不可下棋!");
+                }
+                // 移除当前子的提示
+                GameRule.removeHint(chess,nextmove);
+                // 移除新的标志
+                removeNew(chess);
+                List<Move> make_move = make_move(chess, move, nextmove);
+                List<Chess> chessList = new ArrayList<>();
+                for (Move mo : make_move) {
+                    byte ro = mo.getRow();
+                    byte co = mo.getCol();
+                    chessList.add(chess[ro][co]);
+                }
+                // 转变
+                BoardUtil.converSion(board.getCurrMove(),chessList);
+                // 更新规则
+                board.setCurrMove(BoardUtil.change(board.getCurrMove()));
+                // 返回对手的可行步数
+                return GameRule.valid_moves(board.getBoardData(), moves);
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
             }
-            // 移除当前子的提示
-            GameRule.removeHint(chess,nextmove);
-            // 移除新的标志
-            removeNew(chess);
-            List<Move> make_move = make_move(chess, move, nextmove);
-            List<Chess> chessList = new ArrayList<>();
-            for (Move mo : make_move) {
-                byte ro = mo.getRow();
-                byte co = mo.getCol();
-                chessList.add(chess[ro][co]);
-            }
-            // 转变
-            BoardUtil.converSion(board.getCurrMove(),chessList);
-            // 更新规则
-            board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-            // 返回对手的可行步数
-            return GameRule.valid_moves(board.getBoardData(), moves);
+            return null;
         }
     }
 

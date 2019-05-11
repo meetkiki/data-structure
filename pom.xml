@@ -23,6 +23,7 @@
         <module>othre</module>
         <module>graph</module>
         <module>reversi</module>
+        <module>component</module>
     </modules>
 
     <dependencies>
