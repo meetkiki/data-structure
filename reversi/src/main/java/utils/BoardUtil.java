@@ -71,7 +71,6 @@ public class BoardUtil {
 				if(chess == Constant.WHITE) count--;
 				else count++;
 			}else{
-				System.out.println("update Thread : " + Thread.currentThread().getName());
 				//结束任务
 				cancel();
 				//修正图标

@@ -24,6 +24,7 @@ public class AlphaBeta {
     public static MinimaxResult alphaBeta(BoardChess data){
         return alphaBeta(data,MIN,MAX,Depth);
     }
+
     /**
      * alphaBeta 算法
      *
@@ -41,8 +42,8 @@ public class AlphaBeta {
         }
         Move move = null;
         try {
-            boolean[][] moves = new boolean[SIZE][SIZE];
             byte[][] chess = data.getChess();
+            boolean[][] moves = new boolean[SIZE][SIZE];
             if (GameRule.valid_moves(data, moves) <= 0) {
                 // 没有可走子 交给对方
                 if (GameRule.valid_moves(chess, data.getCurrMove() == Constant.WHITE ? Constant.BLACK : Constant.WHITE) > 0){

@@ -135,8 +135,9 @@ public class Board extends JPanel {
         return boardData.getCurrMove();
     }
 
-    public void setCurrMove(byte currMove) {
+    public byte setCurrMove(byte currMove) {
         boardData.setCurrMove(currMove);
+        return currMove;
     }
 
     public BoardData getBoardData() {

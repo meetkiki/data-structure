@@ -160,7 +160,7 @@ public class GameRule {
     /**
      * 异步执行走棋
      */
-    public static class MakeMoveRun extends RecursiveTask<List<Chess>> {
+    public static class MakeMoveRun extends RecursiveTask<Integer> {
 
         private Board board;
         private Move move;
@@ -171,7 +171,7 @@ public class GameRule {
         }
 
         @Override
-        public List<Chess> compute() {
+        public Integer compute() {
             Chess[][] chess = board.getChess();
             boolean[][] moves = board.getMoves();
             byte nextmove = board.getCurrMove();
@@ -194,8 +194,8 @@ public class GameRule {
             BoardUtil.converSion(board.getCurrMove(),chessList);
             // 更新规则
             board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-            GameRule.valid_moves(board.getBoardData(),moves);
-            return chessList;
+            // 返回对手的可行步数
+            return GameRule.valid_moves(board.getBoardData(), moves);
         }
     }
 
@@ -332,7 +332,6 @@ public class GameRule {
      */
     public static boolean checkMove(Board data,Move move){
         BoardData boardData = data.getBoardData();
-        Chess[][] chess = data.getChess();
         boolean[][] dataMoves = data.getMoves();
         int moves = valid_moves(boardData, dataMoves);
         if (moves == 0){

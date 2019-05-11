@@ -20,17 +20,15 @@ import static game.Board.BOARD_WIDTH;
 /**
  * @author ypt
  * @ClassName MouseListener
- *  观察者模式 操作之后通知AI操作
+ *  观察者模式 操作之后通知
+ *      观察者操作
+ *      AI
  * @date 2019/5/7 10:03
  */
 public class MouseListener extends Observable implements java.awt.event.MouseListener {
 
     private Board board;
 
-    /**
-     * 棋盘数组 ui显示
-     */
-    private BoardData boardChess;
 
     /**
      * 当前走棋的task
@@ -39,7 +37,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     public MouseListener(Board board) {
         this.board = board;
-        this.boardChess = board.getBoardData();
         initListener();
     }
 
@@ -47,7 +44,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      * 初始化观察者
      */
     public void initListener(){
-        AlphaBetaListener alphaBetaListener = new AlphaBetaListener(this);
+        new AlphaBetaListener(this);
     }
 
 
@@ -75,29 +72,23 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
         @Override
         public void run() {
-            try {
-                // 显示棋盘
-                makeMove = GameRule.getMakeMove(board, move);
-                makeMove.fork();
-                makeMove.join();
+            // 显示棋盘
+            makeMove = GameRule.getMakeMove(board, move);
+            Integer next = makeMove.fork().join();
 
-                BoardData boardData = board.getBoardData();
-                boolean[][] moves = board.getMoves();
-                int next = GameRule.valid_moves(boardData,moves);
-                if (next > 0){
-                    // 交给计算机处理
-                    AiRun run = new AiRun();
-                    GameContext.invoke(run);
-                    return;
-                }
-                // 如果没有棋可以走 获得返回数据
-                GameRule.valid_moves(boardData,moves);
-                boardChess.setCurrMove(BoardUtil.change(boardChess.getCurrMove()));
-                GameRule.valid_moves(boardData,moves);
-                board.upshow();
-            } catch (Exception e) {
-                e.printStackTrace();
+            if (next > 0){
+                // 交给计算机处理
+                AiRun run = new AiRun();
+                GameContext.invoke(run);
+                return;
             }
+            // 如果没有棋可以走 获得返回数据
+            BoardData boardData = board.getBoardData();
+            boolean[][] moves = board.getMoves();
+            // 切换棋手
+            board.setCurrMove(BoardUtil.change(board.getCurrMove()));
+            GameRule.valid_moves(boardData,moves);
+            board.upshow();
         }
     }
 
@@ -114,14 +105,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     public Board getBoard() {
         return board;
-    }
-
-    public BoardData getBoardChess() {
-        return boardChess;
-    }
-
-    public void setBoardChess(BoardData boardChess) {
-        this.boardChess = boardChess;
     }
 
     @Override
