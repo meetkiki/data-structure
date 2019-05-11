@@ -3,6 +3,7 @@ package game;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.Move;
+import common.Bag;
 import common.Constant;
 import utils.BoardUtil;
 
@@ -39,7 +40,8 @@ public class GameRule {
      * @param player
      * @return
      */
-    public static int valid_moves(byte[][] chess,byte player){
+    public static Bag<Move> valid_moves(byte[][] chess,byte player){
+        Bag<Move> bag = new Bag<>();
         //定义五个参数，rowdelta和coldelta为边界+1-1,x和y为棋盘坐标
         //no_of_moves为累计不能走的棋子数
         int rowdelta,coldelta,x,y,no_of_moves = 0;
@@ -72,7 +74,7 @@ public class GameRule {
                                     break;
                                 //如果棋盘上还有玩家可下的棋子时，将可移动数组设置为true，能走的步数自增
                                 if(chess[x][y] == player){
-                                    no_of_moves++;
+                                    bag.add(Move.builder().row((byte) x).col((byte)y).build());
                                     break;
                                 }
                             }
@@ -82,7 +84,7 @@ public class GameRule {
             }
         }
         //返回剩下能下的位置的no_of_moves的值
-        return no_of_moves;
+        return bag;
     }
 
     public static int valid_moves(byte[][] chess,boolean[][] moves,byte player){

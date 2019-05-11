@@ -65,6 +65,14 @@ public class Bag<T> implements Iterable<T>{
     }
 
     /**
+     * 是否为空
+     * @return
+     */
+    public boolean isEmpty(){
+        return head.next == null;
+    }
+
+    /**
      * 结点类
      * @param <T>
      */

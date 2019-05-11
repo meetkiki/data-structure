@@ -99,7 +99,7 @@ public class ParallelNegaMax {
             } else {
                 // 没有可走子 交给对方
                 data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                if (GameRule.valid_moves(data.getChess(), data.getCurrMove()) > 0){
+                if (!GameRule.valid_moves(data.getChess(), data.getCurrMove()).isEmpty()){
                     return new NegaMaxRun(data, depth - 1).fork().join();
                 }else{
                     data.setCurrMove(BoardUtil.change(data.getCurrMove()));

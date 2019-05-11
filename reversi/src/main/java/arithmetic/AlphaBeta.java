@@ -3,11 +3,12 @@ package arithmetic;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
+import common.Bag;
 import common.Constant;
 import game.GameRule;
 import utils.BoardUtil;
 
-import static common.Constant.SIZE;
+import java.util.Iterator;
 
 /**
  * alphaBeta 算法
@@ -43,10 +44,10 @@ public class AlphaBeta {
         Move move = null;
         try {
             byte[][] chess = data.getChess();
-            boolean[][] moves = new boolean[SIZE][SIZE];
-            if (GameRule.valid_moves(data, moves) <= 0) {
+            Bag<Move> moves = GameRule.valid_moves(chess, data.getCurrMove());
+            if (moves.isEmpty()) {
                 // 没有可走子 交给对方
-                if (GameRule.valid_moves(chess, data.getCurrMove() == Constant.WHITE ? Constant.BLACK : Constant.WHITE) > 0){
+                if (!GameRule.valid_moves(chess, data.getCurrMove() == Constant.WHITE ? Constant.BLACK : Constant.WHITE).isEmpty()){
                     data.setCurrMove(BoardUtil.change(data.getCurrMove()));
                     return alphaBeta(data, -beta, -alpha, depth).inverseMark();
                 }
@@ -57,21 +58,18 @@ public class AlphaBeta {
             move = null;
             // 当前最佳估值，预设为负无穷大 己方估值为最小
             // 遍历每一种走法
-            for(byte row=0;row<SIZE;++row){
-                for(byte col=0;col<SIZE;++col) {
-                    if (moves[row][col]) {
-                        Move curMove = Move.builder().row(row).col(col).build();
-                        int value = moveValue(data, curMove, alpha, beta, depth);
-                        // 通过向上传递的值修正下限
-                        if (value > alpha) {
-                            // 当向上传递的值大于上限时 剪枝
-                            if (value >= beta){
-                                return MinimaxResult.builder().mark(value).move(move).build();
-                            }
-                            alpha = value;
-                            move = curMove;
-                        }
+            Iterator<Move> moveIterator = moves.iterator();
+            while (moveIterator.hasNext()){
+                Move curMove = moveIterator.next();
+                int value = moveValue(data, curMove, alpha, beta, depth);
+                // 通过向上传递的值修正下限
+                if (value > alpha) {
+                    // 当向上传递的值大于上限时 剪枝
+                    if (value >= beta){
+                        return MinimaxResult.builder().mark(value).move(move).build();
                     }
+                    alpha = value;
+                    move = curMove;
                 }
             }
         } catch (Exception e) {

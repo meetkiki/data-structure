@@ -11,5 +11,11 @@
 
     <artifactId>reversi</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>data-structure</groupId>
+            <artifactId>graph</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>
