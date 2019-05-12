@@ -19,7 +19,7 @@ import java.util.Iterator;
 public class AlphaBeta {
 
 
-    public static int Depth = 6;
+    public static int Depth = 7;
     public static int MAX = 1000000;
     public static int MIN = -1000000;
 
@@ -45,12 +45,11 @@ public class AlphaBeta {
         Bag<Integer> moves = new Bag<>();
         byte[] chess = data.getChess();
         GameRule.valid_moves(data,moves);
-//        BoardUtil.display(data);
         if (moves.isEmpty()) {
             // 没有可走子 交给对方
             if (GameRule.valid_moves(chess, BoardUtil.change(data.getCurrMove())) > 0){
                 data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                return alphaBeta(data, -beta, -alpha, depth).inverseMark();
+                return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark();
             }
             // 终局
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();

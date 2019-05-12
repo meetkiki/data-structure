@@ -42,7 +42,7 @@ public class AlphaBetaListener implements Observer {
 //            if (boardData.getCurrMove() == Constant.WHITE){
 //                AlphaBeta.Depth = 5;
 //            }else{
-//                AlphaBeta.Depth = 8;
+//                AlphaBeta.Depth = 7;
 //            }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(cloneData);

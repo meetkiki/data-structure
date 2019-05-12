@@ -12,6 +12,7 @@ import utils.BoardUtil;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.RecursiveAction;
 
 import static game.Board.BOARD_HEIGHT;
