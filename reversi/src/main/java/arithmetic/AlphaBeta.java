@@ -17,7 +17,7 @@ import java.util.Iterator;
 public class AlphaBeta {
 
 
-    public static int Depth = 8;
+    public static int Depth = 9;
     public static int MAX = Integer.MAX_VALUE;
     public static int MIN = Integer.MIN_VALUE;
 
@@ -47,7 +47,7 @@ public class AlphaBeta {
             // 没有可走子 交给对方
             if (GameRule.valid_moves(chess, BoardUtil.change(data.getCurrMove())) > 0){
                 data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark(1.2);
+                return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark();
             }
             // 终局
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
