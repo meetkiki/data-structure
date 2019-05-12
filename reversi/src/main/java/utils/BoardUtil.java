@@ -1,7 +1,7 @@
 package utils;
 
 import bean.BoardChess;
-import bean.BoardData;
+import bean.Move;
 import common.Constant;
 import common.ImageConstant;
 import game.Chess;
@@ -16,7 +16,6 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 
 import static common.Constant.DELAY;
-import static common.Constant.MODEL;
 import static common.Constant.SIZE;
 
 /**
@@ -138,7 +137,7 @@ public class BoardUtil {
 		System.out.println("===================chess==================");
 		boolean[][] moves = new boolean[SIZE][SIZE];
 		GameRule.valid_moves(data,moves);
-
+		byte[] chess = data.getChess();
 		char col_label = 'a';
 		//打印第一行的a-z字母标识
 		byte col = 0,row=0;
@@ -157,7 +156,7 @@ public class BoardUtil {
 			System.out.printf("\n%2d |",row+1);
 			for(col = 0;col<SIZE;++col){
 				if(!moves[row][col]){
-					byte bChess = data.square(row,col);
+					byte bChess = chess[squareChess(row,col)];
 					char cChess = ' ';
 					switch (bChess){
 						case Constant.WHITE: cChess = 'o';break;
@@ -197,14 +196,61 @@ public class BoardUtil {
 	}
 
 	/**
+	 * 获取位置棋子
+	 *  0 <= row <= 7
+	 *  0 <= col <= 7
+	 * @return
+	 */
+	public static byte squareChess(byte row, byte col){
+		return (byte) (10 + col + row * 9);
+	}
+
+	/**
+	 * 获取位置棋子
+	 *  0 <= row <= 7
+	 *  0 <= col <= 7
+	 * @return
+	 */
+	public static byte squareChess(Move move){
+		return (byte) (10 + move.getCol() + move.getRow() * 9);
+	}
+
+
+	/**
+	 * 获取位置棋子
+	 *  0 <= row <= 7
+	 *  0 <= col <= 7
+	 * @return
+	 */
+	public static Move convertMove(byte[] chess, byte cell){
+		if (chess[cell] == Constant.BOUNDARY){
+			return null;
+		}
+		byte row = (byte) ((cell - 10) / 9);
+		byte col = (byte) ((cell - 10) % 9);
+		return Move.builder().row(row).col(col).build();
+	}
+
+	/**
+	 * 转化棋盘数据
+	 * @param src
+	 * @return
+	 */
+	public static void convert(Chess[][] src,byte[] desc){
+		// 初始化棋子
+		for(byte row=0;row<SIZE;row++)
+			for(byte col=0;col<SIZE;col++)
+				desc[BoardUtil.squareChess(row,col)] = src[row][col].getChess();
+	}
+
+	/**
 	 * 克隆棋盘数据
 	 * @param src
 	 * @return
 	 */
 	public static BoardChess cloneChess(BoardChess src){
 		byte[] srcChess = src.getChess();
-		byte[] chess = new byte[MODEL];
-		System.arraycopy(srcChess,0,chess,0,MODEL);
-		return BoardChess.builder().chess(chess).currMove(src.getCurrMove()).build();
+		byte player = src.getCurrMove();
+		return new BoardChess(srcChess,player);
 	}
 }

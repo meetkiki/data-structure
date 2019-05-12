@@ -75,7 +75,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
             // 显示棋盘
             makeMove = GameRule.getMakeMove(board, move);
             Integer next = makeMove.fork().join();
-
             if (next > 0){
                 // 交给计算机处理
                 AiRun run = new AiRun();

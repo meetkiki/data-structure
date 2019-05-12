@@ -4,6 +4,7 @@ import bean.BoardData;
 import common.Constant;
 import common.ImageConstant;
 import interactive.MouseListener;
+import utils.BoardUtil;
 
 import javax.swing.*;
 import java.awt.Dimension;
@@ -45,7 +46,7 @@ public class Board extends JPanel {
         imageIconMap = GameContext.getResources();
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
-        initBoard();
+        this.initBoard();
         this.addMouseListener(new MouseListener(this));
     }
 
@@ -64,7 +65,6 @@ public class Board extends JPanel {
         initChess();
         // 获取行动力
         GameRule.valid_moves(boardData,moves);
-        //BoardUtil.display(boardChess);
         // 显示棋盘
         upshow();
     }

@@ -5,7 +5,6 @@ import bean.BoardData;
 import bean.Move;
 import common.Bag;
 import common.Constant;
-import common.DirEnum;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
 import static common.Constant.DIRALL;
+import static common.Constant.MODEL;
 import static common.Constant.SIZE;
 import static common.Constant.dirInc;
 import static common.Constant.dirMask;
@@ -27,7 +27,7 @@ public class GameRule {
      * 获得行动力
      * */
     public static int valid_moves(BoardData data,boolean[][] moves){
-        byte[][] chess = data.getBytes();
+        Chess[][] chess = data.getChess();
         return valid_moves(chess,moves,data.getCurrMove());
     }
 
@@ -42,7 +42,7 @@ public class GameRule {
         int pt = cell + dir;
         byte opt = BoardUtil.change(player);
         // 有对方棋子才可走子
-        if (pt == opt){
+        if (chess[pt] == opt){
             // 朝这个方向前进 直到遇到边界或者非对手子
             while (chess[pt] == opt){
                 pt += dir;
@@ -59,9 +59,13 @@ public class GameRule {
     public static boolean canFlips(byte[] chess, byte cell, byte player){
         // 在八个方向试探 任意一个方向可以翻转对手就返回true
         for (int i = 0; i < DIRALL; i++) {
+            // 八位 每一位的位运算 00000001 、00000010 、00000100 、00001000...
+            // 分别对应方向数组 从右往左的值dirInc[i]
             int mask = 0x01 << i;
             if ((dirMask[cell] & mask) != 0){
-                if (canSingDirFlips(chess,dirInc[i],cell,player));
+                if (canSingDirFlips(chess,dirInc[i],cell,player)){
+                    return true;
+                }
             }
         }
         return false;
@@ -71,10 +75,34 @@ public class GameRule {
     /**
      * 获得行动力
      * */
-    public static int valid_moves(BoardChess chess){
-        int canMove = 0;
+    public static void valid_moves(BoardChess chess,Bag<Integer> moves){
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
+        for (int i = 0; i < MODEL; i++) {
+            // 如果有子不可落子
+            if (bytes[i] == Constant.WHITE || bytes[i] == Constant.BLACK || bytes[i] == Constant.BOUNDARY){
+                continue;
+            }
+            if (canFlips(bytes, (byte) i,player)){
+                moves.add(i);
+            }
+        }
+    }
+
+    /**
+     * 获得行动力
+     * */
+    public static int valid_moves(BoardChess chess){
+        byte[] bytes = chess.getChess();
+        byte player = chess.getCurrMove();
+        return valid_moves(bytes,player);
+    }
+
+    /**
+     * 获得行动力
+     * */
+    public static int valid_moves(byte[] bytes,byte player){
+        int canMove = 0;
         for (int i = 0; i < bytes.length; i++) {
             if (canFlips(bytes, (byte) i,player)){
                 canMove++;
@@ -91,8 +119,12 @@ public class GameRule {
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         for (int i = 0; i < bytes.length; i++) {
+            // 如果有子不可落子
+            if (bytes[i] == Constant.WHITE || bytes[i] == Constant.BLACK || bytes[i] == Constant.BOUNDARY){
+                continue;
+            }
             if (canFlips(bytes, (byte) i,player)){
-                Move move = chess.move((byte) i);
+                Move move = BoardUtil.convertMove(bytes,(byte) i);
                 moves[move.getRow()][move.getCol()] = true;
                 canMove++;
             }
@@ -100,63 +132,69 @@ public class GameRule {
         return canMove;
     }
 
-
     /**
-     * 获得行动力
-     *
-     * @param chess
-     * @param player
+     * 单方向搜索吃子
      * @return
      */
-    public static Bag<Move> valid_moves(byte[][] chess,byte player){
-        Bag<Move> bag = new Bag<>();
-        //定义五个参数，rowdelta和coldelta为边界+1-1,x和y为棋盘坐标
-        //no_of_moves为累计不能走的棋子数
-        int rowdelta,coldelta,x,y,no_of_moves = 0;
-        //定义棋盘的行列row和col
-        byte row = 0,col = 0;
-        //当前对手
-        byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
-        for(row=0;row<SIZE;row++){
-            for(col=0;col<SIZE;col++){
-                // 如果棋盘不为空，则跳出当层循环
-                byte curr = chess[row][col];
-                if(curr != Constant.EMPTY && curr != Constant.DOT_W && curr != Constant.DOT_B)
-                    continue;
-                //判断在一行列上或者斜线上的棋子是否可行[周围]
-                for(rowdelta = -1;rowdelta<=1;++rowdelta){
-                    for(coldelta=-1;coldelta<=1;++coldelta){
-                        //如果走到边界时，则跳出本次判断
-                        if(isBorder(rowdelta, coldelta, row, col))
-                            continue;
-                        //如果移动者的步数和棋盘周围相同时【存在】，允许下一步
-                        if(chess[row + rowdelta][col + coldelta] == other){
-                            x = row + rowdelta;
-                            y = col + coldelta;
-                            while(true){
-                                x += rowdelta;
-                                y += coldelta;
-                                //如果x超出边界或者y超出边界或者棋盘为空时跳出循环
-                                boolean empty = x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y] == Constant.EMPTY;
-                                if(empty)
-                                    break;
-                                //如果棋盘上还有玩家可下的棋子时，将可移动数组设置为true，能走的步数自增
-                                if(chess[x][y] == player){
-                                    bag.add(Move.builder().row((byte) x).col((byte) y).build());
-                                    break;
-                                }
-                            }
-                        }
-                    }
+    private static int singDirFlips(byte[] chess, byte dir, int cell,byte player){
+        // 这个方向的棋子
+        int pt = cell + dir,count = 0;
+        byte opt = BoardUtil.change(player);
+        // 有对方棋子才可走子
+        if (chess[pt] == opt){
+            // 朝这个方向前进 直到遇到边界或者非对手子
+            while (chess[pt] == opt){
+                pt += dir;
+            }
+            // 如果是己方子 则返回吃子
+            if (chess[pt] == player){
+                pt -= dir;
+                // 朝这个方向前进 直到遇到边界或者非对手子
+                while (chess[pt] == opt){
+                    count++;
+                    chess[pt] = player;
+                    pt -= dir;
                 }
             }
         }
-        //返回剩下能下的位置的no_of_moves的值
-        return bag;
+        return count;
     }
 
+    /**
+     * 走棋方法,传入走棋坐标xy，走棋者
+     * 仅搜索和模拟
+     *  changes 吃子数组
+     *  only    简洁操作
+     */
+    public static int make_move(BoardChess data, int cell){
+        byte[] chess = data.getChess();
+        byte player = data.getCurrMove();
+        return make_move(chess,cell,player);
+    }
 
-    public static int valid_moves(byte[][] chess,boolean[][] moves,byte player){
+    /**
+     * 走棋方法,传入走棋坐标xy，走棋者
+     * 仅搜索和模拟
+     *  changes 吃子数组
+     *  only    简洁操作
+     */
+    public static int make_move(byte[] chess, int cell, byte player){
+        // 返回转变子
+        int count = 0;
+        //将row和col的值更改为player //玩家状态
+        chess[cell] = player;
+        //遍历当前棋子 的周边棋子
+        // 在八个方向试探 任意一个方向可以翻转对手就返回true
+        for (int i = 0; i < DIRALL; i++) {
+            int mask = 0x01 << i;
+            if ((dirMask[cell] & mask) != 0){
+                count += singDirFlips(chess,dirInc[i],cell,player);
+            }
+        }
+        return count;
+    }
+
+    public static int valid_moves(Chess[][] chess,boolean[][] moves,byte player){
         //定义五个参数，rowdelta和coldelta为边界+1-1,x和y为棋盘坐标
         //no_of_moves为累计不能走的棋子数
         int rowdelta,coldelta,x,y,no_of_moves = 0;
@@ -170,7 +208,7 @@ public class GameRule {
         for(row=0;row<SIZE;row++){
             for(col=0;col<SIZE;col++){
                 // 如果棋盘不为空，则跳出当层循环
-                byte curr = chess[row][col];
+                byte curr = chess[row][col].getChess();
                 if(curr != Constant.EMPTY && curr != Constant.DOT_W && curr != Constant.DOT_B)
                     continue;
                 //判断在一行列上或者斜线上的棋子是否可行[周围]
@@ -180,18 +218,18 @@ public class GameRule {
                         if(isBorder(rowdelta, coldelta, row, col))
                             continue;
                         //如果移动者的步数和棋盘周围相同时【存在】，允许下一步
-                        if(chess[row + rowdelta][col + coldelta] == other){
+                        if(chess[row + rowdelta][col + coldelta].getChess() == other){
                             x = row + rowdelta;
                             y = col + coldelta;
                             while(true){
                                 x += rowdelta;
                                 y += coldelta;
                                 //如果x超出边界或者y超出边界或者棋盘为空时跳出循环
-                                boolean empty = x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y] == Constant.EMPTY;
+                                boolean empty = x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y].getChess() == Constant.EMPTY;
                                 if(empty)
                                     break;
                                 //如果棋盘上还有玩家可下的棋子时，将可移动数组设置为true，能走的步数自增
-                                if(chess[x][y] == player){
+                                if(chess[x][y].getChess() == player){
                                     moves[row][col] = true;
                                     no_of_moves++;
                                     break;
@@ -272,51 +310,6 @@ public class GameRule {
                 e.printStackTrace();
             }
             return null;
-        }
-    }
-
-
-    /**
-     * 走棋方法,传入走棋坐标xy，走棋者
-     * 仅搜索和模拟
-     *  changes 吃子数组
-     *  only    简洁操作
-     */
-    public static void make_move(byte[][] chess, Move move, byte player){
-        byte rowdelta,coldelta,x,y;
-        byte row = move.getRow();
-        byte col = move.getCol();
-        byte other = (player == Constant.WHITE) ? Constant.BLACK :Constant.WHITE;
-        //将row和col的值更改为player //玩家状态
-        chess[row][col] = player;
-        //遍历当前棋子 的周边棋子
-        for(rowdelta = -1;rowdelta <= 1; ++rowdelta){
-            for(coldelta = -1;coldelta <= 1; ++coldelta){
-                //如果大于边界，则跳出本次判断
-                if(isBorder(rowdelta, coldelta, row, col))
-                    continue;
-                //当走棋的位置周边有对方子时下一步
-                if(chess [row + rowdelta][col + coldelta] == other){
-                    x = (byte) (row + rowdelta);
-                    y = (byte) (col + coldelta);
-                    while(true){
-                        x += rowdelta;
-                        y += coldelta;
-                        //如果x超出边界或者y超出边界或者棋盘为空时跳出循环
-                        boolean empty = x < 0 || x >= SIZE || y < 0 || y >= SIZE || chess[x][y] == Constant.EMPTY;
-                        if(empty)
-                            break;
-                        //如果在这个连线上找到己方子 则吃掉中间子
-                        if(chess[x][y] == player){
-                            //循环吃子
-                            while(chess[x -= rowdelta][y -= coldelta] == other){
-                                chess[x][y] = player;
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
         }
     }
 
