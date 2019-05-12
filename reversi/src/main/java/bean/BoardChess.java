@@ -38,7 +38,7 @@ public class BoardChess {
 
     public BoardChess(){
         this.chess = new byte[MODEL];
-        this.currMove = Constant.WHITE;
+        this.currMove = Constant.BLACK;
         this.empty = new Bag<>();
     }
 

@@ -20,7 +20,7 @@ public class BoardData {
      *  WHITE
      *  BLACK
      */
-    private byte currMove = Constant.WHITE;
+    private byte currMove = Constant.BLACK;
 
     public Chess[][] getChess() {
         return chess;

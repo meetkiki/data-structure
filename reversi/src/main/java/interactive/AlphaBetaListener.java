@@ -36,13 +36,15 @@ public class AlphaBetaListener implements Observer {
         // 棋盘UI
         Board board = mouseListener.getBoard();
 //        while (GameRule.valid_moves(board.getBoardData(),board.getMoves()) > 0 || GameRule.valid_moves(board.getBoardData().getBytes(), board.setCurrMove(BoardUtil.change(board.getCurrMove()))) > 0){
-            // 棋盘数据
+        // 棋盘数据
+        Integer join = 0;
+        while (join == 0){
             BoardData boardData = board.getBoardData();
             BoardChess cloneData = boardData.cloneChess();
 //            if (boardData.getCurrMove() == Constant.WHITE){
-//                AlphaBeta.Depth = 5;
+//                AlphaBeta.Depth = 3;
 //            }else{
-//                AlphaBeta.Depth = 7;
+//                AlphaBeta.Depth = 4;
 //            }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
@@ -54,11 +56,14 @@ public class AlphaBetaListener implements Observer {
 
             // 走这步棋
             GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, result.getMove());
-            makeMove.fork().join();
+            join = makeMove.fork().join();
+            if (join == 0){
+                System.out.println("计算机继续走棋");
+            }
             board.upshow();
-
-            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.WHITE));
-            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.BLACK));
+        }
+        System.out.println("WHITE -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.WHITE));
+        System.out.println("BLACK -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.BLACK));
 //        }
     }
 }
