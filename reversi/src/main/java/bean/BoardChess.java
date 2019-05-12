@@ -3,14 +3,10 @@ package bean;
 import common.Bag;
 import common.Constant;
 import game.Chess;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import utils.BoardUtil;
 
 import static common.Constant.MODEL;
-import static common.Constant.SIZE;
 
 /**
  * 计算用棋盘数据
@@ -34,6 +30,11 @@ public class BoardChess {
      * 空位链表
      */
     private Bag<Byte> empty;
+
+    /**
+     * 每一步 步数
+     */
+    private Bag<ChessStep> steps = new Bag<>();
 
     public BoardChess(){
         this.chess = new byte[MODEL];
@@ -71,13 +72,24 @@ public class BoardChess {
     private void initEmpty(byte[] chess) {
         for (byte i = 0; i < MODEL; i++) {
             if (chess[i] == Constant.EMPTY || chess[i] == Constant.DOT_W || chess[i] == Constant.DOT_B){
-                this.empty.add(i);
+                this.empty.addFirst(i);
             }
         }
     }
 
     /**
      * 初始化棋盘数据
+     *  d为边界 x为棋子
+     *     ddddddddd    8
+     *     dxxxxxxxx    17
+     *     dxxxxxxxx    26
+     *     dxxxxxxxx    35
+     *     dxxxxxxxx    44
+     *     dxxxxxxxx    53
+     *     dxxxxxxxx    62
+     *     dxxxxxxxx    71
+     *     dxxxxxxxx    80
+     *     dddddddddd
      */
     public void initChess() {
         for (byte i = 0; i < MODEL; i++) {

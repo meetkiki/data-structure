@@ -61,7 +61,12 @@ public class AlphaBeta {
         Iterator<Integer> moveIterator = moves.iterator();
         while (moveIterator.hasNext()){
             Integer curMove = moveIterator.next();
-            int value = moveValue(data, curMove, alpha, beta, depth);
+            //尝试走这步棋
+            GameRule.make_move(data, curMove);
+            // 将产生的新局面给对方
+            int value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
+            // 悔棋
+            GameRule.un_move(data);
             // 通过向上传递的值修正下限
             if (value > alpha) {
                 // 当向上传递的值大于上限时 剪枝
@@ -74,25 +79,5 @@ public class AlphaBeta {
         }
         return MinimaxResult.builder().mark(alpha).move(move).build();
     }
-
-    /**
-     * 执行方案并返回估值
-     * @param data
-     * @param alpha
-     * @param beta
-     * @param depth
-     * @return
-     */
-    private static int moveValue(BoardChess data,Integer move, int alpha, int beta, int depth){
-        // 创建模拟棋盘
-        BoardChess temdata = BoardUtil.cloneChess(data);
-        //尝试走这步棋
-        GameRule.make_move(temdata, move);
-        temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
-        GameRule.valid_moves(temdata);
-        // 将产生的新局面给对方
-        return -alphaBeta(temdata, -beta , -alpha, depth - 1).getMark();
-    }
-
 
 }

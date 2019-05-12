@@ -72,9 +72,9 @@ public class DepthFirstPaths extends Paths {
         if (!hasPathTo(v)) return null;
         Bag<Integer> bag = new Bag<>();
         for (int i = v; i != s; i = edgeTo[i]) {
-            bag.add(i);
+            bag.addFirst(i);
         }
-        bag.add(s);
+        bag.addFirst(s);
         return bag;
     }
 }

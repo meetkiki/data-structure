@@ -2,12 +2,14 @@ package game;
 
 import bean.BoardChess;
 import bean.BoardData;
+import bean.ChessStep;
 import bean.Move;
 import common.Bag;
 import common.Constant;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.RecursiveTask;
 
@@ -84,7 +86,7 @@ public class GameRule {
                 continue;
             }
             if (canFlips(bytes, (byte) i,player)){
-                moves.add(i);
+                moves.addFirst(i);
             }
         }
     }
@@ -136,9 +138,11 @@ public class GameRule {
      * 单方向搜索吃子
      * @return
      */
-    private static int singDirFlips(byte[] chess, byte dir, int cell,byte player){
+    private static Bag<Byte> singDirFlips(byte[] chess, byte dir, int cell, byte player){
+        // 头结点
+        Bag<Byte> node = new Bag<>();
         // 这个方向的棋子
-        int pt = cell + dir,count = 0;
+        int pt = cell + dir;
         byte opt = BoardUtil.change(player);
         // 有对方棋子才可走子
         if (chess[pt] == opt){
@@ -151,13 +155,15 @@ public class GameRule {
                 pt -= dir;
                 // 朝这个方向前进 直到遇到边界或者非对手子
                 while (chess[pt] == opt){
-                    count++;
+                    // 吃子结点
+                    node.addFirst((byte) pt);
+                    // 建立父子关系
                     chess[pt] = player;
                     pt -= dir;
                 }
             }
         }
-        return count;
+        return node;
     }
 
     /**
@@ -169,7 +175,12 @@ public class GameRule {
     public static int make_move(BoardChess data, int cell){
         byte[] chess = data.getChess();
         byte player = data.getCurrMove();
-        return make_move(chess,cell,player);
+        Bag<ChessStep> steps = data.getSteps();
+        Bag<Byte> empty = data.getEmpty();
+        int count = make_move(chess, steps, empty, cell, player);
+        // 更新棋手
+        data.setCurrMove(BoardUtil.change(player));
+        return count;
     }
 
     /**
@@ -178,20 +189,60 @@ public class GameRule {
      *  changes 吃子数组
      *  only    简洁操作
      */
-    public static int make_move(byte[] chess, int cell, byte player){
+    public static int make_move(byte[] chess,Bag<ChessStep> steps,Bag<Byte> empty, int cell, byte player){
         // 返回转变子
         int count = 0;
         //将row和col的值更改为player //玩家状态
         chess[cell] = player;
+        // 转变链表 方便插入
+        Bag<Byte> convert = new Bag<>();
         //遍历当前棋子 的周边棋子
         // 在八个方向试探 任意一个方向可以翻转对手就返回true
         for (int i = 0; i < DIRALL; i++) {
             int mask = 0x01 << i;
             if ((dirMask[cell] & mask) != 0){
-                count += singDirFlips(chess,dirInc[i],cell,player);
+                Bag<Byte> bag = singDirFlips(chess, dirInc[i], cell, player);
+                count += bag.size();
+                convert.addAll(bag);
             }
         }
+        // 记录移动
+        steps.addFirst(ChessStep.builder().cell((byte) cell).player(player).convert(convert).build());
+        // 移除空链表
+        empty.removeObj(new Byte((byte) cell));
         return count;
+    }
+
+    /**
+     * 悔棋方法
+     * 仅搜索和模拟
+     */
+    public static void un_move(BoardChess data){
+        byte[] chess = data.getChess();
+        Bag<ChessStep> steps = data.getSteps();
+        ChessStep step = steps.pop();
+        Bag<Byte> empty = data.getEmpty();
+        un_move(chess,step,empty);
+        data.setCurrMove(step.getPlayer());
+    }
+
+    /**
+     * 悔棋方法
+     * 仅搜索和模拟
+     */
+    public static void un_move(byte[] chess,ChessStep step,Bag<Byte> empty){
+        byte player = step.getPlayer();
+        byte other = BoardUtil.change(player);
+        byte cell = step.getCell();
+        // 更新空位链表
+        empty.addFirst(cell);
+        // 还原棋子
+        Bag<Byte> convert = step.getConvert();
+        Iterator<Byte> conit = convert.iterator();
+        while (conit.hasNext()){
+            Byte next = conit.next();
+            chess[next] = other;
+        }
     }
 
     public static int valid_moves(Chess[][] chess,boolean[][] moves,byte player){

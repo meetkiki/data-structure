@@ -77,9 +77,8 @@ public class ParallelNegaMax {
                 for (Move curM : nextmoves) {
                     // 创建模拟棋盘
                     BoardChess temdata = BoardUtil.cloneChess(data);
-                    byte[] chess = temdata.getChess();
                     //尝试走这步棋
-                    GameRule.make_move(chess, BoardUtil.squareChess(curM), temdata.getCurrMove());
+                    GameRule.make_move(temdata, BoardUtil.squareChess(curM));
                     temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
                     // 将产生的新局面给对方
                     NegaMaxRun betaRun = new NegaMaxRun(temdata, depth - 1);

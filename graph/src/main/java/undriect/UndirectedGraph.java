@@ -43,8 +43,8 @@ public class UndirectedGraph extends Graph {
      */
     @Override
     public void addEdge(int v, int w) {
-        adjs[v].add(w);
-        adjs[w].add(v);
+        adjs[v].addFirst(w);
+        adjs[w].addFirst(v);
         E++;
     }
 
