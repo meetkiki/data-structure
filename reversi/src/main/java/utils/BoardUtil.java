@@ -138,6 +138,7 @@ public class BoardUtil {
 		boolean[][] moves = new boolean[SIZE][SIZE];
 		GameRule.valid_moves(data,moves);
 		byte[] chess = data.getChess();
+		byte player = data.getCurrMove();
 		char col_label = 'a';
 		//打印第一行的a-z字母标识
 		byte col = 0,row=0;
@@ -166,8 +167,13 @@ public class BoardUtil {
 						default:break;
 					}
 					System.out.printf(" %s |", cChess);
-				}else
-					System.out.print(" . |");
+				}else{
+					if (player == Constant.WHITE){
+						System.out.print(" . |");
+					}else{
+						System.out.print(" ` |");
+					}
+				}
 			}
 			System.out.println();
 		}
@@ -222,8 +228,9 @@ public class BoardUtil {
 	 *  0 <= col <= 7
 	 * @return
 	 */
-	public static Move convertMove(byte[] chess, byte cell){
-		if (chess[cell] == Constant.BOUNDARY){
+	public static Move convertMove(byte cell){
+		// 排除边界
+		if (cell < 10 || cell > 80 || cell % 9 == 0){
 			return null;
 		}
 		byte row = (byte) ((cell - 10) / 9);

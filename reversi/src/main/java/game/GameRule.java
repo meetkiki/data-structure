@@ -126,7 +126,7 @@ public class GameRule {
                 continue;
             }
             if (canFlips(bytes, (byte) i,player)){
-                Move move = BoardUtil.convertMove(bytes,(byte) i);
+                Move move = BoardUtil.convertMove((byte) i);
                 moves[move.getRow()][move.getCol()] = true;
                 canMove++;
             }
@@ -234,6 +234,8 @@ public class GameRule {
         byte player = step.getPlayer();
         byte other = BoardUtil.change(player);
         byte cell = step.getCell();
+        // 恢复原生空位
+        chess[cell] = Constant.EMPTY;
         // 更新空位链表
         empty.addFirst(cell);
         // 还原棋子

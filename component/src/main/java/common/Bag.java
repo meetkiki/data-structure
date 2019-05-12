@@ -2,6 +2,7 @@ package common;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
@@ -31,6 +32,7 @@ public class Bag<T> implements Iterable<T>{
     public Iterator<T> iterator() {
         return new Iterator<T>() {
             Node<T> current = head;
+            Node<T> last = current;
 
             @Override
             public boolean hasNext() {
@@ -39,16 +41,21 @@ public class Bag<T> implements Iterable<T>{
 
             @Override
             public T next() {
-                T t = current.t;
+                last = current;
                 current = current.next;
-                return t;
+                return last.t;
             }
 
             @Override
             public void remove() {
-                Node parent = current.parent;
-                parent.next = current.next;
-                current.next.parent = parent;
+                if (last == head){
+                    head = head.next;
+                    head.parent = null;
+                }else{
+                    Node parent = last.parent;
+                    parent.next = last.next;
+                    last.next.parent = parent;
+                }
             }
         };
     }
@@ -105,13 +112,16 @@ public class Bag<T> implements Iterable<T>{
      * @return
      */
     public T deleteFirst(){
-        if (head.next == null || head.next.t == null){
+        if (head.t == null){
             throw new NullPointerException("头结点为空!");
         }
+        size--;
+        // 删除头
         Node<T> next = head.next;
-        head.next = next.next;
-        next.next.parent = head;
-        return next.t;
+        next.parent = null;
+        T t = head.t;
+        head = next;
+        return t;
     }
 
     /**
@@ -142,6 +152,7 @@ public class Bag<T> implements Iterable<T>{
             T next = it.next();
             if (next.equals(cell)){
                 it.remove();
+                size --;
                 break;
             }
         }
