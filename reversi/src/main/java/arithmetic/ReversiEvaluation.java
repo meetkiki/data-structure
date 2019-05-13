@@ -105,9 +105,9 @@ public class ReversiEvaluation {
      *  head 空位链表  
      * @return
      */
-    private static int countMobility(byte[] chess, Bag<Byte> head, byte player){
+    private static int countMobility(byte[] chess, Bag<Byte> empty, byte player){
         int mobility = 0;
-        Iterator<Byte> em = head.iterator();
+        Iterator<Byte> em = empty.iterator();
         while (em.hasNext()){
             Byte cell = em.next();
             if (GameRule.canFlips(chess,cell,player)){

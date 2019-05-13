@@ -20,6 +20,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import static common.Constant.DELAY;
 import static common.Constant.SIZE;
+import static common.Constant.mapMove;
+import static common.Constant.moveConstant;
 
 /**
  * @author Tao
@@ -228,7 +230,7 @@ public class BoardUtil {
 	 * @return
 	 */
 	public static byte squareChess(Move move){
-		return (byte) (10 + move.getCol() + move.getRow() * 9);
+		return moveConstant[move.getRow()][move.getCol()];
 	}
 
 
@@ -240,12 +242,7 @@ public class BoardUtil {
 	 */
 	public static Move convertMove(byte cell){
 		// 排除边界
-		if (cell < 10 || cell > 80 || cell % 9 == 0){
-			return null;
-		}
-		byte row = (byte) ((cell - 10) / 9);
-		byte col = (byte) ((cell - 10) % 9);
-		return Move.builder().row(row).col(col).build();
+		return mapMove.get(cell);
 	}
 
 	/**

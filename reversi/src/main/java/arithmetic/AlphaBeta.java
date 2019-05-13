@@ -40,7 +40,7 @@ public class AlphaBeta {
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build().inverseMark();
         }
         Bag<Byte> moves = new Bag<>();
         Bag<Byte> empty = data.getEmpty();
@@ -52,7 +52,7 @@ public class AlphaBeta {
         if (moves.isEmpty()) {
             // 跳过
             GameRule.passMove(data);
-            if (GameRule.valid_moves(data) == 0){
+            if (GameRule.valid_moves(data) == Constant.EMPTY){
                 // 终局
                 return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build().inverseMark();
             }

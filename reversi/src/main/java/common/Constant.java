@@ -1,5 +1,11 @@
 package common;
 
+import bean.Move;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * @author Tao
  */
@@ -91,6 +97,38 @@ public class Constant {
 			0,41,41,171,171,171,171,162,162,
 			0,0,0,0,0,0,0,0,0,0
 	};
+	/**
+	 * 移动位置数组 与Warren Smith 棋盘对应
+	 */
+	public static final byte[][] moveConstant = {
+			{10,11,12,13,14,15,16,17},
+			{19,20,21,22,23,24,25,26},
+			{28,29,30,31,32,33,34,35},
+			{37,38,39,40,41,42,43,44},
+			{46,47,48,49,50,51,52,53},
+			{55,56,57,58,59,60,61,62},
+			{64,65,66,67,68,69,70,71},
+			{73,74,75,76,77,78,79,80}
+	};
+	/**
+	 * 移动位置反数组 与标准 棋盘对应
+	 */
+	public static final Map<Byte, Move> mapMove;
+
+	/**
+	 * 缓存位置数组
+	 */
+	static {
+		Map<Byte, Move> byteMoveMap = new HashMap<>();
+		for (byte row = 0; row < SIZE; row++) {
+			for (byte col = 0; col < SIZE; col++) {
+				byte bmove = moveConstant[row][col];
+				Move move = Move.builder().row(row).col(col).build();
+				byteMoveMap.put(bmove,move);
+			}
+		}
+		mapMove = Collections.unmodifiableMap(byteMoveMap);
+	}
 	/**
 	 * 边界
 	 */
