@@ -3,19 +3,17 @@ package game;
 
 import common.Constant;
 import common.ImageConstant;
-import utils.BoardUtil;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.util.Map;
-import java.util.concurrent.CountDownLatch;
 
 /**
  * @author Tao
  */
-public class Chess extends JPanel implements Cloneable{
+public class Chess extends JPanel{
     /**
      * 棋子状态
      */
@@ -135,19 +133,5 @@ public class Chess extends JPanel implements Cloneable{
     public void repaint() {
         super.repaint();
     }
-
-
-    @Override
-    public Chess clone(){
-        Chess clone = null;
-        try {
-            clone = (Chess) super.clone();
-        } catch (CloneNotSupportedException e) {
-            e.printStackTrace();
-        }
-        return clone;
-    }
-
-
 
 }

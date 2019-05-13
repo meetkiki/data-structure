@@ -59,7 +59,7 @@ public class ParallelNegaMax {
             // 如果到达预定的搜索深度
             if (depth <= 0) {
                 // 直接给出估值
-                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
+                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
             }
             // 轮到已方走
             Move move = null;
@@ -77,9 +77,8 @@ public class ParallelNegaMax {
                 for (Move curM : nextmoves) {
                     // 创建模拟棋盘
                     BoardChess temdata = BoardUtil.cloneChess(data);
-                    byte[][] chess = temdata.getChess();
                     //尝试走这步棋
-                    GameRule.make_move(chess, curM, temdata.getCurrMove());
+                    GameRule.make_move(temdata, BoardUtil.squareChess(curM));
                     temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
                     // 将产生的新局面给对方
                     NegaMaxRun betaRun = new NegaMaxRun(temdata, depth - 1);
@@ -99,11 +98,11 @@ public class ParallelNegaMax {
             } else {
                 // 没有可走子 交给对方
                 data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                if (GameRule.valid_moves(data.getChess(), data.getCurrMove()) > 0){
+                if (GameRule.valid_moves(data) > 0){
                     return new NegaMaxRun(data, depth - 1).fork().join();
                 }else{
                     data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                    return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data, data.getCurrMove())).build();
+                    return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
                 }
             }
             return MinimaxResult.builder().mark(best_value).move(move).build();

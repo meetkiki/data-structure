@@ -5,11 +5,9 @@ import common.ImageConstant;
 
 import javax.swing.ImageIcon;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
@@ -24,6 +22,9 @@ public class GameContext {
      */
     private static Map<ImageConstant, ImageIcon> resources = new HashMap<>(32);
 
+    /**
+     * 全局线程池
+     */
     private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
 
     /**

@@ -92,7 +92,7 @@ public class TestUndirectedGraph {
         }
         // 赋值
         for (int i = 0; i < graph.V(); i++) {
-            bags[cc.id(i)].add(i);
+            bags[cc.id(i)].addFirst(i);
         }
         // 显示输出
         for (int i = 0; i < bags.length; i++) {

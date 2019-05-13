@@ -23,6 +23,7 @@
         <module>othre</module>
         <module>graph</module>
         <module>reversi</module>
+        <module>component</module>
     </modules>
 
     <dependencies>
@@ -51,11 +52,11 @@
             <version>3.9</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.jb2011</groupId>-->
-            <!--<artifactId>beautyeye</artifactId>-->
-            <!--<version>1.0.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+        <groupId>org.jb2011</groupId>
+        <artifactId>beautyeye</artifactId>
+        <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>

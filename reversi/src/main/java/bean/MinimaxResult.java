@@ -23,7 +23,15 @@ public class MinimaxResult {
 	 * @return
 	 */
 	public MinimaxResult inverseMark(){
-		this.mark = -this.mark;
+		return inverseMark(1);
+	}
+
+	/**
+	 * 分数取反
+	 * @return
+	 */
+	public MinimaxResult inverseMark(double count){
+		this.mark = (int) - (this.mark * count);
 		return this;
 	}
 }

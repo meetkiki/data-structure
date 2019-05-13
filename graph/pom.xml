@@ -12,4 +12,11 @@
     <artifactId>graph</artifactId>
 
 
+    <dependencies>
+        <dependency>
+            <groupId>data-structure</groupId>
+            <artifactId>component</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

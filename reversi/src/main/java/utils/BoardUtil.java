@@ -1,7 +1,7 @@
 package utils;
 
 import bean.BoardChess;
-import bean.BoardData;
+import bean.Move;
 import common.Constant;
 import common.ImageConstant;
 import game.Chess;
@@ -71,7 +71,6 @@ public class BoardUtil {
 				if(chess == Constant.WHITE) count--;
 				else count++;
 			}else{
-				System.out.println("update Thread : " + Thread.currentThread().getName());
 				//结束任务
 				cancel();
 				//修正图标
@@ -138,8 +137,8 @@ public class BoardUtil {
 		System.out.println("===================chess==================");
 		boolean[][] moves = new boolean[SIZE][SIZE];
 		GameRule.valid_moves(data,moves);
-
-		byte[][] chess = data.getChess();
+		byte[] chess = data.getChess();
+		byte player = data.getCurrMove();
 		char col_label = 'a';
 		//打印第一行的a-z字母标识
 		byte col = 0,row=0;
@@ -157,8 +156,8 @@ public class BoardUtil {
 			//打印第一列【1-SIZE】的值
 			System.out.printf("\n%2d |",row+1);
 			for(col = 0;col<SIZE;++col){
-				if(moves[row][col] == false){
-					byte bChess = chess[row][col];
+				if(!moves[row][col]){
+					byte bChess = chess[squareChess(row,col)];
 					char cChess = ' ';
 					switch (bChess){
 						case Constant.WHITE: cChess = 'o';break;
@@ -168,8 +167,13 @@ public class BoardUtil {
 						default:break;
 					}
 					System.out.printf(" %s |", cChess);
-				}else
-					System.out.print(" . |");
+				}else{
+					if (player == Constant.WHITE){
+						System.out.print(" . |");
+					}else{
+						System.out.print(" ` |");
+					}
+				}
 			}
 			System.out.println();
 		}
@@ -198,17 +202,62 @@ public class BoardUtil {
 	}
 
 	/**
+	 * 获取位置棋子
+	 *  0 <= row <= 7
+	 *  0 <= col <= 7
+	 * @return
+	 */
+	public static byte squareChess(byte row, byte col){
+		return (byte) (10 + col + row * 9);
+	}
+
+	/**
+	 * 获取位置棋子
+	 *  0 <= row <= 7
+	 *  0 <= col <= 7
+	 * @return
+	 */
+	public static byte squareChess(Move move){
+		return (byte) (10 + move.getCol() + move.getRow() * 9);
+	}
+
+
+	/**
+	 * 获取位置棋子
+	 *  0 <= row <= 7
+	 *  0 <= col <= 7
+	 * @return
+	 */
+	public static Move convertMove(byte cell){
+		// 排除边界
+		if (cell < 10 || cell > 80 || cell % 9 == 0){
+			return null;
+		}
+		byte row = (byte) ((cell - 10) / 9);
+		byte col = (byte) ((cell - 10) % 9);
+		return Move.builder().row(row).col(col).build();
+	}
+
+	/**
+	 * 转化棋盘数据
+	 * @param src
+	 * @return
+	 */
+	public static void convert(Chess[][] src,byte[] desc){
+		// 初始化棋子
+		for(byte row=0;row<SIZE;row++)
+			for(byte col=0;col<SIZE;col++)
+				desc[BoardUtil.squareChess(row,col)] = src[row][col].getChess();
+	}
+
+	/**
 	 * 克隆棋盘数据
 	 * @param src
 	 * @return
 	 */
 	public static BoardChess cloneChess(BoardChess src){
-		byte[][] srcChess = src.getChess();
-		byte[][] chess = new byte[SIZE][SIZE];
-		for (int i = 0; i < srcChess.length; i++) {
-			chess[i] = new byte[SIZE];
-			System.arraycopy(srcChess[i],0,chess[i],0,SIZE);
-		}
-		return BoardChess.builder().chess(chess).currMove(src.getCurrMove()).build();
+		byte[] srcChess = src.getChess();
+		byte player = src.getCurrMove();
+		return new BoardChess(srcChess,player);
 	}
 }
