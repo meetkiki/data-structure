@@ -17,7 +17,7 @@ import java.util.Iterator;
 public class AlphaBeta {
 
 
-    public static int Depth = 9;
+    public static int Depth = 12;
     public static int MAX = Integer.MAX_VALUE;
     public static int MIN = Integer.MIN_VALUE;
 

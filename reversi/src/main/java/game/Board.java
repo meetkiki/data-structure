@@ -99,15 +99,15 @@ public class Board extends JPanel {
             protected Void doInBackground(){
                 boolean[][] moves = board.getMoves();
                 Chess[][] chess = board.getChess();
-                for (int i = 0; i < SIZE; i++) {
-                    for (int j = 0; j < SIZE; j++) {
-                        if(moves[i][j]){
+                for (byte row = 0; row < SIZE; row++) {
+                    for (byte col = 0; col < SIZE; col++) {
+                        if(moves[row][col]){
                             //显示可走的棋
-                            chess[i][j].setChess(board.getBoardData().getCanMove());
+                            chess[row][col].setChess(board.getBoardData().getCanMove());
                         }
                         // 设置位置
-                        chess[i][j].setBounds(SPAN + j * ROW,SPAN + i * COL, ROW ,COL);
-                        board.add(chess[i][j]);
+                        chess[row][col].setBounds(SPAN + col * ROW,SPAN + row * COL, ROW ,COL);
+                        board.add(chess[row][col]);
                     }
                 }
                 board.repaint();

@@ -296,38 +296,33 @@ public class GameRule {
 
         @Override
         public Integer compute() {
-            try {
-                BoardData boardData = board.getBoardData();
-                byte nextmove = board.getCurrMove();
-                boolean[][] moves = board.getMoves();
-                Chess[][] chess = board.getChess();
-                BoardChess boardChess = boardData.getBoardChess();
-                GameRule.valid_moves(boardData,moves);
-                byte row = move.getRow();
-                byte col = move.getCol();
-                if (!moves[row][col]){
-                    throw new IllegalArgumentException("当前位置不可下棋!");
-                }
-                // 移除当前子的提示
-                GameRule.removeHint(chess,nextmove);
-                // 移除新的标志
-                removeNew(chess);
-                // 设置新子
-                chess[row][col].setNewPlayer(nextmove);
-                make_move(boardChess,BoardUtil.squareChess(move));
-                Bag<ChessStep> steps = boardChess.getSteps();
-                ChessStep first = steps.first();
-                Bag<Byte> convert = first.getConvert();
-                // 转变
-                BoardUtil.converSion(first,chess);
-                // 更新规则
-                board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-                // 返回对手的可行步数
-                return GameRule.valid_moves(board.getBoardData(), moves);
-            } catch (IllegalArgumentException e) {
-                e.printStackTrace();
+            BoardData boardData = board.getBoardData();
+            byte nextmove = board.getCurrMove();
+            boolean[][] moves = board.getMoves();
+            Chess[][] chess = board.getChess();
+            BoardChess boardChess = boardData.getBoardChess();
+            GameRule.valid_moves(boardData,moves);
+            byte row = move.getRow();
+            byte col = move.getCol();
+            if (!moves[row][col]){
+                throw new IllegalArgumentException("当前位置不可下棋!");
             }
-            return null;
+            // 移除当前子的提示
+            GameRule.removeHint(chess,nextmove);
+            // 移除新的标志
+            removeNew(chess);
+            // 设置新子
+            chess[row][col].setNewPlayer(nextmove);
+            make_move(boardChess,BoardUtil.squareChess(move));
+            Bag<ChessStep> steps = boardChess.getSteps();
+            ChessStep first = steps.first();
+            Bag<Byte> convert = first.getConvert();
+            // 转变
+            BoardUtil.converSion(first,chess);
+            // 更新规则
+            board.setCurrMove(BoardUtil.change(board.getCurrMove()));
+            // 返回对手的可行步数
+            return GameRule.valid_moves(board.getBoardData(), moves);
         }
     }
 

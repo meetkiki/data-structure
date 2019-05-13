@@ -7,6 +7,7 @@ import bean.BoardData;
 import bean.MinimaxResult;
 import common.Constant;
 import game.Board;
+import game.GameContext;
 import game.GameRule;
 
 import java.util.Observable;
@@ -53,7 +54,8 @@ public class AlphaBetaListener implements Observer {
 
             // 走这步棋
             GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, result.getMove());
-            join = makeMove.fork().join();
+            makeMove.fork();
+            join = GameContext.getCall(makeMove);
             if (join == 0){
                 System.out.println("计算机继续走棋");
             }
