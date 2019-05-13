@@ -9,6 +9,7 @@ import common.Constant;
 import game.Board;
 import game.GameContext;
 import game.GameRule;
+import utils.BoardUtil;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -33,17 +34,15 @@ public class AlphaBetaListener implements Observer {
         MouseListener mouseListener = (MouseListener) o;
         // 棋盘UI
         Board board = mouseListener.getBoard();
-//        while (GameRule.valid_moves(board.getBoardData(),board.getMoves()) > 0 || GameRule.valid_moves(board.getBoardData().getBytes(), board.setCurrMove(BoardUtil.change(board.getCurrMove()))) > 0){
-        // 棋盘数据
-        Integer join = 0;
         BoardData boardData = board.getBoardData();
         BoardChess boardChess = boardData.getBoardChess();
-        while (join == 0){
-//            if (boardData.getCurrMove() == Constant.WHITE){
-//                AlphaBeta.Depth = 3;
-//            }else{
-//                AlphaBeta.Depth = 4;
-//            }
+        while (GameRule.valid_moves(boardChess) > 0 || GameRule.valid_moves(boardChess.changePlayer()) > 0){
+            // 棋盘数据
+            if (boardData.getCurrMove() == Constant.WHITE){
+                AlphaBeta.Depth = 3;
+            }else{
+                AlphaBeta.Depth = 4;
+            }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
             long en = System.currentTimeMillis();
@@ -55,14 +54,14 @@ public class AlphaBetaListener implements Observer {
             // 走这步棋
             GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, result.getMove());
             makeMove.fork();
-            join = GameContext.getCall(makeMove);
-            if (join == 0){
-                System.out.println("计算机继续走棋");
+            GameContext.getCall(makeMove);
+            if (GameRule.isShutDown(boardChess)){
+                System.out.println("对局结束!");
+                break;
             }
             board.upshow();
+            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
+            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
         }
-        System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
-        System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
-//        }
     }
 }

@@ -11,7 +11,7 @@ public class Constant {
 	public static final byte BLACK = -1;
 
 	/**
-	 * 标识空位
+	 * 标识空位 或者0
 	 */
 	public static final byte EMPTY = 0;
 

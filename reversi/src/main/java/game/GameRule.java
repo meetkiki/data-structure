@@ -100,16 +100,19 @@ public class GameRule {
     public static int valid_moves(BoardChess chess){
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
-        return valid_moves(bytes,player);
+        Bag<Byte> empty = chess.getEmpty();
+        return valid_moves(bytes,empty,player);
     }
 
     /**
      * 获得行动力
      * */
-    public static int valid_moves(byte[] bytes,byte player){
+    public static int valid_moves(byte[] bytes,Bag<Byte> empty,byte player){
         int canMove = 0;
-        for (int i = 0; i < bytes.length; i++) {
-            if (canFlips(bytes, (byte) i,player)){
+        Iterator<Byte> byteIterator = empty.iterator();
+        while (byteIterator.hasNext()) {
+            Byte aByte = byteIterator.next();
+            if (canFlips(bytes,aByte,player)){
                 canMove++;
             }
         }
@@ -132,13 +135,12 @@ public class GameRule {
         initMoves(moves);
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
-        for (int i = 0; i < bytes.length; i++) {
-            // 如果有子不可落子
-            if (bytes[i] == Constant.WHITE || bytes[i] == Constant.BLACK || bytes[i] == Constant.BOUNDARY){
-                continue;
-            }
-            if (canFlips(bytes, (byte) i,player)){
-                Move move = BoardUtil.convertMove((byte) i);
+        Bag<Byte> empty = chess.getEmpty();
+        Iterator<Byte> byteIterator = empty.iterator();
+        while (byteIterator.hasNext()){
+            Byte aByte = byteIterator.next();
+            if (canFlips(bytes, aByte,player)){
+                Move move = BoardUtil.convertMove(aByte);
                 moves[move.getRow()][move.getCol()] = true;
                 canMove++;
             }
@@ -246,18 +248,32 @@ public class GameRule {
         byte player = step.getPlayer();
         byte other = BoardUtil.change(player);
         byte cell = step.getCell();
+        Bag<Byte> convert = step.getConvert();
+        if (convert.size() == 0){
+            // 上一步为空手
+            return;
+        }
         // 恢复原生空位
         chess[cell] = Constant.EMPTY;
         // 更新空位链表
         empty.addFirst(cell);
         // 还原棋子
-        Bag<Byte> convert = step.getConvert();
         Iterator<Byte> conit = convert.iterator();
         while (conit.hasNext()){
             Byte next = conit.next();
             chess[next] = other;
         }
     }
+
+    /**
+     * 跳过当前对手
+     *  即无棋可走
+     */
+    public static void passMove(BoardChess data){
+        byte player = data.getCurrMove();
+        data.setCurrMove(BoardUtil.change(player));
+    }
+
 
     /**
      * 是否在边界
@@ -270,6 +286,7 @@ public class GameRule {
     private static boolean isBorder(int rowdelta, int coldelta, byte row, byte col) {
         return (row == 0 && rowdelta == -1) || row + rowdelta >= SIZE || (col == 0 && coldelta == -1) || col + coldelta >= SIZE || (rowdelta == 0 && coldelta == 0);
     }
+
 
 
     /**
@@ -373,6 +390,23 @@ public class GameRule {
         }else {
             return dataMoves[move.getRow()][move.getCol()];
         }
+    }
+
+    /**
+     * 是否结束
+     * @return
+     */
+    public static boolean isShutDown(BoardChess boardChess){
+        // 如果没有棋子可下
+        Bag<Byte> empty = boardChess.getEmpty();
+        if (empty.size() == 0){
+            return true;
+        }
+        // 如果双方无棋可走
+        if (GameRule.valid_moves(boardChess) == 0 && GameRule.valid_moves(boardChess.changePlayer()) == 0){
+            return true;
+        }
+        return false;
     }
 
 }

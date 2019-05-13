@@ -1,9 +1,11 @@
 package arithmetic;
 
 import bean.BoardChess;
+import bean.ChessStep;
 import bean.MinimaxResult;
 import bean.Move;
 import common.Bag;
+import common.Constant;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -22,7 +24,8 @@ public class AlphaBeta {
     public static int MIN = -1000000000;
 
     public static MinimaxResult alphaBeta(BoardChess data){
-        return alphaBeta(data, MIN, MAX, Depth);
+        MinimaxResult result = alphaBeta(data, MIN, MAX, Depth);
+        return result;
     }
 
     /**
@@ -41,20 +44,27 @@ public class AlphaBeta {
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
         }
         Bag<Byte> moves = new Bag<>();
-        byte[] chess = data.getChess();
+        Bag<Byte> empty = data.getEmpty();
+        // 棋子已满
+        if (empty.size() == Constant.EMPTY){
+            return MinimaxResult.builder().mark(beta).depth(depth).build();
+        }
         GameRule.valid_moves(data,moves);
         if (moves.isEmpty()) {
-            // 没有可走子 交给对方
-            if (GameRule.valid_moves(chess, BoardUtil.change(data.getCurrMove())) > 0){
-                data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark();
+            Bag<ChessStep> steps = data.getSteps();
+            // 如果上一步也是无子可走则为终局
+            if (steps.first().getConvert().size() == 0){
+                // 终局
+                return MinimaxResult.builder().mark(beta).depth(depth).build();
             }
-            // 终局
-            return MinimaxResult.builder().mark(beta).depth(depth).build();
+            // 跳过
+            GameRule.passMove(data);
+            return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark();
         }
         // 轮到已方走
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
+        int best_value = Integer.MIN_VALUE;
         // 遍历每一种走法
         Iterator<Byte> moveIterator = moves.iterator();
         while (moveIterator.hasNext()){
@@ -65,14 +75,16 @@ public class AlphaBeta {
             int value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
             // 悔棋
             GameRule.un_move(data);
-            // 通过向上传递的值修正下限
-            if (value > alpha) {
-                // 当向上传递的值大于上限时 剪枝
-                if (value >= beta){
-                    return MinimaxResult.builder().mark(value).move(move).depth(depth).build();
-                }
-                alpha = value;
+            if (value > best_value){
                 move = BoardUtil.convertMove(curMove);
+                // 通过向上传递的值修正下限
+                if (value > alpha) {
+                    alpha = value;
+                    // 当向上传递的值大于上限时 剪枝
+                    if (value >= beta){
+                        return MinimaxResult.builder().mark(value).move(move).depth(depth).build();
+                    }
+                }
             }
         }
         return MinimaxResult.builder().mark(alpha).move(move).depth(depth).build();

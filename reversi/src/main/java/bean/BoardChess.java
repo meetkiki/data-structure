@@ -107,4 +107,13 @@ public class BoardChess {
         // 转换棋盘数据
         BoardUtil.convert(chess,this.chess);
     }
+
+    /**
+     * 更新棋手
+     * @return
+     */
+    public BoardChess changePlayer(){
+        BoardUtil.change(this.currMove);
+        return this;
+    }
 }
