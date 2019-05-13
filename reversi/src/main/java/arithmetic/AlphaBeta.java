@@ -19,7 +19,7 @@ import java.util.Iterator;
 public class AlphaBeta {
 
 
-    public static int Depth = 10;
+    public static int Depth = 8;
     public static int MAX = 1000000000;
     public static int MIN = -1000000000;
 
@@ -47,18 +47,16 @@ public class AlphaBeta {
         Bag<Byte> empty = data.getEmpty();
         // 棋子已满
         if (empty.size() == Constant.EMPTY){
-            return MinimaxResult.builder().mark(beta).depth(depth).build();
+            return MinimaxResult.builder().mark(beta).depth(depth).build().inverseMark();
         }
         GameRule.valid_moves(data,moves);
         if (moves.isEmpty()) {
-            Bag<ChessStep> steps = data.getSteps();
-            // 如果上一步也是无子可走则为终局
-            if (steps.first().getConvert().size() == 0){
-                // 终局
-                return MinimaxResult.builder().mark(beta).depth(depth).build();
-            }
             // 跳过
             GameRule.passMove(data);
+            if (GameRule.valid_moves(data) == 0){
+                // 终局
+                return MinimaxResult.builder().mark(beta).depth(depth).build().inverseMark();
+            }
             return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark();
         }
         // 轮到已方走

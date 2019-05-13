@@ -113,7 +113,7 @@ public class BoardChess {
      * @return
      */
     public BoardChess changePlayer(){
-        BoardUtil.change(this.currMove);
+        this.currMove = BoardUtil.change(this.currMove);
         return this;
     }
 }
