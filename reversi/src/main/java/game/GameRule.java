@@ -79,7 +79,7 @@ public class GameRule {
     /**
      * 获得行动力
      * */
-    public static void valid_moves(BoardChess chess,Bag<Integer> moves){
+    public static void valid_moves(BoardChess chess,Bag<Byte> moves){
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         Bag<Byte> empty = chess.getEmpty();
@@ -89,7 +89,7 @@ public class GameRule {
             Byte cell = byteIterator.next();
             if (canFlips(bytes,cell,player)){
                 // 移动链表
-                moves.addFirst(Integer.valueOf(cell));
+                moves.addFirst(cell);
             }
         }
     }

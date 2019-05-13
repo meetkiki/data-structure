@@ -40,7 +40,7 @@ public class AlphaBeta {
             // 直接给出估值
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
         }
-        Bag<Integer> moves = new Bag<>();
+        Bag<Byte> moves = new Bag<>();
         byte[] chess = data.getChess();
         GameRule.valid_moves(data,moves);
         if (moves.isEmpty()) {
@@ -56,9 +56,9 @@ public class AlphaBeta {
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
         // 遍历每一种走法
-        Iterator<Integer> moveIterator = moves.iterator();
+        Iterator<Byte> moveIterator = moves.iterator();
         while (moveIterator.hasNext()){
-            Integer curMove = moveIterator.next();
+            Byte curMove = moveIterator.next();
             //尝试走这步棋
             GameRule.make_move(data, curMove);
             // 将产生的新局面给对方
@@ -72,7 +72,7 @@ public class AlphaBeta {
                     return MinimaxResult.builder().mark(value).move(move).build();
                 }
                 alpha = value;
-                move = BoardUtil.convertMove(curMove.byteValue());
+                move = BoardUtil.convertMove(curMove);
             }
         }
         return MinimaxResult.builder().mark(alpha).move(move).build();
