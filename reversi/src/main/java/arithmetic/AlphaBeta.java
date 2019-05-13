@@ -1,7 +1,6 @@
 package arithmetic;
 
 import bean.BoardChess;
-import bean.ChessStep;
 import bean.MinimaxResult;
 import bean.Move;
 import common.Bag;
@@ -19,7 +18,7 @@ import java.util.Iterator;
 public class AlphaBeta {
 
 
-    public static int Depth = 8;
+    public static int Depth = 10;
     public static int MAX = 1000000000;
     public static int MIN = -1000000000;
 
@@ -47,7 +46,7 @@ public class AlphaBeta {
         Bag<Byte> empty = data.getEmpty();
         // 棋子已满
         if (empty.size() == Constant.EMPTY){
-            return MinimaxResult.builder().mark(beta).depth(depth).build().inverseMark();
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build().inverseMark();
         }
         GameRule.valid_moves(data,moves);
         if (moves.isEmpty()) {
@@ -55,14 +54,13 @@ public class AlphaBeta {
             GameRule.passMove(data);
             if (GameRule.valid_moves(data) == 0){
                 // 终局
-                return MinimaxResult.builder().mark(beta).depth(depth).build().inverseMark();
+                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build().inverseMark();
             }
-            return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark();
+            return alphaBeta(data, -beta, -alpha, depth).inverseMark();
         }
         // 轮到已方走
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
-        int best_value = Integer.MIN_VALUE;
         // 遍历每一种走法
         Iterator<Byte> moveIterator = moves.iterator();
         while (moveIterator.hasNext()){
@@ -73,15 +71,13 @@ public class AlphaBeta {
             int value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
             // 悔棋
             GameRule.un_move(data);
-            if (value > best_value){
+            // 通过向上传递的值修正下限
+            if (value > alpha) {
                 move = BoardUtil.convertMove(curMove);
-                // 通过向上传递的值修正下限
-                if (value > alpha) {
-                    alpha = value;
-                    // 当向上传递的值大于上限时 剪枝
-                    if (value >= beta){
-                        return MinimaxResult.builder().mark(value).move(move).depth(depth).build();
-                    }
+                alpha = value;
+                // 当向上传递的值大于上限时 剪枝
+                if (value >= beta){
+                    return MinimaxResult.builder().mark(value).move(move).depth(depth).build();
                 }
             }
         }

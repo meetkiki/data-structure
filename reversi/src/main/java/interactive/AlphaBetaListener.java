@@ -39,9 +39,9 @@ public class AlphaBetaListener implements Observer {
         while (!GameRule.isShutDown(boardChess)){
             // 棋盘数据
             if (boardData.getCurrMove() == Constant.WHITE){
-                AlphaBeta.Depth = 4;
+                AlphaBeta.Depth = 7;
             }else{
-                AlphaBeta.Depth = 5;
+                AlphaBeta.Depth = 8;
             }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
