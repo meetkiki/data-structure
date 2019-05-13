@@ -1,7 +1,9 @@
 package utils;
 
 import bean.BoardChess;
+import bean.ChessStep;
 import bean.Move;
+import common.Bag;
 import common.Constant;
 import common.ImageConstant;
 import game.Chess;
@@ -9,6 +11,7 @@ import game.GameContext;
 import game.GameRule;
 
 import java.awt.Image;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Timer;
@@ -39,13 +42,20 @@ public class BoardUtil {
 	 * @param chess
 	 * @param //repaint
 	 */
-	public static void converSion(byte chess, List<Chess> curr){
+	public static void converSion(ChessStep step,Chess[][] chess){
+		List<Chess> curr = new ArrayList<>();
+		Bag<Byte> stepConvert = step.getConvert();
+		for (Byte aByte : stepConvert) {
+			Move move = BoardUtil.convertMove(aByte);
+			curr.add(chess[move.getRow()][move.getCol()]);
+		}
+		byte player = step.getPlayer();
 		// 优先修正棋子
-		fixChess(chess,curr);
+		fixChess(player,curr);
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
-		int tem = chess == Constant.WHITE ? 6 : 1;
-		TimerRunTask task = new TimerRunTask(tem,chess,curr);
+		int tem = player == Constant.WHITE ? 6 : 1;
+		TimerRunTask task = new TimerRunTask(tem,player,curr);
 		timer.schedule(task,0,DELAY);
 		chessQueue.put(curr,Constant.START);
 	}

@@ -1,5 +1,6 @@
 package game;
 
+import bean.BoardChess;
 import bean.BoardData;
 import common.Constant;
 import common.ImageConstant;
@@ -31,7 +32,7 @@ public class Board extends JPanel {
      */
     private BoardData boardData = new BoardData();
     /**
-     * 可以下棋位置
+     * 可下子数组
      */
     private boolean[][] moves = new boolean[SIZE][SIZE];
     /**
@@ -74,15 +75,17 @@ public class Board extends JPanel {
      */
     public void initChess(){
         Chess[][] chess = boardData.getChess();
-        byte row,col;
-        for(row=0; row<SIZE; ++row)
-            for(col=0; col<SIZE; ++col)
+        for(byte row=0; row<SIZE; ++row)
+            for(byte col=0; col<SIZE; ++col)
                 chess[row][col] = new Chess(Constant.EMPTY);
         byte mid = (byte)(SIZE >> 1);
         chess[mid - 1][mid - 1].setChess(Constant.WHITE);
         chess[mid][mid].setChess(Constant.WHITE);
         chess[mid - 1][mid].setChess(Constant.BLACK);
         chess[mid][mid - 1].setChess(Constant.BLACK);
+        // 初始化一维棋盘
+        BoardChess boardChess = new BoardChess(chess, boardData.getCurrMove());
+        boardData.setBoardChess(boardChess);
     }
 
     /**

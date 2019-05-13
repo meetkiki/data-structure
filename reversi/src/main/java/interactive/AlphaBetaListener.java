@@ -7,11 +7,8 @@ import bean.BoardData;
 import bean.MinimaxResult;
 import common.Constant;
 import game.Board;
-import game.Chess;
 import game.GameRule;
-import utils.BoardUtil;
 
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -40,14 +37,14 @@ public class AlphaBetaListener implements Observer {
         Integer join = 0;
         while (join == 0){
             BoardData boardData = board.getBoardData();
-            BoardChess cloneData = boardData.cloneChess();
+            BoardChess boardChess = boardData.getBoardChess();
 //            if (boardData.getCurrMove() == Constant.WHITE){
 //                AlphaBeta.Depth = 3;
 //            }else{
 //                AlphaBeta.Depth = 4;
 //            }
             long st = System.currentTimeMillis();
-            MinimaxResult result = AlphaBeta.alphaBeta(cloneData);
+            MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
             long en = System.currentTimeMillis();
             System.out.println("AlphaBeta 耗时 " + (en - st) + "ms");
             System.out.println(result + "Thread : " + Thread.currentThread().getName());

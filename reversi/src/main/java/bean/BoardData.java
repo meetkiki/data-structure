@@ -16,11 +16,19 @@ public class BoardData {
     private Chess[][] chess = new Chess[SIZE][SIZE];
 
     /**
-     * 下一步棋子:白棋优先
+     * 下一步棋子:黑棋优先
      *  WHITE
      *  BLACK
      */
     private byte currMove = Constant.BLACK;
+    /**
+     * 一维棋盘
+     */
+    private BoardChess boardChess;
+
+    public void setBoardChess(BoardChess boardChess) {
+        this.boardChess = boardChess;
+    }
 
     public Chess[][] getChess() {
         return chess;
@@ -36,6 +44,7 @@ public class BoardData {
 
     public void setCurrMove(byte currMove) {
         this.currMove = currMove;
+        this.boardChess.setCurrMove(currMove);
     }
 
     /**
@@ -51,7 +60,7 @@ public class BoardData {
      * 克隆棋盘
      * @return
      */
-    public BoardChess cloneChess(){
-        return new BoardChess(this.chess,this.getCurrMove());
+    public BoardChess getBoardChess(){
+        return boardChess;
     }
 }
