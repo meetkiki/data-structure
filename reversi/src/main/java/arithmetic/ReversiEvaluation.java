@@ -23,9 +23,9 @@ public class ReversiEvaluation {
      */
     private static final int OPENING = 40;
     /**
-     * 中盘 空闲位置18 - 40
+     * 中盘 空闲位置10 - 40
      */
-    private static final int MIDDLE = 18;
+    private static final int MIDDLE = 10;
 
     /**
      * 行动力权重
@@ -38,7 +38,7 @@ public class ReversiEvaluation {
     /**
      * 棋子权重
      */
-    private static final int countWeight = 2;
+    private static final int countWeight = 10;
 
     /**
      * 估值函数
@@ -57,12 +57,16 @@ public class ReversiEvaluation {
         if (emptyCount >= OPENING){
             score += mobilityWeight * (countMobility(chess,empty,player) - countMobility(chess,empty,other));
             return score;
-        }
-        // 行动力和权重
-        score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
-        score += mobilityWeight * (countMobility(chess,empty,player) - countMobility(chess,empty,other));
-        if (emptyCount < MIDDLE){
-            // 行动力 权重和棋子
+        }else if (emptyCount > MIDDLE){
+            // 行动力和权重
+            score += mobilityWeight * (countMobility(chess,empty,player) - countMobility(chess,empty,other));
+            score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
+        }else if (emptyCount != Constant.EMPTY){
+            // 行动力 棋子
+            score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
+            score += mobilityWeight * (countMobility(chess,empty,player) - countMobility(chess,empty,other));
+            score += countWeight * (player_counters(chess,player) - player_counters(chess,other));
+        }else {
             score += countWeight * (player_counters(chess,player) - player_counters(chess,other));
         }
         return score;

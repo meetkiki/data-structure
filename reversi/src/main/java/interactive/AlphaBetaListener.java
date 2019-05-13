@@ -39,9 +39,9 @@ public class AlphaBetaListener implements Observer {
         while (!GameRule.isShutDown(boardChess)){
             // 棋盘数据
             if (boardData.getCurrMove() == Constant.WHITE){
-                AlphaBeta.Depth = 3;
+                AlphaBeta.Depth = 5;
             }else{
-                AlphaBeta.Depth = 4;
+                AlphaBeta.Depth = 6;
             }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
@@ -62,5 +62,7 @@ public class AlphaBetaListener implements Observer {
             System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
             System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
         }
+        System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
+        System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
     }
 }

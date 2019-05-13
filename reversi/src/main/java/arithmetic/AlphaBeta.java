@@ -18,7 +18,7 @@ import java.util.Iterator;
 public class AlphaBeta {
 
 
-    public static int Depth = 10;
+    public static int Depth = 8;
     public static int MAX = 1000000000;
     public static int MIN = -1000000000;
 
@@ -40,21 +40,20 @@ public class AlphaBeta {
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build().inverseMark();
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
         }
         Bag<Byte> moves = new Bag<>();
         Bag<Byte> empty = data.getEmpty();
         // 棋子已满
         if (empty.size() == Constant.EMPTY){
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build().inverseMark();
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
         }
         GameRule.valid_moves(data,moves);
         if (moves.isEmpty()) {
             // 跳过
-            GameRule.passMove(data);
-            if (GameRule.valid_moves(data) == Constant.EMPTY){
-                // 终局
-                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build().inverseMark();
+            if (GameRule.valid_moves(data.changePlayer()) == Constant.EMPTY){
+                // 终局 data.changePlayer()会转换角色
+                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data.changePlayer())).depth(depth).build();
             }
             return alphaBeta(data, -beta, -alpha, depth).inverseMark();
         }
