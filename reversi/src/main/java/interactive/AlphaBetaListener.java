@@ -35,9 +35,9 @@ public class AlphaBetaListener implements Observer {
 //        while (GameRule.valid_moves(board.getBoardData(),board.getMoves()) > 0 || GameRule.valid_moves(board.getBoardData().getBytes(), board.setCurrMove(BoardUtil.change(board.getCurrMove()))) > 0){
         // 棋盘数据
         Integer join = 0;
+        BoardData boardData = board.getBoardData();
+        BoardChess boardChess = boardData.getBoardChess();
         while (join == 0){
-            BoardData boardData = board.getBoardData();
-            BoardChess boardChess = boardData.getBoardChess();
 //            if (boardData.getCurrMove() == Constant.WHITE){
 //                AlphaBeta.Depth = 3;
 //            }else{
@@ -59,8 +59,8 @@ public class AlphaBetaListener implements Observer {
             }
             board.upshow();
         }
-        System.out.println("WHITE -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.WHITE));
-        System.out.println("BLACK -- " + ReversiEvaluation.player_counters(board.getBoardData().getBytes(), Constant.BLACK));
+        System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
+        System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
 //        }
     }
 }

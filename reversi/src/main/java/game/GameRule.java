@@ -116,11 +116,20 @@ public class GameRule {
         return canMove;
     }
 
+    public static void initMoves(boolean[][] moves){
+        for (byte row = 0;row < SIZE;row++){
+            for (byte col = 0;col < SIZE;col++){
+                moves[row][col] = false;
+            }
+        }
+    }
+
     /**
      * 获得行动力
      * */
     public static int valid_moves(BoardChess chess,boolean[][] moves){
         int canMove = 0;
+        initMoves(moves);
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         for (int i = 0; i < bytes.length; i++) {
@@ -293,7 +302,7 @@ public class GameRule {
                 boolean[][] moves = board.getMoves();
                 Chess[][] chess = board.getChess();
                 BoardChess boardChess = boardData.getBoardChess();
-                GameRule.valid_moves(board.getBoardData(),moves);
+                GameRule.valid_moves(boardData,moves);
                 byte row = move.getRow();
                 byte col = move.getCol();
                 if (!moves[row][col]){

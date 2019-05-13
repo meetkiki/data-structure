@@ -34,10 +34,6 @@ public class BoardData {
         return chess;
     }
 
-    public byte[] getBytes() {
-        return new BoardChess(chess,currMove).getChess();
-    }
-
     public byte getCurrMove() {
         return this.currMove;
     }
@@ -56,10 +52,6 @@ public class BoardData {
         return this.currMove == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
     }
 
-    /**
-     * 克隆棋盘
-     * @return
-     */
     public BoardChess getBoardChess(){
         return boardChess;
     }
