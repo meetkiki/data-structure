@@ -279,7 +279,6 @@ public class GameRule {
                         if(chess[x][y].getChess() == player){
                             //循环吃子
                             while(chess[x -= rowdelta][y -= coldelta].getChess() == other){
-                                chess[x][y].onlyChess(player);
                                 // 是否执行动画
                                 changes.add(new Move(x,y));
                             }
