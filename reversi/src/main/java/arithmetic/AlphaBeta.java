@@ -17,9 +17,9 @@ import java.util.Iterator;
 public class AlphaBeta {
 
 
-    public static int Depth = 12;
-    public static int MAX = Integer.MAX_VALUE;
-    public static int MIN = Integer.MIN_VALUE;
+    public static int Depth = 10;
+    public static int MAX = 1000000000;
+    public static int MIN = -1000000000;
 
     public static MinimaxResult alphaBeta(BoardChess data){
         return alphaBeta(data, MIN, MAX, Depth);
@@ -38,7 +38,7 @@ public class AlphaBeta {
         // 如果到达预定的搜索深度
         if (depth <= 0) {
             // 直接给出估值
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
         }
         Bag<Byte> moves = new Bag<>();
         byte[] chess = data.getChess();
@@ -50,7 +50,7 @@ public class AlphaBeta {
                 return alphaBeta(data, -beta, -alpha, depth - 1).inverseMark();
             }
             // 终局
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
+            return MinimaxResult.builder().mark(beta).depth(depth).build();
         }
         // 轮到已方走
         Move move = null;
@@ -69,13 +69,13 @@ public class AlphaBeta {
             if (value > alpha) {
                 // 当向上传递的值大于上限时 剪枝
                 if (value >= beta){
-                    return MinimaxResult.builder().mark(value).move(move).build();
+                    return MinimaxResult.builder().mark(value).move(move).depth(depth).build();
                 }
                 alpha = value;
                 move = BoardUtil.convertMove(curMove);
             }
         }
-        return MinimaxResult.builder().mark(alpha).move(move).build();
+        return MinimaxResult.builder().mark(alpha).move(move).depth(depth).build();
     }
 
 }

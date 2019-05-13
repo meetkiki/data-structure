@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class MinimaxResult {
 	private int mark;
+	private int depth;
 	private Move move;
 
 	/**
