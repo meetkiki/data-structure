@@ -15,7 +15,7 @@ public class Bag<T> implements Iterable<T>{
     private Node<T> head = new Node<>();
     private int size;
 
-
+    public Bag() {}
     /**
      * 插入一个元素
      * @param t
