@@ -28,12 +28,6 @@ import static common.Constant.moveConstant;
  */
 public class BoardUtil {
 
-	/**
-	 * 处理流
-	 *  判断当前是否处理完成
-	 */
-	private static final Map chessQueue = new ConcurrentHashMap();
-
 
 	/**
 	 * 棋子动画
@@ -59,7 +53,6 @@ public class BoardUtil {
 		int tem = player == Constant.WHITE ? 6 : 1;
 		TimerRunTask task = new TimerRunTask(tem,player,curr);
 		timer.schedule(task,0,DELAY);
-		chessQueue.put(curr,Constant.START);
 	}
 
 	/**
@@ -87,24 +80,8 @@ public class BoardUtil {
 				cancel();
 				//修正图标
 				fixImg(chess,curr);
-				// 标识结束
-				chessQueue.put(curr,Constant.END);
 			}
 		}
-	}
-
-	/**
-	 * 是否正在执行转变
-	 *
-	 * 	如果是则阻塞
-	 * @param curr
-	 * @return
-	 */
-	public static boolean isRun(List<Chess> curr){
-		while (Constant.START.equals(chessQueue.get(curr))){
-			GameContext.sleep(10);
-		}
-		return Constant.END.equals(chessQueue.get(curr));
 	}
 
 	/**
