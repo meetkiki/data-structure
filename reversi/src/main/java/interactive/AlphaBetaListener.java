@@ -39,7 +39,7 @@ public class AlphaBetaListener implements Observer {
         while (!GameRule.isShutDown(boardChess)){
             // 棋盘数据
             if (boardData.getCurrMove() == Constant.WHITE){
-                AlphaBeta.Depth = 5;
+                AlphaBeta.Depth = 3;
             }else{
                 AlphaBeta.Depth = 6;
             }
