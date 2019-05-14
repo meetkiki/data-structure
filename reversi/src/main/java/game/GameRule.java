@@ -402,8 +402,12 @@ public class GameRule {
         if (empty.size() == 0){
             return true;
         }
+        byte[] chess = boardChess.getChess();
+        byte player = boardChess.getCurrMove();
+        byte other = BoardUtil.change(player);
         // 如果双方无棋可走
-        if (GameRule.valid_moves(boardChess) == 0 && GameRule.valid_moves(boardChess.changePlayer()) == 0){
+        if (GameRule.valid_moves(chess,empty,player) == Constant.EMPTY
+                && GameRule.valid_moves(chess,empty,other) == Constant.EMPTY){
             return true;
         }
         return false;

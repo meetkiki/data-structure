@@ -37,24 +37,21 @@ public class AlphaBeta {
      * @return
      */
     private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
-        // 如果到达预定的搜索深度
-        if (depth <= 0) {
-            // 直接给出估值
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
-        }
         Bag<Byte> moves = new Bag<>();
         Bag<Byte> empty = data.getEmpty();
-        // 棋子已满
-        if (empty.size() == Constant.EMPTY){
+        // 如果到达预定的搜索深度 // 棋子已满
+        if (depth <= 0 || empty.size() == Constant.EMPTY) {
+            // 直接给出估值
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
         }
         GameRule.valid_moves(data,moves);
         if (moves.isEmpty()) {
-            // 跳过
+            // 当前选择无期可走跳过
             if (GameRule.valid_moves(data.changePlayer()) == Constant.EMPTY){
                 // 终局 data.changePlayer()会转换角色
-                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data.changePlayer())).depth(depth).build();
+                return MinimaxResult.builder().mark(ReversiEvaluation.endValue(data.changePlayer())).depth(depth).build();
             }
+            // 交给对手
             return alphaBeta(data, -beta, -alpha, depth).inverseMark();
         }
         // 轮到已方走
