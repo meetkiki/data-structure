@@ -23,6 +23,10 @@ public class AlphaBeta {
     public static int MIN = -1000000000;
 
     public static MinimaxResult alphaBeta(BoardChess data){
+        Bag<Byte> empty = data.getEmpty();
+        if (empty.size() == 1){
+            return MinimaxResult.builder().move(BoardUtil.convertMove(empty.first())).build();
+        }
         MinimaxResult result = alphaBeta(data, MIN, MAX, Depth);
         return result;
     }

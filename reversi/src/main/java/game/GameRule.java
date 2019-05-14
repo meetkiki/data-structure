@@ -171,7 +171,7 @@ public class GameRule {
                 while (chess[pt] == opt){
                     // 吃子结点
                     node.addFirst((byte) pt);
-                    // 建立父子关系
+                    // 更新子
                     chess[pt] = player;
                     pt -= dir;
                 }

@@ -47,7 +47,8 @@ public class AlphaBetaListener implements Observer {
             MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
             long en = System.currentTimeMillis();
             System.out.println("AlphaBeta 耗时 " + (en - st) + "ms");
-            System.out.println(result + "Thread : " + Thread.currentThread().getName());
+            String move = board.getCurrMove() == Constant.WHITE ? "白" : "黑";
+            System.out.println(result + "currMove :" + move + " Thread : " + Thread.currentThread().getName());
             // 必须要先走玩家棋
             mouseListener.getTask().join();
 
