@@ -1,6 +1,7 @@
 package interactive;
 
 import arithmetic.AlphaBeta;
+import arithmetic.NegaScoutAgent;
 import arithmetic.ReversiEvaluation;
 import bean.BoardChess;
 import bean.BoardData;
@@ -39,16 +40,16 @@ public class AlphaBetaListener implements Observer {
         while (!GameRule.isShutDown(boardChess)){
             // 棋盘数据 r
             if (boardData.getCurrMove() == Constant.WHITE){
-                AlphaBeta.Depth = 5;
+                AlphaBeta.Depth = 2;
             }else{
-                AlphaBeta.Depth = 6;
+                AlphaBeta.Depth = 4;
             }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
             long en = System.currentTimeMillis();
 //            System.out.println("AlphaBeta 耗时 " + (en - st) + "ms");
             String move = board.getCurrMove() == Constant.WHITE ? "白" : "黑";
-            System.out.println(result + "currMove :" + move + " Thread : " + Thread.currentThread().getName());
+            System.out.println(result + "currMove :" + move);
             // 必须要先走玩家棋
             mouseListener.getTask().join();
 
@@ -67,5 +68,6 @@ public class AlphaBetaListener implements Observer {
         }
         System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
         System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
+        BoardUtil.display(boardChess);
     }
 }
