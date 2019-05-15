@@ -7,17 +7,12 @@ import common.Bag;
 import common.Constant;
 import common.ImageConstant;
 import interactive.MouseListener;
-import utils.BoardUtil;
 
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Rectangle;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
-
-import static common.Constant.DELAY;
 import static common.Constant.ROW;
 import static common.Constant.COL;
 import static common.Constant.SIZE;
@@ -135,13 +130,10 @@ public class Board extends JPanel {
                 }
                 return null;
             }
-            @Override
-            protected void done() {
-                board.repaint();
-            }
         };
         swingWorker.execute();
         GameContext.getCall(swingWorker);
+        this.repaint();
     }
 
 
