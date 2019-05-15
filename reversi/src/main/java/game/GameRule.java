@@ -455,6 +455,7 @@ public class GameRule {
         for (int i = 0; i < chess.length; i++) {
             for (int j = 0; j < chess[i].length; j++) {
                 if(chess[i][j].isNewMove()){
+                    chess[i][j].setNewMove(false);
                     byte ch = chess[i][j].getChess();
                     chess[i][j].setChess(ch);
                 }

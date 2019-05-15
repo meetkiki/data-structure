@@ -75,7 +75,23 @@ public class Board extends JPanel {
      * 新游戏
      */
     public void newGame(byte player){
+        this.clear();
         this.initBoard(player);
+    }
+
+    /**
+     * 清空棋盘当前数据
+     */
+    private void clear() {
+        Chess[][] chess = boardData.getChess();
+        for (byte row = 0; row < SIZE; row++) {
+            for (byte col = 0; col < SIZE; col++) {
+                if (chess[row][col] == null){
+                    continue;
+                }
+                this.remove(chess[row][col]);
+            }
+        }
     }
 
     /**
@@ -121,7 +137,11 @@ public class Board extends JPanel {
                             //显示可走的棋
                             chess[row][col].setChess(board.getBoardData().getCanMove());
                         }else{
-                            chess[row][col].setChess(chess[row][col].getChess());
+                            if (chess[row][col].isNewMove()){
+                                chess[row][col].setNewPlayer(chess[row][col].getChess());
+                            }else {
+                                chess[row][col].setChess(chess[row][col].getChess());
+                            }
                         }
                         // 设置位置
                         chess[row][col].setBounds(SPAN + col * ROW,SPAN + row * COL, ROW ,COL);
