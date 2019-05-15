@@ -108,12 +108,4 @@ public class BoardChess {
         BoardUtil.convert(chess,this.chess);
     }
 
-    /**
-     * 更新棋手
-     * @return
-     */
-    public BoardChess changePlayer(){
-        this.currMove = BoardUtil.change(this.currMove);
-        return this;
-    }
 }

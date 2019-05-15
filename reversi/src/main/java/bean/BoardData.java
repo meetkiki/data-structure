@@ -2,6 +2,7 @@ package bean;
 
 import common.Constant;
 import game.Chess;
+import utils.BoardUtil;
 
 import static common.Constant.SIZE;
 
@@ -54,5 +55,14 @@ public class BoardData {
 
     public BoardChess getBoardChess(){
         return boardChess;
+    }
+
+    /**
+     * 更新棋手
+     * @return
+     */
+    public BoardData changePlayer(){
+        this.setCurrMove(BoardUtil.change(this.getCurrMove()));
+        return this;
     }
 }
