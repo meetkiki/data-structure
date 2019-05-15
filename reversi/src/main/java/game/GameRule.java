@@ -11,6 +11,7 @@ import utils.BoardUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 
 import static common.Constant.DIRALL;
@@ -342,6 +343,71 @@ public class GameRule {
             return GameRule.valid_moves(board.getBoardData(), moves);
         }
     }
+
+    /**
+     * 走棋方法
+     * @param board
+     * @param move
+     */
+    public static UnMoveRun getUnMove(Board board){
+        BoardData boardData = board.getBoardData();
+        Bag<ChessStep> steps = boardData.getBoardChess().getSteps();
+        if (steps.isEmpty()){
+            throw new IllegalArgumentException("还未走棋 不可悔棋!");
+        }
+        return new UnMoveRun(board);
+    }
+
+    /**
+     * 异步执行走棋
+     */
+    public static class UnMoveRun extends RecursiveAction {
+
+        private Board board;
+
+        public UnMoveRun(Board board) {
+            this.board = board;
+        }
+
+        @Override
+        public void compute() {
+            BoardData boardData = board.getBoardData();
+            boolean[][] moves = board.getMoves();
+            byte nextmove = board.getCurrMove();
+            Chess[][] chess = board.getChess();
+            BoardChess boardChess = boardData.getBoardChess();
+            Bag<ChessStep> steps = boardChess.getSteps();
+            ChessStep chessStep = steps.pop();
+
+            // 移除当前子的提示
+            GameRule.removeHint(chess,nextmove);
+            // 移除新的标志
+            removeNew(chess);
+
+            // 执行悔棋操作
+            un_move(boardChess);
+
+            byte player = chessStep.getPlayer();
+            Move move = BoardUtil.convertMove(chessStep.getCell());
+            // 恢复原生空位
+            chess[move.getRow()][move.getCol()].setChess(Constant.EMPTY);
+            // 转变子
+            Bag<Byte> convert = chessStep.getConvert();
+            // 还原棋子
+            ChessStep first = steps.first();
+            chessStep.setPlayer(first.getPlayer());
+            BoardUtil.converSion(chessStep,chess);
+            // 设置新子
+            make_move(boardChess,BoardUtil.squareChess(move));
+            Move cur = BoardUtil.convertMove(first.getCell());
+            // 转变
+            chess[cur.getRow()][cur.getCol()].setNewPlayer(nextmove);
+            // 更新规则
+            board.setCurrMove(player);
+            GameRule.valid_moves(boardData,moves);
+        }
+    }
+
 
     /**
      * 移除提示
