@@ -2,6 +2,8 @@ package game;
 
 import bean.BoardChess;
 import bean.BoardData;
+import bean.ChessStep;
+import common.Bag;
 import common.Constant;
 import common.ImageConstant;
 import interactive.MouseListener;
@@ -11,8 +13,11 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
+import static common.Constant.DELAY;
 import static common.Constant.ROW;
 import static common.Constant.COL;
 import static common.Constant.SIZE;
@@ -42,12 +47,13 @@ public class Board extends JPanel {
 
     private Image background;
 
+    private SwingWorker<Void, Void> swingWorker;
+
     public Board(){
         this.setLayout(null);
         imageIconMap = GameContext.getResources();
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
-        this.initBoard();
         this.addMouseListener(new MouseListener(this));
     }
 
@@ -61,9 +67,9 @@ public class Board extends JPanel {
     /**
      * 初始化棋盘参数
      */
-    private void initBoard() {
+    private void initBoard(byte player) {
         // 初始化棋子
-        initChess();
+        initChess(player);
         // 获取行动力
         GameRule.valid_moves(boardData,moves);
         // 显示棋盘
@@ -71,9 +77,16 @@ public class Board extends JPanel {
     }
 
     /**
+     * 新游戏
+     */
+    public void newGame(byte player){
+        this.initBoard(player);
+    }
+
+    /**
      * 初始化棋子
      */
-    public void initChess(){
+    public void initChess(byte player){
         Chess[][] chess = boardData.getChess();
         for(byte row=0; row<SIZE; ++row)
             for(byte col=0; col<SIZE; ++col)
@@ -84,17 +97,25 @@ public class Board extends JPanel {
         chess[mid - 1][mid].setChess(Constant.BLACK);
         chess[mid][mid - 1].setChess(Constant.BLACK);
         // 初始化一维棋盘
-        BoardChess boardChess = new BoardChess(chess, boardData.getCurrMove());
+        BoardChess boardChess = new BoardChess(chess,player);
         boardData.setBoardChess(boardChess);
+        boardData.setCurrMove(player);
     }
 
     /**
-     * 更新棋子显示
+     * 更新棋子显示 异步更新页面 串行更新 不可同时更新
      *  这里使用SwingWorker异步更新UI
      */
     public void upshow(){
+        GameContext.serialExecute(()->{
+            upview();
+        });
+    }
+
+
+    private void upview(){
         Board board = this;
-        SwingWorker<Void, Void> swingWorker = new SwingWorker<Void, Void>() {
+        swingWorker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground(){
                 boolean[][] moves = board.getMoves();
@@ -104,17 +125,29 @@ public class Board extends JPanel {
                         if(moves[row][col]){
                             //显示可走的棋
                             chess[row][col].setChess(board.getBoardData().getCanMove());
+                        }else{
+                            chess[row][col].setChess(chess[row][col].getChess());
                         }
                         // 设置位置
                         chess[row][col].setBounds(SPAN + col * ROW,SPAN + row * COL, ROW ,COL);
                         board.add(chess[row][col]);
                     }
                 }
-                board.repaint();
                 return null;
+            }
+            @Override
+            protected void done() {
+                board.repaint();
             }
         };
         swingWorker.execute();
+        GameContext.getCall(swingWorker);
+    }
+
+
+    @Override
+    public void repaint() {
+        super.repaint();
     }
 
     /**
@@ -141,6 +174,10 @@ public class Board extends JPanel {
     public byte setCurrMove(byte currMove) {
         boardData.setCurrMove(currMove);
         return currMove;
+    }
+
+    public Bag<ChessStep> getSteps() {
+        return boardData.getBoardChess().getSteps();
     }
 
     public BoardData getBoardData() {

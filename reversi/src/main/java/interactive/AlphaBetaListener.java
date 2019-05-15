@@ -37,13 +37,13 @@ public class AlphaBetaListener implements Observer {
         Board board = mouseListener.getBoard();
         BoardData boardData = board.getBoardData();
         BoardChess boardChess = boardData.getBoardChess();
-        while (!GameRule.isShutDown(boardChess)){
+//        while (!GameRule.isShutDown(boardChess)){
             // 棋盘数据 r
-            if (boardData.getCurrMove() == Constant.WHITE){
-                AlphaBeta.Depth = 2;
-            }else{
-                AlphaBeta.Depth = 4;
-            }
+//            if (boardData.getCurrMove() == Constant.WHITE){
+//                AlphaBeta.Depth = 2;
+//            }else{
+//                AlphaBeta.Depth = 4;
+//            }
             long st = System.currentTimeMillis();
             MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
             long en = System.currentTimeMillis();
@@ -62,10 +62,9 @@ public class AlphaBetaListener implements Observer {
             }else if (GameRule.valid_moves(boardChess) == 0){
                 boardData.changePlayer();
             }
-            board.upshow();
 //            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
 //            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
-        }
+//        }
         System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
         System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
         BoardUtil.display(boardChess);

@@ -4,10 +4,13 @@ package game;
 import common.ImageConstant;
 
 import javax.swing.ImageIcon;
+import javax.swing.SwingWorker;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
@@ -26,6 +29,10 @@ public class GameContext {
      * 全局线程池
      */
     private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+    /**
+     * 串行线程
+     */
+    private static ExecutorService singlepool = Executors.newSingleThreadExecutor();
 
     /**
      * 加载图片资源
@@ -84,6 +91,20 @@ public class GameContext {
     }
 
     /**
+     * 获得返回并阻塞
+     * @param <T>
+     * @return
+     */
+    public static<T> T getCall(SwingWorker<T, T> swingWorker){
+        try {
+            return swingWorker.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("线程执行异常",e);
+        }
+    }
+
+    /**
      * 线程睡眠
      * @param ms
      */
@@ -107,6 +128,13 @@ public class GameContext {
         }
     }
 
+    /**
+     * 串行执行一些任务
+     * @param run
+     */
+    public static void serialExecute(Runnable run){
+        singlepool.execute(run);
+    }
 
 
     public static Map<ImageConstant, ImageIcon> getResources() {
