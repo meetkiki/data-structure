@@ -23,7 +23,7 @@ public class MainView extends JPanel {
 
     public MainView(){
         this.setLayout(new BorderLayout());
-        this.board = new Board();
+        this.board = new Board(this);
         this.add(board, BorderLayout.CENTER);
 
         this.menu = new Menu(this);

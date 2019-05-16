@@ -7,6 +7,7 @@ import common.Constant;
 import game.Board;
 import game.GameContext;
 import game.GameRule;
+import game.Menu;
 import utils.BoardUtil;
 
 import java.awt.*;
@@ -43,7 +44,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     public MouseListener(Board board) {
         this.board = board;
-        initListener();
+        this.initListener();
     }
 
     /**
@@ -61,8 +62,12 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         if (move == null || !GameRule.checkMove(board,move)){
             return;
         }
-        MoveRun moveRun = new MoveRun(move);
-        GameContext.submit(moveRun);
+        Menu menu = board.getMenu();
+        if (menu.isOne() && curMove == board.getCurrMove()){
+            MoveRun moveRun = new MoveRun(move);
+            GameContext.submit(moveRun);
+        }
+
     }
 
     /**

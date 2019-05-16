@@ -7,6 +7,7 @@ import common.Bag;
 import common.Constant;
 import common.ImageConstant;
 import interactive.MouseListener;
+import utils.BoardUtil;
 
 import javax.swing.*;
 import java.awt.Dimension;
@@ -44,12 +45,18 @@ public class Board extends JPanel {
 
     private SwingWorker<Void, Void> swingWorker;
 
-    public Board(){
+    private MouseListener listener;
+
+    private MainView mainView;
+
+    public Board(MainView mainView){
         this.setLayout(null);
+        this.mainView = mainView;
         imageIconMap = GameContext.getResources();
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
-        this.addMouseListener(new MouseListener(this));
+        listener = new MouseListener(this);
+        this.addMouseListener(listener);
     }
 
     @Override
@@ -77,6 +84,8 @@ public class Board extends JPanel {
     public void newGame(byte player){
         this.clear();
         this.initBoard(player);
+        // 设置棋手
+        this.listener.setCurMove(player);
     }
 
     /**
@@ -126,6 +135,7 @@ public class Board extends JPanel {
 
     private void upview(){
         Board board = this;
+        BoardUtil.display(getChess(),moves,getCurrMove());
         swingWorker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground(){
@@ -194,5 +204,13 @@ public class Board extends JPanel {
 
     public BoardData getBoardData() {
         return boardData;
+    }
+
+    public MainView getMainView() {
+        return mainView;
+    }
+
+    public Menu getMenu() {
+        return mainView.getMenu();
     }
 }

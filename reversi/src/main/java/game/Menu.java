@@ -1,10 +1,6 @@
 package game;
 
-import bean.BoardData;
-import bean.ChessStep;
-import common.Bag;
 import common.Constant;
-import utils.BoardUtil;
 
 import javax.swing.*;
 import java.awt.Color;
@@ -29,19 +25,19 @@ public class Menu extends JPanel {
     /**
      * / 全局常量.标识.提示
      */
-    public JLabel identify;
+    private JLabel identify;
     /**
      * / 单人、多人、设置、提示、悔棋
      */
-    public JButton OneStart,TwoStart,MenuSet,hint,Undo;
+    private JButton OneStart,TwoStart,MenuSet,hint,Undo;
     /**
      * / 是否双人，是否单人 默认单人模式
      */
-    public boolean isBoth = false,isOne = false;
+    private boolean isBoth = false,isOne = false;
     /**
      * / 等级
      */
-    public int level = 5;
+    private int level = 5;
 
     private MainView mainView;
 
@@ -93,8 +89,9 @@ public class Menu extends JPanel {
                     }
                 }
                 int cho = JOptionPane.showConfirmDialog(mainView, "执黑先行", "是否执黑?", JOptionPane.YES_NO_OPTION);
+                byte player = cho == 0 ? Constant.BLACK : Constant.WHITE;
                 // 开局
-                board.newGame(cho == 0 ? Constant.BLACK : Constant.WHITE);
+                board.newGame(player);
                 // 更新标志
                 isOne = true;
                 isBoth = false;
@@ -140,5 +137,13 @@ public class Menu extends JPanel {
     @Override
     public Dimension getPreferredSize() {
         return new Dimension(WIDTH, HEIGHT);
+    }
+
+    public boolean isOne() {
+        return isOne;
+    }
+
+    public boolean isBoth() {
+        return isBoth;
     }
 }
