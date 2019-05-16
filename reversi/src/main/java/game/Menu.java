@@ -88,15 +88,16 @@ public class Menu extends JPanel {
                 // 如果已经开局
                 if (isOne || isBoth){
                     int log = JOptionPane.showConfirmDialog(mainView, "是否需要重新开局?","提示",JOptionPane.YES_NO_OPTION);
-                    if(log == 0){
-                        // 重新开局
-                        board.newGame(Constant.BLACK);
+                    if(log != 0) {
+                        return;
                     }
-                }else{
-                    // 开局
-                    board.newGame(Constant.BLACK);
-                    isOne = true;
                 }
+                int cho = JOptionPane.showConfirmDialog(mainView, "执黑先行", "是否执黑?", JOptionPane.YES_NO_OPTION);
+                // 开局
+                board.newGame(cho == 0 ? Constant.BLACK : Constant.WHITE);
+                // 更新标志
+                isOne = true;
+                isBoth = false;
             }
         });
         // 两人开始
@@ -116,17 +117,18 @@ public class Menu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 Board board = mainView.getBoard();
-                if (!board.getSteps().isEmpty()){
-                    GameRule.getUnMove(board).fork().join();
-                }else{
+                if (board.getSteps().isEmpty()){
                     JOptionPane.showMessageDialog(mainView, "已是初始棋盘", "提示", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
+                GameRule.getUnMove(board).fork().join();
             }
         });
         // 设置
         MenuSet.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+
             }
         });
     }

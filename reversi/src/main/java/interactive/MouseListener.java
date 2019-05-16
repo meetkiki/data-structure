@@ -28,7 +28,10 @@ import static game.Board.BOARD_WIDTH;
 public class MouseListener extends Observable implements java.awt.event.MouseListener {
 
     private Board board;
-
+    /**
+     * 当前执棋类型
+     */
+    private byte curMove;
     /**
      * 设置监听
      */
@@ -151,6 +154,13 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     }
 
+    public byte getCurMove() {
+        return curMove;
+    }
+
+    public void setCurMove(byte curMove) {
+        this.curMove = curMove;
+    }
 
     public GameRule.MakeMoveRun getTask() {
         return makeMove;

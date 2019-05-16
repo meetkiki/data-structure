@@ -298,6 +298,10 @@ public class GameRule {
      * @param move
      */
     public static MakeMoveRun getMakeMove(Board board,Move move){
+        boolean[][] moves = board.getMoves();
+        if (!moves[move.getRow()][move.getCol()]){
+            throw new IllegalArgumentException("当前位置不可下棋!");
+        }
         return new MakeMoveRun(board,move);
     }
 
@@ -324,9 +328,6 @@ public class GameRule {
             GameRule.valid_moves(boardData,moves);
             byte row = move.getRow();
             byte col = move.getCol();
-            if (!moves[row][col]){
-                throw new IllegalArgumentException("当前位置不可下棋!");
-            }
             // 移除当前子的提示
             GameRule.removeHint(chess,nextmove);
             // 移除新的标志
