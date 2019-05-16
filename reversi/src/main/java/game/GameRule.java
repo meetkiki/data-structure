@@ -338,12 +338,16 @@ public class GameRule {
             ChessStep first = steps.first();
             Bag<Byte> convert = first.getConvert();
             // 转变
-            BoardUtil.converSion(first,chess,DELAY);
+            CountDownLatch latch = BoardUtil.converSion(first, chess, DELAY);
             // 更新规则
             board.setCurrMove(BoardUtil.change(board.getCurrMove()));
             // 返回对手的可行步数
             int can = GameRule.valid_moves(board.getBoardData(), moves);
-            board.upshow();
+            // 异步更新页面
+            GameContext.submit(()->{
+                GameContext.await(latch);
+                board.upshow();
+            });
             return can;
         }
     }
