@@ -84,12 +84,15 @@ public class Menu extends JPanel {
                 // 如果已经开局
                 if (isOne || isBoth){
                     int log = JOptionPane.showConfirmDialog(mainView, "是否需要重新开局?","提示",JOptionPane.YES_NO_OPTION);
-                    if(log != 0) {
+                    if(log != JOptionPane.OK_OPTION) {
                         return;
                     }
                 }
                 int cho = JOptionPane.showConfirmDialog(mainView, "执黑先行", "是否执黑?", JOptionPane.YES_NO_OPTION);
-                byte player = cho == 0 ? Constant.BLACK : Constant.WHITE;
+                if (cho == JOptionPane.CLOSED_OPTION){
+                    return;
+                }
+                byte player = cho == JOptionPane.OK_OPTION ? Constant.BLACK : Constant.WHITE;
                 // 开局
                 board.newGame(player);
                 // 更新标志
@@ -101,6 +104,7 @@ public class Menu extends JPanel {
         TwoStart.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
+
             }
         });
         // 提示
@@ -116,6 +120,10 @@ public class Menu extends JPanel {
                 Board board = mainView.getBoard();
                 if (board.getSteps().isEmpty()){
                     JOptionPane.showMessageDialog(mainView, "已是初始棋盘", "提示", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (board.isRunning()){
+                    JOptionPane.showMessageDialog(mainView, "计算机正在计算,无法悔棋", "提示", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
                 GameRule.getUnMove(board).fork().join();

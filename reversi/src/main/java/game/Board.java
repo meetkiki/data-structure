@@ -49,6 +49,11 @@ public class Board extends JPanel {
 
     private MainView mainView;
 
+    /**
+     * 计算机正在计算
+     */
+    private boolean isRunning;
+
     public Board(MainView mainView){
         this.setLayout(null);
         this.mainView = mainView;
@@ -135,7 +140,7 @@ public class Board extends JPanel {
 
     private void upview(){
         Board board = this;
-        BoardUtil.display(getChess(),moves,getCurrMove());
+//        BoardUtil.display(getChess(),moves,getCurrMove());
         swingWorker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground(){
@@ -212,5 +217,13 @@ public class Board extends JPanel {
 
     public Menu getMenu() {
         return mainView.getMenu();
+    }
+
+    public boolean isRunning() {
+        return isRunning;
+    }
+
+    public void setRunning(boolean running) {
+        isRunning = running;
     }
 }

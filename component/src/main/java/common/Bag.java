@@ -2,7 +2,6 @@ package common;
 
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 /**

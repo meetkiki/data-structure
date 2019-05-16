@@ -13,6 +13,7 @@ import utils.BoardUtil;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveAction;
 
 import static game.Board.BOARD_HEIGHT;
@@ -64,6 +65,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         }
         Menu menu = board.getMenu();
         if (menu.isOne() && curMove == board.getCurrMove()){
+            board.setRunning(true);
             MoveRun moveRun = new MoveRun(move);
             GameContext.submit(moveRun);
         }
@@ -88,8 +90,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
             Integer next = makeMove.fork().join();
             if (next > 0){
                 // 交给计算机处理
-                AiRun run = new AiRun();
-                GameContext.invoke(run);
+                computerMove();
                 return;
             }
             // 如果没有棋可以走 获得返回数据
@@ -100,16 +101,11 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
             GameRule.valid_moves(boardData,moves);
             board.upshow();
         }
-    }
 
-    /**
-     * 异步通知线程
-     */
-    class AiRun extends RecursiveAction{
-        @Override
-        protected void compute() {
+        private void computerMove() {
             setChanged();
             notifyObservers();
+            board.setRunning(false);
         }
     }
 

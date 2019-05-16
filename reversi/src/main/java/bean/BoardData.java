@@ -18,14 +18,15 @@ public class BoardData {
 
     /**
      * 下一步棋子:黑棋优先
-     *  WHITE
-     *  BLACK
+     * WHITE
+     * BLACK
      */
     private byte currMove = Constant.BLACK;
     /**
      * 一维棋盘
      */
     private BoardChess boardChess;
+
 
     public void setBoardChess(BoardChess boardChess) {
         this.boardChess = boardChess;
@@ -46,23 +47,25 @@ public class BoardData {
 
     /**
      * 下一步棋子提示:白棋优先
-     *  DOT_W
-     *  DOT_B
+     * DOT_W
+     * DOT_B
      */
     public byte getCanMove() {
         return this.currMove == Constant.WHITE ? Constant.DOT_W : Constant.DOT_B;
     }
 
-    public BoardChess getBoardChess(){
+    public BoardChess getBoardChess() {
         return boardChess;
     }
 
     /**
      * 更新棋手
+     *
      * @return
      */
-    public BoardData changePlayer(){
+    public BoardData changePlayer() {
         this.setCurrMove(BoardUtil.change(this.getCurrMove()));
         return this;
     }
 }
+
