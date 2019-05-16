@@ -13,10 +13,9 @@ import game.GameRule;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
 
 import static common.Constant.DELAY;
 import static common.Constant.SIZE;
@@ -38,7 +37,9 @@ public class BoardUtil {
 	 * @param chess
 	 * @param //repaint
 	 */
-	public static void converSion(ChessStep step,Chess[][] chess){
+	public static CountDownLatch converSion(ChessStep step, Chess[][] chess, int ms){
+		// 通知线程完成 主线程里调用latch.await()方法
+		CountDownLatch latch = new CountDownLatch(1);
 		List<Chess> curr = new ArrayList<>();
 		Bag<Byte> stepConvert = step.getConvert();
 		for (Byte aByte : stepConvert) {
@@ -51,8 +52,9 @@ public class BoardUtil {
 		Timer timer = new Timer();
 		//根据传参的正负判断转变的棋子方向 6 -> 1 表示黑变白
 		int tem = player == Constant.WHITE ? 6 : 1;
-		TimerRunTask task = new TimerRunTask(tem,player,curr);
-		timer.schedule(task,0,DELAY);
+		TimerRunTask task = new TimerRunTask(tem,player,curr,latch);
+		timer.schedule(task,0,ms);
+		return latch;
 	}
 
 	/**
@@ -62,11 +64,13 @@ public class BoardUtil {
 		private int count;
 		private byte chess;
 		private List<Chess> curr;
+		private CountDownLatch latch;
 
-		public TimerRunTask(int count, byte chess, List<Chess> curr) {
+		public TimerRunTask(int count, byte chess, List<Chess> curr,CountDownLatch latch) {
 			this.count = count;
 			this.chess = chess;
 			this.curr = curr;
+			this.latch = latch;
 		}
 
 		@Override
@@ -76,10 +80,14 @@ public class BoardUtil {
 				if(chess == Constant.WHITE) count--;
 				else count++;
 			}else{
-				//结束任务
-				cancel();
-				//修正图标
-				fixImg(chess,curr);
+				try {
+					//结束任务
+					cancel();
+					//修正图标
+					fixImg(chess,curr);
+				} finally {
+					latch.countDown();
+				}
 			}
 		}
 	}
@@ -147,6 +155,55 @@ public class BoardUtil {
 			for(col = 0;col<SIZE;++col){
 				if(!moves[row][col]){
 					byte bChess = chess[squareChess(row,col)];
+					char cChess = ' ';
+					switch (bChess){
+						case Constant.WHITE: cChess = 'o';break;
+						case Constant.BLACK: cChess = '*';break;
+						case Constant.DOT_B: cChess = '.';break;
+						case Constant.DOT_W: cChess = '\'';break;
+						default:break;
+					}
+					System.out.printf(" %s |", cChess);
+				}else{
+					if (player == Constant.WHITE){
+						System.out.print(" . |");
+					}else{
+						System.out.print(" ` |");
+					}
+				}
+			}
+			System.out.println();
+		}
+		System.out.printf("   +");
+		for(col=0;col<SIZE;++col)
+			System.out.printf("---+");
+		System.out.println();
+	}
+
+	/**
+	 *  /控制台显示棋盘
+	 */
+	public static void display(Chess[][] data,boolean[][] moves,byte player){
+		System.out.println("===================chess==================");
+		char col_label = 'a';
+		//打印第一行的a-z字母标识
+		byte col = 0,row=0;
+		System.out.print("  ");
+		for(col = 0;col<SIZE;++col)
+			System.out.printf("   %c",(char)(col_label+col));
+		System.out.println();
+		//打印棋盘
+		for(row=0;row<SIZE;++row){
+			System.out.printf("   +");
+			col = (byte) SIZE;
+			while(col>0){
+				System.out.printf("---+");--col;
+			}
+			//打印第一列【1-SIZE】的值
+			System.out.printf("\n%2d |",row+1);
+			for(col = 0;col<SIZE;++col){
+				if(!moves[row][col]){
+					byte bChess = data[row][col].getChess();
 					char cChess = ' ';
 					switch (bChess){
 						case Constant.WHITE: cChess = 'o';break;

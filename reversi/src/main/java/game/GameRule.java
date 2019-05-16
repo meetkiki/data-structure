@@ -11,9 +11,11 @@ import utils.BoardUtil;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 
+import static common.Constant.DELAY;
 import static common.Constant.DIRALL;
 import static common.Constant.MODEL;
 import static common.Constant.SIZE;
@@ -336,11 +338,13 @@ public class GameRule {
             ChessStep first = steps.first();
             Bag<Byte> convert = first.getConvert();
             // 转变
-            BoardUtil.converSion(first,chess);
+            BoardUtil.converSion(first,chess,DELAY);
             // 更新规则
             board.setCurrMove(BoardUtil.change(board.getCurrMove()));
             // 返回对手的可行步数
-            return GameRule.valid_moves(board.getBoardData(), moves);
+            int can = GameRule.valid_moves(board.getBoardData(), moves);
+            board.upshow();
+            return can;
         }
     }
 
@@ -371,40 +375,55 @@ public class GameRule {
 
         @Override
         public void compute() {
-            BoardData boardData = board.getBoardData();
-            boolean[][] moves = board.getMoves();
-            byte nextmove = board.getCurrMove();
-            Chess[][] chess = board.getChess();
-            BoardChess boardChess = boardData.getBoardChess();
-            Bag<ChessStep> steps = boardChess.getSteps();
-            ChessStep chessStep = steps.pop();
+            // 悔棋到玩家可走为止
+            byte next = board.getCurrMove();
+            // 只能是final 这里暂时用数组替代
+            CountDownLatch[] latch = new CountDownLatch[1];
+            do {
+                BoardData boardData = board.getBoardData();
+                boolean[][] moves = board.getMoves();
+                byte nextmove = board.getCurrMove();
+                Chess[][] chess = board.getChess();
+                BoardChess boardChess = boardData.getBoardChess();
+                Bag<ChessStep> steps = boardChess.getSteps();
+                ChessStep chessStep = steps.first();
 
-            // 移除当前子的提示
-            GameRule.removeHint(chess,nextmove);
-            // 移除新的标志
-            removeNew(chess);
+                // 移除当前子的提示
+                GameRule.removeHint(chess,nextmove);
+                // 移除新的标志
+                removeNew(chess);
 
-            // 执行悔棋操作
-            un_move(boardChess);
+                // 执行悔棋操作
+                un_move(boardChess);
 
-            byte player = chessStep.getPlayer();
-            Move move = BoardUtil.convertMove(chessStep.getCell());
-            // 恢复原生空位
-            chess[move.getRow()][move.getCol()].setChess(Constant.EMPTY);
-            // 转变子
-            Bag<Byte> convert = chessStep.getConvert();
-            // 还原棋子
-            ChessStep first = steps.first();
-            chessStep.setPlayer(first.getPlayer());
-            BoardUtil.converSion(chessStep,chess);
-            // 设置新子
-            make_move(boardChess,BoardUtil.squareChess(move));
-            Move cur = BoardUtil.convertMove(first.getCell());
-            // 转变
-            chess[cur.getRow()][cur.getCol()].setNewPlayer(nextmove);
-            // 更新规则
-            board.setCurrMove(player);
-            GameRule.valid_moves(boardData,moves);
+                byte player = chessStep.getPlayer();
+                byte other = BoardUtil.change(player);
+                Move move = BoardUtil.convertMove(chessStep.getCell());
+                // 恢复原生空位
+                chess[move.getRow()][move.getCol()].setChess(Constant.EMPTY);
+                // 转变子
+                Bag<Byte> convert = chessStep.getConvert();
+                if (!steps.isEmpty()){
+                    // 还原棋子
+                    ChessStep first = steps.first();
+                    // 设置新子
+                    Move cur = BoardUtil.convertMove(first.getCell());
+                    // 转变
+                    chess[cur.getRow()][cur.getCol()].setNewPlayer(nextmove);
+                    // 转变子
+                    other = first.getPlayer();
+                }
+                chessStep.setPlayer(other);
+                latch[0] = BoardUtil.converSion(chessStep, chess, 20);
+                // 更新规则
+                board.setCurrMove(player);
+                GameRule.valid_moves(boardData,moves);
+            } while (board.getCurrMove() != next);
+            // 异步更新页面
+            GameContext.serialExecute(()->{
+                GameContext.await(latch[0]);
+                board.upshow();
+            });
         }
     }
 
@@ -436,6 +455,7 @@ public class GameRule {
         for (int i = 0; i < chess.length; i++) {
             for (int j = 0; j < chess[i].length; j++) {
                 if(chess[i][j].isNewMove()){
+                    chess[i][j].setNewMove(false);
                     byte ch = chess[i][j].getChess();
                     chess[i][j].setChess(ch);
                 }

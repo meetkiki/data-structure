@@ -55,7 +55,7 @@ public class Constant {
 	/**
 	 * //序列帧间隔
 	 */
-	public static final long DELAY = 100;
+	public static final int DELAY = 50;
 	/**
 	 * 动画图片
 	 */

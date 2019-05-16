@@ -29,7 +29,10 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     private Board board;
 
-
+    /**
+     * 设置监听
+     */
+    private Observer observer;
     /**
      * 当前走棋的task
      */
@@ -44,7 +47,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      * 初始化观察者
      */
     public void initListener(){
-        new AlphaBetaListener(this);
+        observer = new AlphaBetaListener(this);
     }
 
 

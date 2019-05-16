@@ -15,21 +15,28 @@ public class MainView extends JPanel {
     /**
      * 棋盘
      */
-    JPanel board;
+    private Board board;
     /**
      * 菜单
      */
-    JPanel menu;
+    private Menu menu;
 
     public MainView(){
         this.setLayout(new BorderLayout());
-        menu = new Menu();
-        this.add(menu, BorderLayout.EAST);
-
-        board = new Board();
+        this.board = new Board();
         this.add(board, BorderLayout.CENTER);
+
+        this.menu = new Menu(this);
+        this.add(menu, BorderLayout.EAST);
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
 
     /**
      * 宽高
