@@ -345,7 +345,7 @@ public class GameRule {
     }
 
     /**
-     * 走棋方法
+     * 悔棋方法
      * @param board
      * @param move
      */
@@ -359,7 +359,7 @@ public class GameRule {
     }
 
     /**
-     * 异步执行走棋
+     * 异步执行悔棋
      */
     public static class UnMoveRun extends RecursiveAction {
 
