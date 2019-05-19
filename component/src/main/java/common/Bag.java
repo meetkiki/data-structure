@@ -2,6 +2,7 @@ package common;
 
 import lombok.Data;
 
+import java.util.Comparator;
 import java.util.Iterator;
 
 /**
@@ -9,7 +10,7 @@ import java.util.Iterator;
  * @author Tao
  * @param <T>
  */
-public class Bag<T> implements Iterable<T>{
+public class Bag<T> implements Iterable<T> {
 
     private Node<T> head = new Node<>();
     private int size;
@@ -142,6 +143,23 @@ public class Bag<T> implements Iterable<T>{
     }
 
     /**
+     * 查询元素是否存在 返回索引
+     * @param cell
+     */
+    public int indexOf(T cell) {
+        int index = -1;
+        Iterator<T> it = this.iterator();
+        while (it.hasNext()) {
+            index++;
+            T next = it.next();
+            if (next.equals(cell)){
+                return index;
+            }
+        }
+        return -1;
+    }
+
+    /**
      * 移除一个元素
      * @param cell
      */
@@ -157,6 +175,7 @@ public class Bag<T> implements Iterable<T>{
         }
     }
 
+
     /**
      * 结点类
      * @param <T>
@@ -171,6 +190,52 @@ public class Bag<T> implements Iterable<T>{
             this.t = t;
         }
     }
+
+
+    /**
+     * 排序方法 小数据这里先暂时使用插入排序
+     * @param bag
+     * @return
+     */
+    public Bag<T> sort(Bag<T> bag,Comparator<T> com){
+        if (bag.size == 0){
+            return bag;
+        }
+        // 有序结点
+        Node<T> next = bag.head;
+        // 待排序结点
+        Node<T> curr = bag.head.next;
+        // 辅助结点
+        Node<T> aux = new Node<>();
+        aux.next = bag.head;
+        while (curr.next != null) {
+            // 如果待排序值小于当前排序好的值 则插入到头部
+            if (com.compare(curr.t,next.t) < 0){
+                //先把curr节点从当前链表中删除，然后再把cur节点插入到合适位置
+                next.next = curr.next;
+                //从前往后找到l2.val>cur.val,然后把cur节点插入到l1和l2之间
+                Node<T> l1 = aux;
+                Node<T> l2 = aux.next;
+                while (com.compare(curr.t,l2.t) > 0){
+                    l1 = l2;
+                    l2 = l2.next;
+                }
+                //把cur节点插入到l1和l2之间
+                l1.next = curr;
+                //插入合适位置
+                curr.next = l2;
+                //指向下一个待处理节点
+                curr = next.next;
+            }else{
+                next = curr;
+                curr = curr.next;
+            }
+        }
+        bag.head = aux.next;
+        return bag;
+    }
+
+
 
 
 }

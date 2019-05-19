@@ -30,7 +30,22 @@ public class BoardChess {
      * 空位链表
      */
     private Bag<Byte> empty;
-
+    /**
+     * 当前选手行动力
+     */
+    private int nextMobility = 0;
+    /**
+     * 对手行动力
+     */
+    private int otherMobility = 0;
+    /**
+     * 我方稳定子
+     */
+    private Bag<Byte> ourStators = new Bag<>();
+    /**
+     * 对方稳定子
+     */
+    private Bag<Byte> oppStators = new Bag<>();
     /**
      * 每一步 步数
      */
@@ -108,4 +123,35 @@ public class BoardChess {
         BoardUtil.convert(chess,this.chess);
     }
 
+    public int getNextMobility() {
+        return nextMobility;
+    }
+
+    public void setNextMobility(int nextMobility) {
+        this.nextMobility = nextMobility;
+    }
+
+    public int getOtherMobility() {
+        return otherMobility;
+    }
+
+    public void setOtherMobility(int otherMobility) {
+        this.otherMobility = otherMobility;
+    }
+
+    public Bag<Byte> getOurStators() {
+        return ourStators;
+    }
+
+    public void setOurStators(Bag<Byte> ourStators) {
+        this.ourStators = ourStators;
+    }
+
+    public Bag<Byte> getOppStators() {
+        return oppStators;
+    }
+
+    public void setOppStators(Bag<Byte> oppStators) {
+        this.oppStators = oppStators;
+    }
 }

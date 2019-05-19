@@ -309,4 +309,20 @@ public class BoardUtil {
 	public static String getChessStr(byte player){
 		return player == Constant.WHITE ? "白" : "黑";
 	}
+
+	/**
+	 * 左移N位
+	 * @return
+	 */
+	public static Integer leftShift(byte cell,byte n){
+		return ((int)cell) << n;
+	}
+
+	/**
+	 * 右移N位
+	 * @return
+	 */
+	public static byte rightShift(Integer cell,byte n){
+		return (byte) (cell >> n);
+	}
 }

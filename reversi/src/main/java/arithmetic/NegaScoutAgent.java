@@ -4,6 +4,7 @@ import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
 import common.Bag;
+import common.Constant;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -35,15 +36,16 @@ public class NegaScoutAgent{
     	int adaptiveBeta = beta;
     	
     	// Generates all possible moves
-        Bag<Byte> moves = new Bag<>();
+        Bag<Integer> moves = new Bag<>();
         GameRule.valid_moves(board,moves);
     	if (moves.isEmpty())
     		return new MinimaxResult(bestScore,depth,null);
-    	bestMove = BoardUtil.convertMove(moves.first());
+    	bestMove = BoardUtil.convertMove(BoardUtil.rightShift(moves.first(), Constant.BITVALUE));
     	
     	// Go through each move
-        for (Byte move : moves) {
-    		GameRule.make_move(board, move);
+        for (Integer curMove : moves) {
+			byte move = BoardUtil.rightShift(curMove, Constant.BITVALUE);
+			GameRule.make_move(board, move);
     		// Recurse
 			MinimaxResult current = abNegascout(board, depth - 1, -adaptiveBeta, - Math.max(alpha,bestScore));
     		

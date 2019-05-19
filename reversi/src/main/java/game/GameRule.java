@@ -82,43 +82,74 @@ public class GameRule {
     /**
      * 获得行动力
      * */
-    public static void valid_moves(BoardChess chess,Bag<Byte> moves){
+    public static void valid_moves(BoardChess chess,Bag<Integer> moves){
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         Bag<Byte> empty = chess.getEmpty();
+        byte other = BoardUtil.change(player);
         // 空位链表
         Iterator<Byte> byteIterator = empty.iterator();
+        int canOut = 0,otherMove = 0;
         while (byteIterator.hasNext()){
             Byte cell = byteIterator.next();
             if (canFlips(bytes,cell,player)){
+                // 左八位存cell 右八位为存走这步棋之后对手的行动力
+                Integer shift = BoardUtil.leftShift(cell, Constant.BITVALUE);
+                byte mobility = moveCanMobility(chess, player, cell);
+                shift |= mobility;
                 // 移动链表
-                moves.addFirst(cell);
+                moves.addFirst(shift);
+                canOut ++;
+            }
+            if (canFlips(bytes,cell,other)){
+                otherMove++;
             }
         }
+        chess.setNextMobility(canOut);
+        chess.setOtherMobility(otherMove);
+    }
+
+    /**
+     * 基于行动力的估值
+     *  head 空位链表
+     * @return
+     */
+    private static byte moveCanMobility(BoardChess boardChess, byte player,byte next){
+        make_move(boardChess,next);
+        Bag<Byte> empty = boardChess.getEmpty();
+        byte mobility = 0;
+        Iterator<Byte> em = empty.iterator();
+        while (em.hasNext()){
+            Byte cell = em.next();
+            if (GameRule.canFlips(boardChess.getChess(),cell,player)){
+                mobility++;
+            }
+        }
+        un_move(boardChess);
+        return mobility;
     }
 
     /**
      * 获得行动力
      * */
     public static int valid_moves(BoardChess chess){
+        int canMove = 0,otherMove = 0;
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
+        byte other = BoardUtil.change(player);
         Bag<Byte> empty = chess.getEmpty();
-        return valid_moves(bytes,empty,player);
-    }
-
-    /**
-     * 获得行动力
-     * */
-    public static int valid_moves(byte[] bytes,Bag<Byte> empty,byte player){
-        int canMove = 0;
         Iterator<Byte> byteIterator = empty.iterator();
         while (byteIterator.hasNext()) {
             Byte aByte = byteIterator.next();
             if (canFlips(bytes,aByte,player)){
                 canMove++;
             }
+            if (canFlips(bytes,aByte,other)){
+                otherMove++;
+            }
         }
+        chess.setNextMobility(canMove);
+        chess.setOtherMobility(otherMove);
         return canMove;
     }
 
@@ -134,10 +165,11 @@ public class GameRule {
      * 获得行动力
      * */
     public static int valid_moves(BoardChess chess,boolean[][] moves){
-        int canMove = 0;
+        int canMove = 0,otherMove = 0;
         initMoves(moves);
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
+        byte other = BoardUtil.change(player);
         Bag<Byte> empty = chess.getEmpty();
         Iterator<Byte> byteIterator = empty.iterator();
         while (byteIterator.hasNext()){
@@ -147,7 +179,13 @@ public class GameRule {
                 moves[move.getRow()][move.getCol()] = true;
                 canMove++;
             }
+            if (canFlips(bytes, aByte,other)){
+                otherMove++;
+            }
         }
+        // 设置行动力
+        chess.setNextMobility(canMove);
+        chess.setOtherMobility(otherMove);
         return canMove;
     }
 
@@ -494,12 +532,10 @@ public class GameRule {
         if (empty.size() == 0){
             return true;
         }
-        byte[] chess = boardChess.getChess();
-        byte player = boardChess.getCurrMove();
-        byte other = BoardUtil.change(player);
+        GameRule.valid_moves(boardChess);
         // 如果双方无棋可走
-        if (GameRule.valid_moves(chess,empty,player) == Constant.EMPTY
-                && GameRule.valid_moves(chess,empty,other) == Constant.EMPTY){
+        if (boardChess.getNextMobility() == Constant.EMPTY
+                && boardChess.getOtherMobility() == Constant.EMPTY){
             return true;
         }
         return false;

@@ -81,6 +81,10 @@ public class Menu extends JPanel {
             @Override
             public void mouseReleased(MouseEvent e) {
                 Board board = mainView.getBoard();
+                if (board.isRunning()){
+                    JOptionPane.showMessageDialog(mainView, "计算机正在计算,无法重新开始", "提示", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 // 如果已经开局
                 if (isOne || isBoth){
                     int log = JOptionPane.showConfirmDialog(mainView, "是否需要重新开局?","提示",JOptionPane.YES_NO_OPTION);

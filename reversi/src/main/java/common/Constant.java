@@ -77,6 +77,11 @@ public class Constant {
 	public static final byte DIRALL = 8;
 
 	/**
+	 * byte位为8
+	 */
+	public static final byte BITVALUE = 8;
+
+	/**
 	 * Warren Smith 棋盘方向   右 左 左下 右上 下 上 右下 左上
 	 */
 	public static final byte[] dirInc = {1,-1,8,-8,9,-9,10,-10};
@@ -110,6 +115,25 @@ public class Constant {
 			{64,65,66,67,68,69,70,71},
 			{73,74,75,76,77,78,79,80}
 	};
+	/**
+	 * 初始稳定子
+	 * 	四个角
+	 */
+	public static final byte[] stabistor = {10,17,73,80};
+
+	/**
+	 * 是否是绝对稳定子
+	 * @param cell
+	 * @return
+	 */
+	public static boolean includeStabistor(byte cell){
+		for (int i = 0; i < stabistor.length; i++) {
+			if (cell == stabistor[i]){
+				return true;
+			}
+		}
+		return false;
+	}
 	/**
 	 * 移动位置反数组 与标准 棋盘对应
 	 */
