@@ -301,4 +301,12 @@ public class BoardUtil {
 		byte player = src.getCurrMove();
 		return new BoardChess(srcChess,player);
 	}
+
+	/**
+	 * 获得棋子文字描述
+	 * @return
+	 */
+	public static String getChessStr(byte player){
+		return player == Constant.WHITE ? "白" : "黑";
+	}
 }

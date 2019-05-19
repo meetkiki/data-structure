@@ -299,6 +299,7 @@ public class GameRule {
      */
     public static MakeMoveRun getMakeMove(Board board,Move move){
         boolean[][] moves = board.getMoves();
+        GameRule.valid_moves(board.getBoardData(),moves);
         if (!moves[move.getRow()][move.getCol()]){
             throw new IllegalArgumentException("当前位置不可下棋!");
         }

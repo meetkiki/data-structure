@@ -1,6 +1,8 @@
 package interactive;
 
 
+import arithmetic.ReversiEvaluation;
+import bean.BoardChess;
 import bean.BoardData;
 import bean.Move;
 import common.Constant;
@@ -10,6 +12,7 @@ import game.GameRule;
 import game.Menu;
 import utils.BoardUtil;
 
+import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
@@ -65,9 +68,9 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         }
         Menu menu = board.getMenu();
         if (menu.isOne() && curMove == board.getCurrMove()){
-            board.setRunning(true);
             MoveRun moveRun = new MoveRun(move);
-            GameContext.submit(moveRun);
+            ForkJoinTask submit = GameContext.submit(moveRun);
+//            GameContext.getCall(submit);
         }
 
     }
@@ -89,17 +92,35 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
             makeMove = GameRule.getMakeMove(board, move);
             Integer next = makeMove.fork().join();
             if (next > 0){
-                // 交给计算机处理
-                computerMove();
-                return;
+                board.setRunning(true);
+                BoardData boardData = board.getBoardData();
+                BoardChess boardChess = boardData.getBoardChess();
+                boolean isContinue;
+                do {
+                    // 交给计算机处理
+                    computerMove();
+                    if (GameRule.isShutDown(boardChess)){
+                        int white = ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE);
+                        int black = ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK);
+                        JOptionPane.showMessageDialog(board.getMainView(),(black - white) > 0 ? "黑方胜利" :
+                                ((black - white) == 0 ? "平局" : "白方胜利"), "提示", JOptionPane.WARNING_MESSAGE);
+                        break;
+                    }else if (GameRule.valid_moves(boardChess) == 0){
+                        JOptionPane.showMessageDialog(board.getMainView(), BoardUtil.getChessStr(curMove) + "方需要放弃一手 由"
+                                + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
+                        boardData.changePlayer();
+                    }
+                    isContinue = board.getCurrMove() != curMove;
+                }while (isContinue);
+            }else {
+                // 如果没有棋可以走 获得返回数据
+                BoardData boardData = board.getBoardData();
+                boolean[][] moves = board.getMoves();
+                // 切换棋手
+                board.setCurrMove(BoardUtil.change(board.getCurrMove()));
+                GameRule.valid_moves(boardData,moves);
+                board.upshow();
             }
-            // 如果没有棋可以走 获得返回数据
-            BoardData boardData = board.getBoardData();
-            boolean[][] moves = board.getMoves();
-            // 切换棋手
-            board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-            GameRule.valid_moves(boardData,moves);
-            board.upshow();
         }
 
         private void computerMove() {

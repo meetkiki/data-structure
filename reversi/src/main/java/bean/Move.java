@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static common.Constant.coordinateStr;
+
 /**
  * 标识棋盘中的一个位置
  * @author Tao
@@ -20,7 +22,8 @@ public class Move {
 	@Override
 	public String toString() {
 		return "Move{" +
-				"row=" + (row + 1) +
+				"coordinateStr = " + coordinateStr[row][col] +
+				", row=" + (row + 1) +
 				", col=" + (col + 1) +
 				'}';
 	}

@@ -21,6 +21,7 @@ public class App {
         window.setResizable(false);
         window.pack();
         window.setVisible(true);
+        window.setLocationRelativeTo(null);
     }
 
     public void initialize() {
