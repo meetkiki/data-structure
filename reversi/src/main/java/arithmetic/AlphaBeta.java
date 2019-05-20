@@ -9,6 +9,7 @@ import game.GameRule;
 import utils.BoardUtil;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * alphaBeta 算法
@@ -44,13 +45,13 @@ public class AlphaBeta {
      * @return
      */
     private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
-        Bag<Byte> empty = data.getEmpty();
+        LinkedList<Byte> empty = data.getEmpty();
         // 如果到达预定的搜索深度 // 棋子已满
         if (depth <= 0 || empty.size() == Constant.EMPTY) {
             // 直接给出估值
             return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
         }
-        Bag<Integer> moves = new Bag<>();
+        LinkedList<Integer> moves = new LinkedList<>();
         GameRule.valid_moves(data,moves);
         // 启发式搜索 将不利的落子放在最后 最大化alphaBeta剪枝
         //sortMoves(moves);

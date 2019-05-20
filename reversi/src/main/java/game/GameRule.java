@@ -9,7 +9,9 @@ import common.Constant;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.RecursiveAction;
@@ -82,10 +84,10 @@ public class GameRule {
     /**
      * 获得行动力
      * */
-    public static void valid_moves(BoardChess chess,Bag<Integer> moves){
+    public static void valid_moves(BoardChess chess, LinkedList<Integer> moves){
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
-        Bag<Byte> empty = chess.getEmpty();
+        LinkedList<Byte> empty = chess.getEmpty();
         byte other = BoardUtil.change(player);
         // 空位链表
         Iterator<Byte> byteIterator = empty.iterator();
@@ -116,7 +118,7 @@ public class GameRule {
      */
     private static byte moveCanMobility(BoardChess boardChess, byte player,byte next){
         make_move(boardChess,next);
-        Bag<Byte> empty = boardChess.getEmpty();
+        LinkedList<Byte> empty = boardChess.getEmpty();
         byte mobility = 0;
         Iterator<Byte> em = empty.iterator();
         while (em.hasNext()){
@@ -137,7 +139,7 @@ public class GameRule {
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         byte other = BoardUtil.change(player);
-        Bag<Byte> empty = chess.getEmpty();
+        LinkedList<Byte> empty = chess.getEmpty();
         Iterator<Byte> byteIterator = empty.iterator();
         while (byteIterator.hasNext()) {
             Byte aByte = byteIterator.next();
@@ -170,7 +172,7 @@ public class GameRule {
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         byte other = BoardUtil.change(player);
-        Bag<Byte> empty = chess.getEmpty();
+        LinkedList<Byte> empty = chess.getEmpty();
         Iterator<Byte> byteIterator = empty.iterator();
         while (byteIterator.hasNext()){
             Byte aByte = byteIterator.next();
@@ -193,9 +195,9 @@ public class GameRule {
      * 单方向搜索吃子
      * @return
      */
-    private static Bag<Byte> singDirFlips(byte[] chess, byte dir, int cell, byte player){
+    private static LinkedList<Byte> singDirFlips(byte[] chess, byte dir, int cell, byte player){
         // 头结点
-        Bag<Byte> node = new Bag<>();
+        LinkedList<Byte> node = new LinkedList<>();
         // 这个方向的棋子
         int pt = cell + dir;
         byte opt = BoardUtil.change(player);
@@ -230,8 +232,8 @@ public class GameRule {
     public static int make_move(BoardChess data, int cell){
         byte[] chess = data.getChess();
         byte player = data.getCurrMove();
-        Bag<ChessStep> steps = data.getSteps();
-        Bag<Byte> empty = data.getEmpty();
+        LinkedList<ChessStep> steps = data.getSteps();
+        LinkedList<Byte> empty = data.getEmpty();
         int count = make_move(chess, steps, empty, cell, player);
         // 更新棋手
         data.setCurrMove(BoardUtil.change(player));
@@ -244,19 +246,19 @@ public class GameRule {
      *  changes 吃子数组
      *  only    简洁操作
      */
-    public static int make_move(byte[] chess,Bag<ChessStep> steps,Bag<Byte> empty, int cell, byte player){
+    public static int make_move(byte[] chess,LinkedList<ChessStep> steps,LinkedList<Byte> empty, int cell, byte player){
         // 返回转变子
         int count = 0;
         //将row和col的值更改为player //玩家状态
         chess[cell] = player;
         // 转变链表 方便插入
-        Bag<Byte> convert = new Bag<>();
+        LinkedList<Byte> convert = new LinkedList<>();
         //遍历当前棋子 的周边棋子
         // 在八个方向试探 任意一个方向可以翻转对手就返回true
         for (int i = 0; i < DIRALL; i++) {
             int mask = 0x01 << i;
             if ((dirMask[cell] & mask) != 0){
-                Bag<Byte> bag = singDirFlips(chess, dirInc[i], cell, player);
+                LinkedList<Byte> bag = singDirFlips(chess, dirInc[i], cell, player);
                 count += bag.size();
                 convert.addAll(bag);
             }
@@ -264,7 +266,7 @@ public class GameRule {
         // 记录移动
         steps.addFirst(ChessStep.builder().cell((byte) cell).player(player).convert(convert).build());
         // 移除空链表
-        empty.removeObj(new Byte((byte) cell));
+        empty.remove(new Byte((byte) cell));
         return count;
     }
 
@@ -274,9 +276,9 @@ public class GameRule {
      */
     public static void un_move(BoardChess data){
         byte[] chess = data.getChess();
-        Bag<ChessStep> steps = data.getSteps();
+        LinkedList<ChessStep> steps = data.getSteps();
         ChessStep step = steps.pop();
-        Bag<Byte> empty = data.getEmpty();
+        LinkedList<Byte> empty = data.getEmpty();
         un_move(chess,step,empty);
         data.setCurrMove(step.getPlayer());
     }
@@ -285,11 +287,11 @@ public class GameRule {
      * 悔棋方法
      * 仅搜索和模拟
      */
-    public static void un_move(byte[] chess,ChessStep step,Bag<Byte> empty){
+    public static void un_move(byte[] chess,ChessStep step,LinkedList<Byte> empty){
         byte player = step.getPlayer();
         byte other = BoardUtil.change(player);
         byte cell = step.getCell();
-        Bag<Byte> convert = step.getConvert();
+        LinkedList<Byte> convert = step.getConvert();
         if (convert.size() == 0){
             // 上一步为空手
             return;
@@ -312,9 +314,9 @@ public class GameRule {
      */
     public static void passMove(BoardChess data){
         byte player = data.getCurrMove();
-        Bag<ChessStep> steps = data.getSteps();
-        ChessStep step = ChessStep.builder().convert(new Bag<>()).player(player).build();
-        steps.addFirst(step);
+//        LinkedList<ChessStep> steps = data.getSteps();
+//        ChessStep step = ChessStep.builder().convert(new LinkedList<>()).player(player).build();
+//        steps.addFirst(step);
         data.setCurrMove(BoardUtil.change(player));
     }
 
@@ -377,9 +379,9 @@ public class GameRule {
             // 设置新子
             chess[row][col].setNewPlayer(nextmove);
             make_move(boardChess,BoardUtil.squareChess(move));
-            Bag<ChessStep> steps = boardChess.getSteps();
-            ChessStep first = steps.first();
-            Bag<Byte> convert = first.getConvert();
+            LinkedList<ChessStep> steps = boardChess.getSteps();
+            ChessStep first = steps.getFirst();
+            LinkedList<Byte> convert = first.getConvert();
             // 转变
             CountDownLatch latch = BoardUtil.converSion(first, chess, DELAY);
             // 更新规则
@@ -402,7 +404,7 @@ public class GameRule {
      */
     public static UnMoveRun getUnMove(Board board){
         BoardData boardData = board.getBoardData();
-        Bag<ChessStep> steps = boardData.getBoardChess().getSteps();
+        LinkedList<ChessStep> steps = boardData.getBoardChess().getSteps();
         if (steps.isEmpty()){
             throw new IllegalArgumentException("还未走棋 不可悔棋!");
         }
@@ -430,11 +432,11 @@ public class GameRule {
                 BoardData boardData = board.getBoardData();
                 boolean[][] moves = board.getMoves();
                 BoardChess boardChess = boardData.getBoardChess();
-                Bag<ChessStep> steps = boardChess.getSteps();
+                LinkedList<ChessStep> steps = boardChess.getSteps();
                 if (steps.isEmpty()) break;
                 byte nextmove = board.getCurrMove();
                 Chess[][] chess = board.getChess();
-                ChessStep chessStep = steps.first();
+                ChessStep chessStep = steps.getFirst();
 
                 // 移除当前子的提示
                 GameRule.removeHint(chess,nextmove);
@@ -450,10 +452,10 @@ public class GameRule {
                 // 恢复原生空位
                 chess[move.getRow()][move.getCol()].setChess(Constant.EMPTY);
                 // 转变子
-                Bag<Byte> convert = chessStep.getConvert();
+                LinkedList<Byte> convert = chessStep.getConvert();
                 if (!steps.isEmpty()){
                     // 还原棋子
-                    ChessStep first = steps.first();
+                    ChessStep first = steps.getFirst();
                     // 设置新子
                     Move cur = BoardUtil.convertMove(first.getCell());
                     // 转变
@@ -532,7 +534,7 @@ public class GameRule {
      */
     public static boolean isShutDown(BoardChess boardChess){
         // 如果没有棋子可下
-        Bag<Byte> empty = boardChess.getEmpty();
+        LinkedList<Byte> empty = boardChess.getEmpty();
         if (empty.size() == 0){
             return true;
         }

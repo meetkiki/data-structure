@@ -1,10 +1,11 @@
 package bean;
 
-import common.Bag;
 import common.Constant;
 import game.Chess;
 import lombok.Data;
 import utils.BoardUtil;
+
+import java.util.LinkedList;
 
 import static common.Constant.MODEL;
 
@@ -29,7 +30,7 @@ public class BoardChess {
     /**
      * 空位链表
      */
-    private Bag<Byte> empty;
+    private LinkedList<Byte> empty;
     /**
      * 当前选手行动力
      */
@@ -41,26 +42,26 @@ public class BoardChess {
     /**
      * 我方稳定子
      */
-    private Bag<Byte> ourStators = new Bag<>();
+    private LinkedList<Byte> ourStators = new LinkedList<>();
     /**
      * 对方稳定子
      */
-    private Bag<Byte> oppStators = new Bag<>();
+    private LinkedList<Byte> oppStators = new LinkedList<>();
     /**
      * 每一步 步数
      */
-    private Bag<ChessStep> steps = new Bag<>();
+    private LinkedList<ChessStep> steps = new LinkedList<>();
 
     public BoardChess(){
         this.chess = new byte[MODEL];
         this.currMove = Constant.BLACK;
-        this.empty = new Bag<>();
+        this.empty = new LinkedList<>();
     }
 
     public BoardChess(byte[] chess,byte player) {
         this.chess = new byte[MODEL];
         this.currMove = player;
-        this.empty = new Bag<>();
+        this.empty = new LinkedList<>();
         // 初始化哨兵
         this.initChess();
         // 拷贝棋盘
@@ -72,7 +73,7 @@ public class BoardChess {
     public BoardChess(Chess[][] chess,byte player) {
         this.chess = new byte[MODEL];
         this.currMove = player;
-        this.empty = new Bag<>();
+        this.empty = new LinkedList<>();
         // 初始化哨兵
         this.initChess();
         // 转换棋盘数据
@@ -139,19 +140,19 @@ public class BoardChess {
         this.otherMobility = otherMobility;
     }
 
-    public Bag<Byte> getOurStators() {
+    public LinkedList<Byte> getOurStators() {
         return ourStators;
     }
 
-    public void setOurStators(Bag<Byte> ourStators) {
+    public void setOurStators(LinkedList<Byte> ourStators) {
         this.ourStators = ourStators;
     }
 
-    public Bag<Byte> getOppStators() {
+    public LinkedList<Byte> getOppStators() {
         return oppStators;
     }
 
-    public void setOppStators(Bag<Byte> oppStators) {
+    public void setOppStators(LinkedList<Byte> oppStators) {
         this.oppStators = oppStators;
     }
 }

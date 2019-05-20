@@ -7,6 +7,8 @@ import game.GameRule;
 import utils.BoardUtil;
 
 
+import java.util.LinkedList;
+
 import static common.Constant.MODEL;
 import static common.Constant.dirInc;
 
@@ -80,7 +82,7 @@ public class ReversiEvaluation {
         byte player = data.getCurrMove(), other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
         byte[] chess = data.getChess();
         // 空位链表
-        Bag<Byte> empty = data.getEmpty();
+        LinkedList<Byte> empty = data.getEmpty();
 //        if (empty.size() == 0 || GameRule.isShutDown(data)){
 //            return endValue(data);
 //        }
@@ -198,7 +200,7 @@ public class ReversiEvaluation {
         byte cdir = (byte) (cell + dir);
         byte[] chess = data.getChess();
         // 如果是一方边界或者己方的稳定子 这个方向则为稳定子
-        Bag<Byte> stators = data.getOurStators();
+        LinkedList<Byte> stators = data.getOurStators();
         if (chess[cdir] == Constant.BOUNDARY || stators.indexOf(chess[cdir]) >= 0){
             return true;
         }

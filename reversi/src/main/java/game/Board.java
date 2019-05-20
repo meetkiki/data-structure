@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.util.LinkedList;
 import java.util.Map;
 import static common.Constant.ROW;
 import static common.Constant.COL;
@@ -203,7 +204,7 @@ public class Board extends JPanel {
         return currMove;
     }
 
-    public Bag<ChessStep> getSteps() {
+    public LinkedList<ChessStep> getSteps() {
         return boardData.getBoardChess().getSteps();
     }
 

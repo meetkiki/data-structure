@@ -8,6 +8,8 @@ import common.Constant;
 import game.GameRule;
 import utils.BoardUtil;
 
+import java.util.LinkedList;
+
 public class NegaScoutAgent{
         
     static final int INFINITY = 1000000;
@@ -36,11 +38,11 @@ public class NegaScoutAgent{
     	int adaptiveBeta = beta;
     	
     	// Generates all possible moves
-        Bag<Integer> moves = new Bag<>();
+		LinkedList<Integer> moves = new LinkedList<>();
         GameRule.valid_moves(board,moves);
     	if (moves.isEmpty())
     		return new MinimaxResult(bestScore,depth,null);
-    	bestMove = BoardUtil.convertMove(BoardUtil.rightShift(moves.first(), Constant.BITVALUE));
+    	bestMove = BoardUtil.convertMove(BoardUtil.rightShift(moves.getFirst(), Constant.BITVALUE));
     	
     	// Go through each move
         for (Integer curMove : moves) {

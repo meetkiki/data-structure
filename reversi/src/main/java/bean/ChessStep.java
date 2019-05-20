@@ -4,6 +4,8 @@ import common.Bag;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.LinkedList;
+
 /**
  * 每步操作
  *  用于悔棋计算
@@ -23,6 +25,6 @@ public class ChessStep {
     /**
      * 转变子
      */
-    private Bag<Byte> convert;
+    private LinkedList<Byte> convert;
 
 }

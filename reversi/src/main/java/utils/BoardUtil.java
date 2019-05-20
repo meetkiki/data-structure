@@ -12,6 +12,7 @@ import game.GameRule;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,7 +42,7 @@ public class BoardUtil {
 		// 通知线程完成 主线程里调用latch.await()方法
 		CountDownLatch latch = new CountDownLatch(1);
 		List<Chess> curr = new ArrayList<>();
-		Bag<Byte> stepConvert = step.getConvert();
+		LinkedList<Byte> stepConvert = step.getConvert();
 		for (Byte aByte : stepConvert) {
 			Move move = BoardUtil.convertMove(aByte);
 			curr.add(chess[move.getRow()][move.getCol()]);
