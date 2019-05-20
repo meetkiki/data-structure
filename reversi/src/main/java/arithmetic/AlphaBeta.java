@@ -53,7 +53,7 @@ public class AlphaBeta {
         Bag<Integer> moves = new Bag<>();
         GameRule.valid_moves(data,moves);
         // 启发式搜索 将不利的落子放在最后 最大化alphaBeta剪枝
-        sortMoves(moves);
+        //sortMoves(moves);
         // 轮到已方走
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
@@ -108,8 +108,8 @@ public class AlphaBeta {
         }
         // 按照行动力从小到大排序
         moves.sort(moves,((o1, o2) -> {
-            byte mobility1 = (byte) (o1 & 255);
-            byte mobility2 = (byte) (o2 & 255);
+            byte mobility1 = (byte) (o1 & 0xFF);
+            byte mobility2 = (byte) (o2 & 0xFF);
             return mobility1 - mobility2;
         }));
         checkIsSorted(moves);
@@ -125,8 +125,8 @@ public class AlphaBeta {
                 last = curr;
                 continue;
             }
-            byte cubit = (byte) (curr & 255);
-            byte labit = (byte) (last & 255);
+            byte cubit = (byte) (curr & 0xFF);
+            byte labit = (byte) (last & 0xFF);
             if (cubit < labit){
                 throw new IllegalArgumentException("排序未完成!");
             }

@@ -82,24 +82,25 @@ public class ReversiEvaluation {
         if (empty.size() == 0 || GameRule.isShutDown(data)){
             return endValue(data);
         }
-        int emptyCount = empty.size();
-        // 初盘只考虑行动力
-        if (emptyCount >= OPENING){
-            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
-            return score;
-        }else if (emptyCount > MIDDLE){
-            // 行动力和权重
-            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
-            score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
-            return score;
-        }else {
-            // 行动力 棋子
-            score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
-            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
-            score += countWeight * (player_counters(chess, player) - player_counters(chess, other));
-            // 稳定子
-//            score += stabistorWeight * (stabistor(data, player) - stabistor(data, other));
-        }
+//        int emptyCount = empty.size();
+//        // 初盘只考虑行动力
+//        if (emptyCount >= OPENING){
+//            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
+//            return score;
+//        }else if (emptyCount > MIDDLE){
+//            // 行动力和权重
+//            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
+//            score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
+//            return score;
+//        }else {
+//            // 行动力 棋子
+//            score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
+//            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
+//            score += countWeight * (player_counters(chess, player) - player_counters(chess, other));
+//            // 稳定子
+////            score += stabistorWeight * (stabistor(data, player) - stabistor(data, other));
+//        }
+        score += countWeight * (player_counters(chess, player) - player_counters(chess, other));
         return score;
     }
 

@@ -209,11 +209,12 @@ public class Bag<T> implements Iterable<T> {
         Node<T> aux = new Node<>();
         aux.next = bag.head;
         while (curr.next != null) {
-            // 如果待排序值小于当前排序好的值 则插入到头部
+            // 如果待排序值小于当前排序好的值 则插入到合适位置
+            // 5,1,3  n 5 c 1
             if (com.compare(curr.t,next.t) < 0){
                 //先把curr节点从当前链表中删除，然后再把cur节点插入到合适位置
                 next.next = curr.next;
-                //从前往后找到l2.val>cur.val,然后把cur节点插入到l1和l2之间
+                //从前往后找到l2.val > cur.val,然后把cur节点插入到l1和l2之间
                 Node<T> l1 = aux;
                 Node<T> l2 = aux.next;
                 while (com.compare(curr.t,l2.t) > 0){
@@ -222,6 +223,7 @@ public class Bag<T> implements Iterable<T> {
                 }
                 //把cur节点插入到l1和l2之间
                 l1.next = curr;
+                curr.parent = l1;
                 //插入合适位置
                 curr.next = l2;
                 //指向下一个待处理节点
