@@ -59,12 +59,13 @@ public class ReversiEvaluation {
      * @return
      */
     public static int endValue(BoardChess data) {
-        int score = 0;
-        byte[] chess = data.getChess();
-        byte player = data.getCurrMove(), other = BoardUtil.change(player);
-        // 只考虑棋子数
-        score += endWeight * (player_counters(chess, player) - player_counters(chess, other));
-        return score;
+        return currentValue(data);
+//        int score = 0;
+//        byte[] chess = data.getChess();
+//        byte player = data.getCurrMove(), other = BoardUtil.change(player);
+//        // 只考虑棋子数
+//        score += endWeight * (player_counters(chess, player) - player_counters(chess, other));
+//        return score;
     }
     /**
      * 估值函数
@@ -73,19 +74,20 @@ public class ReversiEvaluation {
      * @return
      */
     public static int currentValue(BoardChess data) {
+        GameRule.valid_moves(data);
         count++;
         int score = 0;
         byte player = data.getCurrMove(), other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
         byte[] chess = data.getChess();
         // 空位链表
         Bag<Byte> empty = data.getEmpty();
-        if (empty.size() == 0 || GameRule.isShutDown(data)){
-            return endValue(data);
-        }
+//        if (empty.size() == 0 || GameRule.isShutDown(data)){
+//            return endValue(data);
+//        }
 //        int emptyCount = empty.size();
 //        // 初盘只考虑行动力
 //        if (emptyCount >= OPENING){
-//            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
+            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
 //            return score;
 //        }else if (emptyCount > MIDDLE){
 //            // 行动力和权重
@@ -100,7 +102,7 @@ public class ReversiEvaluation {
 //            // 稳定子
 ////            score += stabistorWeight * (stabistor(data, player) - stabistor(data, other));
 //        }
-        score += countWeight * (player_counters(chess, player) - player_counters(chess, other));
+//        score += countWeight * (player_counters(chess, player) - player_counters(chess, other));
         return score;
     }
 

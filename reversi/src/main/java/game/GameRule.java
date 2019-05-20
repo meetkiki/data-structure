@@ -312,6 +312,9 @@ public class GameRule {
      */
     public static void passMove(BoardChess data){
         byte player = data.getCurrMove();
+        Bag<ChessStep> steps = data.getSteps();
+        ChessStep step = ChessStep.builder().convert(new Bag<>()).player(player).build();
+        steps.addFirst(step);
         data.setCurrMove(BoardUtil.change(player));
     }
 
@@ -426,10 +429,11 @@ public class GameRule {
             do {
                 BoardData boardData = board.getBoardData();
                 boolean[][] moves = board.getMoves();
-                byte nextmove = board.getCurrMove();
-                Chess[][] chess = board.getChess();
                 BoardChess boardChess = boardData.getBoardChess();
                 Bag<ChessStep> steps = boardChess.getSteps();
+                if (steps.isEmpty()) break;
+                byte nextmove = board.getCurrMove();
+                Chess[][] chess = board.getChess();
                 ChessStep chessStep = steps.first();
 
                 // 移除当前子的提示
