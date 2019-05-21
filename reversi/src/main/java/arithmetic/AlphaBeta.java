@@ -10,6 +10,7 @@ import utils.BoardUtil;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * alphaBeta 算法
@@ -24,6 +25,7 @@ public class AlphaBeta {
 
     public static MinimaxResult alphaBeta(BoardChess data){
         try {
+            ReversiEvaluation.setCount(0);
             if (GameRule.valid_moves(data) == 0){
                 return MinimaxResult.builder().mark(MIN).build();
             }
@@ -44,7 +46,7 @@ public class AlphaBeta {
      * @return
      */
     private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
-        LinkedList<Byte> empty = data.getEmpty();
+        List<Byte> empty = data.getEmpty();
         // 如果到达预定的搜索深度 // 棋子已满
         if (depth <= 0 || empty.size() == Constant.EMPTY) {
             // 直接给出估值

@@ -5,7 +5,9 @@ import game.Chess;
 import lombok.Data;
 import utils.BoardUtil;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import static common.Constant.MODEL;
 
@@ -88,7 +90,7 @@ public class BoardChess {
     private void initEmpty(byte[] chess) {
         for (byte i = 0; i < MODEL; i++) {
             if (chess[i] == Constant.EMPTY || chess[i] == Constant.DOT_W || chess[i] == Constant.DOT_B){
-                this.empty.addFirst(i);
+                this.empty.add(i);
             }
         }
     }

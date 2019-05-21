@@ -7,6 +7,7 @@ import utils.BoardUtil;
 
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static common.Constant.MODEL;
 
@@ -48,6 +49,10 @@ public class ReversiEvaluation {
      * 终局权重
      */
     private static final int endWeight = 10000;
+    /**
+     * 计算次数
+     */
+    private static int count;
 
     /**
      * 终局估值
@@ -55,6 +60,7 @@ public class ReversiEvaluation {
      * @return
      */
     public static int endValue(BoardChess data) {
+        count++;
         int score = 0;
         byte[] chess = data.getChess();
         byte player = data.getCurrMove(), other = BoardUtil.change(player);
@@ -74,10 +80,11 @@ public class ReversiEvaluation {
         byte player = data.getCurrMove(), other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
         byte[] chess = data.getChess();
         // 空位链表
-        LinkedList<Byte> empty = data.getEmpty();
+        List<Byte> empty = data.getEmpty();
         if (empty.size() == 0 || GameRule.isShutDown(data)){
             return endValue(data);
         }
+        count++;
         int emptyCount = empty.size();
         // 初盘只考虑行动力
         if (emptyCount >= OPENING){
@@ -211,4 +218,11 @@ public class ReversiEvaluation {
         return count;
     }
 
+    public static int getCount() {
+        return count;
+    }
+
+    public static void setCount(int count) {
+        ReversiEvaluation.count = count;
+    }
 }
