@@ -9,6 +9,7 @@ import common.Constant;
 import game.Board;
 import game.GameContext;
 import game.GameRule;
+import game.MainView;
 import game.Menu;
 import utils.BoardUtil;
 
@@ -66,7 +67,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         if (move == null || !GameRule.checkMove(board,move)){
             return;
         }
-        Menu menu = board.getMenu();
+        Menu menu = GameContext.getBean(Menu.class);
         if (menu.isOne() && curMove == board.getCurrMove()){
             MoveRun moveRun = new MoveRun(move);
             ForkJoinTask submit = GameContext.submit(moveRun);
@@ -88,6 +89,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
         @Override
         public void run() {
+            MainView mainView = GameContext.getBean(MainView.class);
             // 显示棋盘
             makeMove = GameRule.getMakeMove(board, move);
             Integer next = makeMove.fork().join();
@@ -102,11 +104,11 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                     if (GameRule.isShutDown(boardChess)){
                         int white = ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE);
                         int black = ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK);
-                        JOptionPane.showMessageDialog(board.getMainView(),(black - white) > 0 ? "黑方胜利" :
+                        JOptionPane.showMessageDialog(mainView,(black - white) > 0 ? "黑方胜利" :
                                 ((black - white) == 0 ? "平局" : "白方胜利"), "提示", JOptionPane.WARNING_MESSAGE);
                         break;
                     }else if (GameRule.valid_moves(boardChess) == 0){
-                        JOptionPane.showMessageDialog(board.getMainView(), BoardUtil.getChessStr(curMove) + "方需要放弃一手 由"
+                        JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(curMove) + "方需要放弃一手 由"
                                 + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
                         GameRule.passMove(boardData);
                     }

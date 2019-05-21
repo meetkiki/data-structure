@@ -48,21 +48,20 @@ public class Board extends JPanel {
 
     private MouseListener listener;
 
-    private MainView mainView;
-
     /**
      * 计算机正在计算
      */
     private boolean isRunning;
 
-    public Board(MainView mainView){
+    public Board(){
         this.setLayout(null);
-        this.mainView = mainView;
         imageIconMap = GameContext.getResources();
         background = imageIconMap.get(ImageConstant.BOARD).getImage();
         this.setBounds(0, 0,BOARD_HEIGHT, BOARD_WIDTH);
         listener = new MouseListener(this);
         this.addMouseListener(listener);
+        // 注册一个bean
+        GameContext.registerBean(Board.class,this);
     }
 
     @Override
@@ -210,14 +209,6 @@ public class Board extends JPanel {
 
     public BoardData getBoardData() {
         return boardData;
-    }
-
-    public MainView getMainView() {
-        return mainView;
-    }
-
-    public Menu getMenu() {
-        return mainView.getMenu();
     }
 
     public boolean isRunning() {

@@ -39,10 +39,7 @@ public class Menu extends JPanel {
      */
     private int level = 5;
 
-    private MainView mainView;
-
-    public Menu(MainView mainView) {
-        this.mainView = mainView;
+    public Menu() {
         initUI();
         initListener();
     }
@@ -72,6 +69,8 @@ public class Menu extends JPanel {
         this.add(MenuSet);
         this.add(identify);
         this.add(Undo);
+        // 注册一个bean
+        GameContext.registerBean(Menu.class,this);
     }
 
 
@@ -80,7 +79,8 @@ public class Menu extends JPanel {
         OneStart.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                Board board = mainView.getBoard();
+                Board board = GameContext.getBean(Board.class);
+                MainView mainView = GameContext.getBean(MainView.class);
                 if (board.isRunning()){
                     JOptionPane.showMessageDialog(mainView, "计算机正在计算,无法重新开始", "提示", JOptionPane.WARNING_MESSAGE);
                     return;
@@ -121,7 +121,8 @@ public class Menu extends JPanel {
         Undo.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseReleased(MouseEvent e) {
-                Board board = mainView.getBoard();
+                Board board = GameContext.getBean(Board.class);
+                MainView mainView = GameContext.getBean(MainView.class);
                 if (board.getSteps().isEmpty()){
                     JOptionPane.showMessageDialog(mainView, "已是初始棋盘", "提示", JOptionPane.WARNING_MESSAGE);
                     return;

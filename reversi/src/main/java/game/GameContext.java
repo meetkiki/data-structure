@@ -8,6 +8,7 @@ import javax.swing.SwingWorker;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,6 +25,11 @@ public class GameContext {
      * 图片常量
      */
     private static Map<ImageConstant, ImageIcon> resources = new HashMap<>(32);
+
+    /**
+     * 全局bean资源
+     */
+    private static Map<Class<?>,Object> beansource = new ConcurrentHashMap<>();
 
     /**
      * 全局线程池
@@ -136,6 +142,26 @@ public class GameContext {
         singlepool.execute(run);
     }
 
+    /**
+     * 注册一个bean
+     * @param clz
+     * @param obj
+     */
+    public static<T> void registerBean(Class<T> clz,Object obj){
+        beansource.put(clz,obj);
+    }
+
+    /**
+     * 获得一个bean
+     * @param clz
+     */
+    public static<T> T getBean(Class<T> clz){
+        Object obj = beansource.get(clz);
+        if (obj == null){
+            throw new RuntimeException("获取的bean未被注册!");
+        }
+        return (T) obj;
+    }
 
     public static Map<ImageConstant, ImageIcon> getResources() {
         return resources;

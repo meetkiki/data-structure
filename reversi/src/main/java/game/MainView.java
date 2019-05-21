@@ -23,11 +23,13 @@ public class MainView extends JPanel {
 
     public MainView(){
         this.setLayout(new BorderLayout());
-        this.board = new Board(this);
+        this.board = new Board();
         this.add(board, BorderLayout.CENTER);
 
-        this.menu = new Menu(this);
+        this.menu = new Menu();
         this.add(menu, BorderLayout.EAST);
+        // 注册一个bean
+        GameContext.registerBean(MainView.class,this);
     }
 
     public Board getBoard() {
