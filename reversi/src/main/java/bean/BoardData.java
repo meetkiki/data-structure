@@ -58,14 +58,5 @@ public class BoardData {
         return boardChess;
     }
 
-    /**
-     * 更新棋手
-     *
-     * @return
-     */
-    public BoardData changePlayer() {
-        this.setCurrMove(BoardUtil.change(this.getCurrMove()));
-        return this;
-    }
 }
 

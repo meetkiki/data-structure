@@ -18,7 +18,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
-import static common.Constant.DELAY;
 import static common.Constant.SIZE;
 import static common.Constant.mapMove;
 import static common.Constant.moveConstant;
@@ -76,7 +75,7 @@ public class BoardUtil {
 
 		@Override
 		public void run() {
-			if(count > 0 && count <= 6){
+			if(!curr.isEmpty() && count > 0 && count <= 6){
 				updateImg(count,curr);
 				if(chess == Constant.WHITE) count--;
 				else count++;

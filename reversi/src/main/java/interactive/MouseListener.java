@@ -108,7 +108,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                     }else if (GameRule.valid_moves(boardChess) == 0){
                         JOptionPane.showMessageDialog(board.getMainView(), BoardUtil.getChessStr(curMove) + "方需要放弃一手 由"
                                 + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
-                        boardData.changePlayer();
+                        GameRule.passMove(boardData);
                     }
                     isContinue = board.getCurrMove() != curMove;
                 }while (isContinue);

@@ -3,11 +3,11 @@ package arithmetic;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
-import common.Bag;
 import common.Constant;
 import game.GameRule;
 import utils.BoardUtil;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -24,7 +24,6 @@ public class AlphaBeta {
 
     public static MinimaxResult alphaBeta(BoardChess data){
         try {
-            ReversiEvaluation.setCount(0);
             if (GameRule.valid_moves(data) == 0){
                 return MinimaxResult.builder().mark(MIN).build();
             }
@@ -54,7 +53,7 @@ public class AlphaBeta {
         LinkedList<Integer> moves = new LinkedList<>();
         GameRule.valid_moves(data,moves);
         // 启发式搜索 将不利的落子放在最后 最大化alphaBeta剪枝
-        //sortMoves(moves);
+        sortMoves(moves);
         // 轮到已方走
         Move move = null;
         // 当前最佳估值，预设为负无穷大 己方估值为最小
@@ -89,11 +88,11 @@ public class AlphaBeta {
                 // 终局 给出精确估值
                 return MinimaxResult.builder().mark(ReversiEvaluation.endValue(data)).depth(depth).build();
             }
-            data.setCurrMove(BoardUtil.change(data.getCurrMove()));
+            GameRule.passMove(data);
             // 交给对手
             best_value = alphaBeta(data, -beta, -alpha, depth).inverseMark().getMark();
             // 回退
-            data.setCurrMove(BoardUtil.change(data.getCurrMove()));
+            GameRule.un_move(data);
         }
         return MinimaxResult.builder().mark(best_value).move(move).depth(depth).build();
     }
@@ -103,21 +102,21 @@ public class AlphaBeta {
      *  插入排序
      * @param moves
      */
-    private static Bag<Integer> sortMoves(Bag<Integer> moves) {
+    private static LinkedList<Integer> sortMoves(LinkedList<Integer> moves) {
         if (moves.size() == 0){
             return moves;
         }
         // 按照行动力从小到大排序
-        moves.sort(moves,((o1, o2) -> {
+        Collections.sort(moves,(o1,o2)->{
             byte mobility1 = (byte) (o1 & 0xFF);
             byte mobility2 = (byte) (o2 & 0xFF);
             return mobility1 - mobility2;
-        }));
-        checkIsSorted(moves);
+        });
+        //checkIsSorted(moves);
         return moves;
     }
 
-    private static void checkIsSorted(Bag<Integer> moves) {
+    private static void checkIsSorted(LinkedList<Integer> moves) {
         Integer last = null;
         Iterator<Integer> it = moves.iterator();
         while (it.hasNext()){
