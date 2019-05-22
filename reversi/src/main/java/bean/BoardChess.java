@@ -5,9 +5,7 @@ import game.Chess;
 import lombok.Data;
 import utils.BoardUtil;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import static common.Constant.MODEL;
 

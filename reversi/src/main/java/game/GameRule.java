@@ -84,7 +84,7 @@ public class GameRule {
     /**
      * 获得行动力
      * */
-    public static void valid_moves(BoardChess chess, LinkedList<Integer> moves){
+    public static int valid_moves(BoardChess chess, LinkedList<Integer> moves){
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         LinkedList<Byte> empty = chess.getEmpty();
@@ -109,6 +109,7 @@ public class GameRule {
         }
         chess.setNextMobility(canOut);
         chess.setOtherMobility(otherMove);
+        return canOut;
     }
 
     /**
@@ -432,8 +433,8 @@ public class GameRule {
             CountDownLatch[] latch = new CountDownLatch[1];
             do {
                 BoardData boardData = board.getBoardData();
-                boolean[][] moves = board.getMoves();
                 BoardChess boardChess = boardData.getBoardChess();
+                boolean[][] moves = board.getMoves();
                 LinkedList<ChessStep> steps = boardChess.getSteps();
                 if (steps.isEmpty()) break;
                 byte nextmove = board.getCurrMove();
@@ -463,8 +464,11 @@ public class GameRule {
                         ChessStep first = steps.getFirst();
                         // 设置新子
                         Move cur = BoardUtil.convertMove(first.getCell());
-                        // 转变
-                        chess[cur.getRow()][cur.getCol()].setNewPlayer(nextmove);
+                        // 如果非禁手
+                        if (cur != null){
+                            // 转变
+                            chess[cur.getRow()][cur.getCol()].setNewPlayer(nextmove);
+                        }
                         // 转变子
                         other = first.getPlayer();
                     }
@@ -472,9 +476,9 @@ public class GameRule {
                 chessStep.setPlayer(other);
                 latch[0] = BoardUtil.converSion(chessStep, chess, 20);
                 // 更新规则
-                board.setCurrMove(player);
+                board.setCurrMove(boardChess.getCurrMove());
                 GameRule.valid_moves(boardData,moves);
-            } while (board.getCurrMove() != next);
+            } while (board.getCurrMove() != next && board.getBoardChess().getNextMobility() > 0);
             // 异步更新页面
             GameContext.serialExecute(()->{
                 GameContext.await(latch[0]);

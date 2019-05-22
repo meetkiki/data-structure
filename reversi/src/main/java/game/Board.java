@@ -218,4 +218,8 @@ public class Board extends JPanel {
     public void setRunning(boolean running) {
         isRunning = running;
     }
+
+    public BoardChess getBoardChess(){
+        return boardData.getBoardChess();
+    }
 }
