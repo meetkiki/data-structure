@@ -367,35 +367,40 @@ public class GameRule {
 
         @Override
         public Integer compute() {
-            BoardData boardData = board.getBoardData();
-            byte nextmove = board.getCurrMove();
-            boolean[][] moves = board.getMoves();
-            Chess[][] chess = board.getChess();
-            BoardChess boardChess = boardData.getBoardChess();
-            GameRule.valid_moves(boardData,moves);
-            byte row = move.getRow();
-            byte col = move.getCol();
-            // 移除当前子的提示
-            GameRule.removeHint(chess,nextmove);
-            // 移除新的标志
-            removeNew(chess);
-            // 设置新子
-            chess[row][col].setNewPlayer(nextmove);
-            make_move(boardChess,BoardUtil.squareChess(move));
-            LinkedList<ChessStep> steps = boardChess.getSteps();
-            ChessStep first = steps.getFirst();
-            LinkedList<Byte> convert = first.getConvert();
-            // 转变
-            CountDownLatch latch = BoardUtil.converSion(first, chess, DELAY);
-            // 更新规则
-            board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-            // 返回对手的可行步数
-            int can = GameRule.valid_moves(board.getBoardData(), moves);
-            // 异步更新页面
-            GameContext.submit(()->{
-                GameContext.await(latch);
-                board.upshow();
-            });
+            int can = 0;
+            try {
+                BoardData boardData = board.getBoardData();
+                byte nextmove = board.getCurrMove();
+                boolean[][] moves = board.getMoves();
+                Chess[][] chess = board.getChess();
+                BoardChess boardChess = boardData.getBoardChess();
+                GameRule.valid_moves(boardData,moves);
+                byte row = move.getRow();
+                byte col = move.getCol();
+                // 移除当前子的提示
+                GameRule.removeHint(chess,nextmove);
+                // 移除新的标志
+                removeNew(chess);
+                // 设置新子
+                chess[row][col].setNewPlayer(nextmove);
+                make_move(boardChess,BoardUtil.squareChess(move));
+                LinkedList<ChessStep> steps = boardChess.getSteps();
+                ChessStep first = steps.getFirst();
+                LinkedList<Byte> convert = first.getConvert();
+                // 转变
+                CountDownLatch latch = BoardUtil.converSion(first, chess, DELAY);
+                // 更新规则
+                board.setCurrMove(BoardUtil.change(board.getCurrMove()));
+                // 返回对手的可行步数
+                can = GameRule.valid_moves(board.getBoardData(), moves);
+                // 异步更新页面
+                GameContext.submit(()->{
+                    GameContext.await(latch);
+                    board.upshow();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return can;
         }
     }

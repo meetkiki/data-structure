@@ -1,6 +1,8 @@
 package common;
 
 import bean.Move;
+import game.Board;
+import utils.BoardUtil;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,14 +19,14 @@ public class Constant {
 	public static final byte BLACK = -1;
 
 	/**
-	 * 标识空位 或者0
-	 */
-	public static final byte EMPTY = 0;
-
-	/**
 	 * 标识白子
 	 */
 	public static final byte WHITE = 1;
+
+	/**
+	 * 标识空位 或者0
+	 */
+	public static final byte EMPTY = 0;
 
 	/**
 	 * 标识白可走子
@@ -115,6 +117,20 @@ public class Constant {
 			{64,65,66,67,68,69,70,71},
 			{73,74,75,76,77,78,79,80}
 	};
+
+	/**
+	 * 移动位置数组 与Warren Smith 棋盘对应
+	 */
+	public static final byte[] moves = {
+			10,11,12,13,14,15,16,17,
+			19,20,21,22,23,24,25,26,
+			28,29,30,31,32,33,34,35,
+			37,38,39,40,41,42,43,44,
+			46,47,48,49,50,51,52,53,
+			55,56,57,58,59,60,61,62,
+			64,65,66,67,68,69,70,71,
+			73,74,75,76,77,78,79,80
+	};
 	/**
 	 * 初始稳定子
 	 * 	四个角
@@ -157,6 +173,10 @@ public class Constant {
 	 * 边界
 	 */
 	public static final byte BOUNDARY = 4;
+	/**
+	 * 玩家种类
+	 */
+	public static final byte PLAYERTYPE = 3;
 
 	/**
 	 * 标准坐标系

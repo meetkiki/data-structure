@@ -1,6 +1,7 @@
 package bean;
 
 
+import common.EntryType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class MinimaxResult {
 	private int mark;
 	private int depth;
+	private EntryType type;
 	private Move move;
 
 	/**

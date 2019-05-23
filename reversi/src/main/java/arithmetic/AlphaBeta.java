@@ -3,7 +3,9 @@ package arithmetic;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
+import bean.Zobrist;
 import common.Constant;
+import common.EntryType;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -20,6 +22,7 @@ import java.util.List;
 public class AlphaBeta {
 
     public static int Depth = 10;
+    public static int Start = 0;
     public static int MAX = 1000000000;
     public static int MIN = -1000000000;
 
@@ -29,6 +32,8 @@ public class AlphaBeta {
             if (GameRule.valid_moves(data) == 0){
                 return MinimaxResult.builder().mark(MIN).build();
             }
+            // 每次搜索前清空置换表
+            Zobrist.resetZobrist();
             return alphaBeta(data, MIN, MAX, Depth);
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,18 +51,40 @@ public class AlphaBeta {
      * @return
      */
     private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
+        // 引入置换表
+        long zobrist = Zobrist.getZobrist(data);
+        MinimaxResult zresult;
+        // 当前深度小于历史深度 则使用 否则搜索
+        if ((zresult = Zobrist.lookupTTentryByZobrist(zobrist,depth)) != null){
+            switch (zresult.getType()){
+                // 期望值
+                case EXACT:
+                    return zresult;
+                // 下界值
+                case LOWERBOUND:
+                    alpha = Math.min(alpha,zresult.getMark());break;
+                // 上界值
+                case UPPERBOUND:
+                    beta = Math.min(beta,zresult.getMark()); break;
+                default:break;
+            }
+        }
         List<Byte> empty = data.getEmpty();
         // 如果到达预定的搜索深度 // 棋子已满
-        if (depth <= 0 || empty.size() == Constant.EMPTY) {
+        if (depth <= Start || empty.size() == Constant.EMPTY) {
             // 直接给出估值
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).depth(depth).build();
+            int value = ReversiEvaluation.currentValue(data);
+            Zobrist.insertZobrist(zobrist,value,depth, EntryType.EXACT);
+            return MinimaxResult.builder().mark(value).depth(depth).build();
         }
         LinkedList<Integer> moves = new LinkedList<>();
         if (GameRule.valid_moves(data,moves) == 0){
             // 如果对手也没有可走子
             if (data.getOtherMobility() == 0){
                 // 终局 给出精确估值
-                return MinimaxResult.builder().mark(ReversiEvaluation.endValue(data)).depth(depth).build();
+                int value = ReversiEvaluation.endValue(data);
+                Zobrist.insertZobrist(zobrist,value,depth,EntryType.EXACT);
+                return MinimaxResult.builder().mark(value).depth(depth).build();
             }
             GameRule.passMove(data);
             // 交给对手
@@ -68,9 +95,12 @@ public class AlphaBeta {
         } else {
             // 启发式搜索 将不利的落子放在最后 最大化alphaBeta剪枝
             sortMoves(moves);
+            // 当前最佳估值，预设为负无穷大 己方估值为最小
+            int score = MIN;
+            // 最佳估值类型, EXACT为精确值, LOWERBOUND为<=alpha, UPPERBOUND为>=beta
+            EntryType entryType = null;
             // 轮到已方走
             Move move = null;
-            // 当前最佳估值，预设为负无穷大 己方估值为最小
             // 遍历每一种走法
             Iterator<Integer> moveIterator = moves.iterator();
             while (moveIterator.hasNext()){
@@ -83,17 +113,28 @@ public class AlphaBeta {
                 int value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
                 // 悔棋
                 GameRule.un_move(data);
-                // 通过向上传递的值修正上下限
-                if (value > alpha){
+                if (value > score){
+                    score = value;
                     move = BoardUtil.convertMove(curMove);
-                    alpha = value;
+                    if (value > alpha){
+                        entryType = EntryType.EXACT;
+                        // 通过向上传递的值修正上下限
+                        alpha = Math.max(value,alpha);
+                    }
                 }
-                // 当向上传递的值大于上限时 剪枝
+                // 剪枝
                 if (alpha >= beta){
-                    return MinimaxResult.builder().mark(value).move(move).depth(depth).build();
+                    // 下限
+                    entryType = EntryType.LOWERBOUND;
+                    break;
                 }
             }
-            return MinimaxResult.builder().mark(alpha).move(move).depth(depth).build();
+            if (entryType == null){
+                entryType = EntryType.UPPERBOUND;
+            }
+            MinimaxResult result = MinimaxResult.builder().mark(score).type(entryType).move(move).depth(depth).build();
+            Zobrist.insertZobrist(zobrist,result);
+            return result;
         }
     }
 
@@ -112,26 +153,6 @@ public class AlphaBeta {
             byte mobility2 = (byte) (o2 & 0xFF);
             return mobility1 - mobility2;
         });
-        //checkIsSorted(moves);
         return moves;
     }
-
-    private static void checkIsSorted(LinkedList<Integer> moves) {
-        Integer last = null;
-        Iterator<Integer> it = moves.iterator();
-        while (it.hasNext()){
-            Integer curr = it.next();
-            if (last == null){
-                last = curr;
-                continue;
-            }
-            byte cubit = (byte) (curr & 0xFF);
-            byte labit = (byte) (last & 0xFF);
-            if (cubit < labit){
-                throw new IllegalArgumentException("排序未完成!");
-            }
-            last = curr;
-        }
-    }
-
 }

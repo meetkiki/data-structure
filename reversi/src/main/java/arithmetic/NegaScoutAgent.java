@@ -12,23 +12,29 @@ import java.util.LinkedList;
 
 public class NegaScoutAgent{
         
-    static final int INFINITY = 1000000;
+    static final int INFINITY = 10000000;
     
-    private static int mMaxPly = 5;
+    private static int mMaxPly = 10;
 	
 	public static MinimaxResult findMove(BoardChess board) {
 		return abNegascoutDecision(board);
 	}
 	
 	public static MinimaxResult abNegascoutDecision(BoardChess board){
-        MinimaxResult moveScore = abNegascout(board,mMaxPly,-INFINITY,INFINITY);
-    	return moveScore;
+		MinimaxResult moveScore = null;
+		try {
+			ReversiEvaluation.setCount(0);
+			moveScore = abNegascout(board,mMaxPly,-INFINITY,INFINITY);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return moveScore;
     }
 
     public static MinimaxResult abNegascout(BoardChess board, int depth, int alpha, int beta){
     	// Check if we have done recursing
     	if (depth==0){
-            return new MinimaxResult(ReversiEvaluation.currentValue(board),depth,null);
+            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(board)).depth(depth).build();
         }
     		
     	int currentScore;
@@ -41,7 +47,7 @@ public class NegaScoutAgent{
 		LinkedList<Integer> moves = new LinkedList<>();
         GameRule.valid_moves(board,moves);
     	if (moves.isEmpty())
-    		return new MinimaxResult(bestScore,depth,null);
+    		return abNegascout(board, depth, -beta,-alpha).inverseMark();
     	bestMove = BoardUtil.convertMove(BoardUtil.rightShift(moves.getFirst(), Constant.BITVALUE));
     	
     	// Go through each move
@@ -67,7 +73,7 @@ public class NegaScoutAgent{
     			
     			// If we are outside the bounds, the prune: exit immediately
         		if(bestScore>=beta){
-        			return new MinimaxResult(bestScore,depth,bestMove);
+        			return MinimaxResult.builder().mark(bestScore).depth(depth).move(bestMove).build();
         		}
         		
         		// Otherwise, update the window location

@@ -5,6 +5,7 @@ import arithmetic.ReversiEvaluation;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.MinimaxResult;
+import bean.Zobrist;
 import common.Constant;
 import game.Board;
 import game.GameContext;
@@ -47,10 +48,11 @@ public class AlphaBetaListener implements Observer {
 //            GameContext.sleep(2000);
             MinimaxResult result = AlphaBeta.alphaBeta(boardChess);
             long en = System.currentTimeMillis();
+            System.out.println("搜索耗时 " + (en - st) + " ms");
             String move = board.getCurrMove() == Constant.WHITE ? "白" : "黑";
             System.out.println(result + "currMove :" + move);
-            System.out.println("搜索局面 : " + ReversiEvaluation.getCount() + " 个,每秒: " +
-                    (long)(Double.valueOf(ReversiEvaluation.getCount()) / ((en - st) / 1000.0 )) + " 个局面");
+            System.out.println("搜索局面 : " + ReversiEvaluation.getCount() + " 个,置换表命中次数 : "+ Zobrist.getCount() +" 次,每秒: " +
+                    (long)(Double.valueOf(ReversiEvaluation.getCount() + Zobrist.getCount()) / ((en - st) / 1000.0 )) + " 个局面");
             // 必须要先走玩家棋
             mouseListener.getTask().join();
 
