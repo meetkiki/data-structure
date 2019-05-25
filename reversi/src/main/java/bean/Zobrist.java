@@ -85,7 +85,8 @@ public final class Zobrist {
      */
     public static void resetZobrist(){
         count= 0;
-//        entryMap.clear();
+        // 清楚置换表主要是为了增加垃圾回收 上一次的搜索结果对下次搜索作用较小
+        entryMap.clear();
     }
 
     /**

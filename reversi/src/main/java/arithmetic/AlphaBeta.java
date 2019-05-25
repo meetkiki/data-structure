@@ -22,20 +22,15 @@ import static common.Constant.MIN;
  *
  * @author Tao
  */
-public class AlphaBeta {
+public class AlphaBeta implements SearchAlgorithm{
 
-    public static int Depth = 8;
     public static int Start = 0;
 
-    public static MinimaxResult alphaBeta(BoardChess data){
-        try {
-            ReversiEvaluation.setCount(0);
-            Zobrist.resetZobrist();
-            return alphaBeta(data, MIN, MAX, Depth);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+    @Override
+    public MinimaxResult search(BoardChess boardChess, int depth) {
+        ReversiEvaluation.setCount(0);
+        Zobrist.resetZobrist();
+        return alphaBeta(boardChess, MIN, MAX, depth);
     }
 
     /**

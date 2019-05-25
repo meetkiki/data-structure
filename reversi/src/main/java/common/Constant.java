@@ -70,7 +70,15 @@ public class Constant {
 	 * 动画处理结束
 	 */
 	public static final String END = "1";
-    /**
+	/**
+	 * 默认搜索深度
+	 */
+    public static final int DEFAULTDEPTH = 8;
+	/**
+	 * 终局搜索深度
+	 */
+	public static final int OUTDEPTH = 17;
+	/**
      * 搜索的极大极小值
      */
     public static int MAX = 1000000;
