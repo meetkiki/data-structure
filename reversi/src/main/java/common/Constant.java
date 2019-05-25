@@ -77,7 +77,7 @@ public class Constant {
 	/**
 	 * 终局搜索深度
 	 */
-	public static final int OUTDEPTH = 17;
+	public static final int OUTDEPTH = 16;
 	/**
      * 搜索的极大极小值
      */

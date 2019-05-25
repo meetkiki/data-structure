@@ -36,8 +36,13 @@ public class Calculator {
             MinimaxResult result = this.searchAlgorithm.search(boardChess, outDepth);
             return result.getMove();
         }
-        // MTD 算法
-        MinimaxResult result = this.searchAlgorithm.search(boardChess, depth);
+        MinimaxResult result = null;
+        try {
+            // MTD 算法
+            result = this.searchAlgorithm.search(boardChess, depth);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return result.getMove();
     }
 

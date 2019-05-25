@@ -3,6 +3,7 @@ package bean;
 import common.Constant;
 import common.EntryType;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -22,7 +23,7 @@ public final class Zobrist {
     /**
      * 哈希表的大小 1 << 24 大约为64m
      */
-    public static final int hashMask = 1 << 24;
+    public static final int hashMask = (1 << 24) - 1;
 
     /**
      * 记录命中次数
@@ -32,7 +33,8 @@ public final class Zobrist {
     /**
      * 哈希表的大小 1 << 24 大约为64m
      */
-    public static final Map<Long,MinimaxResult> entryMap = new HashMap<>(hashMask);
+//    public static Map<Long,MinimaxResult> entryMap = new HashMap<>(hashMask);
+    public static final MinimaxResult[] entryList = new MinimaxResult[hashMask + 1];
 
     static {
         Random random = new Random();
@@ -71,7 +73,7 @@ public final class Zobrist {
      * @return
      */
     public static MinimaxResult lookupTTentryByZobrist(long hash,int depth){
-        MinimaxResult result = entryMap.get(hash);
+        MinimaxResult result = entryList[(int) (hash&hashMask)];
         // 深度越深,depth越大,result得到的估值越准确,即需要查找的深度不能大于存储的深度
         if (result != null && depth <= result.getDepth()){
             count++;
@@ -86,7 +88,9 @@ public final class Zobrist {
     public static void resetZobrist(){
         count= 0;
         // 清楚置换表主要是为了增加垃圾回收 上一次的搜索结果对下次搜索作用较小
-        entryMap.clear();
+        for (int i = 0; i < entryList.length; i++) {
+            entryList[i] = null;
+        }
     }
 
     /**
@@ -105,15 +109,16 @@ public final class Zobrist {
      * @param result
      */
     public static void insertZobrist(long zobrist, MinimaxResult result){
-        MinimaxResult oldresult = entryMap.get(zobrist);
+        int bucket = (int) (zobrist & hashMask);
+        MinimaxResult oldresult = entryList[bucket];
         if (oldresult != null){
             // 因为result得到的depth越大 说明越准确
             int oldDepth = oldresult.getDepth();
             if (result.getDepth() >= oldDepth){
-                entryMap.put(zobrist, result);
+                entryList[bucket] = result;
             }
         }else{
-            entryMap.put(zobrist, result);
+            entryList[bucket] = result;
         }
     }
 

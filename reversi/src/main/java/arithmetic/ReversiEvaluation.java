@@ -192,23 +192,6 @@ public class ReversiEvaluation {
     }
 
     /**
-     * 单方向判断是否是稳定子
-     * @param dir
-     * @param cell
-     * @return
-     */
-    public static boolean singDirFlips(BoardChess data, byte dir, byte cell){
-        byte cdir = (byte) (cell + dir);
-        byte[] chess = data.getChess();
-        // 如果是一方边界或者己方的稳定子 这个方向则为稳定子
-        LinkedList<Byte> stators = data.getOurStators();
-        if (chess[cdir] == Constant.BOUNDARY || stators.indexOf(chess[cdir]) >= 0){
-            return true;
-        }
-        return false;
-    }
-
-    /**
      * /棋子统计方法
      */
     public static int player_counters(byte[] chess, byte player){
