@@ -32,6 +32,15 @@ public class BoardChess {
      */
     private LinkedList<Byte> empty;
     /**
+     * 双方子数
+     */
+    private byte wCount;
+    private byte bCount;
+    /**
+     * 局面的zobrist值 每次改变状态更新
+     */
+    private long zobrist;
+    /**
      * 当前选手行动力
      */
     private int nextMobility = 0;
@@ -74,12 +83,16 @@ public class BoardChess {
         this.chess = new byte[MODEL];
         this.currMove = player;
         this.empty = new LinkedList<>();
+        this.wCount = 2;
+        this.bCount = 2;
         // 初始化哨兵
         this.initChess();
         // 转换棋盘数据
         this.copyChess(chess);
         // 初始化空位链表
         this.initEmpty(this.chess);
+        // 初始化zobrist的值
+        this.zobrist = Zobrist.initZobrist(this);
     }
 
     /**
@@ -154,5 +167,38 @@ public class BoardChess {
 
     public void setOppStators(LinkedList<Byte> oppStators) {
         this.oppStators = oppStators;
+    }
+
+    public BoardChess incrementCount(byte player,int count){
+        if (player == Constant.WHITE){
+            wCount += count;
+        }else {
+            bCount += count;
+        }
+        return this;
+    }
+
+    public byte getwCount() {
+        return wCount;
+    }
+
+    public void setwCount(byte wCount) {
+        this.wCount = wCount;
+    }
+
+    public byte getbCount() {
+        return bCount;
+    }
+
+    public void setbCount(byte bCount) {
+        this.bCount = bCount;
+    }
+
+    public long getZobrist() {
+        return zobrist;
+    }
+
+    public void setZobrist(long zobrist) {
+        this.zobrist = zobrist;
     }
 }

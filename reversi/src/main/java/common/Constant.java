@@ -70,6 +70,11 @@ public class Constant {
 	 * 动画处理结束
 	 */
 	public static final String END = "1";
+    /**
+     * 搜索的极大极小值
+     */
+    public static int MAX = 1000000;
+    public static int MIN = -1000000;
 
 	/**
 	 * Warren Smith 棋盘模型长度

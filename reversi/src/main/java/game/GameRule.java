@@ -4,22 +4,17 @@ import bean.BoardChess;
 import bean.BoardData;
 import bean.ChessStep;
 import bean.Move;
-import common.Bag;
 import common.Constant;
 import utils.BoardUtil;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
 
 import static common.Constant.DELAY;
 import static common.Constant.DIRALL;
-import static common.Constant.MODEL;
 import static common.Constant.SIZE;
 import static common.Constant.dirInc;
 import static common.Constant.dirMask;
@@ -231,9 +226,12 @@ public class GameRule {
     public static int make_move(BoardChess data, int cell){
         byte[] chess = data.getChess();
         byte player = data.getCurrMove();
+        byte other = BoardUtil.change(player);
         LinkedList<ChessStep> steps = data.getSteps();
         LinkedList<Byte> empty = data.getEmpty();
         int count = make_move(chess, steps, empty, cell, player);
+        // 更新棋子数
+        data.incrementCount(player,count+1).incrementCount(other,-count);
         // 更新棋手
         data.setCurrMove(BoardUtil.change(player));
         return count;
@@ -274,9 +272,17 @@ public class GameRule {
         byte[] chess = data.getChess();
         LinkedList<ChessStep> steps = data.getSteps();
         ChessStep step = steps.removeFirst();
+        LinkedList<Byte> convert = step.getConvert();
         LinkedList<Byte> empty = data.getEmpty();
         un_move(chess,step,empty);
         data.setCurrMove(step.getPlayer());
+        // 更新棋子数
+        if (!convert.isEmpty()){
+            byte player = step.getPlayer();
+            byte other = BoardUtil.change(player);
+            // 更新棋子数
+            data.incrementCount(player,-(convert.size() + 1)).incrementCount(other,convert.size());
+        }
     }
 
     /**

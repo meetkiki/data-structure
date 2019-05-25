@@ -14,6 +14,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import static common.Constant.MAX;
+import static common.Constant.MIN;
+
 /**
  * alphaBeta 算法
  *
@@ -21,18 +24,12 @@ import java.util.List;
  */
 public class AlphaBeta {
 
-    public static int Depth = 10;
+    public static int Depth = 8;
     public static int Start = 0;
-    public static int MAX = 1000000000;
-    public static int MIN = -1000000000;
 
     public static MinimaxResult alphaBeta(BoardChess data){
         try {
             ReversiEvaluation.setCount(0);
-            if (GameRule.valid_moves(data) == 0){
-                return MinimaxResult.builder().mark(MIN).build();
-            }
-            // 每次搜索前清空置换表
             Zobrist.resetZobrist();
             return alphaBeta(data, MIN, MAX, Depth);
         } catch (Exception e) {
@@ -52,9 +49,9 @@ public class AlphaBeta {
      */
     private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
         // 引入置换表
-        long zobrist = Zobrist.getZobrist(data);
+        long zobrist = Zobrist.initZobrist(data);
         MinimaxResult zresult;
-        // 当前深度小于历史深度 则使用 否则搜索
+        // 当前深度浅于历史深度 则使用 否则搜索
         if ((zresult = Zobrist.lookupTTentryByZobrist(zobrist,depth)) != null){
             switch (zresult.getType()){
                 // 期望值
@@ -100,13 +97,15 @@ public class AlphaBeta {
             // 最佳估值类型, EXACT为精确值, LOWERBOUND为<=alpha, UPPERBOUND为>=beta
             EntryType entryType = null;
             // 轮到已方走
-            Move move = null;
+            Move move = null,first = null;
             // 遍历每一种走法
             Iterator<Integer> moveIterator = moves.iterator();
             while (moveIterator.hasNext()){
                 Integer next = moveIterator.next();
                 byte curMove = BoardUtil.rightShift(next,Constant.BITVALUE);
 //                Move convertMove = BoardUtil.convertMove(curMove);
+                // first move 作为搜索失败的第一个值
+                if (first == null) first = BoardUtil.convertMove(curMove);
                 //尝试走这步棋
                 GameRule.make_move(data, curMove);
                 // 将产生的新局面给对方
@@ -121,6 +120,7 @@ public class AlphaBeta {
                         // 通过向上传递的值修正上下限
                         alpha = Math.max(value,alpha);
                     }
+
                 }
                 // 剪枝
                 if (alpha >= beta){
@@ -130,6 +130,7 @@ public class AlphaBeta {
                 }
             }
             if (entryType == null){
+                move = first;
                 entryType = EntryType.UPPERBOUND;
             }
             MinimaxResult result = MinimaxResult.builder().mark(score).type(entryType).move(move).depth(depth).build();
@@ -147,7 +148,7 @@ public class AlphaBeta {
         if (moves.size() == 0){
             return moves;
         }
-        // 按照行动力从小到大排序
+        // 按照对手行动力从小到大排序
         Collections.sort(moves,(o1,o2)->{
             byte mobility1 = (byte) (o1 & 0xFF);
             byte mobility2 = (byte) (o2 & 0xFF);

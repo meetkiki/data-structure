@@ -20,14 +20,19 @@ public final class Zobrist {
     public static final long[][] zobrist;
 
     /**
+     * 哈希表的大小 1 << 24 大约为64m
+     */
+    public static final int hashMask = 1 << 24;
+
+    /**
      * 记录命中次数
      */
     private static int count = 0;
 
     /**
-     * 初始化大小一个亿
+     * 哈希表的大小 1 << 24 大约为64m
      */
-    public static final Map<Long,MinimaxResult> entryMap = new HashMap<>(Integer.MAX_VALUE >> 4);
+    public static final Map<Long,MinimaxResult> entryMap = new HashMap<>(hashMask);
 
     static {
         Random random = new Random();
@@ -40,12 +45,13 @@ public final class Zobrist {
         }
     }
 
+
     /**
      * 获得当前局面的Zobrist哈希值
      * @param boardChess
      * @return
      */
-    public static long getZobrist(BoardChess boardChess) {
+    public static long initZobrist(BoardChess boardChess) {
         long hash = 0;
         byte[] chess = boardChess.getChess();
         for (byte cell : Constant.moves) {
@@ -66,7 +72,7 @@ public final class Zobrist {
      */
     public static MinimaxResult lookupTTentryByZobrist(long hash,int depth){
         MinimaxResult result = entryMap.get(hash);
-        // 深度越深 需要的值越大
+        // 深度越深,depth越大,result得到的估值越准确,即需要查找的深度不能大于存储的深度
         if (result != null && depth <= result.getDepth()){
             count++;
             return result;
@@ -74,13 +80,12 @@ public final class Zobrist {
         return null;
     }
 
-
     /**
      * 重置Zobrist棋盘
      */
     public static void resetZobrist(){
         count= 0;
-        entryMap.clear();
+//        entryMap.clear();
     }
 
     /**
@@ -110,7 +115,6 @@ public final class Zobrist {
             entryMap.put(zobrist, result);
         }
     }
-
 
     public static int getCount() {
         return count;

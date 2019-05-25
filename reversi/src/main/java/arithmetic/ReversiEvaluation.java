@@ -9,6 +9,8 @@ import utils.BoardUtil;
 import java.util.LinkedList;
 import java.util.List;
 
+import static common.Constant.MAX;
+import static common.Constant.MIN;
 import static common.Constant.MODEL;
 
 /**
@@ -35,7 +37,7 @@ public class ReversiEvaluation {
     /**
      * 估值权重
      */
-    private static final int posValueWeight = 5;
+    private static final int posValueWeight = 2;
     /**
      * 棋子权重
      */
@@ -55,17 +57,18 @@ public class ReversiEvaluation {
     private static int count;
 
     /**
-     * 终局估值
+     * 终局估值 返回最终估值
      * @param data
      * @return
      */
     public static int endValue(BoardChess data) {
         count++;
-        int score = 0;
+        int score;
         byte[] chess = data.getChess();
         byte player = data.getCurrMove(), other = BoardUtil.change(player);
         // 只考虑棋子数
-        score += endWeight * (player_counters(chess, player) - player_counters(chess, other));
+        int count = player_counters(chess, player) - player_counters(chess, other);
+        score = count ==  0 ? 0 : (count >  0 ? MAX : MIN);
         return score;
     }
     /**
@@ -97,9 +100,9 @@ public class ReversiEvaluation {
             return score;
         }else {
             // 行动力 棋子
-            score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
             score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
-            score += countWeight * (player_counters(chess, player) - player_counters(chess, other));
+            score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
+            score += (player == Constant.WHITE ? countWeight : -countWeight) * (data.getwCount() - data.getbCount());
             // 稳定子
 //            score += stabistorWeight * (stabistor(data, player) - stabistor(data, other));
         }
