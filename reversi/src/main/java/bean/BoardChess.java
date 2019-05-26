@@ -43,11 +43,11 @@ public class BoardChess {
     /**
      * 当前选手行动力
      */
-    private int nextMobility = 0;
+    private int ourMobility = 0;
     /**
      * 对手行动力
      */
-    private int otherMobility = 0;
+    private int oppMobility = 0;
     /**
      * 我方稳定子
      */
@@ -137,20 +137,20 @@ public class BoardChess {
         BoardUtil.convert(chess,this.chess);
     }
 
-    public int getNextMobility() {
-        return nextMobility;
+    public int getOurMobility() {
+        return ourMobility;
     }
 
-    public void setNextMobility(int nextMobility) {
-        this.nextMobility = nextMobility;
+    public void setOurMobility(int ourMobility) {
+        this.ourMobility = ourMobility;
     }
 
-    public int getOtherMobility() {
-        return otherMobility;
+    public int getOppMobility() {
+        return oppMobility;
     }
 
-    public void setOtherMobility(int otherMobility) {
-        this.otherMobility = otherMobility;
+    public void setOppMobility(int oppMobility) {
+        this.oppMobility = oppMobility;
     }
 
     public LinkedList<Byte> getOurStators() {

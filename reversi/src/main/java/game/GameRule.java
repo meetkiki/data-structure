@@ -92,7 +92,7 @@ public class GameRule {
             if (canFlips(bytes,cell,player)){
                 // 左八位存cell 右八位为存走这步棋之后对手的行动力
                 Integer shift = BoardUtil.leftShift(cell, Constant.BITVALUE);
-                byte mobility = moveCanMobility(chess, player, cell);
+                byte mobility = moveCanMobility(chess, cell);
                 shift |= mobility;
                 // 移动链表
                 moves.addFirst(shift);
@@ -102,8 +102,8 @@ public class GameRule {
                 otherMove++;
             }
         }
-        chess.setNextMobility(canOut);
-        chess.setOtherMobility(otherMove);
+        chess.setOurMobility(canOut);
+        chess.setOppMobility(otherMove);
         return canOut;
     }
 
@@ -112,14 +112,14 @@ public class GameRule {
      *  head 空位链表
      * @return
      */
-    private static byte moveCanMobility(BoardChess boardChess, byte player,byte next){
+    private static byte moveCanMobility(BoardChess boardChess,byte next){
         make_move(boardChess,next);
         LinkedList<Byte> empty = boardChess.getEmpty();
         byte mobility = 0;
         Iterator<Byte> em = empty.iterator();
         while (em.hasNext()){
             Byte cell = em.next();
-            if (GameRule.canFlips(boardChess.getChess(),cell,player)){
+            if (GameRule.canFlips(boardChess.getChess(),cell,boardChess.getCurrMove())){
                 mobility++;
             }
         }
@@ -146,8 +146,8 @@ public class GameRule {
                 otherMove++;
             }
         }
-        chess.setNextMobility(canMove);
-        chess.setOtherMobility(otherMove);
+        chess.setOurMobility(canMove);
+        chess.setOppMobility(otherMove);
         return canMove;
     }
 
@@ -182,8 +182,8 @@ public class GameRule {
             }
         }
         // 设置行动力
-        chess.setNextMobility(playerMobility);
-        chess.setOtherMobility(otherMobility);
+        chess.setOurMobility(playerMobility);
+        chess.setOppMobility(otherMobility);
         return playerMobility;
     }
 
@@ -489,7 +489,7 @@ public class GameRule {
                 // 更新规则
                 board.setCurrMove(boardChess.getCurrMove());
                 GameRule.valid_moves(boardData,moves);
-            } while (board.getCurrMove() != next && board.getBoardChess().getNextMobility() > 0);
+            } while (board.getCurrMove() != next && board.getBoardChess().getOurMobility() > 0);
             // 异步更新页面
             GameContext.serialExecute(()->{
                 GameContext.await(latch[0]);
@@ -561,8 +561,8 @@ public class GameRule {
         }
         GameRule.valid_moves(boardChess);
         // 如果双方无棋可走
-        if (boardChess.getNextMobility() == Constant.EMPTY
-                && boardChess.getOtherMobility() == Constant.EMPTY){
+        if (boardChess.getOurMobility() == Constant.EMPTY
+                && boardChess.getOppMobility() == Constant.EMPTY){
             return true;
         }
         return false;

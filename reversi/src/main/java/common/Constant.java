@@ -16,7 +16,7 @@ public class Constant {
 	/**
 	 * 标识黑子
 	 */
-	public static final byte BLACK = -1;
+	public static final byte BLACK = 2;
 
 	/**
 	 * 标识白子
@@ -31,11 +31,20 @@ public class Constant {
 	/**
 	 * 标识白可走子
 	 */
-	public static final byte DOT_W = 2;
+	public static final byte DOT_W = 3;
 	/**
 	 * 标识黑可走子
 	 */
-	public static final byte DOT_B = -2;
+	public static final byte DOT_B = 4;
+	/**
+	 * 边界
+	 */
+	public static final byte BOUNDARY = 5;
+	/**
+	 * 玩家种类
+	 */
+	public static final byte PLAYERTYPE = 3;
+
 	/**
 	 * 边间距
 	 */
@@ -73,7 +82,7 @@ public class Constant {
 	/**
 	 * 默认搜索深度
 	 */
-    public static final int DEFAULTDEPTH = 8;
+    public static final int DEFAULTDEPTH = 10;
 	/**
 	 * 终局搜索深度
 	 */
@@ -81,8 +90,8 @@ public class Constant {
 	/**
      * 搜索的极大极小值
      */
-    public static int MAX = 1000000;
-    public static int MIN = -1000000;
+    public static int MAX = 600000;
+    public static int MIN = -600000;
 
 	/**
 	 * Warren Smith 棋盘模型长度
@@ -182,15 +191,6 @@ public class Constant {
 		}
 		mapMove = Collections.unmodifiableMap(byteMoveMap);
 	}
-	/**
-	 * 边界
-	 */
-	public static final byte BOUNDARY = 4;
-	/**
-	 * 玩家种类
-	 */
-	public static final byte PLAYERTYPE = 3;
-
 	/**
 	 * 标准坐标系
 	 */

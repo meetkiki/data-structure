@@ -2,7 +2,6 @@ package arithmetic;
 
 import bean.BoardChess;
 import bean.MinimaxResult;
-import bean.Move;
 import common.Constant;
 
 import java.util.LinkedList;
@@ -28,13 +27,13 @@ public class Calculator {
      * 搜索最佳走法
      * @return
      */
-    public Move searchMove(BoardChess boardChess){
+    public MinimaxResult searchMove(BoardChess boardChess){
         LinkedList<Byte> empty = boardChess.getEmpty();
         // 如果是终局
         if (empty.size() <= outDepth){
             // 终局深度为空格的长度
             MinimaxResult result = this.searchAlgorithm.search(boardChess, outDepth);
-            return result.getMove();
+            return result;
         }
         MinimaxResult result = null;
         try {
@@ -43,7 +42,7 @@ public class Calculator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return result.getMove();
+        return result;
     }
 
 }

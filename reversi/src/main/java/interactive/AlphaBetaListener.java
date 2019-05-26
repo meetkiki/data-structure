@@ -3,11 +3,9 @@ package interactive;
 import arithmetic.AlphaBeta;
 import arithmetic.Calculator;
 import arithmetic.ReversiEvaluation;
-import arithmetic.SearchAlgorithm;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.MinimaxResult;
-import bean.Move;
 import bean.Zobrist;
 import common.Constant;
 import game.Board;
@@ -51,18 +49,18 @@ public class AlphaBetaListener implements Observer {
 //            }
             long st = System.currentTimeMillis();
 //            GameContext.sleep(2000);
-            Move bestMove = calculator.searchMove(boardChess);
+            MinimaxResult result = calculator.searchMove(boardChess);
             long en = System.currentTimeMillis();
             System.out.println("搜索耗时 " + (en - st) + " ms");
             String move = board.getCurrMove() == Constant.WHITE ? "白" : "黑";
-            System.out.println(bestMove + "currMove :" + move);
+            System.out.println(result + "currMove :" + move);
             System.out.println("搜索局面 : " + ReversiEvaluation.getCount() + " 个,置换表命中次数 : "+ Zobrist.getCount() +" 次,每秒: " +
                     (long)(Double.valueOf(ReversiEvaluation.getCount() + Zobrist.getCount()) / ((en - st) / 1000.0 )) + " 个局面");
             // 必须要先走玩家棋
             mouseListener.getTask().join();
 
             // 走这步棋
-            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, bestMove);
+            GameRule.MakeMoveRun makeMove = GameRule.getMakeMove(board, result.getMove());
             makeMove.fork();
             GameContext.getCall(makeMove);
 //            if (GameRule.isShutDown(boardChess)){

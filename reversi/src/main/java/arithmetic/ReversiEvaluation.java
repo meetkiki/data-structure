@@ -6,7 +6,6 @@ import game.GameRule;
 import utils.BoardUtil;
 
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static common.Constant.MAX;
@@ -91,16 +90,16 @@ public class ReversiEvaluation {
         int emptyCount = empty.size();
         // 初盘只考虑行动力
         if (emptyCount >= OPENING){
-            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
+            score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
             return score;
         }else if (emptyCount > MIDDLE){
             // 行动力和权重
-            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
+            score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
             score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
             return score;
         }else {
             // 行动力 棋子
-            score += mobilityWeight * (data.getNextMobility() - data.getOtherMobility());
+            score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
             score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
             score += (player == Constant.WHITE ? countWeight : -countWeight) * (data.getwCount() - data.getbCount());
             // 稳定子

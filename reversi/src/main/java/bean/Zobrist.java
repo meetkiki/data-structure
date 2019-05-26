@@ -3,9 +3,6 @@ package bean;
 import common.Constant;
 import common.EntryType;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 
 import static common.Constant.PLAYERTYPE;
@@ -33,7 +30,6 @@ public final class Zobrist {
     /**
      * 哈希表的大小 1 << 24 大约为64m
      */
-//    public static Map<Long,MinimaxResult> entryMap = new HashMap<>(hashMask);
     public static final MinimaxResult[] entryList = new MinimaxResult[hashMask + 1];
 
     static {
@@ -57,13 +53,14 @@ public final class Zobrist {
         long hash = 0;
         byte[] chess = boardChess.getChess();
         for (byte cell : Constant.moves) {
-            byte player = chess[cell];
-            int type = player == Constant.BLACK ? 2 : player;
-            hash ^= zobrist[cell][type];
+            if (chess[cell] != Constant.EMPTY){
+                byte player = chess[cell];
+                hash ^= zobrist[cell][player];
+            }
         }
         // 局面当前棋手
         byte player = boardChess.getCurrMove();
-        hash ^= zobrist[Constant.MODEL][player == Constant.BLACK ? 2 : player];
+        hash ^= zobrist[Constant.MODEL][player];
         return hash;
     }
 

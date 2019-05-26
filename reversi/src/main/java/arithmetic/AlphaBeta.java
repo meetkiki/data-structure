@@ -72,7 +72,7 @@ public class AlphaBeta implements SearchAlgorithm{
         LinkedList<Integer> moves = new LinkedList<>();
         if (GameRule.valid_moves(data,moves) == 0){
             // 如果对手也没有可走子
-            if (data.getOtherMobility() == 0){
+            if (data.getOppMobility() == 0){
                 // 终局 给出精确估值
                 int value = ReversiEvaluation.endValue(data);
                 Zobrist.insertZobrist(zobrist,value,depth,EntryType.EXACT);
@@ -149,6 +149,10 @@ public class AlphaBeta implements SearchAlgorithm{
             byte mobility2 = (byte) (o2 & 0xFF);
             return mobility1 - mobility2;
         });
+//        moves.stream().forEach((e)-> {
+//            System.out.print((e & 0xFF) + "==");
+//        });
+//        System.out.println("====================");
         return moves;
     }
 }
