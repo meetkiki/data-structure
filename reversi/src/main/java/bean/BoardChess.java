@@ -218,6 +218,9 @@ public class BoardChess {
         this.status = status;
     }
 
+    /**
+     * 更新棋局状态 非实时
+     */
     public void updateStatus() {
         if (ourMobility == 0 && oppMobility == 0){
             status = GameStatus.END;

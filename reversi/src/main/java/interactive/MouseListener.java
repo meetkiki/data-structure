@@ -6,6 +6,7 @@ import bean.BoardChess;
 import bean.BoardData;
 import bean.Move;
 import common.Constant;
+import common.GameStatus;
 import game.Board;
 import game.GameContext;
 import game.GameRule;
@@ -18,7 +19,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.concurrent.ForkJoinTask;
-import java.util.concurrent.RecursiveAction;
 
 import static game.Board.BOARD_HEIGHT;
 import static game.Board.BOARD_WIDTH;
@@ -86,7 +86,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         @Override
         public void run() {
             try {
-                MainView mainView = GameContext.getBean(MainView.class);
                 // 显示棋盘
                 makeMove = GameRule.getMakeMove(board, move);
                 Integer next = makeMove.fork().join();
@@ -98,25 +97,17 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                     do {
                         // 交给计算机处理
                         computerMove();
-                        if (GameRule.valid_moves(boardChess) == 0) {
-                            JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(curMove) + "方需要放弃一手 由"
-                                    + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
-                            GameRule.passMove(boardData);
-                        } else if (GameRule.isShutDown(boardChess)) {
-                            int white = ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE);
-                            int black = ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK);
-                            JOptionPane.showMessageDialog(mainView, (black - white) > 0 ? "黑方胜利" :
-                                    ((black - white) == 0 ? "平局" : "白方胜利"), "提示", JOptionPane.WARNING_MESSAGE);
+                        if (checkShutDown(boardChess)){
                             break;
                         }
-                        isContinue = board.getCurrMove() != curMove;
+                        if (checkContinue(boardChess)) {
+                            GameRule.passMove(boardData);
+                            board.upshow();
+                            isContinue = true;
+                        }
                     }while (isContinue);
-                }else if (GameRule.isShutDown(board.getBoardChess())){
-                    int white = ReversiEvaluation.player_counters(board.getBoardChess().getChess(), Constant.WHITE);
-                    int black = ReversiEvaluation.player_counters(board.getBoardChess().getChess(), Constant.BLACK);
-                    JOptionPane.showMessageDialog(mainView, (black - white) > 0 ? "黑方胜利" :
-                            ((black - white) == 0 ? "平局" : "白方胜利"), "提示", JOptionPane.WARNING_MESSAGE);
-
+                }else if (checkShutDown(board.getBoardChess())){
+                    return;
                 }else{
                     // 如果没有棋可以走 获得返回数据
                     BoardData boardData = board.getBoardData();
@@ -194,5 +185,44 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     public GameRule.MakeMoveRun getTask() {
         return makeMove;
+    }
+    /**
+     * 校验是否由改方继续
+     * @param data
+     * @return
+     */
+    public boolean checkContinue(BoardChess data){
+        MainView mainView = GameContext.getBean(MainView.class);
+        GameRule.valid_moves(data);
+        // 更新棋局状态
+        data.updateStatus();
+        if (data.getStatus() != GameStatus.END){
+            if (data.getOurMobility() == 0 && data.getOppMobility() > 0){
+                JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(curMove) + "方需要放弃一手 由"
+                        + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * 校验是否结束游戏
+     * @param data
+     * @return
+     */
+    public boolean checkShutDown(BoardChess data){
+        MainView mainView = GameContext.getBean(MainView.class);
+        GameRule.valid_moves(data);
+        data.updateStatus();
+        if (data.getStatus() == GameStatus.END){
+            int white = ReversiEvaluation.player_counters(board.getBoardChess().getChess(), Constant.WHITE);
+            int black = ReversiEvaluation.player_counters(board.getBoardChess().getChess(), Constant.BLACK);
+            JOptionPane.showMessageDialog(mainView, (black - white) > 0 ? "黑方胜利" :
+                    ((black - white) == 0 ? "平局" : "白方胜利"), "提示", JOptionPane.WARNING_MESSAGE);
+            return true;
+        }
+        return false;
     }
 }
