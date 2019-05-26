@@ -44,10 +44,9 @@ public class AlphaBeta implements SearchAlgorithm{
      */
     private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
         // 引入置换表
-        long zobrist = Zobrist.initZobrist(data);
         MinimaxResult zresult;
         // 当前深度浅于历史深度 则使用 否则搜索
-        if ((zresult = Zobrist.lookupTTentryByZobrist(zobrist,depth)) != null){
+        if ((zresult = Zobrist.lookupTTentryByZobrist(data.getZobrist(),depth)) != null){
             switch (zresult.getType()){
                 // 期望值
                 case EXACT:
@@ -66,7 +65,7 @@ public class AlphaBeta implements SearchAlgorithm{
         if (depth <= Start || empty.size() == Constant.EMPTY) {
             // 直接给出估值
             int value = ReversiEvaluation.currentValue(data);
-            Zobrist.insertZobrist(zobrist,value,depth, EntryType.EXACT);
+            Zobrist.insertZobrist(data.getZobrist(),value,depth, EntryType.EXACT);
             return MinimaxResult.builder().mark(value).depth(depth).build();
         }
         LinkedList<Integer> moves = new LinkedList<>();
@@ -75,7 +74,7 @@ public class AlphaBeta implements SearchAlgorithm{
             if (data.getOppMobility() == 0){
                 // 终局 给出精确估值
                 int value = ReversiEvaluation.endValue(data);
-                Zobrist.insertZobrist(zobrist,value,depth,EntryType.EXACT);
+                Zobrist.insertZobrist(data.getZobrist(),value,depth,EntryType.EXACT);
                 return MinimaxResult.builder().mark(value).depth(depth).build();
             }
             GameRule.passMove(data);
@@ -115,7 +114,6 @@ public class AlphaBeta implements SearchAlgorithm{
                         // 通过向上传递的值修正上下限
                         alpha = Math.max(value,alpha);
                     }
-
                 }
                 // 剪枝
                 if (alpha >= beta){
@@ -124,12 +122,13 @@ public class AlphaBeta implements SearchAlgorithm{
                     break;
                 }
             }
+            // 如果搜索失败
             if (entryType == null){
                 move = first;
                 entryType = EntryType.UPPERBOUND;
             }
             MinimaxResult result = MinimaxResult.builder().mark(score).type(entryType).move(move).depth(depth).build();
-            Zobrist.insertZobrist(zobrist,result);
+            Zobrist.insertZobrist(data.getZobrist(),result);
             return result;
         }
     }
@@ -149,10 +148,6 @@ public class AlphaBeta implements SearchAlgorithm{
             byte mobility2 = (byte) (o2 & 0xFF);
             return mobility1 - mobility2;
         });
-//        moves.stream().forEach((e)-> {
-//            System.out.print((e & 0xFF) + "==");
-//        });
-//        System.out.println("====================");
         return moves;
     }
 }

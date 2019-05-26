@@ -91,9 +91,9 @@ public class Constant {
 	 */
 	public static final int OPENING = 40;
 	/**
-	 * 中盘 空闲位置10 - 40
+	 * 中盘 空闲位置18 - 40
 	 */
-	public static final int MIDDLE = 16;
+	public static final int MIDDLE = 18;
 	/**
      * 搜索的极大极小值
      */

@@ -4,6 +4,7 @@ import bean.BoardChess;
 import bean.BoardData;
 import bean.ChessStep;
 import bean.Move;
+import bean.Zobrist;
 import common.Constant;
 import utils.BoardUtil;
 
@@ -104,7 +105,6 @@ public class GameRule {
         }
         chess.setOurMobility(canOut);
         chess.setOppMobility(otherMove);
-        chess.updateStatus();
         return canOut;
     }
 
@@ -225,16 +225,15 @@ public class GameRule {
      *  only    简洁操作
      */
     public static int make_move(BoardChess data, int cell){
-        byte[] chess = data.getChess();
         byte player = data.getCurrMove();
         byte other = BoardUtil.change(player);
         LinkedList<ChessStep> steps = data.getSteps();
         LinkedList<Byte> empty = data.getEmpty();
-        int count = make_move(chess, steps, empty, cell, player);
+        int count = make_move(data, steps, empty, cell, player);
         // 更新棋子数
         data.incrementCount(player,count+1).incrementCount(other,-count);
         // 更新棋手
-        data.setCurrMove(BoardUtil.change(player));
+        data.setCurrMove(other);
         return count;
     }
 
@@ -244,7 +243,8 @@ public class GameRule {
      *  changes 吃子数组
      *  only    简洁操作
      */
-    public static int make_move(byte[] chess,LinkedList<ChessStep> steps,LinkedList<Byte> empty, int cell, byte player){
+    public static int make_move(BoardChess data,LinkedList<ChessStep> steps,LinkedList<Byte> empty, int cell, byte player){
+        byte[] chess = data.getChess();
         // 返回转变子
         //将row和col的值更改为player //玩家状态
         chess[cell] = player;
@@ -262,6 +262,12 @@ public class GameRule {
         steps.addFirst(ChessStep.builder().cell((byte) cell).player(player).convert(convert).build());
         // 移除空链表
         empty.remove(new Byte((byte) cell));
+        // 更新哈希值
+        data.setZobrist(Zobrist.changeMove(data,cell,player));
+        // 更新转变子哈希值
+        data.setZobrist(Zobrist.changeConvert(data,convert,player,data.getOther()));
+        // 更新棋手哈希值
+        data.setZobrist(Zobrist.passPlayer(data,data.getCurrMove()));
         return convert.size();
     }
 
@@ -270,12 +276,12 @@ public class GameRule {
      * 仅搜索和模拟
      */
     public static void un_move(BoardChess data){
-        byte[] chess = data.getChess();
         LinkedList<ChessStep> steps = data.getSteps();
         ChessStep step = steps.removeFirst();
         LinkedList<Byte> convert = step.getConvert();
         LinkedList<Byte> empty = data.getEmpty();
-        un_move(chess,step,empty);
+        un_move(data,step,empty);
+        // 更新棋手
         data.setCurrMove(step.getPlayer());
         // 更新棋子数
         if (!convert.isEmpty()){
@@ -290,11 +296,14 @@ public class GameRule {
      * 悔棋方法
      * 仅搜索和模拟
      */
-    public static void un_move(byte[] chess,ChessStep step,LinkedList<Byte> empty){
+    public static void un_move(BoardChess data,ChessStep step,LinkedList<Byte> empty){
+        byte[] chess = data.getChess();
         byte player = step.getPlayer();
         byte other = BoardUtil.change(player);
         byte cell = step.getCell();
         LinkedList<Byte> convert = step.getConvert();
+        // 更新棋手
+        data.setZobrist(Zobrist.passPlayer(data,step.getPlayer()));
         // 如果是跳过
         if (convert.isEmpty()){
             return;
@@ -309,6 +318,10 @@ public class GameRule {
             Byte next = conit.next();
             chess[next] = other;
         }
+        // 移除空位哈希值
+        data.setZobrist(Zobrist.changeMove(data,cell,player));
+        // 更新转变子哈希值 将下的子哈希值移除 增加对手的哈希值
+        data.setZobrist(Zobrist.changeConvert(data,convert,other,player));
     }
 
     /**
@@ -320,7 +333,11 @@ public class GameRule {
         LinkedList<ChessStep> steps = data.getSteps();
         ChessStep step = ChessStep.builder().convert(new LinkedList<>()).player(player).build();
         steps.addFirst(step);
-        data.setCurrMove(BoardUtil.change(player));
+        byte other = BoardUtil.change(player);
+        // 转变选手
+        data.setCurrMove(other);
+        // 更新哈希值
+        data.setZobrist(Zobrist.passPlayer(data,player));
     }
 
     public static void passMove(BoardData boardData) {

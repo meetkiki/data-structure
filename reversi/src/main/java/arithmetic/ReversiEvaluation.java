@@ -7,8 +7,6 @@ import game.GameRule;
 import utils.BoardUtil;
 
 
-import java.util.List;
-
 import static common.Constant.MAX;
 import static common.Constant.MIN;
 import static common.Constant.MODEL;
@@ -69,18 +67,17 @@ public class ReversiEvaluation {
      * @return
      */
     public static int currentValue(BoardChess data) {
+        // 更新棋局状态
         GameRule.valid_moves(data);
+        data.updateStatus();
         int score = 0;
         byte player = data.getCurrMove(), other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
         byte[] chess = data.getChess();
-        // 空位链表
-        List<Byte> empty = data.getEmpty();
-        if (empty.size() == 0 || GameRule.isShutDown(data)){
-            return endValue(data);
-        }
         count++;
         GameStatus status = data.getStatus();
         switch (status){
+            case END:
+                return endValue(data);
             case OPENING:
                 score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
                 return score;
@@ -94,11 +91,10 @@ public class ReversiEvaluation {
                 score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
                 score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
                 score += (player == Constant.WHITE ? countWeight : -countWeight) * (data.getwCount() - data.getbCount());
+                // 奇偶性
                 // 稳定子
 //              score += stabistorWeight * (stabistor(data, player) - stabistor(data, other));
                 return score;
-            case END:
-                return endValue(data);
             default: return 0;
         }
     }

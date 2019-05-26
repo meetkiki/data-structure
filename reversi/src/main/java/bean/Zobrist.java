@@ -3,6 +3,7 @@ package bean;
 import common.Constant;
 import common.EntryType;
 
+import java.util.List;
 import java.util.Random;
 
 import static common.Constant.PLAYERTYPE;
@@ -60,7 +61,9 @@ public final class Zobrist {
         }
         // 局面当前棋手
         byte player = boardChess.getCurrMove();
-        hash ^= zobrist[Constant.MODEL][player];
+        if (player == Constant.WHITE){
+            hash ^= Zobrist.zobrist[Constant.MODEL][player];
+        }
         return hash;
     }
 
@@ -119,7 +122,70 @@ public final class Zobrist {
         }
     }
 
+    /**
+     * 改变选手  只需要计算一次就可以
+     * @return
+     */
+    public static long passPlayer(BoardChess boardChess,byte player){
+        long hash = boardChess.getZobrist();
+        if (player == Constant.WHITE){
+            hash ^= Zobrist.zobrist[Constant.MODEL][player];
+        }
+        return hash;
+    }
+
+    /**
+     * 增加/删除一个棋子的哈希值
+     * @param boardChess
+     * @param cell
+     * @return
+     */
+    public static long changeMove(BoardChess boardChess,int cell,byte player){
+        long hash = boardChess.getZobrist();
+        hash ^= Zobrist.zobrist[cell][player];
+        return hash;
+    }
+
+    /**
+     * 将other转变一批子为player
+     *  1.将other的子移除
+     *  2.为player这批子计算hash值 返回
+     * @param boardChess
+     * @return
+     */
+    public static long changeConvert(BoardChess boardChess, List<Byte> convert, byte player, byte other){
+        long hash = boardChess.getZobrist();
+        for (Byte cell : convert) {
+            hash ^= Zobrist.zobrist[cell][other];
+            hash ^= Zobrist.zobrist[cell][player];
+        }
+        return hash;
+    }
+
+
     public static int getCount() {
         return count;
     }
+
+
+    public static void main(String[] args) {
+        Random random = new Random();
+        long hash = random.nextInt(10000);
+        System.out.println(hash);
+
+
+
+
+        // 移除一个数据
+        hash ^= Zobrist.zobrist[1][1];
+        // 增加空
+        hash ^= Zobrist.zobrist[1][Constant.EMPTY];
+        System.out.println(hash);
+        // 移除一个数据
+        hash ^= Zobrist.zobrist[1][1];
+        // 增加空
+        hash ^= Zobrist.zobrist[1][Constant.EMPTY];
+        System.out.println(hash);
+    }
+
 }

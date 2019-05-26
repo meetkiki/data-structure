@@ -8,7 +8,6 @@ import utils.BoardUtil;
 
 import java.util.LinkedList;
 
-import static common.Constant.EMPTY;
 import static common.Constant.MIDDLE;
 import static common.Constant.MODEL;
 import static common.Constant.OPENING;
@@ -181,6 +180,10 @@ public class BoardChess {
             bCount += count;
         }
         return this;
+    }
+
+    public byte getOther() {
+        return BoardUtil.change(currMove);
     }
 
     public byte getwCount() {
