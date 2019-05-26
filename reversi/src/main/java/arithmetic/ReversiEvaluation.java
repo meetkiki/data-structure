@@ -2,6 +2,7 @@ package arithmetic;
 
 import bean.BoardChess;
 import common.Constant;
+import common.GameStatus;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -19,15 +20,6 @@ import static common.Constant.MODEL;
  * @date 2019/5/8 13:58
  */
 public class ReversiEvaluation {
-
-    /**
-     * 开局 空闲位置40以上
-     */
-    private static final int OPENING = 40;
-    /**
-     * 中盘 空闲位置10 - 40
-     */
-    private static final int MIDDLE = 16;
 
     /**
      * 行动力权重
@@ -87,25 +79,28 @@ public class ReversiEvaluation {
             return endValue(data);
         }
         count++;
-        int emptyCount = empty.size();
-        // 初盘只考虑行动力
-        if (emptyCount >= OPENING){
-            score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
-            return score;
-        }else if (emptyCount > MIDDLE){
-            // 行动力和权重
-            score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
-            score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
-            return score;
-        }else {
-            // 行动力 棋子
-            score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
-            score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
-            score += (player == Constant.WHITE ? countWeight : -countWeight) * (data.getwCount() - data.getbCount());
-            // 稳定子
-//            score += stabistorWeight * (stabistor(data, player) - stabistor(data, other));
+        GameStatus status = data.getStatus();
+        switch (status){
+            case OPENING:
+                score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
+                return score;
+            case MIDDLE:
+                // 行动力和权重
+                score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
+                score += posValueWeight * (evaluation(chess,player) - evaluation(chess,other));
+                return score;
+            case OUTCOME:
+                // 行动力 棋子
+                score += mobilityWeight * (data.getOurMobility() - data.getOppMobility());
+                score += posValueWeight * (evaluation(chess, player) - evaluation(chess, other));
+                score += (player == Constant.WHITE ? countWeight : -countWeight) * (data.getwCount() - data.getbCount());
+                // 稳定子
+//              score += stabistorWeight * (stabistor(data, player) - stabistor(data, other));
+                return score;
+            case END:
+                return endValue(data);
+            default: return 0;
         }
-        return score;
     }
 
     /**

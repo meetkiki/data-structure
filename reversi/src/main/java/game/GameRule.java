@@ -104,6 +104,7 @@ public class GameRule {
         }
         chess.setOurMobility(canOut);
         chess.setOppMobility(otherMove);
+        chess.updateStatus();
         return canOut;
     }
 

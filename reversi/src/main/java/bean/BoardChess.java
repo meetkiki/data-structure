@@ -1,13 +1,17 @@
 package bean;
 
 import common.Constant;
+import common.GameStatus;
 import game.Chess;
 import lombok.Data;
 import utils.BoardUtil;
 
 import java.util.LinkedList;
 
+import static common.Constant.EMPTY;
+import static common.Constant.MIDDLE;
 import static common.Constant.MODEL;
+import static common.Constant.OPENING;
 
 /**
  * 计算用棋盘数据
@@ -37,7 +41,7 @@ public class BoardChess {
     private byte wCount;
     private byte bCount;
     /**
-     * 局面的zobrist值 每次改变状态更新
+     * 局面的zobrist值(哈希) 每次改变状态更新
      */
     private long zobrist;
     /**
@@ -57,36 +61,37 @@ public class BoardChess {
      */
     private LinkedList<Byte> oppStators = new LinkedList<>();
     /**
-     * 每一步 步数
+     * 每一步 步数信息
      */
     private LinkedList<ChessStep> steps = new LinkedList<>();
+    /**
+     * 游戏状态
+     */
+    private GameStatus status;
 
-    public BoardChess(){
+    public BoardChess(byte player){
         this.chess = new byte[MODEL];
-        this.currMove = Constant.BLACK;
-        this.empty = new LinkedList<>();
-    }
-
-    public BoardChess(byte[] chess,byte player) {
-        this.chess = new byte[MODEL];
-        this.currMove = player;
-        this.empty = new LinkedList<>();
-        // 初始化哨兵
-        this.initChess();
-        // 拷贝棋盘
-        System.arraycopy(chess,0,this.chess,0,MODEL);
-        // 初始化空位链表
-        this.initEmpty(chess);
-    }
-
-    public BoardChess(Chess[][] chess,byte player) {
-        this.chess = new byte[MODEL];
-        this.currMove = player;
         this.empty = new LinkedList<>();
         this.wCount = 2;
         this.bCount = 2;
+        this.currMove = player;
         // 初始化哨兵
         this.initChess();
+        // 初始化状态
+        this.status = GameStatus.OPENING;
+    }
+
+    public BoardChess(byte[] chess,byte player) {
+        this(player);
+        System.arraycopy(chess,0,this.chess,0,MODEL);
+        // 初始化空位链表
+        this.initEmpty(chess);
+        // 初始化zobrist的值
+        this.zobrist = Zobrist.initZobrist(this);
+    }
+
+    public BoardChess(Chess[][] chess,byte player) {
+        this(player);
         // 转换棋盘数据
         this.copyChess(chess);
         // 初始化空位链表
@@ -200,5 +205,30 @@ public class BoardChess {
 
     public void setZobrist(long zobrist) {
         this.zobrist = zobrist;
+    }
+
+    public GameStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GameStatus status) {
+        this.status = status;
+    }
+
+    public void updateStatus() {
+        if (ourMobility == 0 && oppMobility == 0){
+            status = GameStatus.END;
+        }else {
+            int empty = this.empty.size();
+            if (empty == 0) {
+                status = GameStatus.END;
+            }else if (empty > OPENING) {
+                status = GameStatus.OPENING;
+            }else if (empty > MIDDLE){
+                status = GameStatus.MIDDLE;
+            }else {
+                status = GameStatus.OUTCOME;
+            }
+        }
     }
 }

@@ -1,8 +1,6 @@
 package common;
 
 import bean.Move;
-import game.Board;
-import utils.BoardUtil;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -67,6 +65,7 @@ public class Constant {
 	 * //序列帧间隔
 	 */
 	public static final int DELAY = 60;
+
 	/**
 	 * 动画图片
 	 */
@@ -87,6 +86,14 @@ public class Constant {
 	 * 终局搜索深度
 	 */
 	public static final int OUTDEPTH = 16;
+	/**
+	 * 开局 空闲位置40以上
+	 */
+	public static final int OPENING = 40;
+	/**
+	 * 中盘 空闲位置10 - 40
+	 */
+	public static final int MIDDLE = 16;
 	/**
      * 搜索的极大极小值
      */
