@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import static common.Constant.coordinateStr;
+import static utils.CacheContext.coordinateStr;
 
 /**
  * 标识棋盘中的一个位置

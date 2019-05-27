@@ -12,16 +12,16 @@ import java.util.LinkedList;
  */
 public class Calculator {
 
-    private SearchAlgorithm searchAlgorithm;
+    private static SearchAlgorithm alphaBeta = new AlphaBeta();
+    private static SearchAlgorithm mtdSearch = new MTDSearch();
+
     /**
      * 搜索深度
      */
     private int depth = Constant.DEFAULTDEPTH;
     private int outDepth = Constant.OUTDEPTH;
 
-    public Calculator(SearchAlgorithm searchAlgorithm){
-        this.searchAlgorithm = searchAlgorithm;
-    }
+    public Calculator(){}
 
     /**
      * 搜索最佳走法
@@ -32,13 +32,13 @@ public class Calculator {
         // 如果是终局
         if (empty.size() <= outDepth){
             // 终局深度为空格的长度
-            MinimaxResult result = this.searchAlgorithm.search(boardChess, outDepth);
+            MinimaxResult result = alphaBeta.search(boardChess, outDepth);
             return result;
         }
         MinimaxResult result = null;
         try {
             // MTD 算法
-            result = this.searchAlgorithm.search(boardChess, depth);
+            result = mtdSearch.search(boardChess, depth);
         } catch (Exception e) {
             e.printStackTrace();
         }

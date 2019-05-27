@@ -10,6 +10,7 @@ import utils.BoardUtil;
 import static common.Constant.MAX;
 import static common.Constant.MIN;
 import static common.Constant.MODEL;
+import static utils.CacheContext.includeStabistor;
 
 /**
  * @author ypt
@@ -161,7 +162,7 @@ public class ReversiEvaluation {
             if (chess[i] == player){
                 flag = false;
                 // 角点为稳定子
-                if (Constant.includeStabistor(i)){
+                if (includeStabistor(i)){
                     flag = true;
                 }else{
                     // 需判断八个方向上不能被翻转

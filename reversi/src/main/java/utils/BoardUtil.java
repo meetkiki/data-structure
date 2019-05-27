@@ -22,8 +22,8 @@ import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
 import static common.Constant.SIZE;
-import static common.Constant.mapMove;
-import static common.Constant.moveConstant;
+import static utils.CacheContext.mapMove;
+import static utils.CacheContext.moveConstant;
 
 /**
  * @author Tao

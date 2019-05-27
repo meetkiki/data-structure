@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static common.Constant.ALLSTEP;
-import static common.Constant.movesIndex;
+import static utils.CacheContext.movesIndex;
 
 /**
  * @author ypt
@@ -29,7 +29,7 @@ public class HistoryHeuristic {
      * @param move
      * @return
      */
-    public static int getHistoryScore(byte move){
+    public static int historyScore(byte move){
         return historytable[movesIndex[move]];
     }
 
@@ -58,26 +58,29 @@ public class HistoryHeuristic {
      * 根据历史表信息对移动进行排序
      */
     public static void sortMovesByHistory(List<Byte> moves){
-        // 用long存储 步数 低32位为分数 高33-40位为移动
-        for (int i = 0; i < moves.size(); i++) {
-            Byte cell = moves.get(i);
-            int score = getHistoryScore(cell);
-            Long shift = BoardUtil.leftShift((long) cell, (byte) 32);
-            shift |= score;
-            longs.add(i,shift);
-        }
         // 根据比分倒序
-        BoardUtil.insertSort(longs,(o1,o2)->{
-            long l1 = o1 & 0xFFFFFFFF;
-            long l2 = o2 & 0xFFFFFFFF;
-            return (int) (l2 - l1);
-        });
-        for (int i = 0; i < longs.size(); i++) {
-            Long aLong = longs.get(i);
-            byte cell = BoardUtil.rightShift(aLong, (byte) 32);
-            moves.set(i,cell);
-        }
-        longs.clear();
+        BoardUtil.insertSort(moves,(o1,o2)-> historyScore(o2) - historyScore(o1));
+
+//        // 用long存储 步数 低32位为分数 高33-40位为移动
+//        for (int i = 0; i < moves.size(); i++) {
+//            Byte cell = moves.get(i);
+//            int score = historyScore(cell);
+//            Long shift = BoardUtil.leftShift((long) cell, (byte) 32);
+//            shift |= score;
+//            longs.add(i,shift);
+//        }
+//        // 根据比分倒序
+//        BoardUtil.insertSort(moves,(o1,o2)->{
+//            long l1 = o1 & 0xFFFFFFFF;
+//            long l2 = o2 & 0xFFFFFFFF;
+//            return (int) (l2 - l1);
+//        });
+//        for (int i = 0; i < longs.size(); i++) {
+//            Long aLong = longs.get(i);
+//            byte cell = BoardUtil.rightShift(aLong, (byte) 32);
+//            moves.set(i,cell);
+//        }
+//        longs.clear();
     }
 
 }

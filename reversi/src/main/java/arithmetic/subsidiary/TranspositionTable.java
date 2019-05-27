@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import static common.Constant.PLAYERTYPE;
+import static utils.CacheContext.moves;
 
 /**
  * @author ypt
@@ -55,7 +56,7 @@ public final class TranspositionTable {
     public static long initZobrist(BoardChess boardChess) {
         long hash = 0;
         byte[] chess = boardChess.getChess();
-        for (byte cell : Constant.moves) {
+        for (byte cell : moves) {
             if (chess[cell] != Constant.EMPTY){
                 byte player = chess[cell];
                 hash ^= zobrist[cell][player];

@@ -66,8 +66,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         Menu menu = GameContext.getBean(Menu.class);
         if (menu.isOne() && curMove == board.getCurrMove()){
             MoveRun moveRun = new MoveRun(move);
-            ForkJoinTask submit = GameContext.submit(moveRun);
-//            GameContext.getCall(submit);
+            GameContext.submit(moveRun);
         }
 
     }
@@ -108,13 +107,8 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                     }while (isContinue);
                 }else if (checkShutDown(board.getBoardChess())){
                     return;
-                }else{
-                    // 如果没有棋可以走 获得返回数据
-                    BoardData boardData = board.getBoardData();
-                    boolean[][] moves = board.getMoves();
-                    // 切换棋手
-                    GameRule.passMove(boardData);
-                    GameRule.valid_moves(boardData,moves);
+                }else if(checkContinue(board.getBoardChess())){
+                    GameRule.passMove(board.getBoardData());
                     board.upshow();
                 }
             } catch (HeadlessException e) {

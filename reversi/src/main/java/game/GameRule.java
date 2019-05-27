@@ -17,8 +17,8 @@ import java.util.concurrent.RecursiveTask;
 import static common.Constant.DELAY;
 import static common.Constant.DIRALL;
 import static common.Constant.SIZE;
-import static common.Constant.dirInc;
-import static common.Constant.dirMask;
+import static utils.CacheContext.dirInc;
+import static utils.CacheContext.dirMask;
 
 /**
  * @author Tao

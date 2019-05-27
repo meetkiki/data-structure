@@ -30,7 +30,7 @@ public class AlphaBetaListener implements Observer {
     public AlphaBetaListener(Observable ob) {
         this.ob = ob;
         this.ob.addObserver(this);
-        this.calculator = new Calculator(new AlphaBeta());
+        this.calculator = new Calculator();
     }
 
     @Override

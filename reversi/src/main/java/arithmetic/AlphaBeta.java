@@ -44,7 +44,7 @@ public class AlphaBeta implements SearchAlgorithm{
      * @param beta  上限
      * @return
      */
-    private static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
+    public static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
         // 引入置换表
         MinimaxResult zresult;
         // 当前深度浅于历史深度 则使用 否则搜索
@@ -125,9 +125,9 @@ public class AlphaBeta implements SearchAlgorithm{
             }
             // 将最佳移动存入历史表
             if (move != null) HistoryHeuristic.setHistoryScore(BoardUtil.squareChess(move),depth);
+            else move = first;
             // 如果搜索失败
             if (entryType == null){
-                move = first;
                 entryType = EntryType.UPPERBOUND;
             }
             MinimaxResult result = MinimaxResult.builder().mark(score).type(entryType).move(move).depth(depth).build();
