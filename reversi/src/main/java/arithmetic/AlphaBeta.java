@@ -99,8 +99,6 @@ public class AlphaBeta implements SearchAlgorithm{
             Iterator<Byte> moveIterator = moves.iterator();
             while (moveIterator.hasNext()){
                 byte curMove = moveIterator.next();
-//                byte curMove = BoardUtil.rightShift(next,Constant.BITVALUE);
-//                Move convertMove = BoardUtil.convertMove(curMove);
                 // first move 作为搜索失败的第一个值
                 if (first == null) first = BoardUtil.convertMove(curMove);
                 //尝试走这步棋
@@ -147,6 +145,8 @@ public class AlphaBeta implements SearchAlgorithm{
         if (moves.size() == 0){
             return moves;
         }
+        // byte curMove = BoardUtil.rightShift(next,Constant.BITVALUE);
+        // Move convertMove = BoardUtil.convertMove(curMove);
         // 按照对手行动力从小到大排序
         Collections.sort(moves,(o1,o2)->{
             byte mobility1 = (byte) (o1 & 0xFF);

@@ -76,6 +76,38 @@ public class GameRule {
         return false;
     }
 
+    /**
+     * 获得行动力
+     *  和对手行动力
+     * */
+    public static int valid_moves_mobility(BoardChess chess, LinkedList<Integer> moves){
+        byte[] bytes = chess.getChess();
+        byte player = chess.getCurrMove();
+        LinkedList<Byte> empty = chess.getEmpty();
+        byte other = BoardUtil.change(player);
+        // 空位链表
+        int canOut = 0,otherMove = 0;
+        // 这里需要再循环中删除和增加 用fori
+        for (int i = 0; i < empty.size(); i++) {
+            Byte cell = empty.get(i);
+            if (canFlips(bytes,cell,player)){
+                // 左八位存cell 右八位为存走这步棋之后对手的行动力
+                Integer shift = BoardUtil.leftShift(cell, Constant.BITVALUE);
+                byte mobility = moveCanMobility(chess, cell);
+                shift |= mobility;
+                // 移动链表
+                moves.addFirst(shift);
+                canOut ++;
+            }
+            if (canFlips(bytes,cell,other)){
+                otherMove++;
+            }
+        }
+        chess.setOurMobility(canOut);
+        chess.setOppMobility(otherMove);
+        return canOut;
+    }
+
 
     /**
      * 获得行动力
@@ -91,10 +123,6 @@ public class GameRule {
         for (int i = 0; i < empty.size(); i++) {
             Byte cell = empty.get(i);
             if (canFlips(bytes,cell,player)){
-                // 左八位存cell 右八位为存走这步棋之后对手的行动力
-//                Integer shift = BoardUtil.leftShift(cell, Constant.BITVALUE);
-//                byte mobility = moveCanMobility(chess, cell);
-//                shift |= mobility;
                 // 移动链表
                 moves.addFirst(cell);
                 canOut ++;

@@ -3,7 +3,6 @@ package arithmetic.subsidiary;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static common.Constant.ALLSTEP;
@@ -68,7 +67,7 @@ public class HistoryHeuristic {
             longs.add(i,shift);
         }
         // 根据比分倒序
-        Collections.sort(longs, (o1,o2) ->{
+        BoardUtil.insertSort(longs,(o1,o2)->{
             long l1 = o1 & 0xFFFFFFFF;
             long l2 = o2 & 0xFFFFFFFF;
             return (int) (l2 - l1);

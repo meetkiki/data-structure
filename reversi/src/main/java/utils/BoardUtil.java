@@ -12,6 +12,9 @@ import game.GameRule;
 
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -341,5 +344,23 @@ public class BoardUtil {
 	 */
 	public static byte rightShift(Long cell,byte n){
 		return (byte) (cell >> n);
+	}
+
+
+	/**
+	 * 小数据
+	 * 插入排序
+	 */
+	public static<T> void insertSort(List<T> list, Comparator<T> co){
+		T temp;
+		for (int i = 1; i < list.size(); i++) {
+			int j = i - 1;
+			temp = list.get(i);
+			for (; j >= 0 && co.compare(temp,list.get(j)) < 0; j--) {
+				// 选取temp放在该放的位置上 这里是temp小于arr[j]时将arr[j]右移
+				list.set(j + 1,list.get(j));
+			}
+			list.set(j + 1,temp);
+		}
 	}
 }

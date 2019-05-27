@@ -35,7 +35,7 @@ public class InsertionSort implements SortMethod {
     @Override
     public int[] sort(int[] arr){
         int temp;
-        for (int i = 2; i < arr.length; i++) {
+        for (int i = 1; i < arr.length; i++) {
             int j = i - 1;
             temp = arr[i];
             for (; j >=0 && arr[j] > temp; j--) {
