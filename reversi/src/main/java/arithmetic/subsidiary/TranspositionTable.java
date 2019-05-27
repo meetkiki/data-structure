@@ -1,5 +1,7 @@
-package bean;
+package arithmetic.subsidiary;
 
+import bean.BoardChess;
+import bean.MinimaxResult;
 import common.Constant;
 import common.EntryType;
 
@@ -10,11 +12,11 @@ import static common.Constant.PLAYERTYPE;
 
 /**
  * @author ypt
- * @ClassName Zobrist
+ * @ClassName TranspositionTable 置换表
  * @Description Zobrist哈希
  * @date 2019/5/13 17:10
  */
-public final class Zobrist {
+public final class TranspositionTable {
 
     public static final long[][] zobrist;
 
@@ -62,7 +64,7 @@ public final class Zobrist {
         // 局面当前棋手
         byte player = boardChess.getCurrMove();
         if (player == Constant.WHITE){
-            hash ^= Zobrist.zobrist[Constant.MODEL][player];
+            hash ^= TranspositionTable.zobrist[Constant.MODEL][player];
         }
         return hash;
     }
@@ -83,7 +85,7 @@ public final class Zobrist {
     }
 
     /**
-     * 重置Zobrist棋盘
+     * 重置Zobrist置换表
      */
     public static void resetZobrist(){
         count= 0;
@@ -129,7 +131,7 @@ public final class Zobrist {
     public static long passPlayer(BoardChess boardChess,byte player){
         long hash = boardChess.getZobrist();
         if (player == Constant.WHITE){
-            hash ^= Zobrist.zobrist[Constant.MODEL][player];
+            hash ^= TranspositionTable.zobrist[Constant.MODEL][player];
         }
         return hash;
     }
@@ -142,7 +144,7 @@ public final class Zobrist {
      */
     public static long changeMove(BoardChess boardChess,int cell,byte player){
         long hash = boardChess.getZobrist();
-        hash ^= Zobrist.zobrist[cell][player];
+        hash ^= TranspositionTable.zobrist[cell][player];
         return hash;
     }
 
@@ -156,8 +158,8 @@ public final class Zobrist {
     public static long changeConvert(BoardChess boardChess, List<Byte> convert, byte player, byte other){
         long hash = boardChess.getZobrist();
         for (Byte cell : convert) {
-            hash ^= Zobrist.zobrist[cell][other];
-            hash ^= Zobrist.zobrist[cell][player];
+            hash ^= TranspositionTable.zobrist[cell][other];
+            hash ^= TranspositionTable.zobrist[cell][player];
         }
         return hash;
     }
@@ -165,27 +167,6 @@ public final class Zobrist {
 
     public static int getCount() {
         return count;
-    }
-
-
-    public static void main(String[] args) {
-        Random random = new Random();
-        long hash = random.nextInt(10000);
-        System.out.println(hash);
-
-
-
-
-        // 移除一个数据
-        hash ^= Zobrist.zobrist[1][1];
-        // 增加空
-        hash ^= Zobrist.zobrist[1][Constant.EMPTY];
-        System.out.println(hash);
-        // 移除一个数据
-        hash ^= Zobrist.zobrist[1][1];
-        // 增加空
-        hash ^= Zobrist.zobrist[1][Constant.EMPTY];
-        System.out.println(hash);
     }
 
 }

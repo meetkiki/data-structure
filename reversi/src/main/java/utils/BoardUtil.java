@@ -311,7 +311,7 @@ public class BoardUtil {
 	}
 
 	/**
-	 * 左移N位
+	 * 左移N位 int
 	 * @return
 	 */
 	public static Integer leftShift(byte cell,byte n){
@@ -319,10 +319,27 @@ public class BoardUtil {
 	}
 
 	/**
-	 * 右移N位
+	 * 左移N位 long
+	 * @return
+	 */
+	public static Long leftShift(long cell,byte n){
+		return (cell) << n;
+	}
+
+	/**
+	 * 右移N位 int
 	 * @return
 	 */
 	public static byte rightShift(Integer cell,byte n){
+		return (byte) (cell >> n);
+	}
+
+
+	/**
+	 * 右移N位 long
+	 * @return
+	 */
+	public static byte rightShift(Long cell,byte n){
 		return (byte) (cell >> n);
 	}
 }

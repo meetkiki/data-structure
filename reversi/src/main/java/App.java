@@ -39,9 +39,7 @@ public class App {
         try {
             BeautyEyeLNFHelper.launchBeautyEyeLNF();
             UIManager.put("RootPane.setupButtonVisible", false);
-            SwingUtilities.invokeLater(() -> {
-                new App().start();
-            });
+            SwingUtilities.invokeLater(() -> new App().start());
         } catch(Exception e) {
             e.printStackTrace();
         }

@@ -1,10 +1,10 @@
 package game;
 
+import arithmetic.subsidiary.TranspositionTable;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.ChessStep;
 import bean.Move;
-import bean.Zobrist;
 import common.Constant;
 import utils.BoardUtil;
 
@@ -80,7 +80,7 @@ public class GameRule {
     /**
      * 获得行动力
      * */
-    public static int valid_moves(BoardChess chess, LinkedList<Integer> moves){
+    public static int valid_moves(BoardChess chess, LinkedList<Byte> moves){
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         LinkedList<Byte> empty = chess.getEmpty();
@@ -92,11 +92,11 @@ public class GameRule {
             Byte cell = empty.get(i);
             if (canFlips(bytes,cell,player)){
                 // 左八位存cell 右八位为存走这步棋之后对手的行动力
-                Integer shift = BoardUtil.leftShift(cell, Constant.BITVALUE);
-                byte mobility = moveCanMobility(chess, cell);
-                shift |= mobility;
+//                Integer shift = BoardUtil.leftShift(cell, Constant.BITVALUE);
+//                byte mobility = moveCanMobility(chess, cell);
+//                shift |= mobility;
                 // 移动链表
-                moves.addFirst(shift);
+                moves.addFirst(cell);
                 canOut ++;
             }
             if (canFlips(bytes,cell,other)){
@@ -263,11 +263,11 @@ public class GameRule {
         // 移除空链表
         empty.remove(new Byte((byte) cell));
         // 更新哈希值
-        data.setZobrist(Zobrist.changeMove(data,cell,player));
+        data.setZobrist(TranspositionTable.changeMove(data,cell,player));
         // 更新转变子哈希值
-        data.setZobrist(Zobrist.changeConvert(data,convert,player,data.getOther()));
+        data.setZobrist(TranspositionTable.changeConvert(data,convert,player,data.getOther()));
         // 更新棋手哈希值
-        data.setZobrist(Zobrist.passPlayer(data,data.getCurrMove()));
+        data.setZobrist(TranspositionTable.passPlayer(data,data.getCurrMove()));
         return convert.size();
     }
 
@@ -303,7 +303,7 @@ public class GameRule {
         byte cell = step.getCell();
         LinkedList<Byte> convert = step.getConvert();
         // 更新棋手
-        data.setZobrist(Zobrist.passPlayer(data,step.getPlayer()));
+        data.setZobrist(TranspositionTable.passPlayer(data,step.getPlayer()));
         // 如果是跳过
         if (convert.isEmpty()){
             return;
@@ -319,9 +319,9 @@ public class GameRule {
             chess[next] = other;
         }
         // 移除空位哈希值
-        data.setZobrist(Zobrist.changeMove(data,cell,player));
+        data.setZobrist(TranspositionTable.changeMove(data,cell,player));
         // 更新转变子哈希值 将下的子哈希值移除 增加对手的哈希值
-        data.setZobrist(Zobrist.changeConvert(data,convert,other,player));
+        data.setZobrist(TranspositionTable.changeConvert(data,convert,other,player));
     }
 
     /**
@@ -337,7 +337,7 @@ public class GameRule {
         // 转变选手
         data.setCurrMove(other);
         // 更新哈希值
-        data.setZobrist(Zobrist.passPlayer(data,player));
+        data.setZobrist(TranspositionTable.passPlayer(data,player));
     }
 
     public static void passMove(BoardData boardData) {

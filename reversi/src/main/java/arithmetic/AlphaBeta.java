@@ -1,9 +1,10 @@
 package arithmetic;
 
+import arithmetic.subsidiary.HistoryHeuristic;
+import arithmetic.subsidiary.TranspositionTable;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
-import bean.Zobrist;
 import common.Constant;
 import common.EntryType;
 import game.GameRule;
@@ -29,7 +30,8 @@ public class AlphaBeta implements SearchAlgorithm{
     @Override
     public MinimaxResult search(BoardChess boardChess, int depth) {
         ReversiEvaluation.setCount(0);
-        Zobrist.resetZobrist();
+        TranspositionTable.resetZobrist();
+        HistoryHeuristic.resetHistory();
         return alphaBeta(boardChess, MIN, MAX, depth);
     }
 
@@ -46,7 +48,7 @@ public class AlphaBeta implements SearchAlgorithm{
         // 引入置换表
         MinimaxResult zresult;
         // 当前深度浅于历史深度 则使用 否则搜索
-        if ((zresult = Zobrist.lookupTTentryByZobrist(data.getZobrist(),depth)) != null){
+        if ((zresult = TranspositionTable.lookupTTentryByZobrist(data.getZobrist(),depth)) != null){
             switch (zresult.getType()){
                 // 期望值
                 case EXACT:
@@ -65,16 +67,16 @@ public class AlphaBeta implements SearchAlgorithm{
         if (depth <= Start || empty.size() == Constant.EMPTY) {
             // 直接给出估值
             int value = ReversiEvaluation.currentValue(data);
-            Zobrist.insertZobrist(data.getZobrist(),value,depth, EntryType.EXACT);
+            TranspositionTable.insertZobrist(data.getZobrist(),value,depth, EntryType.EXACT);
             return MinimaxResult.builder().mark(value).depth(depth).build();
         }
-        LinkedList<Integer> moves = new LinkedList<>();
+        LinkedList<Byte> moves = new LinkedList<>();
         if (GameRule.valid_moves(data,moves) == 0){
             // 如果对手也没有可走子
             if (data.getOppMobility() == 0){
                 // 终局 给出精确估值
                 int value = ReversiEvaluation.endValue(data);
-                Zobrist.insertZobrist(data.getZobrist(),value,depth,EntryType.EXACT);
+                TranspositionTable.insertZobrist(data.getZobrist(),value,depth,EntryType.EXACT);
                 return MinimaxResult.builder().mark(value).depth(depth).build();
             }
             GameRule.passMove(data);
@@ -84,8 +86,9 @@ public class AlphaBeta implements SearchAlgorithm{
             GameRule.un_move(data);
             return result;
         } else {
-            // 启发式搜索 将不利的落子放在最后 最大化alphaBeta剪枝
-            sortMoves(moves);
+            // 历史启发式搜索 将有利的落子放在最前面 最大化alphaBeta剪枝
+            HistoryHeuristic.sortMovesByHistory(moves);
+            //sortMoves(moves);
             // 当前最佳估值，预设为负无穷大 己方估值为最小
             int score = MIN;
             // 最佳估值类型, EXACT为精确值, LOWERBOUND为<=alpha, UPPERBOUND为>=beta
@@ -93,10 +96,10 @@ public class AlphaBeta implements SearchAlgorithm{
             // 轮到已方走
             Move move = null,first = null;
             // 遍历每一种走法
-            Iterator<Integer> moveIterator = moves.iterator();
+            Iterator<Byte> moveIterator = moves.iterator();
             while (moveIterator.hasNext()){
-                Integer next = moveIterator.next();
-                byte curMove = BoardUtil.rightShift(next,Constant.BITVALUE);
+                byte curMove = moveIterator.next();
+//                byte curMove = BoardUtil.rightShift(next,Constant.BITVALUE);
 //                Move convertMove = BoardUtil.convertMove(curMove);
                 // first move 作为搜索失败的第一个值
                 if (first == null) first = BoardUtil.convertMove(curMove);
@@ -122,13 +125,15 @@ public class AlphaBeta implements SearchAlgorithm{
                     break;
                 }
             }
+            // 将最佳移动存入历史表
+            if (move != null) HistoryHeuristic.setHistoryScore(BoardUtil.squareChess(move),depth);
             // 如果搜索失败
             if (entryType == null){
                 move = first;
                 entryType = EntryType.UPPERBOUND;
             }
             MinimaxResult result = MinimaxResult.builder().mark(score).type(entryType).move(move).depth(depth).build();
-            Zobrist.insertZobrist(data.getZobrist(),result);
+            TranspositionTable.insertZobrist(data.getZobrist(),result);
             return result;
         }
     }

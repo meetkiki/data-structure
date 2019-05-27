@@ -1,5 +1,6 @@
 package bean;
 
+import arithmetic.subsidiary.TranspositionTable;
 import common.Constant;
 import common.GameStatus;
 import game.Chess;
@@ -86,7 +87,7 @@ public class BoardChess {
         // 初始化空位链表
         this.initEmpty(chess);
         // 初始化zobrist的值
-        this.zobrist = Zobrist.initZobrist(this);
+        this.zobrist = TranspositionTable.initZobrist(this);
     }
 
     public BoardChess(Chess[][] chess,byte player) {
@@ -96,7 +97,7 @@ public class BoardChess {
         // 初始化空位链表
         this.initEmpty(this.chess);
         // 初始化zobrist的值
-        this.zobrist = Zobrist.initZobrist(this);
+        this.zobrist = TranspositionTable.initZobrist(this);
     }
 
     /**

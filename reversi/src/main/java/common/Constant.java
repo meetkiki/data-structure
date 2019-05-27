@@ -2,6 +2,7 @@ package common;
 
 import bean.Move;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,6 +108,7 @@ public class Constant {
 
 	public static final byte DIRALL = 8;
 
+	public static final byte ALLSTEP = 64;
 	/**
 	 * byte位为8
 	 */
@@ -160,6 +162,11 @@ public class Constant {
 			64,65,66,67,68,69,70,71,
 			73,74,75,76,77,78,79,80
 	};
+
+	/**
+	 * 移动位置数组 上索引对应 通过cell取move
+	 */
+	public static final byte[] movesIndex = new byte[Constant.MODEL];
 	/**
 	 * 初始稳定子
 	 * 	四个角
@@ -197,6 +204,15 @@ public class Constant {
 			}
 		}
 		mapMove = Collections.unmodifiableMap(byteMoveMap);
+
+		// movesIndex建立
+		for (byte cell = 0; cell < Constant.MODEL; cell++) {
+			for (byte index = 0; index < moves.length; index++) {
+				if (moves[index] == cell){
+					movesIndex[cell] =  index;
+				}
+			}
+		}
 	}
 	/**
 	 * 标准坐标系

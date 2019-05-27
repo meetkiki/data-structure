@@ -44,15 +44,16 @@ public class NegaScoutAgent{
     	int adaptiveBeta = beta;
     	
     	// Generates all possible moves
-		LinkedList<Integer> moves = new LinkedList<>();
+		LinkedList<Byte> moves = new LinkedList<>();
         GameRule.valid_moves(board,moves);
     	if (moves.isEmpty())
     		return abNegascout(board, depth, -beta,-alpha).inverseMark();
-    	bestMove = BoardUtil.convertMove(BoardUtil.rightShift(moves.getFirst(), Constant.BITVALUE));
-    	
+//    	bestMove = BoardUtil.convertMove(BoardUtil.rightShift(moves.getFirst(), Constant.BITVALUE));
+    	bestMove = BoardUtil.convertMove(moves.getFirst());
+
     	// Go through each move
-        for (Integer curMove : moves) {
-			byte move = BoardUtil.rightShift(curMove, Constant.BITVALUE);
+        for (Byte move : moves) {
+//			byte move = BoardUtil.rightShift(curMove, Constant.BITVALUE);
 			GameRule.make_move(board, move);
     		// Recurse
 			MinimaxResult current = abNegascout(board, depth - 1, -adaptiveBeta, - Math.max(alpha,bestScore));
