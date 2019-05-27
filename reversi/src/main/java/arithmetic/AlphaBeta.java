@@ -90,7 +90,7 @@ public class AlphaBeta implements SearchAlgorithm{
             HistoryHeuristic.sortMovesByHistory(moves);
             //sortMoves(moves);
             // 当前最佳估值，预设为负无穷大 己方估值为最小
-            int score = MIN;
+            int score = MIN,value;
             // 最佳估值类型, EXACT为精确值, LOWERBOUND为<=alpha, UPPERBOUND为>=beta
             EntryType entryType = null;
             // 轮到已方走
@@ -104,7 +104,7 @@ public class AlphaBeta implements SearchAlgorithm{
                 //尝试走这步棋
                 GameRule.make_move(data, curMove);
                 // 将产生的新局面给对方
-                int value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
+                value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
                 // 悔棋
                 GameRule.un_move(data);
                 if (value > score){

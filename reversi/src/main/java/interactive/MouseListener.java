@@ -92,7 +92,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                     board.setRunning(true);
                     BoardData boardData = board.getBoardData();
                     BoardChess boardChess = boardData.getBoardChess();
-                    boolean isContinue = false;
                     do {
                         // 交给计算机处理
                         computerMove();
@@ -102,9 +101,8 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
                         if (checkContinue(boardChess)) {
                             GameRule.passMove(boardData);
                             board.upshow();
-                            isContinue = true;
                         }
-                    }while (isContinue);
+                    }while (board.getCurrMove() != curMove);
                 }else if (checkShutDown(board.getBoardChess())){
                     return;
                 }else if(checkContinue(board.getBoardChess())){
