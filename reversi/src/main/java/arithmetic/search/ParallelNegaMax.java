@@ -1,10 +1,9 @@
-package arithmetic;
+package arithmetic.search;
 
+import arithmetic.evaluation.ReversiEvaluation;
 import bean.BoardChess;
-import bean.BoardData;
 import bean.MinimaxResult;
 import bean.Move;
-import game.Chess;
 import game.GameRule;
 import utils.BoardUtil;
 

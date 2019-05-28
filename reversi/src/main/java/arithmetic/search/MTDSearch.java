@@ -1,17 +1,15 @@
-package arithmetic;
+package arithmetic.search;
 
+import arithmetic.SearchAlgorithm;
+import arithmetic.evaluation.ReversiEvaluation;
+import arithmetic.search.AlphaBeta;
 import arithmetic.subsidiary.HistoryHeuristic;
 import arithmetic.subsidiary.TranspositionTable;
 import bean.BoardChess;
 import bean.MinimaxResult;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -25,7 +23,7 @@ import static common.Constant.MIN;
  * MTD算法
  * @author Tao
  */
-public class MTDSearch implements SearchAlgorithm{
+public class MTDSearch implements SearchAlgorithm {
 
     private static final int core = Runtime.getRuntime().availableProcessors();
 

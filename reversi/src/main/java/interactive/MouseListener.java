@@ -1,7 +1,7 @@
 package interactive;
 
 
-import arithmetic.ReversiEvaluation;
+import arithmetic.evaluation.ReversiEvaluation;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.Move;
@@ -18,7 +18,6 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
-import java.util.concurrent.ForkJoinTask;
 
 import static game.Board.BOARD_HEIGHT;
 import static game.Board.BOARD_WIDTH;

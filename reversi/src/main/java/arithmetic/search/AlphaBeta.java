@@ -1,5 +1,7 @@
-package arithmetic;
+package arithmetic.search;
 
+import arithmetic.SearchAlgorithm;
+import arithmetic.evaluation.ReversiEvaluation;
 import arithmetic.subsidiary.HistoryHeuristic;
 import arithmetic.subsidiary.TranspositionTable;
 import bean.BoardChess;
@@ -23,7 +25,7 @@ import static common.Constant.MIN;
  *
  * @author Tao
  */
-public class AlphaBeta implements SearchAlgorithm{
+public class AlphaBeta implements SearchAlgorithm {
 
     public static int Start = 0;
 

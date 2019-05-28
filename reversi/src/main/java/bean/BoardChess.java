@@ -53,13 +53,13 @@ public class BoardChess {
      */
     private int oppMobility = 0;
     /**
-     * 我方稳定子
+     * 白方稳定子
      */
-    private LinkedList<Byte> ourStators = new LinkedList<>();
+    private LinkedList<Byte> wStators = new LinkedList<>();
     /**
      * 对方稳定子
      */
-    private LinkedList<Byte> oppStators = new LinkedList<>();
+    private LinkedList<Byte> bStators = new LinkedList<>();
     /**
      * 每一步 步数信息
      */
@@ -158,23 +158,23 @@ public class BoardChess {
         this.oppMobility = oppMobility;
     }
 
-    public LinkedList<Byte> getOurStators() {
-        return ourStators;
+    public LinkedList<Byte> getwStators() {
+        return wStators;
     }
 
-    public void setOurStators(LinkedList<Byte> ourStators) {
-        this.ourStators = ourStators;
+    public void setwStators(LinkedList<Byte> wStators) {
+        this.wStators = wStators;
     }
 
-    public LinkedList<Byte> getOppStators() {
-        return oppStators;
+    public LinkedList<Byte> getbStators() {
+        return bStators;
     }
 
-    public void setOppStators(LinkedList<Byte> oppStators) {
-        this.oppStators = oppStators;
+    public void setbStators(LinkedList<Byte> bStators) {
+        this.bStators = bStators;
     }
 
-    public BoardChess incrementCount(byte player,int count){
+    public BoardChess incrementCount(byte player, int count){
         if (player == Constant.WHITE){
             wCount += count;
         }else {

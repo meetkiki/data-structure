@@ -27,4 +27,17 @@ public enum GameStatus {
     GameStatus(int status) {
         this.status = status;
     }
+    public int getStatus() {
+        return status;
+    }
+    public static final GameStatus findStatus(int status){
+        switch (status){
+            case 0:return OPENING;
+            case 1:return MIDDLE;
+            case 2:return OPENING;
+            case 3:return END;
+            default:break;
+        }
+        return null;
+    }
 }

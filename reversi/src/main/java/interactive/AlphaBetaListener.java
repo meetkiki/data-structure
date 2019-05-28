@@ -1,8 +1,7 @@
 package interactive;
 
-import arithmetic.AlphaBeta;
 import arithmetic.Calculator;
-import arithmetic.ReversiEvaluation;
+import arithmetic.evaluation.ReversiEvaluation;
 import arithmetic.subsidiary.TranspositionTable;
 import bean.BoardChess;
 import bean.BoardData;

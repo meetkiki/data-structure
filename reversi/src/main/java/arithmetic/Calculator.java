@@ -1,5 +1,7 @@
 package arithmetic;
 
+import arithmetic.search.AlphaBeta;
+import arithmetic.search.MTDSearch;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import common.Constant;
