@@ -60,7 +60,7 @@ public class EvaluationWeight {
                     // 棋子个数估值
                     cacheWeight[status][WeightEnum.COUNT.getIndex()] = 8;
                     // 稳定子
-                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 10;
+                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 15;
                     // 前沿子
                     cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
                     // 内部子
