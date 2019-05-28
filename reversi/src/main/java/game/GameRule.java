@@ -7,6 +7,7 @@ import bean.ChessStep;
 import bean.Move;
 import common.Constant;
 import utils.BoardUtil;
+import utils.CacheContext;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -273,9 +274,13 @@ public class GameRule {
      */
     public static int make_move(BoardChess data,LinkedList<ChessStep> steps,LinkedList<Byte> empty, int cell, byte player){
         byte[] chess = data.getChess();
+        LinkedList<Byte> fields = data.getFields();
         // 返回转变子
         //将row和col的值更改为player //玩家状态
         chess[cell] = player;
+        fields.add((byte) cell);
+        // 绝对稳定子
+        if (CacheContext.includeStabistor((byte) cell)) data.addStators((byte) cell,player);
         // 转变链表 方便插入
         LinkedList<Byte> convert = new LinkedList<>();
         //遍历当前棋子 的周边棋子
@@ -298,6 +303,25 @@ public class GameRule {
         data.setZobrist(TranspositionTable.passPlayer(data,data.getCurrMove()));
         return convert.size();
     }
+
+    /**
+     * 计算稳定子
+     */
+    public static void sum_stators(BoardChess data){
+        LinkedList<Byte> wStators = data.getwStators();
+        LinkedList<Byte> bStators = data.getbStators();
+        // 如果双方都无绝对稳定子 则不用计算没有稳定子
+        if (wStators.size() == 0 && bStators.size() == 0){
+            return;
+        }
+        // 非空位
+        LinkedList<Byte> fields = data.getFields();
+        for (Byte field : fields) {
+
+        }
+    }
+
+
 
     /**
      * 悔棋方法
@@ -338,6 +362,11 @@ public class GameRule {
         }
         // 恢复原生空位
         chess[cell] = Constant.EMPTY;
+        // 移除标志
+        LinkedList<Byte> fields = data.getFields();
+        fields.remove((Object)cell);
+        // 如果是稳定子 删除
+        data.removeStators(cell,player);
         // 更新空位链表
         empty.addFirst(cell);
         // 还原棋子

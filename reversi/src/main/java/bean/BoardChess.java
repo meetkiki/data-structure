@@ -53,6 +53,10 @@ public class BoardChess {
      */
     private int oppMobility = 0;
     /**
+     * 检索子 就是实际子
+     */
+    private LinkedList<Byte> fields = new LinkedList<>();
+    /**
      * 白方稳定子
      */
     private LinkedList<Byte> wStators = new LinkedList<>();
@@ -86,6 +90,8 @@ public class BoardChess {
         System.arraycopy(chess,0,this.chess,0,MODEL);
         // 初始化空位链表
         this.initEmpty(chess);
+        // 初始化非空位链表
+        this.initField(chess);
         // 初始化zobrist的值
         this.zobrist = TranspositionTable.initZobrist(this);
     }
@@ -96,8 +102,21 @@ public class BoardChess {
         this.copyChess(chess);
         // 初始化空位链表
         this.initEmpty(this.chess);
+        // 初始化非空位链表
+        this.initField(this.chess);
         // 初始化zobrist的值
         this.zobrist = TranspositionTable.initZobrist(this);
+    }
+
+    /**
+     * 初始化非空位链表
+     */
+    private void initField(byte[] chess) {
+        for (byte i = 0; i < MODEL; i++) {
+            if (chess[i] == Constant.WHITE || chess[i] == Constant.BLACK){
+                this.fields.add(i);
+            }
+        }
     }
 
     /**
@@ -217,6 +236,23 @@ public class BoardChess {
 
     public void setStatus(GameStatus status) {
         this.status = status;
+    }
+
+
+    public void addStators(byte cell,byte player){
+        if (player == Constant.WHITE){
+            wStators.add(cell);
+        }else if (player == Constant.BLACK){
+            bStators.add(cell);
+        }
+    }
+
+    public void removeStators(byte cell,byte player){
+        if (player == Constant.WHITE){
+            wStators.remove((Object)cell);
+        }else if (player == Constant.BLACK){
+            bStators.remove((Object)cell);
+        }
     }
 
     /**
