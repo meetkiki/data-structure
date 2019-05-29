@@ -48,7 +48,10 @@ public class ReversiEvaluation {
     public static int currentValue(BoardChess data) {
         // 更新棋局状态
         GameRule.valid_moves(data);
+        // 更新状态
         data.updateStatus();
+        // 计算内部子
+        GameRule.sum_inners_frontiers(data);
         int score = 0;
         count++;
         GameStatus status = data.getStatus();

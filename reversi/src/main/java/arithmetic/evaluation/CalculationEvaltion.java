@@ -4,7 +4,13 @@ import bean.BoardChess;
 import common.Constant;
 import common.WeightEnum;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import static common.Constant.DIRALL;
 import static common.Constant.MODEL;
+import static utils.CacheContext.dirInc;
+import static utils.CacheContext.dirMask;
 
 /**
  * @author ypt
@@ -75,4 +81,6 @@ public class CalculationEvaltion implements Evaltion{
         }
         return count;
     }
+
+
 }

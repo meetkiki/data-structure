@@ -404,6 +404,52 @@ public class GameRule {
 
 
     /**
+     *  每次计算时统计
+     * 内部子 前沿子
+     */
+    public static final void sum_inners_frontiers(BoardChess data){
+        LinkedList<Byte> fields = data.getFields();
+        byte[] chess = data.getChess();
+        Iterator<Byte> it = fields.iterator();
+        while (it.hasNext()){
+            Byte cell = it.next();
+            // 判断是否是前沿子
+            if (sum_inners_frontiers(data,cell)){
+                data.addFrontiers(cell,chess[cell]);
+            }
+        }
+    }
+
+    /**
+     * 判断该子是否为内部子
+     * @param data
+     * @param cell
+     * @return
+     */
+    private static boolean sum_inners_frontiers(BoardChess data, Byte cell) {
+        byte[] chess = data.getChess();
+        boolean flag = true;
+        for (int i = 0; i < DIRALL; i++) {
+            // 八位 每一位的位运算 00000001 、00000010 、00000100 、00001000...
+            // 分别对应方向数组 从右往左的值dirInc[i]
+            int mask = 0x01 << i;
+            if ((dirMask[cell] & mask) != 0){
+                byte pt = (byte) (cell + dirInc[i]);
+                // 如果有一个方向为空则为前沿子
+                if (chess[pt] == Constant.EMPTY){
+                    flag = false;
+                    return true;
+                }
+            }
+        }
+        // 如果都不为空 则为内部子
+        if (flag){
+            data.addInners(cell,chess[cell]);
+        }
+        return false;
+    }
+
+    /**
      * 悔棋方法
      * 仅搜索和模拟
      */

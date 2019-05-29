@@ -55,27 +55,55 @@ public class BoardChess {
     /**
      * 检索子 就是实际子内部子和前沿子
      */
-    private LinkedList<Byte> fields = new LinkedList<>();
+    private LinkedList<Byte> fields;
+    /**
+     * 白内部子
+     */
+    private LinkedList<Byte> wInners;
+    /**
+     * 黑内部子
+     */
+    private LinkedList<Byte> bInners;
+    /**
+     * 白前沿子
+     */
+    private LinkedList<Byte> wfrontiers;
+    /**
+     * 黑前沿子
+     */
+    private LinkedList<Byte> bfrontiers;
     /**
      * 白方稳定子
      */
-    private LinkedList<Byte> wStators = new LinkedList<>();
+    private LinkedList<Byte> wStators;
     /**
      * 对方稳定子
      */
-    private LinkedList<Byte> bStators = new LinkedList<>();
+    private LinkedList<Byte> bStators;
     /**
      * 每一步 步数信息
      */
-    private LinkedList<ChessStep> steps = new LinkedList<>();
+    private LinkedList<ChessStep> steps;
     /**
      * 游戏状态
      */
     private GameStatus status;
 
-    public BoardChess(byte player){
+    private void init() {
         this.chess = new byte[MODEL];
         this.empty = new LinkedList<>();
+        this.fields = new LinkedList<>();
+        this.wInners = new LinkedList<>();
+        this.bInners = new LinkedList<>();
+        this.wStators = new LinkedList<>();
+        this.bStators = new LinkedList<>();
+        this.steps = new LinkedList<>();
+        this.wfrontiers = new LinkedList<>();
+        this.bfrontiers = new LinkedList<>();
+    }
+
+    public BoardChess(byte player){
+        init();
         this.wCount = 2;
         this.bCount = 2;
         this.currMove = player;
@@ -278,6 +306,32 @@ public class BoardChess {
             }else {
                 status = GameStatus.OUTCOME;
             }
+        }
+    }
+
+    /**
+     * 添加一个内部子
+     * @param cell
+     * @param player
+     */
+    public void addInners(Byte cell, byte player) {
+        if (player == Constant.WHITE){
+            wInners.add(cell);
+        }else if (player == Constant.BLACK){
+            bInners.add(cell);
+        }
+    }
+
+    /**
+     * 添加一个前沿子
+     * @param cell
+     * @param player
+     */
+    public void addFrontiers(Byte cell, byte player) {
+        if (player == Constant.WHITE){
+            wfrontiers.add(cell);
+        }else if (player == Constant.BLACK){
+            bfrontiers.add(cell);
         }
     }
 }
