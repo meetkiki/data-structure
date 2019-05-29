@@ -1,6 +1,5 @@
 package bean;
 
-import common.Bag;
 import lombok.Builder;
 import lombok.Data;
 
@@ -26,5 +25,10 @@ public class ChessStep {
      * 转变子
      */
     private LinkedList<Byte> convert;
+
+    /**
+     * 确定的稳定子
+     */
+    private LinkedList<Byte> stators;
 
 }

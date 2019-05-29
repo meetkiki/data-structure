@@ -2,6 +2,7 @@ package arithmetic;
 
 import arithmetic.search.AlphaBeta;
 import arithmetic.search.MTDSearch;
+import arithmetic.search.SearchAlgorithm;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import common.Constant;

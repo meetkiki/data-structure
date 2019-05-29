@@ -77,8 +77,6 @@ public class Board extends JPanel {
     private void initBoard(byte player) {
         // 初始化棋子
         initChess(player);
-        // 获取行动力
-        GameRule.valid_moves(boardData,moves);
         // 显示棋盘
         upshow();
     }
@@ -132,9 +130,8 @@ public class Board extends JPanel {
      *  这里使用SwingWorker异步更新UI
      */
     public void upshow(){
-        GameContext.serialExecute(()->{
-            upview();
-        });
+        GameRule.valid_moves(boardData,moves);
+        GameContext.serialExecute(()-> upview());
     }
 
 

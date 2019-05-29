@@ -279,8 +279,6 @@ public class GameRule {
         //将row和col的值更改为player //玩家状态
         chess[cell] = player;
         fields.add((byte) cell);
-        // 绝对稳定子
-        if (CacheContext.includeStabistor((byte) cell)) data.addStators((byte) cell,player);
         // 转变链表 方便插入
         LinkedList<Byte> convert = new LinkedList<>();
         //遍历当前棋子 的周边棋子
@@ -291,37 +289,171 @@ public class GameRule {
                 singDirFlips(chess, dirInc[i], cell, player,convert);
             }
         }
-        // 记录移动
-        steps.addFirst(ChessStep.builder().cell((byte) cell).player(player).convert(convert).build());
         // 移除空链表
-        empty.remove(new Byte((byte) cell));
+        empty.remove((Object) cell);
         // 更新哈希值
         data.setZobrist(TranspositionTable.changeMove(data,cell,player));
         // 更新转变子哈希值
         data.setZobrist(TranspositionTable.changeConvert(data,convert,player,data.getOther()));
         // 更新棋手哈希值
         data.setZobrist(TranspositionTable.passPlayer(data,data.getCurrMove()));
+        // 计算稳定子
+        LinkedList<Byte> stators = sum_stators(data, (byte) cell);
+        // 记录移动
+        steps.addFirst(ChessStep.builder().cell((byte) cell).player(player).stators(stators).convert(convert).build());
         return convert.size();
     }
 
     /**
      * 计算稳定子
      */
-    public static void sum_stators(BoardChess data){
-        LinkedList<Byte> wStators = data.getwStators();
-        LinkedList<Byte> bStators = data.getbStators();
-        // 如果双方都无绝对稳定子 则不用计算没有稳定子
-        if (wStators.size() == 0 && bStators.size() == 0){
-            return;
+    public static LinkedList<Byte> sum_stators(BoardChess data,byte cell){
+        byte[] chess = data.getChess();
+        LinkedList<Byte> stators = new LinkedList<>();
+        // 绝对稳定子
+        if (CacheContext.includeStabistor(cell)){
+            stators.add(cell);
+            data.addStators((byte) cell,chess[cell]);
         }
+        // 如果双方都无绝对稳定子 则不用计算没有稳定子
+        if (data.checkEmptyStators()) return stators;
         // 非空位
         LinkedList<Byte> fields = data.getFields();
-        for (Byte field : fields) {
-
+        Iterator<Byte> fieldIt = fields.iterator();
+        while (fieldIt.hasNext()){
+            Byte next = fieldIt.next();
+            // 校验该子是不是稳定子
+            if (stators_check(next,data)){
+                stators.add(next);
+                data.addStators(next,chess[next]);
+                fieldIt.remove();
+            }
         }
+        return stators;
+    }
+
+    /**
+     * 校验稳定子方法
+     *  1.稳定子必间接或者直接接触绝对稳定子
+     *  2.稳定子八个方向不会被反转
+     *  3.稳定子在接下来下棋过程中不会被反转
+     * @param next
+     * @param data
+     * @return
+     */
+    private static boolean stators_check(Byte cell, BoardChess data) {
+        LinkedList<Byte> wstators = data.getwStators();
+        LinkedList<Byte> bstators = data.getbStators();
+        byte[] chess = data.getChess();
+        // 与敌我双方任何一个稳定子接触
+        // 在八个方向试探 任意一个方向可以翻转就返回false
+        return nearstators(cell,chess,wstators,bstators);
+    }
+
+    /**
+     *  判断是否为稳定子
+     * @param cell
+     * @param wstators
+     * @return
+     */
+    private static boolean nearstators(Byte cell, byte[] chess,LinkedList<Byte> wstators,LinkedList<Byte> bstators) {
+        boolean flag = false;
+        int i = 0;
+        for (; i < DIRALL; i++) {
+            // 八位 每一位的位运算 00000001 、00000010 、00000100 、00001000...
+            // 分别对应方向数组 从右往左的值dirInc[i]
+            int mask = 0x01 << i;
+            if ((dirMask[cell] & mask) != 0){
+                byte pt = (byte) (cell + dirInc[i]);
+                if (wstators.contains((Byte) pt) || bstators.contains((Byte) pt)){
+                    flag = true;break;
+                }
+            }
+        }
+        // 在八个方向试探 任意一个方向可以翻转就返回false
+        if (flag){
+            for (int j = 0; j < DIRALL; j++) {
+                int mask = 0x01 << j; // 跳过稳定子方向
+                if ((dirMask[cell] & mask) != 0 && j != i){
+                    // 这里先直接判断这个方向有没有空格 这个可以优化为计算是否含有前沿子
+                    if (singDirFlipstators(cell,chess,dirInc[i])){
+                        return false;
+                    }
+                }
+            }
+            // 如果八个方向都没有空格 则可以确定这个是一个稳定子
+            return true;
+        }
+        return flag;
+    }
+
+    /**
+     * 判断这个方向上是否有empty成员
+     * @param chess
+     * @param b
+     * @param empty
+     * @return
+     */
+    private static boolean singDirFlipstators(Byte cell,byte[] chess, byte dir) {
+        // 这个方向的棋子
+        int pt = cell + dir;
+        // 朝这个方向前进 直到边界或者空地
+        do{
+            pt += dir;
+        } while (chess[pt] != Constant.EMPTY || chess[pt] != Constant.BOUNDARY);
+        // 如果已到达边界
+        if (chess[pt] == Constant.BOUNDARY){
+            return false;
+        }
+        return true;
     }
 
 
+    /**
+     *  每次计算时统计
+     * 内部子 前沿子
+     */
+    public static final void sum_inners_frontiers(BoardChess data){
+        LinkedList<Byte> fields = data.getFields();
+        byte[] chess = data.getChess();
+        Iterator<Byte> it = fields.iterator();
+        while (it.hasNext()){
+            Byte cell = it.next();
+            // 判断是否是前沿子
+            if (sum_inners_frontiers(data,cell)){
+                data.addFrontiers(cell,chess[cell]);
+            }
+        }
+    }
+
+    /**
+     * 判断该子是否为内部子
+     * @param data
+     * @param cell
+     * @return
+     */
+    private static boolean sum_inners_frontiers(BoardChess data, Byte cell) {
+        byte[] chess = data.getChess();
+        boolean flag = true;
+        for (int i = 0; i < DIRALL; i++) {
+            // 八位 每一位的位运算 00000001 、00000010 、00000100 、00001000...
+            // 分别对应方向数组 从右往左的值dirInc[i]
+            int mask = 0x01 << i;
+            if ((dirMask[cell] & mask) != 0){
+                byte pt = (byte) (cell + dirInc[i]);
+                // 如果有一个方向为空则为前沿子
+                if (chess[pt] == Constant.EMPTY){
+                    flag = false;
+                    return true;
+                }
+            }
+        }
+        // 如果都不为空 则为内部子
+        if (flag){
+            data.addInners(cell,chess[cell]);
+        }
+        return false;
+    }
 
     /**
      * 悔棋方法
@@ -365,8 +497,13 @@ public class GameRule {
         // 移除标志
         LinkedList<Byte> fields = data.getFields();
         fields.remove((Object)cell);
-        // 如果是稳定子 删除
-        data.removeStators(cell,player);
+        // 移除稳定子
+        LinkedList<Byte> stators = step.getStators();
+        if (!stators.isEmpty()){
+            for (Byte stator : stators) {
+                data.removeStators(stator,player);
+            }
+        }
         // 更新空位链表
         empty.addFirst(cell);
         // 还原棋子
@@ -402,18 +539,6 @@ public class GameRule {
         boardData.setCurrMove(boardData.getBoardChess().getCurrMove());
     }
 
-
-    /**
-     * 是否在边界
-     * @param rowdelta
-     * @param coldelta
-     * @param row
-     * @param col
-     * @return
-     */
-    private static boolean isBorder(int rowdelta, int coldelta, byte row, byte col) {
-        return (row == 0 && rowdelta == -1) || row + rowdelta >= SIZE || (col == 0 && coldelta == -1) || col + coldelta >= SIZE || (rowdelta == 0 && coldelta == 0);
-    }
 
 
 
@@ -472,8 +597,6 @@ public class GameRule {
                 CountDownLatch latch = BoardUtil.converSion(first, chess, DELAY);
                 // 更新规则
                 board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-                // 返回对手的可行步数
-                can = GameRule.valid_moves(board.getBoardData(), moves);
                 // 异步更新页面
                 GameContext.submit(()->{
                     GameContext.await(latch);
@@ -520,7 +643,6 @@ public class GameRule {
             do {
                 BoardData boardData = board.getBoardData();
                 BoardChess boardChess = boardData.getBoardChess();
-                boolean[][] moves = board.getMoves();
                 LinkedList<ChessStep> steps = boardChess.getSteps();
                 if (steps.isEmpty()) break;
                 byte nextmove = board.getCurrMove();
@@ -563,7 +685,6 @@ public class GameRule {
                 latch[0] = BoardUtil.converSion(chessStep, chess, 20);
                 // 更新规则
                 board.setCurrMove(boardChess.getCurrMove());
-                GameRule.valid_moves(boardData,moves);
             } while (board.getCurrMove() != next && board.getBoardChess().getOurMobility() > 0);
             // 异步更新页面
             GameContext.serialExecute(()->{
