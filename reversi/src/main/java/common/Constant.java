@@ -81,7 +81,7 @@ public class Constant {
 	/**
 	 * 默认搜索深度
 	 */
-    public static final int DEFAULTDEPTH = 10;
+    public static final int DEFAULTDEPTH = 8;
 	/**
 	 * 终局搜索深度
 	 */

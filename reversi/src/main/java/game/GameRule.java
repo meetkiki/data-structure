@@ -290,7 +290,7 @@ public class GameRule {
             }
         }
         // 移除空链表
-        empty.remove((Object) cell);
+        empty.remove(new Byte((byte) cell));
         // 更新哈希值
         data.setZobrist(TranspositionTable.changeMove(data,cell,player));
         // 更新转变子哈希值
@@ -496,7 +496,7 @@ public class GameRule {
         chess[cell] = Constant.EMPTY;
         // 移除标志
         LinkedList<Byte> fields = data.getFields();
-        fields.remove((Object)cell);
+        fields.remove(new Byte((byte) cell));
         // 移除稳定子
         LinkedList<Byte> stators = step.getStators();
         if (!stators.isEmpty()){
@@ -597,6 +597,7 @@ public class GameRule {
                 CountDownLatch latch = BoardUtil.converSion(first, chess, DELAY);
                 // 更新规则
                 board.setCurrMove(BoardUtil.change(board.getCurrMove()));
+                can = GameRule.valid_moves(boardData,moves);
                 // 异步更新页面
                 GameContext.submit(()->{
                     GameContext.await(latch);
@@ -636,61 +637,67 @@ public class GameRule {
 
         @Override
         public void compute() {
-            // 悔棋到玩家可走为止
-            byte next = board.getCurrMove();
-            // 只能是final 这里暂时用数组替代
-            CountDownLatch[] latch = new CountDownLatch[1];
-            do {
+            try {
+                // 悔棋到玩家可走为止
+                byte next = board.getCurrMove();
+                // 只能是final 这里暂时用数组替代
+                CountDownLatch[] latch = new CountDownLatch[1];
                 BoardData boardData = board.getBoardData();
-                BoardChess boardChess = boardData.getBoardChess();
-                LinkedList<ChessStep> steps = boardChess.getSteps();
-                if (steps.isEmpty()) break;
-                byte nextmove = board.getCurrMove();
-                Chess[][] chess = board.getChess();
-                ChessStep chessStep = steps.getFirst();
+                boolean[][] moves = board.getMoves();
+                do {
+                    BoardChess boardChess = boardData.getBoardChess();
+                    LinkedList<ChessStep> steps = boardChess.getSteps();
+                    if (steps.isEmpty()) break;
+                    byte nextmove = board.getCurrMove();
+                    Chess[][] chess = board.getChess();
+                    ChessStep chessStep = steps.getFirst();
 
-                // 移除当前子的提示
-                GameRule.removeHint(chess,nextmove);
-                // 移除新的标志
-                removeNew(chess);
+                    // 移除当前子的提示
+                    GameRule.removeHint(chess,nextmove);
+                    // 移除新的标志
+                    removeNew(chess);
 
-                // 执行悔棋操作
-                un_move(boardChess);
+                    // 执行悔棋操作
+                    un_move(boardChess);
 
-                byte player = chessStep.getPlayer();
-                byte other = BoardUtil.change(player);
-                // 如果不是禁手
-                if (!chessStep.getConvert().isEmpty()){
-                    Move move = BoardUtil.convertMove(chessStep.getCell());
-                    // 恢复原生空位
-                    chess[move.getRow()][move.getCol()].setChess(Constant.EMPTY);
-                    // 转变子
-                    LinkedList<Byte> convert = chessStep.getConvert();
-                    // 获取上上步的棋手
-                    if (!steps.isEmpty()){
-                        // 还原棋子
-                        ChessStep first = steps.getFirst();
-                        // 设置新子
-                        Move cur = BoardUtil.convertMove(first.getCell());
-                        // 如果非禁手
-                        if (cur != null){
-                            // 转变
-                            chess[cur.getRow()][cur.getCol()].setNewPlayer(nextmove);
-                        }
+                    byte player = chessStep.getPlayer();
+                    byte other = BoardUtil.change(player);
+                    // 如果不是禁手
+                    if (!chessStep.getConvert().isEmpty()){
+                        Move move = BoardUtil.convertMove(chessStep.getCell());
+                        // 恢复原生空位
+                        chess[move.getRow()][move.getCol()].setChess(Constant.EMPTY);
                         // 转变子
-                        other = first.getPlayer();
+                        LinkedList<Byte> convert = chessStep.getConvert();
+                        // 获取上上步的棋手
+                        if (!steps.isEmpty()){
+                            // 还原棋子
+                            ChessStep first = steps.getFirst();
+                            // 设置新子
+                            Move cur = BoardUtil.convertMove(first.getCell());
+                            // 如果非禁手
+                            if (cur != null){
+                                // 转变
+                                chess[cur.getRow()][cur.getCol()].setNewPlayer(nextmove);
+                            }
+                            // 转变子
+                            other = first.getPlayer();
+                        }
                     }
-                }
-                chessStep.setPlayer(other);
-                latch[0] = BoardUtil.converSion(chessStep, chess, 20);
-                // 更新规则
-                board.setCurrMove(boardChess.getCurrMove());
-            } while (board.getCurrMove() != next && board.getBoardChess().getOurMobility() > 0);
-            // 异步更新页面
-            GameContext.serialExecute(()->{
-                GameContext.await(latch[0]);
-                board.upshow();
-            });
+                    chessStep.setPlayer(other);
+                    latch[0] = BoardUtil.converSion(chessStep, chess, 20);
+                    // 更新规则
+                    board.setCurrMove(boardChess.getCurrMove());
+                } while (board.getCurrMove() != next && board.getBoardChess().getOurMobility() > 0);
+                GameRule.valid_moves(boardData,moves);
+                // 异步更新页面
+                GameContext.serialExecute(()->{
+                    GameContext.await(latch[0]);
+                    board.upshow();
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

@@ -39,9 +39,9 @@ public class CalculationEvaltion implements Evaltion{
             case STABISTOR:
                 return (player == Constant.WHITE ? weight : -weight) * (data.getwStators().size() - data.getbStators().size());
             case INNER:
-                return 0;
+                return (player == Constant.WHITE ? weight : -weight) * (data.getWInners().size() - data.getBInners().size());
             case FRONTIERS:
-                return 0;
+                return (player == Constant.WHITE ? weight : -weight) * (data.getWfrontiers().size() - data.getBfrontiers().size());
             case PARITY:
                 return 0;
             default:break;
