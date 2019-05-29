@@ -28,9 +28,9 @@ public class EvaluationWeight {
                     // 行动力
                     cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 11;
                     // 坐标位置估值
-                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 1;
+                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 0;
                     // 棋子个数估值
-                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 1;
+                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 0;
                     // 稳定子
                     cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 10;
                     // 前沿子
@@ -60,7 +60,7 @@ public class EvaluationWeight {
                     // 棋子个数估值
                     cacheWeight[status][WeightEnum.COUNT.getIndex()] = 8;
                     // 稳定子
-                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 15;
+                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 10;
                     // 前沿子
                     cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
                     // 内部子

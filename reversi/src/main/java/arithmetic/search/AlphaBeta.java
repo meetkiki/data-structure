@@ -93,6 +93,7 @@ public class AlphaBeta implements SearchAlgorithm {
             //sortMoves(moves);
             // 当前最佳估值，预设为负无穷大 己方估值为最小
             int score = MIN,value;
+            boolean isFoundPV = false;
             // 最佳估值类型, EXACT为精确值, LOWERBOUND为<=alpha, UPPERBOUND为>=beta
             EntryType entryType = null;
             // 轮到已方走
@@ -105,8 +106,18 @@ public class AlphaBeta implements SearchAlgorithm {
                 if (first == null) first = BoardUtil.convertMove(curMove);
                 //尝试走这步棋
                 GameRule.make_move(data, curMove);
-                // 将产生的新局面给对方
-                value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
+                if (isFoundPV){
+                    // 假定找到最优剪枝 以空窗口搜索
+                    value = -alphaBeta(data, -alpha -1 , -alpha, depth - 1).getMark();
+                    // 如果检索失败 重新搜索
+                    if (value > alpha && value < beta){
+                        // 将产生的新局面给对方
+                        value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
+                    }
+                }else {
+                    // 将产生的新局面给对方
+                    value = -alphaBeta(data, -beta , -alpha, depth - 1).getMark();
+                }
                 // 悔棋
                 GameRule.un_move(data);
                 if (value > score){
@@ -116,6 +127,7 @@ public class AlphaBeta implements SearchAlgorithm {
                         entryType = EntryType.EXACT;
                         // 通过向上传递的值修正上下限
                         alpha = Math.max(value,alpha);
+                        isFoundPV = true;
                     }
                 }
                 // 剪枝
