@@ -1,6 +1,5 @@
 package arithmetic.search;
 
-import arithmetic.SearchAlgorithm;
 import arithmetic.evaluation.ReversiEvaluation;
 import arithmetic.subsidiary.HistoryHeuristic;
 import arithmetic.subsidiary.TranspositionTable;

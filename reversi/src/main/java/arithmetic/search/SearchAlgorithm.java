@@ -1,4 +1,4 @@
-package arithmetic;
+package arithmetic.search;
 
 import bean.BoardChess;
 import bean.MinimaxResult;

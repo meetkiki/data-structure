@@ -131,9 +131,7 @@ public class Board extends JPanel {
      */
     public void upshow(){
         GameRule.valid_moves(boardData,moves);
-        GameContext.serialExecute(()->{
-            upview();
-        });
+        GameContext.serialExecute(()-> upview());
     }
 
 
