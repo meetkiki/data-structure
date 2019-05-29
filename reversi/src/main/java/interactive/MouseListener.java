@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
+import static common.Constant.SIZE;
 import static game.Board.BOARD_HEIGHT;
 import static game.Board.BOARD_WIDTH;
 
@@ -37,6 +38,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      * 当前执棋类型
      */
     private byte curMove;
+
     /**
      * 当前走棋的task
      */
@@ -59,11 +61,11 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public void mouseReleased(MouseEvent e) {
         board.setCursor(new Cursor(Cursor.HAND_CURSOR));
         Move move = getMove(e);
-        if (move == null || !GameRule.checkMove(board,move)){
+        if (move == null){
             return;
         }
         Menu menu = GameContext.getBean(Menu.class);
-        if (menu.isOne() && curMove == board.getCurrMove()){
+        if (menu.isOne() && curMove == board.getCurrMove() && GameRule.checkMove(board,move)){
             MoveRun moveRun = new MoveRun(move);
             GameContext.submit(moveRun);
         }
@@ -189,8 +191,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         data.updateStatus();
         if (data.getStatus() != GameStatus.END){
             if (data.getOurMobility() == 0 && data.getOppMobility() > 0){
-                JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(curMove) + "方需要放弃一手 由"
-                        + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(curMove) + "方需要放弃一手 由" + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
                 return true;
             }
         }

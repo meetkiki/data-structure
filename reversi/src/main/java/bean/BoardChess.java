@@ -53,7 +53,7 @@ public class BoardChess {
      */
     private int oppMobility = 0;
     /**
-     * 检索子 就是实际子
+     * 检索子 就是实际子内部子和前沿子
      */
     private LinkedList<Byte> fields = new LinkedList<>();
     /**
@@ -238,6 +238,12 @@ public class BoardChess {
         this.status = status;
     }
 
+    public boolean checkEmptyStators(){
+        if (wStators.isEmpty() && bStators.isEmpty()){
+            return true;
+        }
+        return false;
+    }
 
     public void addStators(byte cell,byte player){
         if (player == Constant.WHITE){
