@@ -25,51 +25,31 @@ public class EvaluationWeight {
             // 如果没有 默认为0
             switch (gameStatus){
                 case OPENING:
-                    // 行动力
                     cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 11;
-                    // 坐标位置估值
-                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 0;
-                    // 棋子个数估值
+                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 1;
                     cacheWeight[status][WeightEnum.COUNT.getIndex()] = 0;
-                    // 稳定子
-                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 10;
-                    // 前沿子
+                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 2;
                     cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
                     break;
                 case MIDDLE:
-                    // 行动力
                     cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 10;
-                    // 坐标位置估值
                     cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 2;
-                    // 棋子个数估值
                     cacheWeight[status][WeightEnum.COUNT.getIndex()] = 2;
-                    // 稳定子
                     cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 10;
-                    // 前沿子
                     cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
-                    // 内部子
                     cacheWeight[status][WeightEnum.INNER.getIndex()] = 0;
-                    // 奇偶性
                     cacheWeight[status][WeightEnum.PARITY.getIndex()] = 0;
                     break;
                 case OUTCOME:
-                    // 行动力
                     cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 10;
-                    // 坐标位置估值
                     cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 2;
-                    // 棋子个数估值
                     cacheWeight[status][WeightEnum.COUNT.getIndex()] = 8;
-                    // 稳定子
-                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 10;
-                    // 前沿子
+                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 12;
                     cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
-                    // 内部子
                     cacheWeight[status][WeightEnum.INNER.getIndex()] = 0;
-                    // 奇偶性
                     cacheWeight[status][WeightEnum.PARITY.getIndex()] = 0;
                     break;
                 case END:
-                    // 棋子个数估值
                     cacheWeight[status][WeightEnum.COUNT.getIndex()] = 100000;
                     break;
                 default:break;
