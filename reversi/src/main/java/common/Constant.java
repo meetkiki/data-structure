@@ -1,10 +1,7 @@
 package common;
 
-import bean.Move;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import bean.WeightIndividual;
 
 /**
  * @author Tao
@@ -113,5 +110,16 @@ public class Constant {
 	 */
 	public static final byte BITVALUE = 8;
 
+	public static final WeightIndividual NULL = null;
 
+	public static int start = 0;
+
+	/**
+	 * 基因序列长度
+	 */
+	public static final byte GENELENGTH = 21;
+	/**
+	 * 基因最大数值
+	 */
+	public static final int GENEMAX = 257;
 }

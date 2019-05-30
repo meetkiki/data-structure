@@ -2,7 +2,6 @@ package arithmetic.subsidiary;
 
 import utils.BoardUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static common.Constant.ALLSTEP;
@@ -16,13 +15,9 @@ import static utils.CacheContext.movesIndex;
 public class HistoryHeuristic {
 
     /**
-     * 历史得分
+     * 历史得分 线程安全
      */
-    private static int[] historytable = new int[ALLSTEP];
-    /**
-     * 用于排序临时空间
-     */
-    private static List<Long> longs = new ArrayList<>(ALLSTEP);
+    private static final ThreadLocal<int[]> historytable = ThreadLocal.withInitial(() -> new int[ALLSTEP]);
 
     /**
      * 给定move得到历史得分
@@ -30,7 +25,7 @@ public class HistoryHeuristic {
      * @return
      */
     public static int historyScore(byte move){
-        return historytable[movesIndex[move]];
+        return historytable.get()[movesIndex[move]];
     }
 
 
@@ -41,7 +36,7 @@ public class HistoryHeuristic {
      * @return
      */
     public static void setHistoryScore(byte move,int depth){
-        historytable[movesIndex[move]] += (2 << depth);
+        historytable.get()[movesIndex[move]] += (2 << depth);
     }
 
 
@@ -49,8 +44,8 @@ public class HistoryHeuristic {
      * 重置历史表
      */
     public static void resetHistory(){
-        for (int i = 0; i < historytable.length; i++) {
-            historytable[i] = 0;
+        for (int i = 0; i < historytable.get().length; i++) {
+            historytable.get()[i] = 0;
         }
     }
 

@@ -1,4 +1,4 @@
-package arithmetic.regression;
+package regression;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

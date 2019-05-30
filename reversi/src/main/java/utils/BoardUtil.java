@@ -294,16 +294,6 @@ public class BoardUtil {
 				desc[BoardUtil.squareChess(row,col)] = src[row][col].getChess();
 	}
 
-	/**
-	 * 克隆棋盘数据
-	 * @param src
-	 * @return
-	 */
-	public static BoardChess cloneChess(BoardChess src){
-		byte[] srcChess = src.getChess();
-		byte player = src.getCurrMove();
-		return new BoardChess(srcChess,player);
-	}
 
 	/**
 	 * 获得棋子文字描述

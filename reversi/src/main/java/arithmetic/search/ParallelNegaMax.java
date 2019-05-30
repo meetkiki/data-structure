@@ -4,6 +4,7 @@ import arithmetic.evaluation.ReversiEvaluation;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
+import bean.WeightIndividual;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -28,6 +29,7 @@ public class ParallelNegaMax {
     public static int Depth = 8;
     public static int MAX = 1000000;
     public static int MIN = -1000000;
+    private static final ReversiEvaluation evaluation = new ReversiEvaluation(WeightIndividual.DEFAULT);
 
     private static final ForkJoinPool pool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() << 1);
 
@@ -58,7 +60,7 @@ public class ParallelNegaMax {
             // 如果到达预定的搜索深度
             if (depth <= 0) {
                 // 直接给出估值
-                return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
+                return MinimaxResult.builder().mark(evaluation.currentValue(data)).build();
             }
             // 轮到已方走
             Move move = null;
@@ -75,7 +77,7 @@ public class ParallelNegaMax {
                 Map<NegaMaxRun, Move> betaRunMoveMap = new HashMap<>();
                 for (Move curM : nextmoves) {
                     // 创建模拟棋盘
-                    BoardChess temdata = BoardUtil.cloneChess(data);
+                    BoardChess temdata = null; //BoardUtil.cloneChess(data);
                     //尝试走这步棋
                     GameRule.make_move(temdata, BoardUtil.squareChess(curM));
                     temdata.setCurrMove(BoardUtil.change(temdata.getCurrMove()));
@@ -101,7 +103,7 @@ public class ParallelNegaMax {
                     return new NegaMaxRun(data, depth - 1).fork().join();
                 }else{
                     data.setCurrMove(BoardUtil.change(data.getCurrMove()));
-                    return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(data)).build();
+                    return MinimaxResult.builder().mark(evaluation.currentValue(data)).build();
                 }
             }
             return MinimaxResult.builder().mark(best_value).move(move).build();

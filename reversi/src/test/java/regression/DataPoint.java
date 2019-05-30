@@ -1,4 +1,4 @@
-package arithmetic.regression;
+package regression;
 
 /**
  * 基础数据类

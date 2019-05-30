@@ -1,6 +1,7 @@
 package arithmetic.evaluation;
 
 import bean.BoardChess;
+import bean.WeightIndividual;
 import common.Constant;
 import common.GameStatus;
 import common.WeightEnum;
@@ -8,7 +9,6 @@ import game.GameRule;
 
 import static common.Constant.MAX;
 import static common.Constant.MIN;
-import static common.Constant.MODEL;
 
 /**
  * @author ypt
@@ -17,35 +17,26 @@ import static common.Constant.MODEL;
  * @date 2019/5/8 13:58
  */
 public class ReversiEvaluation {
-    /**
-     * 计算次数
-     */
-    private static int count;
 
     private static Evaltion evaltion = new CalculationEvaltion();
 
+    private EvaluationWeight evaluationWeight;
+
     /**
-     * 终局估值 返回最终估值
-     * @param data
-     * @return
+     * 传入基因编码
+     * @param individual
      */
-    public static int endValue(BoardChess data) {
-        count++;
-        int score;
-        byte player = data.getCurrMove();
-        // 只考虑棋子数
-        int count = data.getwCount() - data.getbCount();
-        count = (player == Constant.WHITE ? 1 : -1) * count;
-        score = count ==  0 ? 0 : (count >  0 ? MAX : MIN);
-        return score;
+    public ReversiEvaluation(WeightIndividual individual){
+        this.evaluationWeight = new EvaluationWeight(individual);
     }
+
     /**
      * 估值函数
      *
      * @param data
      * @return
      */
-    public static int currentValue(BoardChess data) {
+    public int currentValue(BoardChess data) {
         // 更新棋局状态
         GameRule.valid_moves(data);
         // 更新状态
@@ -53,10 +44,9 @@ public class ReversiEvaluation {
         // 计算内部子
         GameRule.sum_inners_frontiers(data);
         int score = 0;
-        count++;
         GameStatus status = data.getStatus();
         for (WeightEnum weightEnum : WeightEnum.values()) {
-            float weight = EvaluationWeight.getWeight(status, weightEnum);
+            float weight = this.evaluationWeight.getWeight(status, weightEnum);
             if (weight == 0){
                 continue;
             }
@@ -65,25 +55,4 @@ public class ReversiEvaluation {
         return score;
     }
 
-
-    /**
-     * /棋子统计方法
-     */
-    public static int player_counters(byte[] chess, byte player){
-        int count = 0;
-        for (byte i = 0; i < MODEL; i++) {
-            if (chess[i] == player){
-                count ++;
-            }
-        }
-        return count;
-    }
-
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        ReversiEvaluation.count = count;
-    }
 }

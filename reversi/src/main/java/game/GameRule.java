@@ -17,6 +17,7 @@ import java.util.concurrent.RecursiveTask;
 
 import static common.Constant.DELAY;
 import static common.Constant.DIRALL;
+import static common.Constant.MODEL;
 import static common.Constant.SIZE;
 import static utils.CacheContext.dirInc;
 import static utils.CacheContext.dirMask;
@@ -414,6 +415,8 @@ public class GameRule {
      * 内部子 前沿子
      */
     public static final void sum_inners_frontiers(BoardChess data){
+        // 清空计算
+        data.clearInnersFrontiers();
         LinkedList<Byte> fields = data.getFields();
         byte[] chess = data.getChess();
         Iterator<Byte> it = fields.iterator();
@@ -769,6 +772,20 @@ public class GameRule {
             return true;
         }
         return false;
+    }
+
+
+    /**
+     * /棋子统计方法
+     */
+    public static int player_counters(byte[] chess, byte player){
+        int count = 0;
+        for (byte i = 0; i < MODEL; i++) {
+            if (chess[i] == player){
+                count ++;
+            }
+        }
+        return count;
     }
 
 }

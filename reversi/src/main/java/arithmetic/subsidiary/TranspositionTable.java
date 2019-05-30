@@ -19,17 +19,15 @@ import static utils.CacheContext.moves;
  */
 public final class TranspositionTable {
 
-    public static final long[][] zobrist;
+    /**
+     * 线程安全的置换表
+     */
+    public static final ThreadLocal<long[][]> zobrist = ThreadLocal.withInitial(() -> new long[0][]);
 
     /**
      * 哈希表的大小 1 << 24 大约为64m
      */
     public static final int hashMask = (1 << 24) - 1;
-
-    /**
-     * 记录命中次数
-     */
-    private static int count = 0;
 
     /**
      * 哈希表的大小 1 << 24 大约为64m
@@ -38,11 +36,11 @@ public final class TranspositionTable {
 
     static {
         Random random = new Random();
-        zobrist = new long[Constant.MODEL + 1][];
+        zobrist.set(new long[Constant.MODEL + 1][]);
         for (int cell = 0; cell < Constant.MODEL + 1; cell++) {
-            zobrist[cell] = new long[PLAYERTYPE];
+            zobrist.get()[cell] = new long[PLAYERTYPE];
             for (byte i = 0; i < PLAYERTYPE; i++) {
-                zobrist[cell][i] = random.nextLong();
+                zobrist.get()[cell][i] = random.nextLong();
             }
         }
     }
@@ -59,13 +57,13 @@ public final class TranspositionTable {
         for (byte cell : moves) {
             if (chess[cell] != Constant.EMPTY){
                 byte player = chess[cell];
-                hash ^= zobrist[cell][player];
+                hash ^= zobrist.get()[cell][player];
             }
         }
         // 局面当前棋手
         byte player = boardChess.getCurrMove();
         if (player == Constant.WHITE){
-            hash ^= TranspositionTable.zobrist[Constant.MODEL][player];
+            hash ^= TranspositionTable.zobrist.get()[Constant.MODEL][player];
         }
         return hash;
     }
@@ -79,7 +77,6 @@ public final class TranspositionTable {
         MinimaxResult result = entryList[(int) (hash&hashMask)];
         // 深度越深,depth越大,result得到的估值越准确,即需要查找的深度不能大于存储的深度
         if (result != null && depth <= result.getDepth()){
-            count++;
             return result;
         }
         return null;
@@ -89,7 +86,6 @@ public final class TranspositionTable {
      * 重置Zobrist置换表
      */
     public static void resetZobrist(){
-        count= 0;
         // 清楚置换表主要是为了增加垃圾回收 上一次的搜索结果对下次搜索作用较小
         for (int i = 0; i < entryList.length; i++) {
             entryList[i] = null;
@@ -132,7 +128,7 @@ public final class TranspositionTable {
     public static long passPlayer(BoardChess boardChess,byte player){
         long hash = boardChess.getZobrist();
         if (player == Constant.WHITE){
-            hash ^= TranspositionTable.zobrist[Constant.MODEL][player];
+            hash ^= TranspositionTable.zobrist.get()[Constant.MODEL][player];
         }
         return hash;
     }
@@ -145,7 +141,7 @@ public final class TranspositionTable {
      */
     public static long changeMove(BoardChess boardChess,int cell,byte player){
         long hash = boardChess.getZobrist();
-        hash ^= TranspositionTable.zobrist[cell][player];
+        hash ^= TranspositionTable.zobrist.get()[cell][player];
         return hash;
     }
 
@@ -159,15 +155,9 @@ public final class TranspositionTable {
     public static long changeConvert(BoardChess boardChess, List<Byte> convert, byte player, byte other){
         long hash = boardChess.getZobrist();
         for (Byte cell : convert) {
-            hash ^= TranspositionTable.zobrist[cell][other];
-            hash ^= TranspositionTable.zobrist[cell][player];
+            hash ^= TranspositionTable.zobrist.get()[cell][other];
+            hash ^= TranspositionTable.zobrist.get()[cell][player];
         }
         return hash;
     }
-
-
-    public static int getCount() {
-        return count;
-    }
-
 }

@@ -70,8 +70,8 @@ public class AlphaBetaListener implements Observer {
 //            System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
 //            System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
 //        }
-        System.out.println("WHITE -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.WHITE));
-        System.out.println("BLACK -- " + ReversiEvaluation.player_counters(boardChess.getChess(), Constant.BLACK));
+        System.out.println("WHITE -- " + GameRule.player_counters(boardChess.getChess(), Constant.WHITE));
+        System.out.println("BLACK -- " + GameRule.player_counters(boardChess.getChess(), Constant.BLACK));
         System.out.println("wCount -- " + boardChess.getwCount());
         System.out.println("bCount -- " + boardChess.getbCount());
         BoardUtil.display(boardChess);

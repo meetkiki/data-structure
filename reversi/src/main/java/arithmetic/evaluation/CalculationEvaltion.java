@@ -32,16 +32,15 @@ public class CalculationEvaltion implements Evaltion{
             case STABISTOR:
                 return (player == Constant.WHITE ? weight : -weight) * (data.getwStators().size() - data.getbStators().size());
             case INNER:
-                return (player == Constant.WHITE ? weight : -weight) * (data.getWInners().size() - data.getBInners().size());
+                return (player == Constant.WHITE ? weight : -weight) * (data.getWInners() - data.getBInners());
             case FRONTIERS:
-                return (player == Constant.WHITE ? weight : -weight) * (data.getWfrontiers().size() - data.getBfrontiers().size());
+                return (player == Constant.WHITE ? weight : -weight) * (data.getWfrontiers() - data.getBfrontiers());
             case PARITY:
-                return 0;
+                return (data.getEmpty().size() & 1) == 1 ? weight : -weight;
             default:break;
         }
         return 0;
     }
-
 
     /**
      * //每一个棋子的权重

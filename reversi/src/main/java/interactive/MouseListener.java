@@ -35,7 +35,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
     private Board board;
     /**
-     * 当前执棋类型
+     * 当前计算机执棋类型
      */
     private byte curMove;
 
@@ -191,7 +191,8 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         data.updateStatus();
         if (data.getStatus() != GameStatus.END){
             if (data.getOurMobility() == 0 && data.getOppMobility() > 0){
-                JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(curMove) + "方需要放弃一手 由" + BoardUtil.getChessStr(BoardUtil.change(curMove)) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(BoardUtil.change(curMove)) +
+                        "方需要放弃一手 由" + BoardUtil.getChessStr(curMove) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
                 return true;
             }
         }
@@ -209,8 +210,8 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
         GameRule.valid_moves(data);
         data.updateStatus();
         if (data.getStatus() == GameStatus.END){
-            int white = ReversiEvaluation.player_counters(board.getBoardChess().getChess(), Constant.WHITE);
-            int black = ReversiEvaluation.player_counters(board.getBoardChess().getChess(), Constant.BLACK);
+            int white = GameRule.player_counters(board.getBoardChess().getChess(), Constant.WHITE);
+            int black = GameRule.player_counters(board.getBoardChess().getChess(), Constant.BLACK);
             JOptionPane.showMessageDialog(mainView, (black - white) > 0 ? "黑方胜利" :
                     ((black - white) == 0 ? "平局" : "白方胜利"), "提示", JOptionPane.WARNING_MESSAGE);
             return true;

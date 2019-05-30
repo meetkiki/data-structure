@@ -1,11 +1,13 @@
 package bean;
 
+import arithmetic.evaluation.ReversiEvaluation;
 import arithmetic.subsidiary.TranspositionTable;
 import common.Constant;
 import common.GameStatus;
 import game.Chess;
 import lombok.Data;
 import utils.BoardUtil;
+import utils.CacheContext;
 
 import java.util.LinkedList;
 
@@ -59,19 +61,19 @@ public class BoardChess {
     /**
      * 白内部子
      */
-    private LinkedList<Byte> wInners;
+    private int wInners;
     /**
      * 黑内部子
      */
-    private LinkedList<Byte> bInners;
+    private int bInners;
     /**
      * 白前沿子
      */
-    private LinkedList<Byte> wfrontiers;
+    private int wfrontiers;
     /**
      * 黑前沿子
      */
-    private LinkedList<Byte> bfrontiers;
+    private int bfrontiers;
     /**
      * 白方稳定子
      */
@@ -93,13 +95,9 @@ public class BoardChess {
         this.chess = new byte[MODEL];
         this.empty = new LinkedList<>();
         this.fields = new LinkedList<>();
-        this.wInners = new LinkedList<>();
-        this.bInners = new LinkedList<>();
         this.wStators = new LinkedList<>();
         this.bStators = new LinkedList<>();
         this.steps = new LinkedList<>();
-        this.wfrontiers = new LinkedList<>();
-        this.bfrontiers = new LinkedList<>();
     }
 
     public BoardChess(byte player){
@@ -113,9 +111,9 @@ public class BoardChess {
         this.status = GameStatus.OPENING;
     }
 
-    public BoardChess(byte[] chess,byte player) {
-        this(player);
-        System.arraycopy(chess,0,this.chess,0,MODEL);
+    public BoardChess() {
+        // 初始化数据
+        this(Constant.BLACK);
         // 初始化空位链表
         this.initEmpty(chess);
         // 初始化非空位链表
@@ -173,6 +171,10 @@ public class BoardChess {
      *     dddddddddd
      */
     public void initChess() {
+        // 初始化棋子
+        for (byte[] initChess : CacheContext.initChess) {
+            this.chess[initChess[0]] = initChess[1];
+        }
         for (byte i = 0; i < MODEL; i++) {
             // 前10个和后10个均为边界哨兵 // 中间71个位置 8x8 7个哨兵位
             if (i < 10 || i > 80 || i % 9 == 0){
@@ -316,9 +318,9 @@ public class BoardChess {
      */
     public void addInners(Byte cell, byte player) {
         if (player == Constant.WHITE){
-            wInners.add(cell);
+            wInners++;
         }else if (player == Constant.BLACK){
-            bInners.add(cell);
+            bInners++;
         }
     }
 
@@ -329,9 +331,17 @@ public class BoardChess {
      */
     public void addFrontiers(Byte cell, byte player) {
         if (player == Constant.WHITE){
-            wfrontiers.add(cell);
+            wfrontiers++;
         }else if (player == Constant.BLACK){
-            bfrontiers.add(cell);
+            bfrontiers++;
         }
+    }
+
+
+    public void clearInnersFrontiers(){
+        wfrontiers= 0;
+        bfrontiers= 0;
+        wInners = 0;
+        bInners = 0;
     }
 }

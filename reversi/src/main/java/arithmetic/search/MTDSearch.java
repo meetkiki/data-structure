@@ -1,6 +1,5 @@
 package arithmetic.search;
 
-import arithmetic.evaluation.ReversiEvaluation;
 import arithmetic.subsidiary.HistoryHeuristic;
 import arithmetic.subsidiary.TranspositionTable;
 import bean.BoardChess;
@@ -21,7 +20,14 @@ import static common.Constant.MIN;
  * MTD算法
  * @author Tao
  */
-public class MTDSearch implements SearchAlgorithm {
+public class MTDSearch implements SearchAlgorithm{
+
+
+    public MTDSearch(AlphaBeta alphaBeta){
+        this.alphaBeta = alphaBeta;
+    }
+
+    private AlphaBeta alphaBeta;
 
     private static final int core = Runtime.getRuntime().availableProcessors();
 
@@ -35,7 +41,6 @@ public class MTDSearch implements SearchAlgorithm {
 
     @Override
     public MinimaxResult search(BoardChess data, int maxDepth) {
-        ReversiEvaluation.setCount(0);
         TranspositionTable.resetZobrist();
         HistoryHeuristic.resetHistory();
         // 初始假想模型
@@ -65,7 +70,7 @@ public class MTDSearch implements SearchAlgorithm {
                 beta = result.getMark();
             }
             // 空窗探测
-            result = AlphaBeta.alphaBeta(data,beta - 1,beta,depth);
+            result = alphaBeta.alphaBeta(data,beta - 1,beta,depth);
             if (result.getMark() < beta){
                 upp = result.getMark();
             }else {

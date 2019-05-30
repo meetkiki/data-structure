@@ -1,8 +1,6 @@
 package regression;
 
 //测试类
-import arithmetic.regression.DataPoint;
-import arithmetic.regression.SimpleLinearRegression;
 import org.junit.Test;
 
 import java.io.InputStream;

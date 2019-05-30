@@ -4,6 +4,7 @@ import arithmetic.evaluation.ReversiEvaluation;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import bean.Move;
+import bean.WeightIndividual;
 import game.GameRule;
 import utils.BoardUtil;
 
@@ -14,7 +15,9 @@ public class NegaScoutAgent{
     static final int INFINITY = 10000000;
     
     private static int mMaxPly = 10;
-	
+
+	private static final ReversiEvaluation evaluation = new ReversiEvaluation(WeightIndividual.DEFAULT);
+
 	public static MinimaxResult findMove(BoardChess board) {
 		return abNegascoutDecision(board);
 	}
@@ -22,7 +25,6 @@ public class NegaScoutAgent{
 	public static MinimaxResult abNegascoutDecision(BoardChess board){
 		MinimaxResult moveScore = null;
 		try {
-			ReversiEvaluation.setCount(0);
 			moveScore = abNegascout(board,mMaxPly,-INFINITY,INFINITY);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -33,7 +35,7 @@ public class NegaScoutAgent{
     public static MinimaxResult abNegascout(BoardChess board, int depth, int alpha, int beta){
     	// Check if we have done recursing
     	if (depth==0){
-            return MinimaxResult.builder().mark(ReversiEvaluation.currentValue(board)).depth(depth).build();
+            return MinimaxResult.builder().mark(evaluation.currentValue(board)).depth(depth).build();
         }
     		
     	int currentScore;

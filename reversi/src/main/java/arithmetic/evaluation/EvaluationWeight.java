@@ -1,5 +1,6 @@
 package arithmetic.evaluation;
 
+import bean.WeightIndividual;
 import common.GameStatus;
 import common.WeightEnum;
 
@@ -13,49 +14,65 @@ public class EvaluationWeight {
     /**
      * 权重数据
      */
-    private static final float[][] cacheWeight = new float[GameStatus.values().length][WeightEnum.values().length];
+    private final float[][] cacheWeight = new float[GameStatus.values().length][WeightEnum.values().length];
 
+    public EvaluationWeight(){ }
+
+    public EvaluationWeight(WeightIndividual individual){
+        initWeight(individual);
+    }
     /**
      * 初始化权重信息
      */
-    static {
-        for (int status = 0; status < cacheWeight.length; status++) {
-            cacheWeight[status] = new float[WeightEnum.values().length];
-            GameStatus gameStatus = GameStatus.findStatus(status);
-            // 如果没有 默认为0
-            switch (gameStatus){
-                case OPENING:
-                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 11;
-                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 1;
-                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 0;
-                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 2;
-                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
-                    break;
-                case MIDDLE:
-                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 10;
-                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 2;
-                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 2;
-                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 10;
-                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
-                    cacheWeight[status][WeightEnum.INNER.getIndex()] = 0;
-                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 0;
-                    break;
-                case OUTCOME:
-                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 10;
-                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 2;
-                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 8;
-                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 12;
-                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
-                    cacheWeight[status][WeightEnum.INNER.getIndex()] = 0;
-                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 0;
-                    break;
-                case END:
-                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 100000;
-                    break;
-                default:break;
-            }
+    public void initWeight(WeightIndividual individual){
+        // 基因编码
+        byte[] genes = individual.getGenes();
+        for (int i = 0; i < genes.length; i++){
+            int status = i % 4;
+            int weight = i % 7;
+            float gene = (float) ((genes[i] + 128) / 128.0);
+            cacheWeight[status][weight] = gene;
         }
     }
+
+//    static {
+//        for (int status = 0; status < cacheWeight.length; status++) {
+//            cacheWeight[status] = new float[WeightEnum.values().length];
+//            GameStatus gameStatus = GameStatus.findStatus(status);
+//            // 如果没有 默认为0
+//            switch (gameStatus){
+//                case OPENING:
+//                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 11;
+//                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 1;
+//                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 1;
+//                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 5;
+//                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = -2;
+//                    cacheWeight[status][WeightEnum.INNER.getIndex()] = -1;
+//                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 2;
+//                    break;
+//                case MIDDLE:
+//                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 8;
+//                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 1;
+//                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 1;
+//                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 11;
+//                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = -2;
+//                    cacheWeight[status][WeightEnum.INNER.getIndex()] = -1;
+//                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 5;
+//                    break;
+//                case OUTCOME:
+//                case END:
+//                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 8;
+//                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 2;
+//                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 2;
+//                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 15;
+//                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
+//                    cacheWeight[status][WeightEnum.INNER.getIndex()] = 2;
+//                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 5;
+//                    break;
+//                default:break;
+//            }
+//        }
+//    }
 
     /**
      * 获取权重信息
@@ -63,9 +80,11 @@ public class EvaluationWeight {
      * @param weightEnum
      * @return
      */
-    public static final float getWeight(GameStatus status,WeightEnum weightEnum){
+    public final float getWeight(GameStatus status,WeightEnum weightEnum){
         return cacheWeight[status.getStatus()][weightEnum.getIndex()];
     }
+
+
 
 
 

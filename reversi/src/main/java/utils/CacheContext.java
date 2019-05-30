@@ -20,6 +20,13 @@ public class CacheContext {
      */
     public static final byte[] dirInc = {1,-1,8,-8,9,-9,10,-10};
     /**
+     * 初始棋子
+     */
+    public static final byte[][] initChess = {
+            {40,Constant.WHITE},{41,Constant.BLACK},
+            {49,Constant.BLACK},{50,Constant.WHITE}
+    };
+    /**
      * 搜索位置的对应棋盘的掩码
      *  对应二进制的比特位
      *	1表示需要搜索 0表示不需要搜索
