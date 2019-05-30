@@ -56,7 +56,7 @@ public class ReversiEvaluation {
         count++;
         GameStatus status = data.getStatus();
         for (WeightEnum weightEnum : WeightEnum.values()) {
-            int weight = EvaluationWeight.getWeight(status, weightEnum);
+            float weight = EvaluationWeight.getWeight(status, weightEnum);
             if (weight == 0){
                 continue;
             }

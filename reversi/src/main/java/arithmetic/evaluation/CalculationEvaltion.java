@@ -4,14 +4,7 @@ import bean.BoardChess;
 import common.Constant;
 import common.WeightEnum;
 
-import java.util.Iterator;
-import java.util.LinkedList;
-
-import static common.Constant.DIRALL;
 import static common.Constant.MODEL;
-import static utils.CacheContext.dirInc;
-import static utils.CacheContext.dirMask;
-
 /**
  * @author ypt
  * @ClassName CalculationEvaltion 计算估值
@@ -26,7 +19,7 @@ public class CalculationEvaltion implements Evaltion{
      * @return
      */
     @Override
-    public final int weightScore(WeightEnum weightEnum, int weight, BoardChess data) {
+    public final float weightScore(WeightEnum weightEnum, float weight, BoardChess data) {
         byte[] chess = data.getChess();
         byte player = data.getCurrMove(), other = player == Constant.WHITE ? Constant.BLACK : Constant.WHITE;
         switch (weightEnum){

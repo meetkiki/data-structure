@@ -13,14 +13,14 @@ public class EvaluationWeight {
     /**
      * 权重数据
      */
-    private static final int[][] cacheWeight = new int[GameStatus.values().length][WeightEnum.values().length];
+    private static final float[][] cacheWeight = new float[GameStatus.values().length][WeightEnum.values().length];
 
     /**
      * 初始化权重信息
      */
     static {
         for (int status = 0; status < cacheWeight.length; status++) {
-            cacheWeight[status] = new int[WeightEnum.values().length];
+            cacheWeight[status] = new float[WeightEnum.values().length];
             GameStatus gameStatus = GameStatus.findStatus(status);
             // 如果没有 默认为0
             switch (gameStatus){
@@ -63,7 +63,7 @@ public class EvaluationWeight {
      * @param weightEnum
      * @return
      */
-    public static final int getWeight(GameStatus status,WeightEnum weightEnum){
+    public static final float getWeight(GameStatus status,WeightEnum weightEnum){
         return cacheWeight[status.getStatus()][weightEnum.getIndex()];
     }
 

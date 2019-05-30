@@ -18,6 +18,6 @@ public interface Evaltion {
      * @param data
      * @return
      */
-    int weightScore(WeightEnum weightEnum, int weight, BoardChess data);
+    float weightScore(WeightEnum weightEnum, float weight, BoardChess data);
 
 }
