@@ -2,6 +2,7 @@ package arithmetic.regression;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * //RegressionLine类，用于处理一元线性回归问题
@@ -84,14 +85,14 @@ public class SimpleLinearRegression {
     /**
      * /类RegressionLine的有参构造函数
      */
-    public SimpleLinearRegression(DataPoint data[]){
+    public SimpleLinearRegression(List<DataPoint> data){
         pn = 0;
         xy = new float[2];
         listX = new ArrayList();
         listY = new ArrayList();
-        for(int i = 0;i < data.length;++i){
+        for(int i = 0;i < data.size();++i){
             //添加数据集的方法addDatapoint
-            addDatapoint(data[i]);
+            addDatapoint(data.get(i));
         }
     }
     public int getDataPointCount(){
