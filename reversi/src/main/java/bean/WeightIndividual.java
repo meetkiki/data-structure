@@ -121,16 +121,11 @@ public class WeightIndividual {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         WeightIndividual that = (WeightIndividual) o;
-        return Double.compare(that.fitness, fitness) == 0 &&
-                Arrays.equals(genes, that.genes) &&
-                Arrays.equals(grays, that.grays);
+        return Arrays.equals(genes, that.genes);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(fitness);
-        result = 31 * result + Arrays.hashCode(genes);
-        result = 31 * result + Arrays.hashCode(grays);
-        return result;
+        return Arrays.hashCode(genes);
     }
 }
