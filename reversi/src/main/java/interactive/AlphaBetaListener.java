@@ -6,6 +6,7 @@ import arithmetic.subsidiary.TranspositionTable;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.MinimaxResult;
+import bean.WeightIndividual;
 import common.Constant;
 import game.Board;
 import game.GameContext;
@@ -29,7 +30,7 @@ public class AlphaBetaListener implements Observer {
     public AlphaBetaListener(Observable ob) {
         this.ob = ob;
         this.ob.addObserver(this);
-        this.calculator = new Calculator();
+        this.calculator = new Calculator(new ReversiEvaluation(WeightIndividual.DEFAULT));
     }
 
     @Override
@@ -53,8 +54,8 @@ public class AlphaBetaListener implements Observer {
             System.out.println("搜索耗时 " + (en - st) + " ms");
             String move = board.getCurrMove() == Constant.WHITE ? "白" : "黑";
             System.out.println(result + "currMove :" + move);
-            System.out.println("搜索局面 : " + ReversiEvaluation.getCount() + " 个,置换表命中次数 : "+ TranspositionTable.getCount() +" 次,每秒: " +
-                    (long)(Double.valueOf(ReversiEvaluation.getCount() + TranspositionTable.getCount()) / ((en - st) / 1000.0 )) + " 个局面");
+//            System.out.println("搜索局面 : " + GameRule.getCount() + " 个,置换表命中次数 : "+ TranspositionTable.getCount() +" 次,每秒: " +
+//                    (long)(Double.valueOf(ReversiEvaluation.getCount() + TranspositionTable.getCount()) / ((en - st) / 1000.0 )) + " 个局面");
             // 必须要先走玩家棋
             mouseListener.getTask().join();
 

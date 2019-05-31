@@ -29,16 +29,6 @@ public class MTDSearch implements SearchAlgorithm{
 
     private AlphaBeta alphaBeta;
 
-    private static final int core = Runtime.getRuntime().availableProcessors();
-
-    private static final ExecutorService executorService = new ThreadPoolExecutor(core, core, 0l, TimeUnit.SECONDS, new LinkedBlockingQueue<>(), new ThreadFactory() {
-        private AtomicInteger max = new AtomicInteger();
-        @Override
-        public Thread newThread(Runnable r) {
-            return new Thread("mtd pool - " + max.incrementAndGet() + " - thread");
-        }
-    });
-
     @Override
     public MinimaxResult search(BoardChess data, int maxDepth) {
         TranspositionTable.resetZobrist();

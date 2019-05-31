@@ -13,7 +13,9 @@ import game.GameRule;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static common.Constant.NULL;
@@ -25,14 +27,16 @@ public class GameManager {
 
     /**
      * 计算总调度
+     *
+     *  返回每个基因组对局信息
      */
-    public static final List<StatisticalScore> chief_dispatcher(Set<WeightIndividual> weightIndividuals){
-        List<StatisticalScore> list = new ArrayList<>();
+    public static final Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(Set<WeightIndividual> weightIndividuals){
+        Map<WeightIndividual, List<Gameplayer>> listMap = new HashMap<>(weightIndividuals.size());
         for (WeightIndividual weightIndividual : weightIndividuals) {
-            StatisticalScore score = play_game(weightIndividual, weightIndividuals);
-            list.add(score);
+            List<Gameplayer> gameplayers = play_game(weightIndividual, weightIndividuals);
+            listMap.put(weightIndividual,gameplayers);
         }
-        return list;
+        return listMap;
     }
 
     /**
@@ -42,19 +46,19 @@ public class GameManager {
      *
      * @return
      */
-    public static StatisticalScore play_game(WeightIndividual weightA, Set<WeightIndividual> others){
-        int score = 0;
+    public static List<Gameplayer> play_game(WeightIndividual weightA, Set<WeightIndividual> others){
+        List<Gameplayer> gameplayers = new ArrayList<>();
         // 分为会两局对局
         for (WeightIndividual other : others) {
-            Gameplayer gameplayer = simulationGame(weightA, other);
-            // 统计胜利和分数
-            if (weightA.equals(gameplayer.getWinner())){
-                score += gameplayer.getCount();
-            }else{
-                score -= gameplayer.getCount();
+            if  (weightA.equals(other)){
+                // 不和自己对局
+                continue;
             }
+            // 存储对局数据
+            Gameplayer gameplayer = simulationGame(weightA, other);
+            gameplayers.add(gameplayer);
         }
-        return new StatisticalScore();
+        return gameplayers;
     }
 
     /**
@@ -76,10 +80,11 @@ public class GameManager {
             if (GameRule.valid_moves(chess) == 0)  GameRule.passMove(chess);
         }while (chess.getStatus() != GameStatus.END);
         WeightIndividual winner = NULL;
-        // 胜利者
+        // 设置胜利者
         score = chess.getbCount() - chess.getwCount();
-        if (score != Constant.EMPTY)
-            winner = score > 0 ? weightA :  weightB;
+        if (score != Constant.EMPTY){
+            winner = score > 0 ? weightA : weightB;
+        }
         score = Math.abs(score);
         return Gameplayer.builder()
                 .count(score)
@@ -96,6 +101,5 @@ public class GameManager {
         }
         return calculatorB;
     }
-
 
 }

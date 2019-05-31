@@ -166,11 +166,12 @@ public class AlphaBeta implements SearchAlgorithm {
      * @param moves
      */
     private LinkedList<Integer> sortMoves(LinkedList<Integer> moves) {
+        // 设值方式
+        // byte curMove = BoardUtil.rightShift(next,Constant.BITVALUE);
+        // Move convertMove = BoardUtil.convertMove(curMove);
         if (moves.size() == 0){
             return moves;
         }
-        // byte curMove = BoardUtil.rightShift(next,Constant.BITVALUE);
-        // Move convertMove = BoardUtil.convertMove(curMove);
         // 按照对手行动力从小到大排序
         Collections.sort(moves,(o1,o2)->{
             byte mobility1 = (byte) (o1 & 0xFF);
