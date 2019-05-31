@@ -26,11 +26,14 @@ import static common.Constant.MIN;
  */
 public class AlphaBeta implements SearchAlgorithm {
 
-    public static int Start = 0;
+    private ReversiEvaluation evaluation;
+
+    public AlphaBeta(ReversiEvaluation evaluation){
+        this.evaluation = evaluation;
+    }
 
     @Override
     public MinimaxResult search(BoardChess boardChess, int depth) {
-        ReversiEvaluation.setCount(0);
         TranspositionTable.resetZobrist();
         HistoryHeuristic.resetHistory();
         return alphaBeta(boardChess, MIN, MAX, depth);
@@ -45,7 +48,7 @@ public class AlphaBeta implements SearchAlgorithm {
      * @param beta  上限
      * @return
      */
-    public static MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
+    public MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
         // 引入置换表
         MinimaxResult zresult;
         // 当前深度浅于历史深度 则使用 否则搜索
@@ -65,20 +68,16 @@ public class AlphaBeta implements SearchAlgorithm {
         }
         List<Byte> empty = data.getEmpty();
         // 如果到达预定的搜索深度 // 棋子已满
-        if (depth <= Start || empty.size() == Constant.EMPTY) {
+        if (depth <= Constant.start || empty.size() == Constant.EMPTY) {
             // 直接给出估值
-            int value = ReversiEvaluation.currentValue(data);
-            TranspositionTable.insertZobrist(data.getZobrist(),value,depth, EntryType.EXACT);
-            return MinimaxResult.builder().mark(value).depth(depth).build();
+            return getMinimaxResult(data, depth);
         }
         LinkedList<Byte> moves = new LinkedList<>();
         if (GameRule.valid_moves(data,moves) == 0){
             // 如果对手也没有可走子
             if (data.getOppMobility() == 0){
                 // 终局 给出精确估值
-                int value = ReversiEvaluation.endValue(data);
-                TranspositionTable.insertZobrist(data.getZobrist(),value,depth,EntryType.EXACT);
-                return MinimaxResult.builder().mark(value).depth(depth).build();
+                return getMinimaxResult(data, depth);
             }
             GameRule.passMove(data);
             // 交给对手
@@ -150,11 +149,23 @@ public class AlphaBeta implements SearchAlgorithm {
     }
 
     /**
+     * 计算估值
+     * @param data
+     * @param depth
+     * @return
+     */
+    private MinimaxResult getMinimaxResult(BoardChess data, int depth) {
+        int value = evaluation.currentValue(data);
+        TranspositionTable.insertZobrist(data.getZobrist(), value, depth, EntryType.EXACT);
+        return MinimaxResult.builder().mark(value).depth(depth).build();
+    }
+
+    /**
      * 根据对手行动力排序
      *  插入排序
      * @param moves
      */
-    private static LinkedList<Integer> sortMoves(LinkedList<Integer> moves) {
+    private LinkedList<Integer> sortMoves(LinkedList<Integer> moves) {
         if (moves.size() == 0){
             return moves;
         }

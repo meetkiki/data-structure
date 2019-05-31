@@ -1,5 +1,6 @@
 package arithmetic;
 
+import arithmetic.evaluation.ReversiEvaluation;
 import arithmetic.search.AlphaBeta;
 import arithmetic.search.MTDSearch;
 import arithmetic.search.SearchAlgorithm;
@@ -15,8 +16,10 @@ import java.util.LinkedList;
  */
 public class Calculator {
 
-    private static SearchAlgorithm alphaBeta = new AlphaBeta();
-    private static SearchAlgorithm mtdSearch = new MTDSearch();
+    private byte player;
+
+    private SearchAlgorithm alphaBeta;
+    private SearchAlgorithm mtdSearch;
 
     /**
      * 搜索深度
@@ -24,7 +27,11 @@ public class Calculator {
     private int depth = Constant.DEFAULTDEPTH;
     private int outDepth = Constant.OUTDEPTH;
 
-    public Calculator(){}
+    public Calculator(ReversiEvaluation evaluation){
+        AlphaBeta alphaBeta = new AlphaBeta(evaluation);
+        this.mtdSearch = new MTDSearch(alphaBeta);
+        this.alphaBeta = alphaBeta;
+    }
 
     /**
      * 搜索最佳走法
@@ -48,4 +55,12 @@ public class Calculator {
         return result;
     }
 
+    public byte getPlayer() {
+        return player;
+    }
+
+    public Calculator setPlayer(byte player) {
+        this.player = player;
+        return this;
+    }
 }
