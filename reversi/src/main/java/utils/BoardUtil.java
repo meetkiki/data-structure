@@ -353,4 +353,67 @@ public class BoardUtil {
 			list.set(j + 1,temp);
 		}
 	}
+
+
+	/**
+	 * 基因组转换
+	 *  |x|必须要小于128
+	 * @return
+	 */
+	public static void gensToGrays(byte[] gens,byte[] grays){
+		for (int i = 0; i < gens.length; i++) {
+			grays[i] = byteToGray(gens[i]);
+		}
+	}
+
+	/**
+	 * 基因组转换
+	 *  |x|必须要小于128
+	 * @return
+	 */
+	public static void graysToGens(byte[] grays,byte[] gens){
+		for (int i = 0; i < grays.length; i++) {
+			gens[i] = grayToByte(grays[i]);
+		}
+	}
+
+
+
+	/**
+	 * 二进制转化为格雷编码
+	 *  |x|必须要小于128
+	 * @return
+	 */
+	public static byte byteToGray(byte src){
+		// 法则是保留二进制码的最高位作为格雷码的最高位，
+		// 而次高位格雷码为二进制码的高位与次高位相异或，
+		// 而格雷码其余各位与次高位的求法相类似
+		byte abs = (byte) Math.abs(src),res = (byte) (abs ^ (abs >> 1));
+		return (byte) (src > 0 ? res : -res);
+	}
+
+
+	/**
+	 * 格雷编码转化为二进制
+	 * 	|x|必须要小于128
+	 * @return
+	 */
+	public static byte grayToByte(byte src){
+		// 法则是保留格雷码的最高位作为自然二进制码的最高位，
+		// 而次高位自然二进制码为高位自然二进制码与次高位格雷码相异或，
+		// 而自然二进制码的其余各位与次高位自然二进制码的求法相类似
+		byte abs = (byte) Math.abs(src),res = abs;
+ 		while((abs >>= 1) >=  1)
+			res ^= abs;
+  		return (byte) (src > 0 ? res : -res);
+	}
+
+	public static void main(String[] args) {
+		System.out.println(byteToGray((byte) 1));
+		System.out.println(byteToGray((byte) 127));
+		System.out.println(byteToGray((byte) -127));
+
+		System.out.println(grayToByte((byte) byteToGray((byte) 127)));
+	}
+
 }

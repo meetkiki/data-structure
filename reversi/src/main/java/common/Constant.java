@@ -121,5 +121,9 @@ public class Constant {
 	/**
 	 * 基因最大数值
 	 */
-	public static final int GENEMAX = 257;
+	public static final int GENEMAX = 256;
+	/**
+	 * 收敛分数
+	 */
+	public static final double convergence = 5;
 }

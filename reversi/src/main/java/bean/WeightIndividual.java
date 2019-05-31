@@ -2,8 +2,10 @@ package bean;
 
 
 import common.Constant;
+import utils.BoardUtil;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * 个体
@@ -28,9 +30,17 @@ public class WeightIndividual {
      */
     private byte[] genes = new byte[Constant.GENELENGTH];
     /**
+     * 对应基因编码的格雷编码
+     */
+    private byte[] grays = new byte[Constant.GENELENGTH];
+    /**
      * 个体适应度
      */
     private double fitness = 0.0;
+    /**
+     * 幸存概率
+     */
+    private double lucky = 0.0;
 
 
     public WeightIndividual(){
@@ -44,12 +54,23 @@ public class WeightIndividual {
         for (int i = 0; i < Constant.GENELENGTH; i++) {
             genes[i] = (byte) ((Math.random() * Constant.GENEMAX) - 128);
         }
+        // 基因组转换
+        BoardUtil.gensToGrays(genes,grays);
+    }
+
+    public byte[] getGrays() {
+        return grays;
+    }
+
+    public void setGrays(byte[] grays) {
+        this.grays = grays;
     }
 
     @Override
     public String toString() {
         return "WeightIndividual{" +
                 "genes=" + Arrays.toString(genes) +
+                ", grays=" + Arrays.toString(grays) +
                 ", fitness=" + fitness +
                 '}';
     }
@@ -70,9 +91,17 @@ public class WeightIndividual {
         this.fitness = fitness;
     }
 
+    public double getLucky() {
+        return lucky;
+    }
+
+    public void setLucky(double lucky) {
+        this.lucky = lucky;
+    }
+
     public static void main(String[] args) {
         double max = Integer.MIN_VALUE,min =Integer.MAX_VALUE;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100000; i++) {
             byte v = (byte) (Math.random() * Constant.GENEMAX - 128);
             max = Double.valueOf(Math.max(max,v));
             min = Double.valueOf(Math.min(min,v));
@@ -86,24 +115,22 @@ public class WeightIndividual {
         System.out.println(individual);
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         WeightIndividual that = (WeightIndividual) o;
-
-        if (Double.compare(that.fitness, fitness) != 0) return false;
-        return Arrays.equals(genes, that.genes);
+        return Double.compare(that.fitness, fitness) == 0 &&
+                Arrays.equals(genes, that.genes) &&
+                Arrays.equals(grays, that.grays);
     }
 
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = Arrays.hashCode(genes);
-        temp = Double.doubleToLongBits(fitness);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = Objects.hash(fitness);
+        result = 31 * result + Arrays.hashCode(genes);
+        result = 31 * result + Arrays.hashCode(grays);
         return result;
     }
 }

@@ -1,9 +1,17 @@
 package arithmetic.genetic;
 
 
+import bean.Gameplayer;
 import bean.WeightIndividual;
+import common.Constant;
+import common.WinnerStatus;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import static common.Constant.NULL;
 
 /**
  * 遗传算法
@@ -27,9 +35,33 @@ public class GeneticAlgorithm {
      */
     private double all_score = 0;
     /**
+     * 种群幸运度
+     */
+    private double all_lucky = 0;
+    /**
+     * 最佳数据
+     */
+    private double best_score;
+    private WeightIndividual best_weight;
+    /**
+     * 最差数据
+     */
+    private double last_score;
+    private WeightIndividual last_weight;
+    /**
      * 种群
      */
     private Set<WeightIndividual> weightIndividuals;
+
+    /**
+     * 初始化种群数据
+     */
+    void initIndividuals(){
+        weightIndividuals = new HashSet<>();
+        for (int i = 0; i < entitysize; i++) {
+            weightIndividuals.add(new WeightIndividual());
+        }
+    }
 
     /**
      * 计算适应度 适应度越高则胜率越高
@@ -40,18 +72,99 @@ public class GeneticAlgorithm {
      *      如果A先行胜 A后行负 根据后行占优势，可知A稍微弱于B
      *      除此之外 暂不知A是否强于B
      *   分数计算方式为胜方计算胜利多少子 如果没有胜利方 则为0分
-     * @return  分数
+     * @return  总分数
      */
-    private int envaluateFitness(){
-        all_score = 0.0;
-        for (WeightIndividual weightIndividual : weightIndividuals) {
-            // 每一个成员互相对战
-
-
-        }
-        return 0;
+    private double envaluateFitness(){
+        // 每一个成员互相对战
+        Map<WeightIndividual, List<Gameplayer>> listMap = GameManager.chief_dispatcher(weightIndividuals);
+        // 计算每个基因得分
+        update_fitness(listMap);
+        // 计算幸运度 幸存程度，分数越高幸存程度越高，注意归一化,为轮盘赌做准备
+        update_lucky(weightIndividuals);
+        return all_score;
     }
 
+    /**
+     * 计算单个基因得分并更新fitness
+     * @param listMap
+     */
+    private void update_fitness(Map<WeightIndividual, List<Gameplayer>> listMap) {
+        all_score = 0.0;
+        // 计算总分 及适应度
+        for (Map.Entry<WeightIndividual, List<Gameplayer>> entry : listMap.entrySet()) {
+            WeightIndividual individual = entry.getKey();
+            List<Gameplayer> gameplayers = entry.getValue();
+            double winners = 0.0;
+            for (Gameplayer gameplayer : gameplayers) {
+                WinnerStatus status = acquireStatus(individual,gameplayer);
+                if (gameplayer.isFirst()){
+                    // 先手胜利记1.0分 先手失败-0.5记 未知记0.2
+                    winners += (status == WinnerStatus.WIN ? 1.0 : (status == WinnerStatus.LOSS ? -0.5 : 0.2));
+                }else{
+                    // 后手胜利记0.5分 后手失败记-1.0分 未知记0.2
+                    winners += (status == WinnerStatus.WIN ? 0.5 : (status == WinnerStatus.LOSS ? -1.0 : 0.2));
+                }
+            }
+            // 个人总分
+            individual.setFitness(winners);
+            all_score += winners;
+        }
+    }
 
+    /**
+     * 获取状态
+     * @param individual
+     * @param gameplayer
+     * @return
+     */
+    private WinnerStatus acquireStatus(WeightIndividual individual, Gameplayer gameplayer) {
+        WeightIndividual winner = gameplayer.getWinner();
+        if (NULL == winner){
+            return WinnerStatus.NONE;
+        }
+        return individual.equals(winner) ? WinnerStatus.WIN : WinnerStatus.LOSS;
+    }
+
+    /**
+     * 计算幸运度 为轮盘赌做准备
+     * @param weightIndividuals
+     */
+    private void update_lucky(Set<WeightIndividual> weightIndividuals) {
+        all_lucky = 0.0;
+        for (WeightIndividual individual : weightIndividuals) {
+            double lucky = individual.getFitness() / all_score;
+            individual.setLucky(lucky);
+            all_lucky += lucky;
+        }
+    }
+
+    /**
+     * 判断是否结束迭代
+     *  最高分和最低分差小于常量
+     * @return
+     */
+    private boolean chooseBestSolution(Set<WeightIndividual> weightIndividuals){
+        double best = Double.MIN_VALUE,last = Double.MAX_VALUE;
+        for (WeightIndividual individual : weightIndividuals) {
+            if (best < individual.getFitness()) {
+                best_weight = individual;
+                best = individual.getFitness();
+            }
+            if (last > individual.getFitness()){
+                last_weight = individual;
+                last = individual.getFitness();
+            }
+        }
+        best_score = best;
+        last_score = last;
+        System.out.println("该次迭代最好的权重 : " + best_weight + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
+        System.out.println("该次迭代最好的分数 : " + best_score);
+        System.out.println("该次迭代最差的权重 : " + last_weight + " ; 该次迭代的最差幸存率 : " + last_weight.getLucky());
+        System.out.println("该次迭代最差的分数 : " + last_score);
+        if ((best - last) < Constant.convergence){
+            return true;
+        }
+        return false;
+    }
 
 }
