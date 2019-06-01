@@ -5,7 +5,6 @@ import arithmetic.evaluation.ReversiEvaluation;
 import bean.BoardChess;
 import bean.Gameplayer;
 import bean.Move;
-import bean.StatisticalScore;
 import bean.WeightIndividual;
 import common.Constant;
 import common.GameStatus;
@@ -16,7 +15,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static common.Constant.NULL;
 
@@ -30,7 +28,7 @@ public class GameManager {
      *
      *  返回每个基因组对局信息
      */
-    public static final Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(Set<WeightIndividual> weightIndividuals){
+    public static final Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(List<WeightIndividual> weightIndividuals){
         Map<WeightIndividual, List<Gameplayer>> listMap = new HashMap<>(weightIndividuals.size());
         for (WeightIndividual weightIndividual : weightIndividuals) {
             List<Gameplayer> gameplayers = play_game(weightIndividual, weightIndividuals);
@@ -46,7 +44,7 @@ public class GameManager {
      *
      * @return
      */
-    public static List<Gameplayer> play_game(WeightIndividual weightA, Set<WeightIndividual> others){
+    public static List<Gameplayer> play_game(WeightIndividual weightA, List<WeightIndividual> others){
         List<Gameplayer> gameplayers = new ArrayList<>();
         // 分为会两局对局
         for (WeightIndividual other : others) {

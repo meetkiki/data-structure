@@ -1,8 +1,10 @@
 package arithmetic.evaluation;
 
 import bean.WeightIndividual;
+import common.Constant;
 import common.GameStatus;
 import common.WeightEnum;
+import utils.BoardUtil;
 
 /**
  * @author ypt
@@ -16,8 +18,6 @@ public class EvaluationWeight {
      */
     private final float[][] cacheWeight = new float[GameStatus.values().length][WeightEnum.values().length];
 
-    public EvaluationWeight(){ }
-
     public EvaluationWeight(WeightIndividual individual){
         initWeight(individual);
     }
@@ -25,12 +25,15 @@ public class EvaluationWeight {
      * 初始化权重信息
      */
     public void initWeight(WeightIndividual individual){
+        byte[] grays = individual.getGrays();
         // 基因编码
         byte[] genes = individual.getGenes();
+        BoardUtil.graysToGens(grays,genes);
         for (int i = 0; i < genes.length; i++){
-            int status = i % 4;
-            int weight = i % 7;
-            float gene = (float) ((genes[i] + 128) / 128.0);
+            int status = i % GameStatus.values().length;
+            int weight = i % WeightEnum.values().length;
+            float genesHelf = (float) (Constant.GENEMAX / 2.0);
+            float gene = ((genes[i] + genesHelf) / genesHelf);
             cacheWeight[status][weight] = gene;
         }
     }
@@ -83,9 +86,5 @@ public class EvaluationWeight {
     public final float getWeight(GameStatus status,WeightEnum weightEnum){
         return cacheWeight[status.getStatus()][weightEnum.getIndex()];
     }
-
-
-
-
 
 }

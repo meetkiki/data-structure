@@ -2,13 +2,9 @@ package arithmetic.evaluation;
 
 import bean.BoardChess;
 import bean.WeightIndividual;
-import common.Constant;
 import common.GameStatus;
 import common.WeightEnum;
 import game.GameRule;
-
-import static common.Constant.MAX;
-import static common.Constant.MIN;
 
 /**
  * @author ypt

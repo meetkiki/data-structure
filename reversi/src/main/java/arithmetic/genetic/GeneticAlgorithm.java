@@ -6,10 +6,13 @@ import bean.WeightIndividual;
 import common.Constant;
 import common.WinnerStatus;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static common.Constant.NULL;
 
@@ -51,16 +54,21 @@ public class GeneticAlgorithm {
     /**
      * 种群
      */
-    private Set<WeightIndividual> weightIndividuals;
+    private List<WeightIndividual> weightIndividuals;
+    /**
+     * 下一代种群
+     */
+    private List<WeightIndividual> newIndividuals;
 
     /**
      * 初始化种群数据
      */
     void initIndividuals(){
-        weightIndividuals = new HashSet<>();
+        weightIndividuals = new ArrayList<>();
         for (int i = 0; i < entitysize; i++) {
             weightIndividuals.add(new WeightIndividual());
         }
+        newIndividuals = new ArrayList<>();
     }
 
     /**
@@ -129,21 +137,53 @@ public class GeneticAlgorithm {
      * 计算幸运度 为轮盘赌做准备
      * @param weightIndividuals
      */
-    private void update_lucky(Set<WeightIndividual> weightIndividuals) {
+    private void update_lucky(List<WeightIndividual> weightIndividuals) {
+        // 总概率
         all_lucky = 0.0;
+        // 累积概率
+        double c_lucky = 0.0;
         for (WeightIndividual individual : weightIndividuals) {
             double lucky = individual.getFitness() / all_score;
+            c_lucky += lucky;
             individual.setLucky(lucky);
+            individual.setClucky(c_lucky);
             all_lucky += lucky;
         }
     }
+
+    /**
+     * 按某个选择概率选择样本,使用轮盘赌选择法
+     *  根据幸存程度选择
+     */
+    private void chooseSample(List<WeightIndividual> weightIndividuals){
+        // 使用map去重
+        Set<WeightIndividual> set = new HashSet<>();
+        for (int i = 0; i < weightIndividuals.size(); i++) {
+            // 产生0-1的随机数
+            double v = Math.random();
+            if (v < weightIndividuals.get(0).getClucky()){
+                set.add(weightIndividuals.get(i));
+            }else {
+                for (int i1 = 1; i1 < weightIndividuals.size(); i1++) {
+                    if (weightIndividuals.get(i1 - 1).getClucky() <= v &&
+                            weightIndividuals.get(i1).getClucky() > v) {
+                        set.add(weightIndividuals.get(i1));
+                        break;
+                    }
+                }
+            }
+        }
+        // 下一代种群
+        newIndividuals = new ArrayList<>(set);
+    }
+
 
     /**
      * 判断是否结束迭代
      *  最高分和最低分差小于常量
      * @return
      */
-    private boolean chooseBestSolution(Set<WeightIndividual> weightIndividuals){
+    private boolean chooseBestSolution(List<WeightIndividual> weightIndividuals){
         double best = Double.MIN_VALUE,last = Double.MAX_VALUE;
         for (WeightIndividual individual : weightIndividuals) {
             if (best < individual.getFitness()) {

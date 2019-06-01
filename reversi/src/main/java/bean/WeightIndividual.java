@@ -41,6 +41,10 @@ public class WeightIndividual {
      * 幸存概率
      */
     private double lucky = 0.0;
+    /**
+     * 累计概率
+     */
+    private double clucky = 0.0;
 
 
     public WeightIndividual(){
@@ -97,6 +101,14 @@ public class WeightIndividual {
 
     public void setLucky(double lucky) {
         this.lucky = lucky;
+    }
+
+    public double getClucky() {
+        return clucky;
+    }
+
+    public void setClucky(double clucky) {
+        this.clucky = clucky;
     }
 
     public static void main(String[] args) {
