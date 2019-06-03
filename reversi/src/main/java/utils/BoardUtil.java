@@ -3,7 +3,6 @@ package utils;
 import bean.BoardChess;
 import bean.ChessStep;
 import bean.Move;
-import common.Bag;
 import common.Constant;
 import common.ImageConstant;
 import game.Chess;
@@ -12,8 +11,7 @@ import game.GameRule;
 
 import java.awt.Image;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,6 +19,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CountDownLatch;
 
+import static common.Constant.BITVALUE;
 import static common.Constant.SIZE;
 import static utils.CacheContext.mapMove;
 import static utils.CacheContext.moveConstant;
@@ -59,6 +58,7 @@ public class BoardUtil {
 		timer.schedule(task,0,ms);
 		return latch;
 	}
+
 
 	/**
 	 * 反转棋子任务
@@ -354,66 +354,100 @@ public class BoardUtil {
 		}
 	}
 
-
 	/**
-	 * 基因组转换
-	 *  |x|必须要小于128
+	 * 将数据转化为8位数组
 	 * @return
 	 */
-	public static void gensToGrays(byte[] gens,byte[] grays){
-		for (int i = 0; i < gens.length; i++) {
-			grays[i] = byteToGray(gens[i]);
+	public static byte[] byteToByte8(int src){
+		byte[] arr = new byte[BITVALUE];
+		for (int i = 7; i >= 0; i--) {
+			// &1 也可以改为num&0x01,表示取最地位数字.
+			arr[i] = (byte) (src & 1);
+			// 右移一位.
+			src >>= 1;
 		}
+		return arr;
 	}
 
 	/**
-	 * 基因组转换
-	 *  |x|必须要小于128
+	 * 将8位数组转化为byte
+	 *  暂时只考虑正数 0 ~ 255
 	 * @return
 	 */
-	public static void graysToGens(byte[] grays,byte[] gens){
+	public static int byte8ToByte(byte[] src){
+		if (src == null || src.length != BITVALUE) {
+			throw new IllegalArgumentException("byte数组必须不为空,并且长度为8!");
+		}
+		int res = 0;
+		for (int i = 0; i < BITVALUE; ++i) {
+			// 取出src的每一位数据
+			res |= (src[i] << (BITVALUE - i - 1));
+		}
+		return res;
+	}
+
+	/**
+	 * 格雷基因转换为基础基因
+	 * @param grays
+	 * @param genes
+	 */
+	public static void graysToGens(byte[] grays, byte[] genes) {
+		byte[] byte8 = new byte[BITVALUE];
+		int st = 0;
 		for (int i = 0; i < grays.length; i++) {
-			gens[i] = grayToByte(grays[i]);
+			int bi = (i & (BITVALUE - 1));
+			if (bi == 0) st = i;
+			byte8[bi] = grays[i];
+			if (bi == (BITVALUE - 1)){
+				// 取出格雷码源数据
+				int src = grayToInt(byte8ToByte(byte8));
+				byte[] bytes = byteToByte8(src);
+				for (int i2 = 0; i2 < BITVALUE; i2++) {
+					genes[st + i2] = bytes[i2];
+				}
+			}
 		}
 	}
-
-
 
 	/**
 	 * 二进制转化为格雷编码
-	 *  |x|必须要小于128
+	 *  x必须要大于0
 	 * @return
 	 */
-	public static byte byteToGray(byte src){
+	public static int intToGray(int src){
 		// 法则是保留二进制码的最高位作为格雷码的最高位，
 		// 而次高位格雷码为二进制码的高位与次高位相异或，
 		// 而格雷码其余各位与次高位的求法相类似
-		byte abs = (byte) Math.abs(src),res = (byte) (abs ^ (abs >> 1));
-		return (byte) (src > 0 ? res : -res);
+		return src ^ (src >> 1);
 	}
 
 
 	/**
 	 * 格雷编码转化为二进制
-	 * 	|x|必须要小于128
+	 * 	x必须要大于0
 	 * @return
 	 */
-	public static byte grayToByte(byte src){
+	public static int grayToInt(int src){
 		// 法则是保留格雷码的最高位作为自然二进制码的最高位，
 		// 而次高位自然二进制码为高位自然二进制码与次高位格雷码相异或，
 		// 而自然二进制码的其余各位与次高位自然二进制码的求法相类似
-		byte abs = (byte) Math.abs(src),res = abs;
- 		while((abs >>= 1) >=  1)
-			res ^= abs;
-  		return (byte) (src > 0 ? res : -res);
+		int res = src;
+ 		while((src >>= 1) >=  1)
+			res ^= src;
+  		return res;
 	}
 
 	public static void main(String[] args) {
-		System.out.println(byteToGray((byte) 1));
-		System.out.println(byteToGray((byte) 127));
-		System.out.println(byteToGray((byte) -127));
+//		System.out.println(intToGray(1));
+//		System.out.println(intToGray(127));
+//		System.out.println(intToGray(8));
+//
+//		System.out.println(grayToInt(64));
+//
+//		System.out.println(grayToInt(intToGray(60)));
 
-		System.out.println(grayToByte((byte) byteToGray((byte) 127)));
+		System.out.println(Arrays.toString(byteToByte8((byte) 156)));
+		System.out.println(byte8ToByte(byteToByte8((byte) 125)));
 	}
 
 }

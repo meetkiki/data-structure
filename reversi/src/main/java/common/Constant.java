@@ -117,9 +117,13 @@ public class Constant {
 	/**
 	 * 基因序列长度
 	 */
-	public static final byte GENELENGTH = 21;
+	public static final int GENELENGTH = 21 * BITVALUE;
 	/**
-	 * 基因最大数值
+	 * 基因序列长度
+	 */
+	public static final int DATALENGTH = 21;
+	/**
+	 * 基因最大数值 0 - 255
 	 */
 	public static final int GENEMAX = 256;
 	/**

@@ -7,12 +7,9 @@ import common.Constant;
 import common.WinnerStatus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static common.Constant.NULL;
 
@@ -22,17 +19,17 @@ import static common.Constant.NULL;
  */
 public class GeneticAlgorithm {
     /**
-     * 种群规模
+     * 种群规模 128
      */
-    private int entitysize = 100;
+    private int entitysize = 2 << 7;
     /**
      * 变异概率
      */
-    private double p_bianyi = 0.05;
+    private double p_mutation = 0.05;
     /**
      * 交配概率
      */
-    private double p_jiaopei = 0.8;
+    private double p_mating = 0.8;
     /**
      * 种群总分
      */
@@ -46,11 +43,6 @@ public class GeneticAlgorithm {
      */
     private double best_score;
     private WeightIndividual best_weight;
-    /**
-     * 最差数据
-     */
-    private double last_score;
-    private WeightIndividual last_weight;
     /**
      * 种群
      */
@@ -68,7 +60,6 @@ public class GeneticAlgorithm {
         for (int i = 0; i < entitysize; i++) {
             weightIndividuals.add(new WeightIndividual());
         }
-        newIndividuals = new ArrayList<>();
     }
 
     /**
@@ -97,7 +88,7 @@ public class GeneticAlgorithm {
      * @param listMap
      */
     private void update_fitness(Map<WeightIndividual, List<Gameplayer>> listMap) {
-        all_score = 0.0;
+        double all_score = 0.0;
         // 计算总分 及适应度
         for (Map.Entry<WeightIndividual, List<Gameplayer>> entry : listMap.entrySet()) {
             WeightIndividual individual = entry.getKey();
@@ -117,6 +108,9 @@ public class GeneticAlgorithm {
             individual.setFitness(winners);
             all_score += winners;
         }
+        this.all_score = all_score;
+        // 根据比分排序倒序 保留最优基因
+        Collections.sort(this.weightIndividuals, (o1,o2)->(int) ((o2.getFitness() - o1.getFitness() * 100)));
     }
 
     /**
@@ -139,16 +133,17 @@ public class GeneticAlgorithm {
      */
     private void update_lucky(List<WeightIndividual> weightIndividuals) {
         // 总概率
-        all_lucky = 0.0;
+        double all_lucky = 0.0;
         // 累积概率
         double c_lucky = 0.0;
         for (WeightIndividual individual : weightIndividuals) {
-            double lucky = individual.getFitness() / all_score;
+            double lucky = individual.getFitness() / this.all_score;
             c_lucky += lucky;
             individual.setLucky(lucky);
             individual.setClucky(c_lucky);
             all_lucky += lucky;
         }
+        this.all_lucky = all_lucky;
     }
 
     /**
@@ -156,25 +151,100 @@ public class GeneticAlgorithm {
      *  根据幸存程度选择
      */
     private void chooseSample(List<WeightIndividual> weightIndividuals){
-        // 使用map去重
-        Set<WeightIndividual> set = new HashSet<>();
-        for (int i = 0; i < weightIndividuals.size(); i++) {
-            // 产生0-1的随机数
+        // 保留的下一代种群
+        this.newIndividuals = new ArrayList<>();
+        // 最优基因不进行轮盘 直接保留
+        newIndividuals.add(this.weightIndividuals.get(0));
+        for (int i = 1; i < weightIndividuals.size(); i++) {
+            // 产生0-1的随机数1
             double v = Math.random();
-            if (v < weightIndividuals.get(0).getClucky()){
-                set.add(weightIndividuals.get(i));
+            if (v < weightIndividuals.get(1).getClucky()){
+                newIndividuals.add(weightIndividuals.get(i));
             }else {
-                for (int i1 = 1; i1 < weightIndividuals.size(); i1++) {
+                for (int i1 = 2; i1 < weightIndividuals.size(); i1++) {
                     if (weightIndividuals.get(i1 - 1).getClucky() <= v &&
                             weightIndividuals.get(i1).getClucky() > v) {
-                        set.add(weightIndividuals.get(i1));
+                        newIndividuals.add(weightIndividuals.get(i1));
                         break;
                     }
                 }
             }
         }
-        // 下一代种群
-        newIndividuals = new ArrayList<>(set);
+        // 增加垃圾回收
+        this.weightIndividuals.clear();
+        this.weightIndividuals = newIndividuals;
+    }
+
+    /**
+     * 基因重组
+     *  对出现部分基因进行基因交叉运算
+     */
+    private void recombination(List<WeightIndividual> individuals){
+        // 标识第一个交叉基因
+        int first = -1;
+        // 最优基因不进行重组 直接保留
+        for (int exc = 1; exc < individuals.size(); exc++) {
+            double v = Math.random();
+            if(v <= p_mating){
+                if (first < 0){
+                    first = exc;
+                }else {
+                    ExchangeOver(individuals,first,exc);
+                    first = -1;
+                }
+            }
+        }
+    }
+
+    /**
+     * 对first和second进行基因重组
+     * @param individuals
+     * @param first
+     * @param second
+     */
+    private void ExchangeOver(List<WeightIndividual> individuals, int first, int second) {
+        // 对该基因的格雷码进行重组
+        WeightIndividual individualA = individuals.get(first);
+        WeightIndividual individualB = individuals.get(second);
+        byte[] grayAs = individualA.getGrays();
+        byte[] grayBs = individualB.getGrays();
+        // 对格雷码进行交叉运算
+        // 对随机个基因数进行交换
+        int ecc = (int) (Math.random() * (Constant.GENELENGTH + 1));
+        for (int i = 0; i < ecc; i++) {
+            // 每个位置进行交换的概率也是相同的
+            int v = (int) (Math.random() * Constant.GENELENGTH);
+            int temp = grayAs[v];
+            grayAs[v] = grayBs[v];
+            grayBs[v] = (byte) temp;
+        }
+    }
+
+    /**
+     * 基因变异运算
+     */
+    private void mutationGenes(List<WeightIndividual> individuals){
+        // 同理 保留优秀基因
+        for (int exc = 1; exc < individuals.size(); exc++) {
+            double p = Math.random();
+            if (p < p_mutation){
+                reverseGenes(individuals.get(exc));
+            }
+        }
+    }
+
+    /**
+     * 变异处理
+     * @param weightIndividual
+     */
+    private void reverseGenes(WeightIndividual weightIndividual) {
+        byte[] grays = weightIndividual.getGrays();
+        int ecc = (int) (Math.random() * (Constant.GENELENGTH + 1));
+        for (int i = 0; i < ecc; i++) {
+            // 每个位置进行变异的概率也是相同的
+            int v = (int) (Math.random() * Constant.GENELENGTH);
+            grays[v] = (byte) (grays[v] == 1 ? 0 : 1);
+        }
     }
 
 
@@ -185,9 +255,10 @@ public class GeneticAlgorithm {
      */
     private boolean chooseBestSolution(List<WeightIndividual> weightIndividuals){
         double best = Double.MIN_VALUE,last = Double.MAX_VALUE;
+        WeightIndividual last_weight = null;
         for (WeightIndividual individual : weightIndividuals) {
             if (best < individual.getFitness()) {
-                best_weight = individual;
+                this.best_weight = individual;
                 best = individual.getFitness();
             }
             if (last > individual.getFitness()){
@@ -196,11 +267,10 @@ public class GeneticAlgorithm {
             }
         }
         best_score = best;
-        last_score = last;
         System.out.println("该次迭代最好的权重 : " + best_weight + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
         System.out.println("该次迭代最好的分数 : " + best_score);
         System.out.println("该次迭代最差的权重 : " + last_weight + " ; 该次迭代的最差幸存率 : " + last_weight.getLucky());
-        System.out.println("该次迭代最差的分数 : " + last_score);
+        System.out.println("该次迭代最差的分数 : " + last);
         if ((best - last) < Constant.convergence){
             return true;
         }

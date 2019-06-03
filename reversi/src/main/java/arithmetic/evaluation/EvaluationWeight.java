@@ -25,15 +25,12 @@ public class EvaluationWeight {
      * 初始化权重信息
      */
     public void initWeight(WeightIndividual individual){
-        byte[] grays = individual.getGrays();
-        // 基因编码
-        byte[] genes = individual.getGenes();
-        BoardUtil.graysToGens(grays,genes);
-        for (int i = 0; i < genes.length; i++){
+        int[] srcs = individual.getSrcs();
+        for (int i = 0; i < srcs.length; i++){
             int status = i % GameStatus.values().length;
             int weight = i % WeightEnum.values().length;
             float genesHelf = (float) (Constant.GENEMAX / 2.0);
-            float gene = ((genes[i] + genesHelf) / genesHelf);
+            float gene = ((srcs[i] - genesHelf) / genesHelf);
             cacheWeight[status][weight] = gene;
         }
     }

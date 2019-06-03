@@ -7,6 +7,8 @@ import utils.BoardUtil;
 import java.util.Arrays;
 import java.util.Objects;
 
+import static common.Constant.BITVALUE;
+
 /**
  * 个体
  * @author Tao
@@ -25,10 +27,14 @@ public class WeightIndividual {
      *  可以用一个字节表示
      *  -1,-127,0,127,将除以128可以得到[-1,1]的权值
      *  而一个棋局右三个阶段（排除结局和终局一样） 正好需要21组数据
-     *     而21组数据可以认为是一个机器人，直接决定了智能水平的强弱
+     *     而21组(8位)数据可以认为是一个机器人，直接决定了智能水平的强弱
      *     -128.0 表示1
+     *  这里存每一位的8位二进制数据
+     *  比如 0000 0001 表示1  0000 1001 表示9
      */
     private byte[] genes = new byte[Constant.GENELENGTH];
+
+    private int[] srcs = new int[Constant.DATALENGTH];
     /**
      * 对应基因编码的格雷编码
      */
@@ -55,11 +61,21 @@ public class WeightIndividual {
      * / 创建一个随机的 基因个体
      */
     public void initIndividual() {
-        for (int i = 0; i < Constant.GENELENGTH; i++) {
-            genes[i] = (byte) ((Math.random() * Constant.GENEMAX) - 128);
+        for (int i = 0; i < Constant.DATALENGTH; i++) {
+            int src = (int) (Math.random() * Constant.GENEMAX);
+            srcs[i] = src;
+            byte[] byte8 = BoardUtil.byteToByte8(src);
+            // 基因组转换
+            for (int i1 = (i * BITVALUE),i2 = 0; i2 < byte8.length; i2++) {
+                genes[i1 + i2] = byte8[i2];
+            }
+            // 格雷码
+            byte[] byteGray8 = BoardUtil.byteToByte8(BoardUtil.intToGray(src));
+            // 基因组转换 转化为格雷码
+            for (int i1 = (i * BITVALUE),i2 = 0; i2 < byteGray8.length; i2++) {
+                grays[i1 + i2] = byteGray8[i2];
+            }
         }
-        // 基因组转换
-        BoardUtil.gensToGrays(genes,grays);
     }
 
     public byte[] getGrays() {
@@ -77,6 +93,14 @@ public class WeightIndividual {
                 ", grays=" + Arrays.toString(grays) +
                 ", fitness=" + fitness +
                 '}';
+    }
+
+    public int[] getSrcs() {
+        return srcs;
+    }
+
+    public void setSrcs(int[] srcs) {
+        this.srcs = srcs;
     }
 
     public byte[] getGenes() {
@@ -113,8 +137,8 @@ public class WeightIndividual {
 
     public static void main(String[] args) {
         double max = Integer.MIN_VALUE,min =Integer.MAX_VALUE;
-        for (int i = 0; i < 100000; i++) {
-            byte v = (byte) (Math.random() * Constant.GENEMAX - 128);
+        for (int i = 0; i < 10; i++) {
+            byte v = (byte) (Math.random() * Constant.GENEMAX);
             max = Double.valueOf(Math.max(max,v));
             min = Double.valueOf(Math.min(min,v));
             System.out.println("v " + v);
@@ -122,9 +146,14 @@ public class WeightIndividual {
         System.out.println("max " + max);
         System.out.println("min " + min);
 
-
         WeightIndividual individual = new WeightIndividual();
         System.out.println(individual);
+        System.out.println(Arrays.toString(individual.getGrays()));
+        System.out.println(Arrays.toString(individual.getSrcs()));
+        System.out.println(Arrays.toString(individual.getGenes()));
+        byte[] genes = new byte[Constant.GENELENGTH];
+        BoardUtil.graysToGens(individual.getGrays(),genes);
+        System.out.println(Arrays.toString(genes));
     }
 
 

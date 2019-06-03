@@ -20,6 +20,7 @@ import static common.Constant.NULL;
 
 /**
  * 计算调度
+ * @author Tao
  */
 public class GameManager {
 
