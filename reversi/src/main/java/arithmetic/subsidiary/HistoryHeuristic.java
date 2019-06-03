@@ -44,8 +44,9 @@ public class HistoryHeuristic {
      * 重置历史表
      */
     public static void resetHistory(){
+        int[] history = historytable.get();
         for (int i = 0; i < historytable.get().length; i++) {
-            historytable.get()[i] = 0;
+            history[i] = 0;
         }
     }
 

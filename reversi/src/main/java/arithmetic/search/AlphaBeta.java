@@ -28,6 +28,10 @@ public class AlphaBeta implements SearchAlgorithm {
 
     private ReversiEvaluation evaluation;
 
+    public ReversiEvaluation getEvaluation() {
+        return evaluation;
+    }
+
     public AlphaBeta(ReversiEvaluation evaluation){
         this.evaluation = evaluation;
     }

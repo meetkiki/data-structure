@@ -51,4 +51,8 @@ public class ReversiEvaluation {
         return score;
     }
 
+
+    public EvaluationWeight getEvaluationWeight() {
+        return evaluationWeight;
+    }
 }

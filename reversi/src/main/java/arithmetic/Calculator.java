@@ -63,4 +63,8 @@ public class Calculator {
         this.player = player;
         return this;
     }
+
+    public SearchAlgorithm getAlphaBeta() {
+        return alphaBeta;
+    }
 }

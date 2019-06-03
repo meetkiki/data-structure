@@ -5,8 +5,10 @@ import bean.Gameplayer;
 import bean.WeightIndividual;
 import common.Constant;
 import common.WinnerStatus;
+import utils.BoardUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -55,11 +57,12 @@ public class GeneticAlgorithm {
     /**
      * 初始化种群数据
      */
-    void initIndividuals(){
+    private List<WeightIndividual> initIndividuals(){
         weightIndividuals = new ArrayList<>();
         for (int i = 0; i < entitysize; i++) {
             weightIndividuals.add(new WeightIndividual());
         }
+        return this.weightIndividuals;
     }
 
     /**
@@ -73,21 +76,21 @@ public class GeneticAlgorithm {
      *   分数计算方式为胜方计算胜利多少子 如果没有胜利方 则为0分
      * @return  总分数
      */
-    private double envaluateFitness(){
+    private double envaluateFitness(List<WeightIndividual> individuals){
         // 每一个成员互相对战
         Map<WeightIndividual, List<Gameplayer>> listMap = GameManager.chief_dispatcher(weightIndividuals);
         // 计算每个基因得分
-        update_fitness(listMap);
+        double fitness = update_fitness(listMap);
         // 计算幸运度 幸存程度，分数越高幸存程度越高，注意归一化,为轮盘赌做准备
-        update_lucky(weightIndividuals);
-        return all_score;
+        update_lucky(individuals);
+        return fitness;
     }
 
     /**
      * 计算单个基因得分并更新fitness
      * @param listMap
      */
-    private void update_fitness(Map<WeightIndividual, List<Gameplayer>> listMap) {
+    private double update_fitness(Map<WeightIndividual, List<Gameplayer>> listMap) {
         double all_score = 0.0;
         // 计算总分 及适应度
         for (Map.Entry<WeightIndividual, List<Gameplayer>> entry : listMap.entrySet()) {
@@ -111,6 +114,7 @@ public class GeneticAlgorithm {
         this.all_score = all_score;
         // 根据比分排序倒序 保留最优基因
         Collections.sort(this.weightIndividuals, (o1,o2)->(int) ((o2.getFitness() - o1.getFitness() * 100)));
+        return all_score;
     }
 
     /**
@@ -249,6 +253,21 @@ public class GeneticAlgorithm {
 
 
     /**
+     * 通过格雷基因更新源基因
+     * @param individuals
+     */
+    private void flushsrcGenes(List<WeightIndividual> individuals) {
+        for (WeightIndividual individual : individuals) {
+            byte[] grays = individual.getGrays();
+            byte[] genes = individual.getGenes();
+            int[] srcs = individual.getSrcs();
+            // 通过grays基因组装genes和src基因
+            BoardUtil.graysToGens(grays,srcs,genes);
+        }
+    }
+
+
+    /**
      * 判断是否结束迭代
      *  最高分和最低分差小于常量
      * @return
@@ -272,9 +291,35 @@ public class GeneticAlgorithm {
         System.out.println("该次迭代最差的权重 : " + last_weight + " ; 该次迭代的最差幸存率 : " + last_weight.getLucky());
         System.out.println("该次迭代最差的分数 : " + last);
         if ((best - last) < Constant.convergence){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
+
+    /**
+     * 遗传迭代方法
+     * @param args
+     */
+    public static void main(String[] args) {
+        GeneticAlgorithm algorithm = new GeneticAlgorithm();
+        List<WeightIndividual> individuals = algorithm.initIndividuals();
+        double fitness = algorithm.envaluateFitness(individuals);
+        // 判断是否继续迭代
+        while (algorithm.chooseBestSolution(individuals)){
+            // 计算适应度
+            algorithm.envaluateFitness(individuals);
+            // 选择样本
+            algorithm.chooseSample(individuals);
+            // 交叉计算
+            algorithm.recombination(individuals);
+            // 变异计算
+            algorithm.mutationGenes(individuals);
+            // 更新源基因
+            algorithm.flushsrcGenes(individuals);
+        }
+
+        System.out.println(Arrays.toString(algorithm.best_weight.getSrcs()));
+    }
+
 
 }

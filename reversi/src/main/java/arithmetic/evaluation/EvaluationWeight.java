@@ -18,7 +18,10 @@ public class EvaluationWeight {
      */
     private final float[][] cacheWeight = new float[GameStatus.values().length][WeightEnum.values().length];
 
+    private final WeightIndividual individual;
+
     public EvaluationWeight(WeightIndividual individual){
+        this.individual = individual;
         initWeight(individual);
     }
     /**
@@ -84,4 +87,7 @@ public class EvaluationWeight {
         return cacheWeight[status.getStatus()][weightEnum.getIndex()];
     }
 
+    public WeightIndividual getIndividual() {
+        return individual;
+    }
 }

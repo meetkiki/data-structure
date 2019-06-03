@@ -82,7 +82,7 @@ public class Constant {
 	/**
 	 * 终局搜索深度
 	 */
-	public static final int OUTDEPTH = 16;
+	public static final int OUTDEPTH = 10;
 	/**
 	 * 开局 空闲位置40以上
 	 */

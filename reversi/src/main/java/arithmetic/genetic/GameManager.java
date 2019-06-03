@@ -2,6 +2,7 @@ package arithmetic.genetic;
 
 import arithmetic.Calculator;
 import arithmetic.evaluation.ReversiEvaluation;
+import arithmetic.search.AlphaBeta;
 import bean.BoardChess;
 import bean.Gameplayer;
 import bean.Move;
@@ -74,7 +75,11 @@ public class GameManager {
         do {
             // 循环交替下棋 直到棋局结束
             Calculator calculator = choseMove(chess,calculatorA,calculatorB);
+            long st = System.currentTimeMillis();
             Move move = calculator.searchMove(chess).getMove();
+            long ed = System.currentTimeMillis();
+            String name = ((AlphaBeta) calculator.getAlphaBeta()).getEvaluation().getEvaluationWeight().getIndividual().getName();
+            System.out.println(name + " 搜索耗时 ： " + (ed - st) + " ms");
             GameRule.make_move(chess, BoardUtil.squareChess(move));
             if (GameRule.valid_moves(chess) == 0)  GameRule.passMove(chess);
         }while (chess.getStatus() != GameStatus.END);
@@ -84,6 +89,8 @@ public class GameManager {
         if (score != Constant.EMPTY){
             winner = score > 0 ? weightA : weightB;
         }
+        System.out.println("对局结束! " + winner.getName() + " 获得胜利 !");
+        System.out.println("基因为 " + winner.getSrcs());
         score = Math.abs(score);
         return Gameplayer.builder()
                 .count(score)

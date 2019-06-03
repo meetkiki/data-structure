@@ -3,6 +3,7 @@ package bean;
 
 import common.Constant;
 import utils.BoardUtil;
+import utils.CreatNameUtils;
 
 import java.util.Arrays;
 import java.util.Objects;
@@ -51,6 +52,10 @@ public class WeightIndividual {
      * 累计概率
      */
     private double clucky = 0.0;
+    /**
+     * 名称 用作区分
+     */
+    private String name;
 
 
     public WeightIndividual(){
@@ -76,6 +81,7 @@ public class WeightIndividual {
                 grays[i1 + i2] = byteGray8[i2];
             }
         }
+        this.name = CreatNameUtils.getChineseName();
     }
 
     public byte[] getGrays() {
@@ -90,8 +96,10 @@ public class WeightIndividual {
     public String toString() {
         return "WeightIndividual{" +
                 "genes=" + Arrays.toString(genes) +
+                ", srcs=" + Arrays.toString(srcs) +
                 ", grays=" + Arrays.toString(grays) +
                 ", fitness=" + fitness +
+                ", name='" + name + '\'' +
                 '}';
     }
 
@@ -152,8 +160,10 @@ public class WeightIndividual {
         System.out.println(Arrays.toString(individual.getSrcs()));
         System.out.println(Arrays.toString(individual.getGenes()));
         byte[] genes = new byte[Constant.GENELENGTH];
-        BoardUtil.graysToGens(individual.getGrays(),genes);
+        int[] srcs = new int[Constant.DATALENGTH];
+        BoardUtil.graysToGens(individual.getGrays(),srcs,genes);
         System.out.println(Arrays.toString(genes));
+        System.out.println(Arrays.toString(srcs));
     }
 
 
@@ -163,6 +173,14 @@ public class WeightIndividual {
         if (o == null || getClass() != o.getClass()) return false;
         WeightIndividual that = (WeightIndividual) o;
         return Arrays.equals(genes, that.genes);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

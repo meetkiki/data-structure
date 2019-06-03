@@ -391,7 +391,7 @@ public class BoardUtil {
 	 * @param grays
 	 * @param genes
 	 */
-	public static void graysToGens(byte[] grays, byte[] genes) {
+	public static void graysToGens(byte[] grays,int[] srcs, byte[] genes) {
 		byte[] byte8 = new byte[BITVALUE];
 		int st = 0;
 		for (int i = 0; i < grays.length; i++) {
@@ -401,6 +401,8 @@ public class BoardUtil {
 			if (bi == (BITVALUE - 1)){
 				// 取出格雷码源数据
 				int src = grayToInt(byte8ToByte(byte8));
+				// 源基因
+				srcs[i / BITVALUE] = src;
 				byte[] bytes = byteToByte8(src);
 				for (int i2 = 0; i2 < BITVALUE; i2++) {
 					genes[st + i2] = bytes[i2];
