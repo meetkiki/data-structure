@@ -135,6 +135,7 @@ public class GameRule {
         }
         chess.setOurMobility(canOut);
         chess.setOppMobility(otherMove);
+        chess.updateStatus();
         return canOut;
     }
 
@@ -179,6 +180,7 @@ public class GameRule {
         }
         chess.setOurMobility(canMove);
         chess.setOppMobility(otherMove);
+        chess.updateStatus();
         return canMove;
     }
 
@@ -215,6 +217,7 @@ public class GameRule {
         // 设置行动力
         chess.setOurMobility(playerMobility);
         chess.setOppMobility(otherMobility);
+        chess.updateStatus();
         return playerMobility;
     }
 

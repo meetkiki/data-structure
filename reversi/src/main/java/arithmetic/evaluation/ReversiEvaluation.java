@@ -32,14 +32,12 @@ public class ReversiEvaluation {
      * @param data
      * @return
      */
-    public int currentValue(BoardChess data) {
+    public float currentValue(BoardChess data) {
         // 更新棋局状态
         GameRule.valid_moves(data);
-        // 更新状态
-        data.updateStatus();
         // 计算内部子
         GameRule.sum_inners_frontiers(data);
-        int score = 0;
+        float score = 0;
         GameStatus status = data.getStatus();
         for (WeightEnum weightEnum : WeightEnum.values()) {
             float weight = this.evaluationWeight.getWeight(status, weightEnum);

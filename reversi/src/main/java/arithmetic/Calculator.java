@@ -7,6 +7,7 @@ import arithmetic.search.SearchAlgorithm;
 import bean.BoardChess;
 import bean.MinimaxResult;
 import common.Constant;
+import game.GameRule;
 
 import java.util.LinkedList;
 
@@ -38,6 +39,10 @@ public class Calculator {
      * @return
      */
     public MinimaxResult searchMove(BoardChess boardChess){
+        int moves = GameRule.valid_moves(boardChess);
+        if (moves == 0){
+            throw new RuntimeException("不该选手下棋!");
+        }
         LinkedList<Byte> empty = boardChess.getEmpty();
         // 如果是终局
         if (empty.size() <= outDepth){

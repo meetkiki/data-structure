@@ -52,7 +52,7 @@ public class AlphaBeta implements SearchAlgorithm {
      * @param beta  上限
      * @return
      */
-    public MinimaxResult alphaBeta(BoardChess data, int alpha, int beta, int depth) {//α-β剪枝算法
+    public MinimaxResult alphaBeta(BoardChess data, float alpha, float beta, int depth) {//α-β剪枝算法
         // 引入置换表
         MinimaxResult zresult;
         // 当前深度浅于历史深度 则使用 否则搜索
@@ -94,7 +94,7 @@ public class AlphaBeta implements SearchAlgorithm {
             HistoryHeuristic.sortMovesByHistory(moves);
             //sortMoves(moves);
             // 当前最佳估值，预设为负无穷大 己方估值为最小
-            int score = MIN,value;
+            float score = MIN,value;
             boolean isFoundPV = false;
             // 最佳估值类型, EXACT为精确值, LOWERBOUND为<=alpha, UPPERBOUND为>=beta
             EntryType entryType = null;
@@ -159,7 +159,7 @@ public class AlphaBeta implements SearchAlgorithm {
      * @return
      */
     private MinimaxResult getMinimaxResult(BoardChess data, int depth) {
-        int value = evaluation.currentValue(data);
+        float value = evaluation.currentValue(data);
         TranspositionTable.insertZobrist(data.getZobrist(), value, depth, EntryType.EXACT);
         return MinimaxResult.builder().mark(value).depth(depth).build();
     }

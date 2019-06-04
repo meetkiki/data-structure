@@ -32,17 +32,17 @@ public class NegaScoutAgent{
 		return moveScore;
     }
 
-    public static MinimaxResult abNegascout(BoardChess board, int depth, int alpha, int beta){
+    public static MinimaxResult abNegascout(BoardChess board, int depth, float alpha, float beta){
     	// Check if we have done recursing
     	if (depth==0){
             return MinimaxResult.builder().mark(evaluation.currentValue(board)).depth(depth).build();
         }
-    		
-    	int currentScore;
-    	int bestScore = -INFINITY;
+
+		float currentScore;
+		float bestScore = -INFINITY;
     	Move bestMove = null;
 		// Keep track the test window value
-    	int adaptiveBeta = beta;
+		float adaptiveBeta = beta;
     	
     	// Generates all possible moves
 		LinkedList<Byte> moves = new LinkedList<>();

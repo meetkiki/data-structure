@@ -99,7 +99,7 @@ public final class TranspositionTable {
      * @param depth
      * @param type
      */
-    public static void insertZobrist(long zobrist, int value, int depth, EntryType type){
+    public static void insertZobrist(long zobrist, float value, int depth, EntryType type){
         insertZobrist(zobrist, MinimaxResult.builder().mark(value).type(type).depth(depth).build());
     }
 

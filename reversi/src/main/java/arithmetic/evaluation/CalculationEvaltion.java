@@ -64,13 +64,15 @@ public class CalculationEvaltion implements Evaltion{
      * @param player
      * @return
      */
-    private static int posEvaluation(byte[] chess, byte player){
-        int count = 0;
+    private static float posEvaluation(byte[] chess, byte player){
+        float count = 0;
         for (byte i = 0; i < MODEL; i++) {
             if (chess[i] == player){
                 count += evaluation[i];
             }
         }
+        // 0.0078125 1 / 128
+        count *= 0.0078125;
         return count;
     }
 

@@ -65,7 +65,7 @@ public class ParallelNegaMax {
             // 轮到已方走
             Move move = null;
             // 当前最佳估值，预设为负无穷大 己方估值为最小
-            int best_value = MIN;
+            float best_value = MIN;
             boolean[][] moves = new boolean[SIZE][SIZE];
             if (GameRule.valid_moves(data, moves) > 0) {
                 List<Move> nextmoves = new ArrayList<>();
@@ -89,7 +89,7 @@ public class ParallelNegaMax {
                 invokeAll(list);
                 for (NegaMaxRun betaRun : list) {
                     MinimaxResult result = betaRun.join();
-                    int value = -result.getMark();
+                    float value = -result.getMark();
                     // 通过向上传递的值修正上下限
                     if (value > best_value) {
                         best_value = value;

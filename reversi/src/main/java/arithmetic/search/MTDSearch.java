@@ -51,11 +51,11 @@ public class MTDSearch implements SearchAlgorithm{
      */
     private MinimaxResult mtdf(BoardChess data, MinimaxResult result, int depth) {
         // 初始搜索猜想上下限界
-        int upp = MAX,low = MIN,beta;
+        float upp = MAX,low = MIN,beta;
         do {
             // 在搜索中逼近上下界
             if (result.getMark() == low){
-                beta = result.getMark() + 10;
+                beta = result.getMark() + 1;
             }else {
                 beta = result.getMark();
             }

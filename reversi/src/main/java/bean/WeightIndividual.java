@@ -6,6 +6,8 @@ import utils.BoardUtil;
 import utils.CreatNameUtils;
 
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 
 import static common.Constant.BITVALUE;
@@ -81,6 +83,17 @@ public class WeightIndividual {
                 grays[i1 + i2] = byteGray8[i2];
             }
         }
+        this.name = CreatNameUtils.getChineseName();
+    }
+
+    /**
+     * 人工编码
+     * @param grays
+     */
+    public WeightIndividual(byte[] grays) {
+        this.grays = grays;
+        // 转换编码
+        BoardUtil.graysToGens(grays,srcs,genes);
         this.name = CreatNameUtils.getChineseName();
     }
 
@@ -186,5 +199,19 @@ public class WeightIndividual {
     @Override
     public int hashCode() {
         return Arrays.hashCode(genes);
+    }
+
+
+    public static String printAllName(List<WeightIndividual> individualList){
+        Iterator<WeightIndividual> iterator = individualList.iterator();
+        StringBuffer buffer = new StringBuffer();
+        if (iterator.hasNext()) buffer.append("[");
+        while (iterator.hasNext()){
+            WeightIndividual individual = iterator.next();
+            buffer.append(individual.getName());
+            if (!iterator.hasNext()) buffer.append("]");
+            else buffer.append(" ,");
+        }
+        return buffer.toString();
     }
 }

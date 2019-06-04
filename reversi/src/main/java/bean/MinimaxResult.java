@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MinimaxResult {
-	private int mark;
+	private float mark;
 	private int depth;
 	private EntryType type;
 	private Move move;
@@ -34,7 +34,7 @@ public class MinimaxResult {
 	 * @return
 	 */
 	public MinimaxResult inverseMark(double count){
-		this.mark = (int) - (this.mark * count);
+		this.mark = (float) - (this.mark * count);
 		return this;
 	}
 }

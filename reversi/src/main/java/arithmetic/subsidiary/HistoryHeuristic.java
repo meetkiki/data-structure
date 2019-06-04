@@ -45,7 +45,7 @@ public class HistoryHeuristic {
      */
     public static void resetHistory(){
         int[] history = historytable.get();
-        for (int i = 0; i < historytable.get().length; i++) {
+        for (int i = 0; i < history.length; i++) {
             history[i] = 0;
         }
     }
