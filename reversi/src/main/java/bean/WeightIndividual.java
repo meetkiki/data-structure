@@ -21,7 +21,9 @@ public class WeightIndividual {
     /**
      * 默认基因编码
      */
-    public static final WeightIndividual DEFAULT = new WeightIndividual();
+    public static final WeightIndividual DEFAULT = new WeightIndividual(new byte[]{
+            1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1
+    });
 
     /**
      * 采用二进制编码
@@ -208,7 +210,7 @@ public class WeightIndividual {
         if (iterator.hasNext()) buffer.append("[");
         while (iterator.hasNext()){
             WeightIndividual individual = iterator.next();
-            buffer.append(individual.getName());
+            buffer.append("[" + individual.getName() + " :" + individual.getFitness() + " ]");
             if (!iterator.hasNext()) buffer.append("]");
             else buffer.append(" ,");
         }

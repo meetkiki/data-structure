@@ -31,8 +31,8 @@ public class MTDSearch implements SearchAlgorithm{
 
     @Override
     public MinimaxResult search(BoardChess data, int maxDepth) {
-        TranspositionTable.resetZobrist();
-        HistoryHeuristic.resetHistory();
+//        TranspositionTable.resetZobrist();
+//        HistoryHeuristic.resetHistory();
         // 初始假想模型
         MinimaxResult firstguess = MinimaxResult.builder().mark(0).build();
         // 迭代深化调用MTD进行搜索

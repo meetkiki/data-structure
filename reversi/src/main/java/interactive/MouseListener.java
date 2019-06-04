@@ -187,12 +187,10 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public boolean checkContinue(BoardChess data){
         MainView mainView = GameContext.getBean(MainView.class);
         GameRule.valid_moves(data);
-        // 更新棋局状态
-        data.updateStatus();
         if (data.getStatus() != GameStatus.END){
             if (data.getOurMobility() == 0 && data.getOppMobility() > 0){
-                JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(BoardUtil.change(curMove)) +
-                        "方需要放弃一手 由" + BoardUtil.getChessStr(curMove) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(data.getCurrMove()) +
+                        "方需要放弃一手 由" + BoardUtil.getChessStr(data.getOther()) + "方连下", "提示", JOptionPane.WARNING_MESSAGE);
                 return true;
             }
         }
@@ -208,7 +206,6 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
     public boolean checkShutDown(BoardChess data){
         MainView mainView = GameContext.getBean(MainView.class);
         GameRule.valid_moves(data);
-        data.updateStatus();
         if (data.getStatus() == GameStatus.END){
             int white = GameRule.player_counters(board.getBoardChess().getChess(), Constant.WHITE);
             int black = GameRule.player_counters(board.getBoardChess().getChess(), Constant.BLACK);

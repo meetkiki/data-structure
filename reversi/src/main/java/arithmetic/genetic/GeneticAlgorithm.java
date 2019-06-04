@@ -27,7 +27,7 @@ public class GeneticAlgorithm {
     /**
      * 种群规模 128
      */
-    private int entitysize = 2 << 7;
+    private int entitysize = 2 << 3;
     /**
      * 变异概率
      */
@@ -311,23 +311,21 @@ public class GeneticAlgorithm {
      */
     private boolean chooseBestSolution(List<WeightIndividual> weightIndividuals){
         double best = Double.MIN_VALUE,last = Double.MAX_VALUE;
-        WeightIndividual last_weight = null;
         for (WeightIndividual individual : weightIndividuals) {
             if (best < individual.getFitness()) {
                 this.best_weight = individual;
                 best = individual.getFitness();
             }
             if (last > individual.getFitness()){
-                last_weight = individual;
                 last = individual.getFitness();
             }
         }
         best_score = best;
+        double v = (best - last) / entitysize;
         System.out.println("该次迭代最好的权重 : " + best_weight + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
         System.out.println("该次迭代最好的分数 : " + best_score);
-        System.out.println("该次迭代最差的权重 : " + last_weight + " ; 该次迭代的最差幸存率 : " + last_weight.getLucky());
-        System.out.println("该次迭代最差的分数 : " + last);
-        if ((best - last) < Constant.convergence){
+        System.out.println("该代的基因收敛率为 ============ " + v);
+        if (v < Constant.convergence){
             return false;
         }
         return true;
@@ -346,6 +344,8 @@ public class GeneticAlgorithm {
         do {
             // 计算适应度
             algorithm.envaluateFitness(algorithm.weightIndividuals);
+
+            solution = algorithm.chooseBestSolution(algorithm.weightIndividuals);
             // 选择样本
             algorithm.chooseSample(algorithm.weightIndividuals);
             // 优先进行  变异计算
@@ -355,15 +355,13 @@ public class GeneticAlgorithm {
             // 更新源基因
             algorithm.flushsrcGenes(algorithm.weightIndividuals);
 
-            solution = algorithm.chooseBestSolution(algorithm.weightIndividuals);
-
             System.out.println("经过第 " + it++ + "次迭代 , 当前种群最优基因为: " + algorithm.best_weight.getName() + " : " +
                     Arrays.toString(algorithm.best_weight.getSrcs()));
             // 判断是否继续迭代
         } while (solution);
 
         System.out.println("迭代结束! ");
-        System.out.println(Arrays.toString(algorithm.best_weight.getSrcs()));
+        System.out.println(Arrays.toString(algorithm.best_weight.getGrays()));
     }
 
 

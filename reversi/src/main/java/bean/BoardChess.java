@@ -100,7 +100,7 @@ public class BoardChess {
         this.steps = new LinkedList<>();
     }
 
-    public BoardChess(byte player){
+    private BoardChess(byte player){
         init();
         this.wCount = 2;
         this.bCount = 2;
@@ -109,6 +109,8 @@ public class BoardChess {
         this.initChess();
         // 初始化状态
         this.status = GameStatus.OPENING;
+        // 初始化zobrist的值
+//        this.zobrist = TranspositionTable.initZobrist(this);
     }
 
     public BoardChess() {
@@ -118,8 +120,7 @@ public class BoardChess {
         this.initEmpty(chess);
         // 初始化非空位链表
         this.initField(chess);
-        // 初始化zobrist的值
-        this.zobrist = TranspositionTable.initZobrist(this);
+
     }
 
     public BoardChess(Chess[][] chess,byte player) {
@@ -130,8 +131,6 @@ public class BoardChess {
         this.initEmpty(this.chess);
         // 初始化非空位链表
         this.initField(this.chess);
-        // 初始化zobrist的值
-        this.zobrist = TranspositionTable.initZobrist(this);
     }
 
     /**

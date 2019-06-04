@@ -78,11 +78,11 @@ public class Constant {
 	/**
 	 * 默认搜索深度
 	 */
-    public static final int DEFAULTDEPTH = 4;
+    public static final int DEFAULTDEPTH = 2;
 	/**
 	 * 终局搜索深度
 	 */
-	public static final int OUTDEPTH = 10;
+	public static final int OUTDEPTH = 6;
 	/**
 	 * 开局 空闲位置40以上
 	 */
@@ -127,7 +127,7 @@ public class Constant {
 	 */
 	public static final int GENEMAX = 256;
 	/**
-	 * 收敛分数
+	 * 收敛率
 	 */
-	public static final double convergence = 5;
+	public static final double convergence = 0.2;
 }
