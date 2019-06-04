@@ -27,15 +27,15 @@ public class GeneticAlgorithm {
     /**
      * 种群规模 128
      */
-    private int entitysize = 2 << 3;
+    private int entitysize = 2 << 6;
     /**
      * 变异概率
      */
-    private double p_mutation = 0.05;
+    private double p_mutation = 0.10;
     /**
      * 交配概率
      */
-    private double p_mating = 0.8;
+    private double p_mating = 0.80;
     /**
      * 种群总分
      */
@@ -213,25 +213,24 @@ public class GeneticAlgorithm {
     }
 
     /**
-     * 对first和second进行基因重组
+     * 对first和second进行基因重组 基因重组只对src有效 即只交换值的位置 不影响基因
      * @param individualA
      * @param individualB
      */
     private void ExchangeOver(WeightIndividual individualA,WeightIndividual individualB,List<WeightIndividual> recom) {
-        // 对该基因的格雷码进行重组
-        byte[] grayAs = individualA.getGrays();
-        byte[] grayBs = individualB.getGrays();
-        byte[] cloneA = grayAs.clone();
-        byte[] cloneB = grayBs.clone();
+        int[] srcAs = individualA.getSrcs();
+        int[] srcBs = individualB.getSrcs();
+        int[] cloneA = srcAs.clone();
+        int[] cloneB = srcBs.clone();
         // 对格雷码进行交叉运算
         // 对随机个基因数进行交换
-        int ecc = (int) (Math.random() * (Constant.GENELENGTH + 1));
+        int ecc = (int) (Math.random() * (Constant.DATALENGTH + 1));
         for (int i = 0; i < ecc; i++) {
             // 每个位置进行交换的概率也是相同的
-            int v = (int) (Math.random() * Constant.GENELENGTH);
+            int v = (int) (Math.random() * Constant.DATALENGTH);
             int temp = cloneA[v];
             cloneA[v] = cloneB[v];
-            cloneB[v] = (byte) temp;
+            cloneB[v] = temp;
         }
         recom.add(new WeightIndividual(cloneA));
         recom.add(new WeightIndividual(cloneB));

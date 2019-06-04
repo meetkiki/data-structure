@@ -412,6 +412,30 @@ public class BoardUtil {
 	}
 
 	/**
+	 * 基础基因转换为格雷基因
+	 * @param grays
+	 * @param genes
+	 */
+	public static void srcsToGens(int[] srcs, byte[] grays, byte[] genes) {
+		int st = 0;
+		for (int i = 0; i < srcs.length; i++) {
+			int src = srcs[i];
+			byte[] bytes = byteToByte8(srcs[i]);
+			// 基因组转换
+			for (int i1 = (i * BITVALUE),i2 = 0; i2 < bytes.length; i2++) {
+				genes[i1 + i2] = bytes[i2];
+			}
+			// 格雷码
+			byte[] byteGray8 = BoardUtil.byteToByte8(BoardUtil.intToGray(src));
+			// 基因组转换 转化为格雷码
+			for (int i1 = (i * BITVALUE),i2 = 0; i2 < byteGray8.length; i2++) {
+				grays[i1 + i2] = byteGray8[i2];
+			}
+		}
+	}
+
+
+	/**
 	 * 二进制转化为格雷编码
 	 *  x必须要大于0
 	 * @return

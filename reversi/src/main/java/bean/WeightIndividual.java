@@ -21,8 +21,8 @@ public class WeightIndividual {
     /**
      * 默认基因编码
      */
-    public static final WeightIndividual DEFAULT = new WeightIndividual(new byte[]{
-            1, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 1
+    public static final WeightIndividual DEFAULT = new WeightIndividual(new int[]{
+            164, 160, 74, 73, 0, 248, 180, 39, 221, 107, 12, 70, 107, 203, 188, 33, 80, 244, 171, 162, 113
     });
 
     /**
@@ -71,20 +71,10 @@ public class WeightIndividual {
      */
     public void initIndividual() {
         for (int i = 0; i < Constant.DATALENGTH; i++) {
-            int src = (int) (Math.random() * Constant.GENEMAX);
-            srcs[i] = src;
-            byte[] byte8 = BoardUtil.byteToByte8(src);
-            // 基因组转换
-            for (int i1 = (i * BITVALUE),i2 = 0; i2 < byte8.length; i2++) {
-                genes[i1 + i2] = byte8[i2];
-            }
-            // 格雷码
-            byte[] byteGray8 = BoardUtil.byteToByte8(BoardUtil.intToGray(src));
-            // 基因组转换 转化为格雷码
-            for (int i1 = (i * BITVALUE),i2 = 0; i2 < byteGray8.length; i2++) {
-                grays[i1 + i2] = byteGray8[i2];
-            }
+            srcs[i] = (int) (Math.random() * Constant.GENEMAX);
         }
+        // 转换编码
+        BoardUtil.srcsToGens(srcs,grays,genes);
         this.name = CreatNameUtils.getChineseName();
     }
 
@@ -96,6 +86,17 @@ public class WeightIndividual {
         this.grays = grays;
         // 转换编码
         BoardUtil.graysToGens(grays,srcs,genes);
+        this.name = CreatNameUtils.getChineseName();
+    }
+
+    /**
+     * 人工编码
+     * @param srcs
+     */
+    public WeightIndividual(int[] srcs) {
+        this.srcs = srcs;
+        // 转换编码
+        BoardUtil.srcsToGens(srcs,grays,genes);
         this.name = CreatNameUtils.getChineseName();
     }
 
@@ -179,6 +180,15 @@ public class WeightIndividual {
         BoardUtil.graysToGens(individual.getGrays(),srcs,genes);
         System.out.println(Arrays.toString(genes));
         System.out.println(Arrays.toString(srcs));
+
+        byte[] genes1 = new byte[Constant.GENELENGTH];
+        byte[] grays1 = new byte[Constant.GENELENGTH];
+        BoardUtil.srcsToGens(individual.getSrcs(),grays1,genes1);
+        System.out.println(Arrays.toString(genes1));
+        System.out.println(Arrays.toString(grays1));
+        int[] srcs1 = new int[Constant.DATALENGTH];
+        BoardUtil.graysToGens(grays1,srcs1,genes1);
+        System.out.println(Arrays.toString(srcs1));
     }
 
 
