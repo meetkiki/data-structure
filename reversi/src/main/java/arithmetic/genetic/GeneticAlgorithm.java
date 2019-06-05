@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -63,7 +64,9 @@ public class GeneticAlgorithm {
      */
     private List<WeightIndividual> initIndividuals(){
         weightIndividuals = new ArrayList<>();
-        for (int i = 0; i < entitysize; i++) {
+        // 加一个人工干扰基因
+        weightIndividuals.add(new WeightIndividual(new int[]{11,1,1,5,-2,-1,2,8,1,1,11,-2,-1,5,8,2,2,15,0,2,5},128));
+        for (int i = 0; i < (entitysize - 1); i++) {
             weightIndividuals.add(new WeightIndividual());
         }
         return this.weightIndividuals;
@@ -103,7 +106,7 @@ public class GeneticAlgorithm {
             double winners = 0.0;
             for (Gameplayer gameplayer : gameplayers) {
                 WinnerStatus status = acquireStatus(individual,gameplayer);
-                if (gameplayer.isFirst()){
+                if (gameplayer.getFirst().equals(individual)){
                     // 先手胜利记2.0分 先手失败0.5记 未知记1.2
                     winners += (status == WinnerStatus.WIN ? 2.0 : (status == WinnerStatus.LOSS ? 0.5 : 1.2));
                 }else{
@@ -189,27 +192,40 @@ public class GeneticAlgorithm {
      */
     private void recombination(List<WeightIndividual> individuals){
         if (individuals.size() >= entitysize){
+            System.out.println("未产生交叉物种 !");
             return;
         }
-        List<WeightIndividual> recom = new ArrayList<>();
+        List<WeightIndividual> recom = new LinkedList<>();
         // 标识第一个交叉基因
-        int first = -1,exc = 0,size = individuals.size();
-        // 最优基因不进行重组 直接保留
+        int first = -1,size = individuals.size();
+        // 最优基因不进行重组 直接保留 // 直到种群数目达到为止
         while ((size + recom.size()) < entitysize){
-            double v = Math.random();
-            if(v <= p_mating){
-                if (first < 0){
-                    first = exc;
-                }else {
-                    ExchangeOver(individuals.get(first),individuals.get(exc),recom);
-                    first = -1;
-                }
+            int v = (int) (Math.random() * size);
+            if (first < 0){
+                first = v;
+            } else if (v != first){
+                ExchangeOver(individuals.get(first),individuals.get(v),recom);
+                checkRepeat(individuals,recom);
+                first = -1;
             }
-            // 归零 直到种群数目达到为止
-            if (exc == size - 1) exc = 0;
         }
         System.out.println("得到交配物种 ： " + WeightIndividual.printAllName(recom));
         individuals.addAll(recom);
+    }
+
+    /**
+     * 校验是否产生同样基因的子代
+     * @param individuals
+     * @param recom
+     */
+    private void checkRepeat(List<WeightIndividual> individuals, List<WeightIndividual> recom) {
+        Iterator<WeightIndividual> iterator = recom.iterator();
+        while (iterator.hasNext()) {
+            WeightIndividual individual = iterator.next();
+            if (individuals.contains(individual)) {
+                iterator.remove();
+            }
+        }
     }
 
     /**
@@ -223,11 +239,11 @@ public class GeneticAlgorithm {
         int[] cloneA = srcAs.clone();
         int[] cloneB = srcBs.clone();
         // 对格雷码进行交叉运算
-        // 对随机个基因数进行交换
-        int ecc = (int) (Math.random() * (Constant.DATALENGTH + 1));
+        // 对随机个基因数进行交换 最低一位
+        int ecc = (int) (Math.random() * (Constant.DATALENGTH)) + 1;
         for (int i = 0; i < ecc; i++) {
-            // 每个位置进行交换的概率也是相同的
-            int v = (int) (Math.random() * Constant.DATALENGTH);
+            // 每个位置进行交换的概率也是相同的 最低一位
+            int v = (int) (Math.random() * Constant.DATALENGTH - 1) + 1;
             int temp = cloneA[v];
             cloneA[v] = cloneB[v];
             cloneB[v] = temp;
@@ -241,6 +257,7 @@ public class GeneticAlgorithm {
      */
     private void mutationGenes(List<WeightIndividual> individuals){
         if (individuals.size() >= entitysize){
+            System.out.println("未产生变异物种 !");
             return;
         }
         List<WeightIndividual> reverse = new ArrayList<>();
@@ -275,10 +292,11 @@ public class GeneticAlgorithm {
     private WeightIndividual reverseGenes(WeightIndividual weightIndividual) {
         byte[] grays = weightIndividual.getGrays();
         byte[] reverse = grays.clone();
-        int ecc = (int) (Math.random() * (Constant.GENELENGTH + 1));
+        // 最低交配一位
+        int ecc = (int) (Math.random() * (Constant.GENELENGTH)) + 1;
         for (int i = 0; i < ecc; i++) {
-            // 每个位置进行变异的概率也是相同的
-            int v = (int) (Math.random() * Constant.GENELENGTH);
+            // 每个位置进行变异的概率也是相同的 最低交配一位
+            int v = (int) (Math.random() * Constant.GENELENGTH - 1)  + 1;
             reverse[v] = (byte) (reverse[v] == 1 ? 0 : 1);
         }
         // 变异物种
@@ -321,7 +339,7 @@ public class GeneticAlgorithm {
         }
         best_score = best;
         double v = (best - last) / entitysize;
-        System.out.println("该次迭代最好的权重 : " + best_weight + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
+        System.out.println("该次迭代最好的基因 : " + Arrays.toString(best_weight.getSrcs()) + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
         System.out.println("该次迭代最好的分数 : " + best_score);
         System.out.println("该代的基因收敛率为 ============ " + v);
         if (v < Constant.convergence){
@@ -341,7 +359,8 @@ public class GeneticAlgorithm {
         int it = 1;
         boolean solution;
         do {
-            // 计算适应度
+            long st = System.currentTimeMillis();
+                    // 计算适应度
             algorithm.envaluateFitness(algorithm.weightIndividuals);
 
             solution = algorithm.chooseBestSolution(algorithm.weightIndividuals);
@@ -354,13 +373,14 @@ public class GeneticAlgorithm {
             // 更新源基因
             algorithm.flushsrcGenes(algorithm.weightIndividuals);
 
-            System.out.println("经过第 " + it++ + "次迭代 , 当前种群最优基因为: " + algorithm.best_weight.getName() + " : " +
+            long ed = System.currentTimeMillis();
+            System.out.println("经过第 " + it++ + "次迭代 , 本次迭代耗时 "+ (ed - st) +" ms, 当前种群最优基因为: " + algorithm.best_weight.getName() + " : " +
                     Arrays.toString(algorithm.best_weight.getSrcs()));
             // 判断是否继续迭代
         } while (solution);
 
         System.out.println("迭代结束! ");
-        System.out.println(Arrays.toString(algorithm.best_weight.getGrays()));
+        System.out.println(Arrays.toString(algorithm.best_weight.getSrcs()));
     }
 
 

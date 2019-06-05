@@ -32,6 +32,7 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
+                    <encoding>utf8</encoding>
                     <compilerArgs>
                         <!-- 过期的方法的警告-->
                         <arg>-Xlint:deprecation</arg>
@@ -52,7 +53,8 @@
                     <archive>
                         <!-- 清单文件 -->
                         <manifest>
-                            <mainClass>App</mainClass>
+                            <mainClass>arithmetic/genetic/GeneticAlgorithm</mainClass>
+                            <!--<mainClass>App</mainClass>-->
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>resources</classpathPrefix>
                         </manifest>

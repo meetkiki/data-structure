@@ -4,6 +4,9 @@ package bean;
 import lombok.Builder;
 import lombok.Data;
 
+/**
+ * @author Tao
+ */
 @Data
 @Builder
 public class Gameplayer {
@@ -11,7 +14,7 @@ public class Gameplayer {
     /**
      * 是否先手
      */
-    private boolean first;
+    private WeightIndividual first;
 
     /**
      * 赢子数

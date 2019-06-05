@@ -37,12 +37,12 @@ public class MyTest {
 //
 //            System.out.println(list.get(i));
 //        }
-
-        for (Object o : list) {
-            list.addFirst(1);
-            list.removeFirst();
-            System.out.println(o);
-        }
+//
+//        for (Object o : list) {
+//            list.addFirst(1);
+//            list.removeFirst();
+//            System.out.println(o);
+//        }
 
     }
 

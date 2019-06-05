@@ -22,7 +22,7 @@ public class WeightIndividual {
      * 默认基因编码
      */
     public static final WeightIndividual DEFAULT = new WeightIndividual(new int[]{
-            164, 160, 74, 73, 0, 248, 180, 39, 221, 107, 12, 70, 107, 203, 188, 33, 80, 244, 171, 162, 113
+            178, 166, 147, 207, 131, 240, 111, 76, 173, 136, 196, 160, 187, 178, 171, 184, 33, 162, 162, 225, 253
     });
 
     /**
@@ -94,6 +94,20 @@ public class WeightIndividual {
      * @param srcs
      */
     public WeightIndividual(int[] srcs) {
+        this.srcs = srcs;
+        // 转换编码
+        BoardUtil.srcsToGens(srcs,grays,genes);
+        this.name = CreatNameUtils.getChineseName();
+    }
+
+    /**
+     * 人工编码 干扰
+     * @param srcs
+     */
+    public WeightIndividual(int[] srcs,int genesHelf) {
+        for (int i = 0; i < srcs.length; i++) {
+            srcs[i] += genesHelf;
+        }
         this.srcs = srcs;
         // 转换编码
         BoardUtil.srcsToGens(srcs,grays,genes);

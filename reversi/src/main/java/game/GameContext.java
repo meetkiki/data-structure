@@ -83,10 +83,10 @@ public class GameContext {
 
     /**
      * 异步提交一个子任务 无返回值
-     * @param recursiveAction
+     * @param forkJoinTask
      */
-    public static void invoke(RecursiveAction recursiveAction){
-        forkJoinPool.invoke(recursiveAction);
+    public static<T> void syncInvoke(ForkJoinTask<T> forkJoinTask){
+        forkJoinPool.execute(forkJoinTask);
     }
 
     /**

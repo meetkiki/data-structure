@@ -37,7 +37,7 @@ public class GameManager {
         List<RecursiveTask<List<Gameplayer>>> list = new ArrayList<>();
         for (WeightIndividual weightIndividual : weightIndividuals) {
             PlayGameThread gameThread = new PlayGameThread(weightIndividual, weightIndividuals);
-            GameContext.invoke(gameThread);
+            GameContext.syncInvoke(gameThread);
             list.add(gameThread);
         }
         for (RecursiveTask<List<Gameplayer>> recursiveTask : list) {
@@ -109,7 +109,9 @@ public class GameManager {
         protected Gameplayer compute() {
             Calculator calculatorA = new Calculator(new ReversiEvaluation(weightA)).setPlayer(Constant.BLACK);
             Calculator calculatorB = new Calculator(new ReversiEvaluation(weightB)).setPlayer(Constant.WHITE);
-//            System.out.println(weightA.getName() + " 和 " + weightB.getName() + " 对局开始 ");
+//            System.out.println(weightA.getName() + " 和 " + weightB.getName() + " 对局开始 " +
+//                    (calculatorA.getPlayer() == Constant.BLACK ? weightA.getName() : weightB.getName()) + " 先手");
+
             int score;
             BoardChess chess = new BoardChess();
             do {
@@ -119,7 +121,7 @@ public class GameManager {
                 Move move = calculator.searchMove(chess).getMove();
 //            long ed = System.currentTimeMillis();
 //            String name = ((AlphaBeta) calculator.getAlphaBeta()).getEvaluation().getEvaluationWeight().getIndividual().getName();
-                // System.out.println(name + " 搜索耗时 ： " + (ed - st) + " ms");
+//                 System.out.println(name + " 搜索耗时 ： " + (ed - st) + " ms");
                 GameRule.make_move(chess, BoardUtil.squareChess(move));
                 if (GameRule.valid_moves(chess) == 0)  GameRule.passMove(chess);
             }while (chess.getStatus() != GameStatus.END);
@@ -132,14 +134,14 @@ public class GameManager {
 //            if (winner == NULL){
 //                System.out.println("对局结束! 平局 ");
 //            }else{
-//                System.out.println("对局结束! " + winner.getName() + " 获得胜利 ! ");
-////                        + "\n" + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
+//                System.out.println("对局结束! " + winner.getName() + " 获得胜利 ! "
+//                        + "\n" + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
 //            }
             score = Math.abs(score);
             return Gameplayer.builder()
                     .count(score)
                     .evaluationA(weightA).evaluationB(weightB)
-                    .first(calculatorA.getPlayer() == Constant.BLACK)
+                    .first(calculatorA.getPlayer() == Constant.BLACK ? weightA : weightB)
                     .winner(winner)
                     .build();
         }
