@@ -5,6 +5,7 @@ import bean.Gameplayer;
 import bean.WeightIndividual;
 import common.Constant;
 import common.WinnerStatus;
+import lombok.extern.log4j.Log4j2;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import static common.Constant.NULL;
  *  求解最佳权重组合
  * @author Tao
  */
+@Log4j2
 public class GeneticAlgorithm {
     /**
      * 种群规模 128
@@ -158,13 +160,13 @@ public class GeneticAlgorithm {
                 }
             }
         }
-        System.out.println("父代选择开始 : " + WeightIndividual.printAllName(this.weightIndividuals));
+        log.info("父代选择开始 : " + WeightIndividual.printAllName(this.weightIndividuals));
         // 增加垃圾回收
         this.weightIndividuals.clear();
         this.weightIndividuals = new ArrayList<>(newIndividuals);
         // 根据比分排序倒序 保留最优基因
         Collections.sort(this.weightIndividuals, (o1,o2)-> (int) ((o2.getFitness() - o1.getFitness()) * 100));
-        System.out.println("父代选择结束 剩余: " + WeightIndividual.printAllName(this.weightIndividuals));
+        log.info("父代选择结束 剩余: " + WeightIndividual.printAllName(this.weightIndividuals));
     }
 
     /**
@@ -192,7 +194,7 @@ public class GeneticAlgorithm {
      */
     private void recombination(List<WeightIndividual> individuals){
         if (individuals.size() >= entitysize){
-            System.out.println("未产生交叉物种 !");
+            log.info("未产生交叉物种 !");
             return;
         }
         List<WeightIndividual> recom = new LinkedList<>();
@@ -209,7 +211,7 @@ public class GeneticAlgorithm {
                 first = -1;
             }
         }
-        System.out.println("得到交配物种 ： " + WeightIndividual.printAllName(recom));
+        log.info("得到交配物种 ： " + WeightIndividual.printAllName(recom));
         individuals.addAll(recom);
     }
 
@@ -257,7 +259,7 @@ public class GeneticAlgorithm {
      */
     private void mutationGenes(List<WeightIndividual> individuals){
         if (individuals.size() >= entitysize){
-            System.out.println("未产生变异物种 !");
+            log.info("未产生变异物种 !");
             return;
         }
         List<WeightIndividual> reverse = new ArrayList<>();
@@ -278,10 +280,10 @@ public class GeneticAlgorithm {
             }
         }
         if (reverse.size() > 0){
-            System.out.println("得到变异物种 ： " + WeightIndividual.printAllName(reverse));
+            log.info("得到变异物种 ： " + WeightIndividual.printAllName(reverse));
             individuals.addAll(reverse);
         }else {
-            System.out.println("未产生变异物种 !");
+            log.info("未产生变异物种 !");
         }
     }
 
@@ -309,7 +311,7 @@ public class GeneticAlgorithm {
      * @param individuals
      */
     private void flushsrcGenes(List<WeightIndividual> individuals) {
-        System.out.println("更新种群src基因 当前种群大小 " + individuals.size());
+        log.info("更新种群src基因 当前种群大小 " + individuals.size());
         for (WeightIndividual individual : individuals) {
             byte[] grays = individual.getGrays();
             byte[] genes = individual.getGenes();
@@ -317,7 +319,7 @@ public class GeneticAlgorithm {
             // 通过grays基因组装genes和src基因
             BoardUtil.graysToGens(grays,srcs,genes);
         }
-        System.out.println("当前种群 ： " + WeightIndividual.printAllName(individuals));
+        log.info("当前种群 ： " + WeightIndividual.printAllName(individuals));
     }
 
 
@@ -339,9 +341,9 @@ public class GeneticAlgorithm {
         }
         best_score = best;
         double v = (best - last) / entitysize;
-        System.out.println("该次迭代最好的基因 : " + Arrays.toString(best_weight.getSrcs()) + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
-        System.out.println("该次迭代最好的分数 : " + best_score);
-        System.out.println("该代的基因收敛率为 ============ " + v);
+        log.info("该次迭代最好的基因 : " + Arrays.toString(best_weight.getSrcs()) + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
+        log.info("该次迭代最好的分数 : " + best_score);
+        log.info("该代的基因收敛率为 ============ " + v);
         if (v < Constant.convergence){
             return false;
         }
@@ -355,7 +357,7 @@ public class GeneticAlgorithm {
     public static void main(String[] args) {
         GeneticAlgorithm algorithm = new GeneticAlgorithm();
         algorithm.initIndividuals();
-        System.out.println("初始种群 ： " + WeightIndividual.printAllName(algorithm.weightIndividuals));
+        log.info("初始种群 ： " + WeightIndividual.printAllName(algorithm.weightIndividuals));
         int it = 1;
         boolean solution;
         do {
@@ -374,13 +376,14 @@ public class GeneticAlgorithm {
             algorithm.flushsrcGenes(algorithm.weightIndividuals);
 
             long ed = System.currentTimeMillis();
-            System.out.println("经过第 " + it++ + "次迭代 , 本次迭代耗时 "+ (ed - st) +" ms, 当前种群最优基因为: " + algorithm.best_weight.getName() + " : " +
+            log.info("经过第 " + it++ + "次迭代 , 本次迭代耗时 "+ (ed - st) +" ms, 当前种群最优基因为: " + algorithm.best_weight.getName() + " : " +
                     Arrays.toString(algorithm.best_weight.getSrcs()));
             // 判断是否继续迭代
         } while (solution);
 
-        System.out.println("迭代结束! ");
-        System.out.println(Arrays.toString(algorithm.best_weight.getSrcs()));
+        log.info("迭代结束! ");
+        log.info("迭代结束! ");
+        log.info(Arrays.toString(algorithm.best_weight.getSrcs()));
     }
 
 

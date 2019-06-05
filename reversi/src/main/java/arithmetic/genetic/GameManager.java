@@ -10,6 +10,7 @@ import common.Constant;
 import common.GameStatus;
 import game.GameContext;
 import game.GameRule;
+import lombok.extern.log4j.Log4j2;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
@@ -24,6 +25,7 @@ import static common.Constant.NULL;
  * 计算调度
  * @author Tao
  */
+@Log4j2
 public class GameManager {
 
     /**
@@ -81,7 +83,7 @@ public class GameManager {
             }
             invokeAll(list);
             for (SimulationGameThread gameThread : list) {
-                Gameplayer gameplayer = gameThread.join();
+                Gameplayer gameplayer = GameContext.getCall(gameThread);
                 gameplayers.add(gameplayer);
             }
             return gameplayers;
@@ -132,9 +134,9 @@ public class GameManager {
                 winner = score > 0 ? weightA : weightB;
             }
 //            if (winner == NULL){
-//                System.out.println("对局结束! 平局 ");
+//                log.info("对局结束! 平局 ");
 //            }else{
-//                System.out.println("对局结束! " + winner.getName() + " 获得胜利 ! "
+//                log.info("对局结束! " + winner.getName() + " 获得胜利 ! "
 //                        + "\n" + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
 //            }
             score = Math.abs(score);
