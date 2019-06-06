@@ -17,8 +17,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.RecursiveTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
+import static arithmetic.genetic.GeneticAlgorithm.entitysize;
 import static common.Constant.NULL;
 
 /**
@@ -27,6 +30,11 @@ import static common.Constant.NULL;
  */
 @Log4j2
 public class GameManager {
+    private static final AtomicInteger ati = new AtomicInteger(0);
+    /**
+     * 存储正在进行的对局
+     */
+    private static final Map<WeightIndividual,WeightIndividual> ongoing = new ConcurrentHashMap<>(entitysize);
 
     /**
      * 计算总调度
@@ -34,8 +42,10 @@ public class GameManager {
      *  返回每个基因组对局信息
      */
     public static final Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(List<WeightIndividual> weightIndividuals){
+        log.info("父代对战开始 ! ");
+        ati.set(0);
         Map<WeightIndividual, List<Gameplayer>> listMap = new HashMap<>(weightIndividuals.size());
-        // 并行任务
+        // 并行任务 为保证不出现双方先手同时对战 会出现线程安全问题
         List<RecursiveTask<List<Gameplayer>>> list = new ArrayList<>();
         for (WeightIndividual weightIndividual : weightIndividuals) {
             PlayGameThread gameThread = new PlayGameThread(weightIndividual, weightIndividuals);
@@ -47,6 +57,7 @@ public class GameManager {
             List<Gameplayer> gameplayers = GameContext.getCall(recursiveTask);
             listMap.put(task.getWeightA(),gameplayers);
         }
+        log.info("父代对战结束 ! 总共进行 " + ati.get() + " 场对局 !");
         return listMap;
     }
 
@@ -109,8 +120,14 @@ public class GameManager {
 
         @Override
         protected Gameplayer compute() {
+            while (ongoing.containsValue(weightA) || ongoing.containsKey(weightB)){
+                log.trace("出现 对局冲突 当前线程 正在等待... ");
+                GameContext.sleep(100);
+            }
+            ati.incrementAndGet();
             Calculator calculatorA = new Calculator(new ReversiEvaluation(weightA)).setPlayer(Constant.BLACK);
             Calculator calculatorB = new Calculator(new ReversiEvaluation(weightB)).setPlayer(Constant.WHITE);
+            ongoing.put(weightA,weightB);
 //            System.out.println(weightA.getName() + " 和 " + weightB.getName() + " 对局开始 " +
 //                    (calculatorA.getPlayer() == Constant.BLACK ? weightA.getName() : weightB.getName()) + " 先手");
 
@@ -140,6 +157,7 @@ public class GameManager {
 //                        + "\n" + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
 //            }
             score = Math.abs(score);
+            ongoing.remove(weightA,weightB);
             return Gameplayer.builder()
                     .count(score)
                     .evaluationA(weightA).evaluationB(weightB)

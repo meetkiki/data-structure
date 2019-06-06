@@ -125,6 +125,7 @@ public class GameContext {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
+            Thread.interrupted();
             e.printStackTrace();
         }
     }

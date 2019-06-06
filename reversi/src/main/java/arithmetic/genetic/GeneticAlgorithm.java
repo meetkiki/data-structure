@@ -11,8 +11,8 @@ import utils.BoardUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -30,11 +30,11 @@ public class GeneticAlgorithm {
     /**
      * 种群规模 128
      */
-    private int entitysize = 2 << 6;
+    public static final int entitysize = 2 << 6;
     /**
      * 变异概率
      */
-    private double p_mutation = 0.10;
+    public static final double p_mutation = 0.10;
     /**
      * 种群总分
      */
@@ -92,6 +92,7 @@ public class GeneticAlgorithm {
      * @param listMap
      */
     private double update_fitness(Map<WeightIndividual, List<Gameplayer>> listMap) {
+        log.info("正在计算适应度...");
         double all_score = 0.0;
         // 计算总分 及适应度
         for (Map.Entry<WeightIndividual, List<Gameplayer>> entry : listMap.entrySet()) {
@@ -137,8 +138,9 @@ public class GeneticAlgorithm {
      *  根据幸存程度选择
      */
     private void chooseSample(List<WeightIndividual> weightIndividuals){
+        log.info("正在选择 ...");
         // 保留的下一代种群
-        this.newIndividuals = new HashSet<>();
+        this.newIndividuals = new LinkedHashSet<>();
         // 最优基因不进行轮盘 直接保留
         newIndividuals.add(this.weightIndividuals.get(0));
         for (int i = 1; i < weightIndividuals.size(); i++) {
@@ -156,8 +158,6 @@ public class GeneticAlgorithm {
         // 增加垃圾回收
         this.weightIndividuals.clear();
         this.weightIndividuals = new ArrayList<>(newIndividuals);
-        // 根据比分排序倒序 保留最优基因
-        Collections.sort(this.weightIndividuals, (o1,o2)-> (int) ((o2.getFitness() - o1.getFitness()) * 100));
         log.info("父代选择结束 剩余: " + WeightIndividual.printAllName(this.weightIndividuals));
     }
 
@@ -182,6 +182,7 @@ public class GeneticAlgorithm {
      *  对出现部分基因进行基因交叉运算
      */
     private void recombination(List<WeightIndividual> individuals){
+        log.info("正在计算交叉...");
         if (individuals.size() >= entitysize){
             log.info("未产生交叉物种 !");
             return;
@@ -247,6 +248,7 @@ public class GeneticAlgorithm {
      * 基因变异运算
      */
     private void mutationGenes(List<WeightIndividual> individuals){
+        log.info("正在进行变异...");
         if (individuals.size() >= entitysize){
             log.info("未产生变异物种 !");
             return;
@@ -333,10 +335,7 @@ public class GeneticAlgorithm {
         log.info("该次迭代最好的基因 : " + Arrays.toString(best_weight.getSrcs()) + " ; 该次迭代的最佳幸存率 : " + best_weight.getLucky());
         log.info("该次迭代最好的分数 : " + best_score);
         log.info("该代的基因收敛率为 ============ " + v);
-        if (v < Constant.convergence){
-            return false;
-        }
-        return true;
+        return v >= Constant.convergence;
     }
 
     /**
