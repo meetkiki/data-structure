@@ -9,8 +9,10 @@ import common.Constant;
 import utils.BoardUtil;
 import utils.CacheContext;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.RecursiveTask;
@@ -346,8 +348,8 @@ public class GameRule {
      * @return
      */
     private static boolean stators_check(Byte cell, BoardChess data) {
-        LinkedList<Byte> wstators = data.getwStators();
-        LinkedList<Byte> bstators = data.getbStators();
+        Set<Byte> wstators = data.getwStators();
+        Set<Byte> bstators = data.getbStators();
         byte[] chess = data.getChess();
         // 与敌我双方任何一个稳定子接触
         // 在八个方向试探 任意一个方向可以翻转就返回false
@@ -360,7 +362,7 @@ public class GameRule {
      * @param wstators
      * @return
      */
-    private static boolean nearstators(Byte cell, byte[] chess,LinkedList<Byte> wstators,LinkedList<Byte> bstators) {
+    private static boolean nearstators(Byte cell, byte[] chess, Set<Byte> wstators, Set<Byte> bstators) {
         boolean flag = false;
         int i = 0;
         for (; i < DIRALL; i++) {

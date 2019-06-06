@@ -9,7 +9,9 @@ import lombok.Data;
 import utils.BoardUtil;
 import utils.CacheContext;
 
+import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 import static common.Constant.MIDDLE;
 import static common.Constant.MODEL;
@@ -77,11 +79,11 @@ public class BoardChess {
     /**
      * 白方稳定子
      */
-    private LinkedList<Byte> wStators;
+    private Set<Byte> wStators;
     /**
      * 对方稳定子
      */
-    private LinkedList<Byte> bStators;
+    private Set<Byte> bStators;
     /**
      * 每一步 步数信息
      */
@@ -95,8 +97,8 @@ public class BoardChess {
         this.chess = new byte[MODEL];
         this.empty = new LinkedList<>();
         this.fields = new LinkedList<>();
-        this.wStators = new LinkedList<>();
-        this.bStators = new LinkedList<>();
+        this.wStators = new HashSet<>();
+        this.bStators = new HashSet<>();
         this.steps = new LinkedList<>();
     }
 
@@ -206,19 +208,19 @@ public class BoardChess {
         this.oppMobility = oppMobility;
     }
 
-    public LinkedList<Byte> getwStators() {
+    public Set<Byte> getwStators() {
         return wStators;
     }
 
-    public void setwStators(LinkedList<Byte> wStators) {
+    public void setwStators(Set<Byte> wStators) {
         this.wStators = wStators;
     }
 
-    public LinkedList<Byte> getbStators() {
+    public Set<Byte> getbStators() {
         return bStators;
     }
 
-    public void setbStators(LinkedList<Byte> bStators) {
+    public void setbStators(Set<Byte> bStators) {
         this.bStators = bStators;
     }
 
