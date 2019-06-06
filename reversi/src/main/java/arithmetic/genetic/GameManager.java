@@ -17,9 +17,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ForkJoinTask;
 import java.util.concurrent.RecursiveTask;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 import static arithmetic.genetic.GeneticAlgorithm.entitysize;
 import static common.Constant.NULL;
@@ -44,64 +47,36 @@ public class GameManager {
     public static final Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(List<WeightIndividual> weightIndividuals){
         log.info("父代对战开始 ! ");
         ati.set(0);
-        Map<WeightIndividual, List<Gameplayer>> listMap = new HashMap<>(weightIndividuals.size());
+        int size = weightIndividuals.size();
         // 并行任务 为保证不出现双方先手同时对战 会出现线程安全问题
-        List<RecursiveTask<List<Gameplayer>>> list = new ArrayList<>();
-        for (WeightIndividual weightIndividual : weightIndividuals) {
-            PlayGameThread gameThread = new PlayGameThread(weightIndividual, weightIndividuals);
-            GameContext.syncInvoke(gameThread);
-            list.add(gameThread);
+        List<ForkJoinTask<Gameplayer>> list = new ArrayList<>(size * (size - 1));
+        List<Gameplayer> result = new ArrayList<>(size * (size - 1));
+        for (WeightIndividual current : weightIndividuals) {
+            playGame(weightIndividuals, list, current);
         }
-        for (RecursiveTask<List<Gameplayer>> recursiveTask : list) {
-            PlayGameThread task = (PlayGameThread)recursiveTask;
-            List<Gameplayer> gameplayers = GameContext.getCall(recursiveTask);
-            listMap.put(task.getWeightA(),gameplayers);
+        for (ForkJoinTask<Gameplayer> task : list) {
+            Gameplayer gameplayer = GameContext.getCall(task);
+            result.add(gameplayer);
         }
+        Map<WeightIndividual, List<Gameplayer>> listMap = result.stream().collect(Collectors.groupingBy(Gameplayer::getEvaluationA));
         log.info("父代对战结束 ! 总共进行 " + ati.get() + " 场对局 !");
         return listMap;
     }
 
-
     /**
-     * 组织weightA和其他种群游戏
-     *
-     *  组织一场 都是A先 返回A总分数
-     *
-     * @return
+     * 当前选手分别与其他选手对局
+     * @param weightIndividuals
+     * @param list
+     * @param current
      */
-    static class PlayGameThread extends RecursiveTask<List<Gameplayer>>{
-
-        private WeightIndividual weightA;
-        private List<WeightIndividual> others;
-
-        public PlayGameThread(WeightIndividual weightA, List<WeightIndividual> others) {
-            this.weightA = weightA;
-            this.others = others;
-        }
-
-        @Override
-        protected List<Gameplayer> compute() {
-            List<Gameplayer> gameplayers = new ArrayList<>();
-            List<SimulationGameThread> list = new ArrayList<>();
-            // 分为会两局对局
-            for (WeightIndividual other : others) {
-                if  (weightA.equals(other)){
-                    // 不和自己对局
-                    continue;
-                }
-                // 存储对局数据
-                list.add(new SimulationGameThread(weightA,other));
+    private static void playGame(List<WeightIndividual> weightIndividuals, List<ForkJoinTask<Gameplayer>> list, WeightIndividual current) {
+        for (WeightIndividual other : weightIndividuals) {
+            if (current.equals(other)){
+                // 不和自己对局
+                continue;
             }
-            invokeAll(list);
-            for (SimulationGameThread gameThread : list) {
-                Gameplayer gameplayer = GameContext.getCall(gameThread);
-                gameplayers.add(gameplayer);
-            }
-            return gameplayers;
-        }
-
-        public WeightIndividual getWeightA() {
-            return weightA;
+            SimulationGameThread gameThread = new SimulationGameThread(current, other);
+            list.add(GameContext.submit(gameThread));
         }
     }
 
@@ -109,7 +84,7 @@ public class GameManager {
      * 给定两组基因 模拟游戏
      * @return
      */
-    static class SimulationGameThread extends RecursiveTask<Gameplayer>{
+    static class SimulationGameThread implements Callable<Gameplayer> {
         private WeightIndividual weightA;
         private WeightIndividual weightB;
 
@@ -119,11 +94,9 @@ public class GameManager {
         }
 
         @Override
-        protected Gameplayer compute() {
-            while (ongoing.containsValue(weightA) || ongoing.containsKey(weightB)){
-                log.trace("出现 对局冲突 当前线程 正在等待... ");
-                GameContext.sleep(100);
-            }
+        public Gameplayer call() {
+            // 冲突检测
+            collision();
             ati.incrementAndGet();
             Calculator calculatorA = new Calculator(new ReversiEvaluation(weightA)).setPlayer(Constant.BLACK);
             Calculator calculatorB = new Calculator(new ReversiEvaluation(weightB)).setPlayer(Constant.WHITE);
@@ -164,6 +137,13 @@ public class GameManager {
                     .first(calculatorA.getPlayer() == Constant.BLACK ? weightA : weightB)
                     .winner(winner)
                     .build();
+        }
+
+        private void collision() {
+            while (ongoing.containsValue(weightA) || ongoing.containsKey(weightB)){
+                log.trace("出现 对局冲突 当前线程 正在等待... ");
+                GameContext.sleep(100);
+            }
         }
     }
 
