@@ -1,9 +1,9 @@
 import game.MainView;
-//import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
+import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 import javax.swing.JFrame;
-//import javax.swing.SwingUtilities;
-//import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * 黑白棋启动类
@@ -36,13 +36,13 @@ public class App {
     }
 
     public static void main(String[] args) {
-//        try {
-//            BeautyEyeLNFHelper.launchBeautyEyeLNF();
-//            UIManager.put("RootPane.setupButtonVisible", false);
-//            SwingUtilities.invokeLater(() -> new App().start());
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            BeautyEyeLNFHelper.launchBeautyEyeLNF();
+            UIManager.put("RootPane.setupButtonVisible", false);
+            SwingUtilities.invokeLater(() -> new App().start());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -36,17 +36,9 @@ public class GeneticAlgorithm {
      */
     private double p_mutation = 0.10;
     /**
-     * 交配概率
-     */
-    private double p_mating = 0.80;
-    /**
      * 种群总分
      */
     private double all_score = 0;
-    /**
-     * 种群幸运度
-     */
-    private double all_lucky = 0;
     /**
      * 最佳数据
      */
@@ -174,8 +166,7 @@ public class GeneticAlgorithm {
      * @param weightIndividuals
      */
     private void update_lucky(List<WeightIndividual> weightIndividuals) {
-        // 总概率
-        double all_lucky = 0.0;
+        // 总概率为1
         // 累积概率
         double c_lucky = 0.0;
         for (WeightIndividual individual : weightIndividuals) {
@@ -183,9 +174,7 @@ public class GeneticAlgorithm {
             c_lucky += lucky;
             individual.setLucky(lucky);
             individual.setClucky(c_lucky);
-            all_lucky += lucky;
         }
-        this.all_lucky = all_lucky;
     }
 
     /**
