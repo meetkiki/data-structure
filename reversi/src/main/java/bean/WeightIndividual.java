@@ -57,6 +57,10 @@ public class WeightIndividual {
      */
     private double clucky = 0.0;
     /**
+     * 胜率
+     */
+    private double winness;
+    /**
      * 名称 用作区分
      */
     private String name;
@@ -234,10 +238,18 @@ public class WeightIndividual {
         if (iterator.hasNext()) buffer.append("[");
         while (iterator.hasNext()){
             WeightIndividual individual = iterator.next();
-            buffer.append("[" + individual.getName() + " :" + individual.getFitness() + " ]");
+            buffer.append("[" + individual.getName() + " :" + individual.getFitness() + " 净胜率 :" + individual.getWinness() + " ]");
             if (!iterator.hasNext()) buffer.append("]");
             else buffer.append(" ,");
         }
         return buffer.toString();
+    }
+
+    public double getWinness() {
+        return winness;
+    }
+
+    public void setWinness(double winness) {
+        this.winness = winness;
     }
 }
