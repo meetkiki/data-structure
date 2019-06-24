@@ -45,7 +45,7 @@ public class GameManager {
      *  返回每个基因组对局信息
      */
     public static final Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(List<WeightIndividual> weightIndividuals){
-        log.info("父代对战开始 ! ");
+        log.info("父代开始对战 ! ");
         ati.set(0);
         int size = weightIndividuals.size();
         // 并行任务 为保证不出现双方先手同时对战 会出现线程安全问题
