@@ -298,11 +298,11 @@ public class GameRule {
         // 移除空链表
         empty.remove(new Byte((byte) cell));
         // 更新哈希值
-//        data.setZobrist(TranspositionTable.changeMove(data,cell,player));
+        data.setZobrist(TranspositionTable.changeMove(data,cell,player));
         // 更新转变子哈希值
-//        data.setZobrist(TranspositionTable.changeConvert(data,convert,player,data.getOther()));
+        data.setZobrist(TranspositionTable.changeConvert(data,convert,player,data.getOther()));
         // 更新棋手哈希值
-//        data.setZobrist(TranspositionTable.passPlayer(data,data.getCurrMove()));
+        data.setZobrist(TranspositionTable.passPlayer(data,data.getCurrMove()));
         // 计算稳定子
         LinkedList<Byte> stators = sum_stators(data, (byte) cell);
         // 记录移动
@@ -495,7 +495,7 @@ public class GameRule {
         byte cell = step.getCell();
         LinkedList<Byte> convert = step.getConvert();
         // 更新棋手
-//        data.setZobrist(TranspositionTable.passPlayer(data,step.getPlayer()));
+        data.setZobrist(TranspositionTable.passPlayer(data,step.getPlayer()));
         // 如果是跳过
         if (convert.isEmpty()){
             return;
@@ -521,9 +521,9 @@ public class GameRule {
             chess[next] = other;
         }
         // 移除空位哈希值
-//        data.setZobrist(TranspositionTable.changeMove(data,cell,player));
+        data.setZobrist(TranspositionTable.changeMove(data,cell,player));
         // 更新转变子哈希值 将下的子哈希值移除 增加对手的哈希值
-//        data.setZobrist(TranspositionTable.changeConvert(data,convert,other,player));
+        data.setZobrist(TranspositionTable.changeConvert(data,convert,other,player));
     }
 
     /**
@@ -539,7 +539,7 @@ public class GameRule {
         // 转变选手
         data.setCurrMove(other);
         // 更新哈希值
-//        data.setZobrist(TranspositionTable.passPlayer(data,player));
+        data.setZobrist(TranspositionTable.passPlayer(data,player));
     }
 
     public static void passMove(BoardData boardData) {

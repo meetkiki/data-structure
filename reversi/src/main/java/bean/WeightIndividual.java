@@ -22,7 +22,7 @@ public class WeightIndividual {
      * 默认基因编码
      */
     public static final WeightIndividual DEFAULT = new WeightIndividual(new int[]{
-            169, 226, 160, 179, 25, 171, 153, 197, 203, 97, 238, 42, 21, 6, 196, 123, 127, 224, 100, 242, 59
+            172, 224, 133, 177, 40, 135, 32, 98, 200, 123, 176, 199, 15, 218, 145, 173, 147, 254, 131, 151, 231
     });
 
     /**
