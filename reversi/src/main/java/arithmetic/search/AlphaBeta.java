@@ -74,14 +74,14 @@ public class AlphaBeta implements SearchAlgorithm {
         // 如果到达预定的搜索深度 // 棋子已满
         if (depth <= Constant.start || empty.size() == Constant.EMPTY) {
             // 直接给出估值
-            return getMinimaxResult(data, depth);
+            return currentMinimaxResult(data, depth);
         }
         LinkedList<Byte> moves = new LinkedList<>();
         if (GameRule.valid_moves(data,moves) == 0){
             // 如果对手也没有可走子
             if (data.getOppMobility() == 0){
                 // 终局 给出精确估值
-                return getMinimaxResult(data, depth);
+                return currentMinimaxResult(data, depth);
             }
             GameRule.passMove(data);
             // 交给对手
@@ -158,7 +158,7 @@ public class AlphaBeta implements SearchAlgorithm {
      * @param depth
      * @return
      */
-    private MinimaxResult getMinimaxResult(BoardChess data, int depth) {
+    private MinimaxResult currentMinimaxResult(BoardChess data, int depth) {
         float value = evaluation.currentValue(data);
         TranspositionTable.insertZobrist(data.getZobrist(), value, depth, EntryType.EXACT);
         return MinimaxResult.builder().mark(value).depth(depth).build();
