@@ -373,12 +373,11 @@ public class GeneticAlgorithm {
             long ed = System.currentTimeMillis();
             log.info("经过第 " + it++ + "次迭代 , 本次迭代耗时 "+ (ed - st) +" ms, 当前种群最优基因为: " + algorithm.best_weight.getName() + " : " +
                     Arrays.toString(algorithm.best_weight.getSrcs()));
-            algorithm.weightIndividuals.stream().forEach((e)-> result.add(Arrays.toString(e.getSrcs())));
-            log.info("当前数据 :" + result);
+            algorithm.weightIndividuals.forEach((e)-> result.add(Arrays.toString(e.getSrcs())));
+            log.info("当前数据 :" + result);//
             result.clear();
             // 判断是否继续迭代
         } while (solution);
-        log.info("迭代结束! ");
         log.info("迭代结束! ");
         log.info(Arrays.toString(algorithm.best_weight.getSrcs()));
     }

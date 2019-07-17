@@ -64,6 +64,10 @@ public class WeightIndividual {
      * 名称 用作区分
      */
     private String name;
+    /**
+     * 分组信息
+     */
+    private Integer group;
 
 
     public WeightIndividual(){
@@ -251,5 +255,13 @@ public class WeightIndividual {
 
     public void setWinness(double winness) {
         this.winness = winness;
+    }
+
+    public Integer getGroup() {
+        return group;
+    }
+
+    public void setGroup(Integer group) {
+        this.group = group;
     }
 }
