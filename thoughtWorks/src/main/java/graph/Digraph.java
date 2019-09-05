@@ -5,7 +5,7 @@ import domain.DirectedTrip;
 import domain.Town;
 import utils.GraphUtils;
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
@@ -16,12 +16,11 @@ import java.util.Set;
 public class Digraph extends Graph{
 
     /**
-     * 通过输入文件构建有向图
-     * @param file 输入流
+     * 通过输入流构建有向图
+     * @param in 输入流
      */
-    public Digraph(String file) throws IOException {
-        super();
-        GraphUtils.resolveFile(file,this);
+    public Digraph(InputStream in) {
+        GraphUtils.getInstance().resolveInputStream(in,this);
     }
 
     /**
@@ -80,9 +79,10 @@ public class Digraph extends Graph{
     @Override
     public Collection<DirectedTrip> allTrips() {
         LinkedList<DirectedTrip> list = new LinkedList<>();
+        // 为保证初始化临近表的链表 统一调用adj方法得到链表对象
         Set<Town> towns = this.adjs.keySet();
         for (Town town : towns) {
-
+            list.addAll(this.adj(town));
         }
         return list;
     }

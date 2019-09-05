@@ -69,6 +69,6 @@ public class DirectedTrip {
 
     @Override
     public String toString() {
-        return String.format(" %d -> %d %.2f", from , to ,distance == null ? 0.0 : distance.doubleValue());
+        return String.format(" %s -> %s %.2f", from , to ,distance == null ? 0.0 : distance.doubleValue());
     }
 }
