@@ -24,6 +24,7 @@
         <module>graph</module>
         <module>reversi</module>
         <module>component</module>
+        <module>thoughtWorks</module>
     </modules>
 
 
