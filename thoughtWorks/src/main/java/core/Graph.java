@@ -1,8 +1,7 @@
-package graph;
+package core;
 
-import domain.DirectedTrip;
-import domain.Town;
-import utils.GraphUtils;
+import entity.DirectedTrip;
+import entity.Town;
 
 import java.util.*;
 

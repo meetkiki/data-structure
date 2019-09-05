@@ -1,4 +1,4 @@
-import graph.Digraph;
+import core.Digraph;
 import org.junit.BeforeClass;
 import org.junit.Test;
 

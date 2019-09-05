@@ -1,8 +1,8 @@
-package graph;
+package core;
 
 
-import domain.DirectedTrip;
-import domain.Town;
+import entity.DirectedTrip;
+import entity.Town;
 import utils.GraphUtils;
 
 import java.io.InputStream;
@@ -57,8 +57,10 @@ public class Digraph extends Graph{
     public void addEdge(DirectedTrip trip) {
         // 增加起点的边
         this.adj(trip.getFrom()).add(trip);
-        // 顶点数
+        // 边数
         E++;
+        // 顶点数
+        V = this.adjs.size();
     }
 
     /**

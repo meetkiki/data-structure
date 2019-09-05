@@ -1,8 +1,8 @@
 package utils;
 
-import domain.DirectedTrip;
-import domain.Town;
-import graph.Digraph;
+import entity.DirectedTrip;
+import entity.Town;
+import core.Digraph;
 
 import java.io.*;
 import java.math.BigDecimal;
@@ -49,7 +49,7 @@ public class GraphUtils {
             }
             edge = edge.trim();
             if (edge.length() < 3){
-                System.err.println(String.format("illegal graph format : %s",edge));
+                System.err.println(String.format("illegal core format : %s",edge));
                 continue;
             }
             Town from = new Town(String.valueOf(edge.charAt(0)));
