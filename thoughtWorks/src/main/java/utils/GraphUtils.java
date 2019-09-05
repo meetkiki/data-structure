@@ -4,7 +4,9 @@ import entity.DirectedTrip;
 import entity.Town;
 import core.Digraph;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 
@@ -67,7 +69,6 @@ public class GraphUtils {
      * 读取字符文本
      * @param in 目标文件流
      * @return     字符
-     * @throws IOException
      */
     private String readStr(InputStream in) {
         ByteArrayOutputStream os = null;
