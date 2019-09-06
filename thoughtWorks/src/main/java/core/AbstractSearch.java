@@ -20,24 +20,26 @@ public abstract class AbstractSearch{
     /**
      * 图信息
      */
-    private final AbstractGraph graph;
+    protected final AbstractGraph graph;
     /**
      * 源地址
      */
-    private final Town from;
+    protected final Town from;
     /**
      * 最短路径树中的边,这里使用一个哈希表标识
      *   比如由 A->B 存在最短路径
      *   那么 存在 B --> AB 的边 也就是在A到B路上最后的一条边
+     *   如果是自身from 那么是null
      */
-    private final Map<Town,DirectedTrip> tripsTo;
+    protected final Map<Town,DirectedTrip> tripsTo;
     /**
      * 到达from点的距离,这里使用一个哈希表标识
      *    A --> 0      表示原点为0
      *    B --> 5      表示原点到点B的距离为5
      *    ...
+     *    如果是自身from  那么是0
      */
-    private final Map<Town, BigDecimal> distsTo;
+    protected final Map<Town, BigDecimal> distsTo;
     
     /**
      * 构造函数
@@ -53,18 +55,23 @@ public abstract class AbstractSearch{
     }
     
     /**
-     * 从顶点from到to的距离 如果不存在则为null
+     * 从顶点from到to的距离
+     *  如果from到to不可达 则为null 这里则没有任何意义
      * @param to 目标地
      * @return   距离
      * @throws IllegalArgumentException 不存在则抛出IllegalArgumentException异常
      */
     public BigDecimal distTo(Town to){
         checkTown(to);
-        return distsTo.get(to);
+        BigDecimal decimal = distsTo.get(to);
+//        if (decimal == null){
+//            throw new RuntimeException(String.format("There is no path from %s -> %s ",from,to));
+//        }
+        return decimal;
     }
     
     /**
-     * 是否存在从from到to的路径
+     * 返回是否存在从from到to的路径
      * @param to 目标地
      * @return
      * @throws IllegalArgumentException to不存在则抛出IllegalArgumentException异常
@@ -78,16 +85,16 @@ public abstract class AbstractSearch{
      * 校验参数
      * @param to
      */
-    private void checkTown(Town to) {
-        if (!graph.hasTown(to)){
-            throw new IllegalArgumentException(" to -> %s does not exist !");
+    protected void checkTown(Town to) {
+        if (!this.graph.hasTown(to)){
+            throw new IllegalArgumentException(String.format(" to -> %s does not exist !",to));
         }
     }
     
     /**
      * 从顶点from到to的路径 如果不存在则为null
      * @param to 目标地
-     * @return
+     * @return   返回路径集合
      * @throws IllegalArgumentException to不存在则抛出IllegalArgumentException异常
      */
     public Collection<DirectedTrip> pathTo(Town to){
