@@ -4,7 +4,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * 有向图的边--旅行
+ * 有向图的边 --> 旅行
+ * @author tao
  */
 public class DirectedTrip {
     /**
@@ -23,6 +24,7 @@ public class DirectedTrip {
     public DirectedTrip() {}
 
     public DirectedTrip(Town from, Town to, BigDecimal distance) {
+        this();
         this.from = from;
         this.to = to;
         this.distance = distance;

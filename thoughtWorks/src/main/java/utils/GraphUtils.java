@@ -41,7 +41,7 @@ public class GraphUtils {
     public void resolveInputStream(InputStream in, Digraph digraph) {
         String str = readStr(in);
         if (StrUtils.isBlank(str)){
-            System.err.println(String.format("file is empty !"));
+            System.err.println("file is empty !");
             return;
         }
         String[] edges = str.split(",");
@@ -51,16 +51,15 @@ public class GraphUtils {
             }
             edge = edge.trim();
             if (edge.length() < 3){
-                System.err.println(String.format("illegal core format : %s",edge));
+                System.err.println(String.format("illegal graph format : %s",edge));
                 continue;
             }
+            // 截取字符数据 前两位为小镇标志
             Town from = new Town(String.valueOf(edge.charAt(0)));
             Town to = new Town(String.valueOf(edge.charAt(1)));
+            // 剩下为距离
             BigDecimal distance = new BigDecimal(edge.substring(2));
-            DirectedTrip directedTrip = new DirectedTrip();
-            directedTrip.setFrom(from);
-            directedTrip.setTo(to);
-            directedTrip.setDistance(distance);
+            DirectedTrip directedTrip = new DirectedTrip(from,to,distance);
             digraph.addEdge(directedTrip);
         }
     }
@@ -71,35 +70,25 @@ public class GraphUtils {
      * @return     字符
      */
     private String readStr(InputStream in) {
-        ByteArrayOutputStream os = null;
-        try {
-            os = new ByteArrayOutputStream();
+        try (ByteArrayOutputStream os = new ByteArrayOutputStream()){
             byte[] buffer = new byte[1024];
-            int len = -1;
+            int len;
             while ((len = in.read(buffer)) != -1) {
                 os.write(buffer, 0, len);
             }
-            os.close();
-            in.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            return new String(os.toByteArray(), StandardCharsets.UTF_8);
+        } catch (IOException ioe) {
+            System.err.println(ioe);
         } finally {
-            if (os != null){
-                try {
-                    os.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
             if (in != null){
                 try {
-                    os.close();
+                    in.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
-        return new String(os.toByteArray(), StandardCharsets.UTF_8);
+        return null;
     }
 
 

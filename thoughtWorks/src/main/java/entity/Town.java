@@ -2,6 +2,10 @@ package entity;
 
 import java.util.Objects;
 
+/**
+ * 小镇实体
+ * @author tao
+ */
 public final class Town {
 
     /**

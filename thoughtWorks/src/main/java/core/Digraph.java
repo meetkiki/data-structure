@@ -20,6 +20,7 @@ public class Digraph extends Graph{
      * @param in 输入流
      */
     public Digraph(InputStream in) {
+        super();
         GraphUtils.getInstance().resolveInputStream(in,this);
     }
 
@@ -27,7 +28,7 @@ public class Digraph extends Graph{
      * 创建一个含有N个顶点但不含有边的图
      * @param V 顶点数
      */
-    public Digraph(int V) {
+    private Digraph(int V) {
         super(V);
     }
 
