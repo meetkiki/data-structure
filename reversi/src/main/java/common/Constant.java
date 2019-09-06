@@ -4,6 +4,7 @@ package common;
 import bean.WeightIndividual;
 
 /**
+ * 基础常量
  * @author Tao
  */
 public class Constant {

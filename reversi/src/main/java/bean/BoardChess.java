@@ -1,6 +1,5 @@
 package bean;
 
-import arithmetic.evaluation.ReversiEvaluation;
 import arithmetic.subsidiary.TranspositionTable;
 import common.Constant;
 import common.GameStatus;
@@ -19,7 +18,7 @@ import static common.Constant.OPENING;
 
 /**
  * 计算用棋盘数据
- * @author Root
+ * @author Tao
  */
 @Data
 public class BoardChess {

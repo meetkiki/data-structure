@@ -12,6 +12,7 @@ import static common.Constant.SIZE;
 /**
  * 全局缓存类
  *  空间换时间
+ * @author tao
  */
 public class CacheContext {
 

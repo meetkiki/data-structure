@@ -7,7 +7,7 @@ import common.WeightEnum;
 import game.GameRule;
 
 /**
- * @author ypt
+ * @author tao
  * @ClassName ReversiEvaluation
  * @Description 估值方法
  * @date 2019/5/8 13:58

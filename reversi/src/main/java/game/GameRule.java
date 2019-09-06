@@ -25,6 +25,7 @@ import static utils.CacheContext.dirInc;
 import static utils.CacheContext.dirMask;
 
 /**
+ * 游戏规则类
  * @author Tao
  */
 public class GameRule {
