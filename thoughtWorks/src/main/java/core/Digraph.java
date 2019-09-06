@@ -12,8 +12,9 @@ import java.util.Set;
 
 /**
  * 有向图
+ * @author tao
  */
-public class Digraph extends Graph{
+public class Digraph extends AbstractGraph {
 
     /**
      * 通过输入流构建有向图
@@ -25,10 +26,10 @@ public class Digraph extends Graph{
     }
 
     /**
-     * 创建一个含有N个顶点但不含有边的图
+     * 创建一个含有N个顶点但不含有边的有向图
      * @param V 顶点数
      */
-    private Digraph(int V) {
+    public Digraph(int V) {
         super(V);
     }
 
@@ -37,8 +38,8 @@ public class Digraph extends Graph{
      * @return
      */
     @Override
-    public int V() {
-        return this.V;
+    public int vertices() {
+        return this.vertices;
     }
 
     /**
@@ -46,8 +47,8 @@ public class Digraph extends Graph{
      * @return
      */
     @Override
-    public int E() {
-        return this.E;
+    public int edges() {
+        return this.edges;
     }
 
     /**
@@ -59,9 +60,9 @@ public class Digraph extends Graph{
         // 增加起点的边
         this.adj(trip.getFrom()).add(trip);
         // 边数
-        E++;
+        this.edges++;
         // 顶点数
-        V = this.adjs.size();
+        this.vertices = this.adjs.size();
     }
 
     /**
@@ -71,7 +72,7 @@ public class Digraph extends Graph{
      */
     @Override
     public Collection<DirectedTrip> adj(Town v) {
-        // 初始化邻近表的链表
+        // 根据v town作为key获取链表,如果为空则初始化邻近表的链表
         return this.adjs.computeIfAbsent(v, k -> new LinkedList<>());
     }
 

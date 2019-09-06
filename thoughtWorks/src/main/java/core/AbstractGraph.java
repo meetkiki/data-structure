@@ -3,41 +3,44 @@ package core;
 import entity.DirectedTrip;
 import entity.Town;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 图
  * @author Tao
  */
-public abstract class Graph {
+public abstract class AbstractGraph {
 
     /**
      * 顶点数
      */
-    protected int V;
+    protected int vertices;
     /**
      * 有向边
      */
-    protected int E;
+    protected int edges;
     /**
      * 邻近表
      */
-    protected Map<Town,LinkedList<DirectedTrip>> adjs;
+    protected Map<Town, LinkedList<DirectedTrip>> adjs;
 
-    public Graph(){
+    public AbstractGraph(){
         // 创建邻近表
-        adjs = new HashMap<>();
+        adjs = new ConcurrentHashMap<>();
     }
     /**
      * 创建一个含有N个顶点但不含有边的图
-     * @param V
+     * @param vertices  顶点数
      */
-    public Graph(int V){
+    public AbstractGraph(int vertices){
         this();
         // 顶点数
-        this.V = V;
+        this.vertices = vertices;
         // 边
-        this.E = 0;
+        this.edges = 0;
     }
 
 
@@ -45,13 +48,13 @@ public abstract class Graph {
      * 顶点数
      * @return
      */
-    public abstract int V();
+    public abstract int vertices();
 
     /**
      * 边数
      * @return
      */
-    public abstract int E();
+    public abstract int edges();
 
     /**
      * 向图增加一条边
@@ -77,7 +80,7 @@ public abstract class Graph {
     @Override
     public String toString(){
         StringBuffer buffer = new StringBuffer();
-        buffer.append(V +" vertices, " + E + " edges \n");
+        buffer.append(vertices + " vertices, " + edges + " edges " + System.lineSeparator());
         for (Map.Entry<Town, LinkedList<DirectedTrip>> entry : adjs.entrySet()) {
             Town town = entry.getKey();
             LinkedList<DirectedTrip> directedTrips = entry.getValue();
@@ -85,7 +88,7 @@ public abstract class Graph {
             for (DirectedTrip trip : directedTrips) {
                 buffer.append( trip + " ");
             }
-            buffer.append("\n");
+            buffer.append(System.lineSeparator());
         }
         return buffer.toString();
     }

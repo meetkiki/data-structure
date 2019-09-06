@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 
 /**
+ * 图解析工具类
  * @author Tao
  */
 public class GraphUtils {
@@ -39,6 +40,7 @@ public class GraphUtils {
      * @param digraph   有向图对象
      */
     public void resolveInputStream(InputStream in, Digraph digraph) {
+        // 读取文本字符
         String str = readStr(in);
         if (StrUtils.isBlank(str)){
             System.err.println("file is empty !");
@@ -60,6 +62,7 @@ public class GraphUtils {
             // 剩下为距离
             BigDecimal distance = new BigDecimal(edge.substring(2));
             DirectedTrip directedTrip = new DirectedTrip(from,to,distance);
+            // 向图增加一条旅行边 directedTrip
             digraph.addEdge(directedTrip);
         }
     }

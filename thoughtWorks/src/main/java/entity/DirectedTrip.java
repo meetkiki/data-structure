@@ -7,7 +7,7 @@ import java.util.Objects;
  * 有向图的边 --> 旅行
  * @author tao
  */
-public class DirectedTrip {
+public class DirectedTrip implements Comparable<DirectedTrip>{
     /**
      * 起点
      */
@@ -21,7 +21,7 @@ public class DirectedTrip {
      */
     private BigDecimal distance;
 
-    public DirectedTrip() {}
+    public DirectedTrip(){}
 
     public DirectedTrip(Town from, Town to, BigDecimal distance) {
         this();
@@ -72,5 +72,10 @@ public class DirectedTrip {
     @Override
     public String toString() {
         return String.format(" %s -> %s %.2f", from , to ,distance == null ? 0.0 : distance.doubleValue());
+    }
+    
+    @Override
+    public int compareTo(DirectedTrip o) {
+        return Objects.compare(this.distance,o.distance,BigDecimal::compareTo);
     }
 }

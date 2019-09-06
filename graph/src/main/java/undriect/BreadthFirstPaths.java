@@ -7,6 +7,7 @@ import common.Bag;
 import java.util.ArrayDeque;
 
 /**
+ * 广度优先搜索
  * @author Tao
  */
 public class BreadthFirstPaths extends Paths {

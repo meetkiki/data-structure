@@ -1,5 +1,9 @@
 package utils;
 
+/**
+ * 字符串处理工具类
+ * @author tao
+ */
 public class StrUtils {
 
     /**
@@ -8,7 +12,7 @@ public class StrUtils {
      * @return
      */
     public static boolean isBlank(String edge){
-        return edge == null ? true : edge.trim().length() == 0;
+        return edge == null || edge.trim().length() == 0;
     }
 
 
