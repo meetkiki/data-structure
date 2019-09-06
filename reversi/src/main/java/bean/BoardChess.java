@@ -112,7 +112,7 @@ public class BoardChess {
         // 初始化状态
         this.status = GameStatus.OPENING;
         // 初始化zobrist的值
-//        this.zobrist = TranspositionTable.initZobrist(this);
+        this.zobrist = TranspositionTable.initZobrist(this);
     }
 
     public BoardChess() {

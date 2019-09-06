@@ -22,7 +22,7 @@ public class WeightIndividual {
      * 默认基因编码
      */
     public static final WeightIndividual DEFAULT = new WeightIndividual(new int[]{
-            178, 166, 147, 207, 131, 240, 111, 76, 173, 136, 196, 160, 187, 178, 171, 184, 33, 162, 162, 225, 253
+            172, 224, 133, 177, 40, 135, 32, 98, 200, 123, 176, 199, 15, 218, 145, 173, 147, 254, 131, 151, 231
     });
 
     /**
@@ -64,6 +64,10 @@ public class WeightIndividual {
      * 名称 用作区分
      */
     private String name;
+    /**
+     * 分组信息
+     */
+    private Integer group;
 
 
     public WeightIndividual(){
@@ -251,5 +255,13 @@ public class WeightIndividual {
 
     public void setWinness(double winness) {
         this.winness = winness;
+    }
+
+    public Integer getGroup() {
+        return group;
+    }
+
+    public void setGroup(Integer group) {
+        this.group = group;
     }
 }

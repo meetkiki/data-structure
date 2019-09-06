@@ -143,7 +143,7 @@ public class GeneticAlgorithm {
      *  根据幸存程度选择
      */
     private void chooseSample(List<WeightIndividual> weightIndividuals){
-        log.info("正在选择 ...");
+        log.info("正在计算选择 ...");
         // 保留的下一代种群
         this.newIndividuals = new LinkedHashSet<>();
         // 最优基因不进行轮盘 直接保留
@@ -171,6 +171,7 @@ public class GeneticAlgorithm {
      * @param weightIndividuals
      */
     private void update_lucky(List<WeightIndividual> weightIndividuals) {
+        log.info("正在计算幸运度...");
         // 总概率为1
         // 累积概率
         double c_lucky = 0.0;
@@ -253,7 +254,7 @@ public class GeneticAlgorithm {
      * 基因变异运算
      */
     private void mutationGenes(List<WeightIndividual> individuals){
-        log.info("正在进行变异...");
+        log.info("正在计算变异...");
         if (individuals.size() >= entitysize){
             log.info("未产生变异物种 !");
             return;
@@ -372,12 +373,11 @@ public class GeneticAlgorithm {
             long ed = System.currentTimeMillis();
             log.info("经过第 " + it++ + "次迭代 , 本次迭代耗时 "+ (ed - st) +" ms, 当前种群最优基因为: " + algorithm.best_weight.getName() + " : " +
                     Arrays.toString(algorithm.best_weight.getSrcs()));
-            algorithm.weightIndividuals.stream().forEach((e)-> result.add(Arrays.toString(e.getSrcs())));
-            log.info("当前数据 :" + result);
+            algorithm.weightIndividuals.forEach((e)-> result.add(Arrays.toString(e.getSrcs())));
+            log.info("当前数据 :" + result);//
             result.clear();
             // 判断是否继续迭代
         } while (solution);
-        log.info("迭代结束! ");
         log.info("迭代结束! ");
         log.info(Arrays.toString(algorithm.best_weight.getSrcs()));
     }
