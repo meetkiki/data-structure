@@ -72,7 +72,15 @@ public abstract class AbstractGraph {
      * @return
      */
     public abstract Collection<DirectedTrip> allTrips();
-
+    
+    /**
+     * 是否存在顶点
+     * @param v 目标顶点
+     * @return
+     */
+    public boolean hasTown(Town v){
+        return this.adjs.containsKey(v);
+    }
     /**
      * 对象的字符串表示
      * @return

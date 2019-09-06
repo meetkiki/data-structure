@@ -6,6 +6,7 @@ import entity.Town;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Map;
+import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -57,7 +58,10 @@ public abstract class AbstractSearch{
      * @return   距离
      * @throws IllegalArgumentException 不存在则抛出IllegalArgumentException异常
      */
-    public abstract Double distTo(Town to);
+    public BigDecimal distTo(Town to){
+        checkTown(to);
+        return distsTo.get(to);
+    }
     
     /**
      * 是否存在从from到to的路径
@@ -65,7 +69,20 @@ public abstract class AbstractSearch{
      * @return
      * @throws IllegalArgumentException to不存在则抛出IllegalArgumentException异常
      */
-    public abstract boolean hasPathTo(Town to);
+    public boolean hasPathTo(Town to){
+        checkTown(to);
+        return distsTo.get(to) == null;
+    }
+    
+    /**
+     * 校验参数
+     * @param to
+     */
+    private void checkTown(Town to) {
+        if (!graph.hasTown(to)){
+            throw new IllegalArgumentException(" to -> %s does not exist !");
+        }
+    }
     
     /**
      * 从顶点from到to的路径 如果不存在则为null
@@ -73,7 +90,15 @@ public abstract class AbstractSearch{
      * @return
      * @throws IllegalArgumentException to不存在则抛出IllegalArgumentException异常
      */
-    public abstract Collection<DirectedTrip> pathTo(Town to);
+    public Collection<DirectedTrip> pathTo(Town to){
+        if (!hasPathTo(to)) return null;
+        Stack<DirectedTrip> stack = new Stack<>();
+        // 从目标地出发 反查询地址
+        for (DirectedTrip trip = tripsTo.get(to); trip != null; trip = tripsTo.get(trip.getFrom())) {
+            stack.push(trip);
+        }
+        return stack;
+    }
     
     /**
      * 边的松弛 -- 尝试寻找当前传入的边,查看目标地的距离是否小于当前最小路径
