@@ -71,11 +71,13 @@ public class DirectedTrip implements Comparable<DirectedTrip>{
 
     @Override
     public String toString() {
-        return String.format(" %s -> %s %.2f", from , to ,distance == null ? 0.0 : distance.doubleValue());
+        return String.format(" %s -> %s %.2f ", from , to ,distance == null ? 0.0 : distance.doubleValue());
     }
     
     @Override
     public int compareTo(DirectedTrip o) {
+        Objects.requireNonNull(this.distance,String.format(" this.distance %s Can not be null !",this));
+        Objects.requireNonNull(o.distance,String.format(" to.distance %s Can not be null !",o));
         return Objects.compare(this.distance,o.distance,BigDecimal::compareTo);
     }
 }

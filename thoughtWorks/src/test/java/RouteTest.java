@@ -37,6 +37,6 @@ public class RouteTest {
         DefaultSearch search = new DefaultSearch(digraph, from);
     
         Collection<DirectedTrip> path = search.pathTo(to);
-        System.out.println(String.format("A - > C distance %.2f Path -> %s",search.distTo(to),path));
+        System.out.println(String.format("A - > D distance %.2f Path -> %s ",search.distTo(to),path));
     }
 }
