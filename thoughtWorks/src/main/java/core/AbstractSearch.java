@@ -132,7 +132,7 @@ public abstract class AbstractSearch{
      */
     protected void relax(Town from){
         // 拿到由to指出
-        for (DirectedTrip trip : graph.adj(from)) {
+        for (DirectedTrip trip : graph.adj(from).keySet()) {
             // 松弛所有指出边
             relax(trip);
         }

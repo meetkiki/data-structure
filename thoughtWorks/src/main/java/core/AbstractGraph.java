@@ -3,9 +3,8 @@ package core;
 import entity.DirectedTrip;
 import entity.Town;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -24,8 +23,11 @@ public abstract class AbstractGraph {
     protected int edges;
     /**
      * 邻近表
+     * 这里本身应该是数组+链表结构，
+     * 这里将基础数据List<value>改造为Map<DirectedTrip,Distance>
+     *  方便在出度中查找需要的路线 并得出距离  利用空间换时间思想 将计算指定路径复杂度降为O(1)
      */
-    protected Map<Town, LinkedList<DirectedTrip>> adjs;
+    protected Map<Town, Map<DirectedTrip, BigDecimal>> adjs;
 
     public AbstractGraph(){
         // 创建邻近表
@@ -65,7 +67,15 @@ public abstract class AbstractGraph {
      * @param v 顶点V
      * @return 返回从v指出的边
      */
-    public abstract Collection<DirectedTrip> adj(Town v);
+    public abstract Map<DirectedTrip, BigDecimal> adj(Town v);
+
+    /**
+     * 根据传入的旅行地点 得出实际路线
+     *  如果不存在则返回空list
+     * @param towns     旅行路线 比如 A , B , C 代表 A->B->C
+     * @return
+     */
+    public abstract List<DirectedTrip> routeTrips(List<Town> towns);
 
     /**
      * 返回所有旅行边
@@ -89,9 +99,9 @@ public abstract class AbstractGraph {
     public String toString(){
         StringBuffer buffer = new StringBuffer();
         buffer.append(vertices + " vertices, " + edges + " edges " + System.lineSeparator());
-        for (Map.Entry<Town, LinkedList<DirectedTrip>> entry : adjs.entrySet()) {
+        for (Map.Entry<Town, Map<DirectedTrip,BigDecimal>> entry : adjs.entrySet()) {
             Town town = entry.getKey();
-            LinkedList<DirectedTrip> directedTrips = entry.getValue();
+            Set<DirectedTrip> directedTrips = entry.getValue().keySet();
             buffer.append(town + ": ");
             for (DirectedTrip trip : directedTrips) {
                 buffer.append( trip + " ");

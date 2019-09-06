@@ -39,7 +39,7 @@ public class GraphUtils {
      * @param in        输入流
      * @param digraph   有向图对象
      */
-    public void resolveInputStream(InputStream in, Digraph digraph) {
+    public void resolve(InputStream in, Digraph digraph) {
         // 读取文本字符
         String str = readStr(in);
         if (StrUtils.isBlank(str)){
@@ -57,11 +57,17 @@ public class GraphUtils {
                 continue;
             }
             // 截取字符数据 前两位为小镇标志
-            Town from = new Town(String.valueOf(edge.charAt(0)));
-            Town to = new Town(String.valueOf(edge.charAt(1)));
+            Town from = Town.builder()
+                    .withFrom(String.valueOf(edge.charAt(0))).build();
+            Town to = Town.builder()
+                    .withFrom(String.valueOf(edge.charAt(1))).build();
             // 剩下为距离
             BigDecimal distance = new BigDecimal(edge.substring(2));
-            DirectedTrip directedTrip = new DirectedTrip(from,to,distance);
+            DirectedTrip directedTrip = DirectedTrip.builder()
+                    .withFrom(from)
+                    .withTo(to)
+                    .withDistance(distance)
+                    .build();
             // 向图增加一条旅行边 directedTrip
             digraph.addEdge(directedTrip);
         }
@@ -73,13 +79,14 @@ public class GraphUtils {
      * @return     字符
      */
     private String readStr(InputStream in) {
-        try (ByteArrayOutputStream os = new ByteArrayOutputStream()){
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()){
             byte[] buffer = new byte[1024];
             int len;
             while ((len = in.read(buffer)) != -1) {
-                os.write(buffer, 0, len);
+                byteArrayOutputStream.write(buffer, 0, len);
             }
-            return new String(os.toByteArray(), StandardCharsets.UTF_8);
+            // 将二进制字节转化为UTF-8编码的字符串
+            return new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8);
         } catch (IOException ioe) {
             System.err.println(ioe);
         } finally {
@@ -93,7 +100,4 @@ public class GraphUtils {
         }
         return null;
     }
-
-
-
 }

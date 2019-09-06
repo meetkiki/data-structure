@@ -38,4 +38,27 @@ public final class Town {
     public String toString() {
         return String.format("Town %s",sign);
     }
+
+    public static Town.TownBuilder builder() {
+        return new Town.TownBuilder();
+    }
+
+    public static final class TownBuilder{
+        /**
+         * 小镇的标示
+         */
+        private String sign;
+
+        public TownBuilder withFrom(String sign){
+            this.sign = sign;
+            return this;
+        }
+
+        public Town build(){
+            if (sign == null){
+                throw new IllegalStateException(" sign may not be null");
+            }
+            return new Town(this.sign);
+        }
+    }
 }

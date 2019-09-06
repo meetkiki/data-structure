@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * @author ypt
  * @ClassName DefaultSearch
- * @Description 默认实现搜索类 执行通用搜索
+ * @Description 默认实现搜索类 执行通用搜索最短路径
  * @date 2019/9/6 17:05
  */
 public class DefaultSearch extends AbstractSearch {
@@ -25,7 +25,7 @@ public class DefaultSearch extends AbstractSearch {
      */
     public DefaultSearch(Digraph graph, Town from) {
         super(graph, from);
-        Map<Town, LinkedList<DirectedTrip>> townsMap = graph.adjs;
+        Map<Town, Map<DirectedTrip,BigDecimal>> townsMap = graph.adjs;
         Set<Town> towns = townsMap.keySet();
         // 先将所有小镇的距离初始化为最大值
         for (Town town : towns) {

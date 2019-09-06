@@ -13,7 +13,7 @@ public class Constant {
     /**
      * 无法连通的路径 距离为MaxInt 距离默认值
      */
-    public static final BigDecimal NoSuch_Dist = new BigDecimal(Integer.MAX_VALUE);
+    public static final BigDecimal NoSuch_Dist = new BigDecimal(Double.MAX_VALUE);
     
     /**
      * 无法连通的路径 提示字符
