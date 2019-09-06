@@ -75,7 +75,7 @@ public abstract class AbstractSearch{
      */
     public boolean hasPathTo(Town to){
         checkTown(to);
-        return Constant.NoSuch_Dist.compareTo(distsTo.get(to)) > 0;
+        return Constant.NoSuch_Max_Dist.compareTo(distsTo.get(to)) > 0;
     }
     
     /**

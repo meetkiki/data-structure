@@ -19,6 +19,7 @@ public class RouteTest {
     public static void testBefore(){
         try(InputStream inputStream = RouteTest.class.getResourceAsStream("GraphTest.txt")){
             digraph = new Digraph(inputStream);
+            // System.out.println(digraph);
         }catch (IOException exp){
             exp.printStackTrace();
             throw new RuntimeException(String.format(" init failed %s !",exp.getMessage()));
@@ -28,22 +29,30 @@ public class RouteTest {
 
     @Test
     public void testCase1(){
-        List<Town> towns = Arrays.asList(Town.builder().withFrom("A").build(), Town.builder().withFrom("B").build(), Town.builder().withFrom("C").build());
-        List<DirectedTrip> trips = digraph.routeTrips(towns);
+        List<Town> towns = Arrays.asList(
+                Town.builder().withSign("A").build(),
+                Town.builder().withSign("B").build(),
+                Town.builder().withSign("C").build());
+        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
         System.out.println(trips);
     }
 
     @Test
     public void testCase2(){
-        List<Town> towns = Arrays.asList(Town.builder().withFrom("A").build(), Town.builder().withFrom("D").build());
-        List<DirectedTrip> trips = digraph.routeTrips(towns);
+        List<Town> towns = Arrays.asList(
+                Town.builder().withSign("A").build(),
+                Town.builder().withSign("D").build());
+        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
         System.out.println(trips);
     }
 
     @Test
     public void testCase3(){
-        List<Town> towns = Arrays.asList(Town.builder().withFrom("A").build(), Town.builder().withFrom("D").build(),Town.builder().withFrom("C").build());
-        List<DirectedTrip> trips = digraph.routeTrips(towns);
+        List<Town> towns = Arrays.asList(
+                Town.builder().withSign("A").build(),
+                Town.builder().withSign("D").build(),
+                Town.builder().withSign("C").build());
+        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
         System.out.println(trips);
     }
 
@@ -52,12 +61,12 @@ public class RouteTest {
     public void testCase4(){
         long start = System.currentTimeMillis();
         List<Town> towns = Arrays.asList(
-                Town.builder().withFrom("A").build(),
-                Town.builder().withFrom("E").build(),
-                Town.builder().withFrom("B").build(),
-                Town.builder().withFrom("C").build(),
-                Town.builder().withFrom("D").build());
-        List<DirectedTrip> trips = digraph.routeTrips(towns);
+                Town.builder().withSign("A").build(),
+                Town.builder().withSign("E").build(),
+                Town.builder().withSign("B").build(),
+                Town.builder().withSign("C").build(),
+                Town.builder().withSign("D").build());
+        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
         System.out.println(trips);
         long end = System.currentTimeMillis();
         System.out.println(end - start);
@@ -67,21 +76,30 @@ public class RouteTest {
     @Test
     public void testCase5(){
         List<Town> towns = Arrays.asList(
-                Town.builder().withFrom("A").build(),
-                Town.builder().withFrom("E").build(),
-                Town.builder().withFrom("D").build());
-        List<DirectedTrip> trips = digraph.routeTrips(towns);
+                Town.builder().withSign("A").build(),
+                Town.builder().withSign("E").build(),
+                Town.builder().withSign("D").build());
+        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
+        System.out.println(trips);
+    }
+
+    @Test
+    public void testCase6(){
+        List<Town> towns = Arrays.asList(
+                Town.builder().withSign("C").build(),
+                Town.builder().withSign("C").build());
+        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
         System.out.println(trips);
     }
 
 
     @Test
-    public void testCase6() {
+    public void testCase8() {
         Town from = new Town("A");
-        Town to = new Town("C");
+        Town to = new Town("B");
         DefaultSearch search = new DefaultSearch(digraph, from);
     
         Collection<DirectedTrip> path = search.pathTo(to);
-        System.out.println(String.format("A - > C distance %.2f Path -> %s ",search.distTo(to),path));
+        System.out.println(String.format("A - > B distance %.2f Path -> %s ",search.distTo(to),path));
     }
 }

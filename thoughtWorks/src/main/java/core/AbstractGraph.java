@@ -75,7 +75,7 @@ public abstract class AbstractGraph {
      * @param towns     旅行路线 比如 A , B , C 代表 A->B->C
      * @return
      */
-    public abstract List<DirectedTrip> routeTrips(List<Town> towns);
+    public abstract Collection<DirectedTrip> routeTrips(List<Town> towns);
 
     /**
      * 返回所有旅行边
@@ -98,7 +98,7 @@ public abstract class AbstractGraph {
     @Override
     public String toString(){
         StringBuffer buffer = new StringBuffer();
-        buffer.append(vertices + " vertices, " + edges + " edges " + System.lineSeparator());
+        buffer.append(vertices() + " vertices, " + edges() + " edges " + System.lineSeparator());
         for (Map.Entry<Town, Map<DirectedTrip,BigDecimal>> entry : adjs.entrySet()) {
             Town town = entry.getKey();
             Set<DirectedTrip> directedTrips = entry.getValue().keySet();

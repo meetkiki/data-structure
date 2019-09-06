@@ -82,7 +82,7 @@ public class Digraph extends AbstractGraph {
      * @return          存在返回路线，如果不存在则返回空list
      */
     @Override
-    public List<DirectedTrip> routeTrips(List<Town> towns) {
+    public Collection<DirectedTrip> routeTrips(List<Town> towns) {
         if (towns == null || towns.size() == 0)
             return Collections.EMPTY_LIST;
         List<DirectedTrip> result = new LinkedList<>();

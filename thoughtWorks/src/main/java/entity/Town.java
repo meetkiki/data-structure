@@ -49,7 +49,7 @@ public final class Town {
          */
         private String sign;
 
-        public TownBuilder withFrom(String sign){
+        public TownBuilder withSign(String sign){
             this.sign = sign;
             return this;
         }

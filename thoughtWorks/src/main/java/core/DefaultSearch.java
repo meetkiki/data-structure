@@ -29,7 +29,7 @@ public class DefaultSearch extends AbstractSearch {
         Set<Town> towns = townsMap.keySet();
         // 先将所有小镇的距离初始化为最大值
         for (Town town : towns) {
-            this.distsTo.put(town, Constant.NoSuch_Dist);
+            this.distsTo.put(town, Constant.NoSuch_Max_Dist);
         }
         // 自身为0
         this.distsTo.put(from, BigDecimal.ZERO);

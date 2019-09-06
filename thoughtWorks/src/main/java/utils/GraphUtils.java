@@ -58,9 +58,9 @@ public class GraphUtils {
             }
             // 截取字符数据 前两位为小镇标志
             Town from = Town.builder()
-                    .withFrom(String.valueOf(edge.charAt(0))).build();
+                    .withSign(String.valueOf(edge.charAt(0))).build();
             Town to = Town.builder()
-                    .withFrom(String.valueOf(edge.charAt(1))).build();
+                    .withSign(String.valueOf(edge.charAt(1))).build();
             // 剩下为距离
             BigDecimal distance = new BigDecimal(edge.substring(2));
             DirectedTrip directedTrip = DirectedTrip.builder()
