@@ -1,11 +1,16 @@
 package core;
 
+import common.Constant;
 import entity.DirectedTrip;
 import entity.Town;
 
 import java.math.BigDecimal;
+import java.util.ArrayDeque;
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -63,11 +68,7 @@ public abstract class AbstractSearch{
      */
     public BigDecimal distTo(Town to){
         checkTown(to);
-        BigDecimal decimal = distsTo.get(to);
-//        if (decimal == null){
-//            throw new RuntimeException(String.format("There is no path from %s -> %s ",from,to));
-//        }
-        return decimal;
+        return distsTo.get(to);
     }
     
     /**
@@ -78,7 +79,7 @@ public abstract class AbstractSearch{
      */
     public boolean hasPathTo(Town to){
         checkTown(to);
-        return distsTo.get(to) == null;
+        return Constant.NoSuch_Dist.compareTo(distsTo.get(to)) > 0;
     }
     
     /**
@@ -99,12 +100,12 @@ public abstract class AbstractSearch{
      */
     public Collection<DirectedTrip> pathTo(Town to){
         if (!hasPathTo(to)) return null;
-        Stack<DirectedTrip> stack = new Stack<>();
+        LinkedList<DirectedTrip> paths = new LinkedList<>();
         // 从目标地出发 反查询地址
         for (DirectedTrip trip = tripsTo.get(to); trip != null; trip = tripsTo.get(trip.getFrom())) {
-            stack.push(trip);
+            paths.addFirst(trip);
         }
-        return stack;
+        return paths;
     }
     
     /**
