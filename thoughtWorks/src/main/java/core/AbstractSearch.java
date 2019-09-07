@@ -30,7 +30,8 @@ public abstract class AbstractSearch{
      * 最短路径树中的边,这里使用一个哈希表标识
      *   比如由 A->B 存在最短路径
      *   那么 存在 B --> AB 的边 也就是在A到B路上最后的一条边
-     *   如果是自身from 那么是null
+     *   如果无环 是自身from 那么是null
+     *   如果有环 是自身from 那么这里会有问题 需要在求最短路径上面排除自身
      */
     protected final Map<Town,DirectedTrip> tripsTo;
     /**
@@ -99,6 +100,7 @@ public abstract class AbstractSearch{
         if (!hasPathTo(to)) return null;
         Trip resultTrip = new Trip();
         // 从目标地出发 反查询路线
+        // 如果有环 需要加上 !resultTrip.getTrips().contains(trip) 排除已经加入的路线
         for (DirectedTrip trip = tripsTo.get(to); trip != null && !resultTrip.getTrips().contains(trip); trip = tripsTo.get(trip.getFrom())) {
             resultTrip.addFirstTrip(trip);
         }

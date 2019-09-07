@@ -2,7 +2,10 @@ package command;
 
 /**
  * @author ypt
- * 命令模式接口 抽象命令
+ *  命令模式接口 抽象命令
+ * @see DistanceCommand
+ * @see ShortestCommand
+ * @see TripsCommand
  */
 public interface Command {
 

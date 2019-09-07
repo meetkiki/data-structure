@@ -1,16 +1,13 @@
 package utils;
 
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.*;
 
 /**
  * 通用工具类
  * @author Tao
  */
-public class CommonUtils {
+public class CollectionUtils {
 
     /**
      * 判断集合是否为空

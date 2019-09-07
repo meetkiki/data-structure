@@ -3,7 +3,7 @@ package core;
 
 import entity.DirectedTrip;
 import entity.Town;
-import utils.CommonUtils;
+import utils.CollectionUtils;
 import utils.GraphUtils;
 
 import java.io.InputStream;
@@ -68,9 +68,9 @@ public class Digraph extends AbstractGraph {
     }
 
     /**
-     * 返回所有由v指出的小镇
+     * 获取非空邻接集合
      * @param v
-     * @return
+     * @return      返回所有由v指出的小镇
      */
     @Override
     public Map<DirectedTrip, BigDecimal> adj(Town v) {
@@ -85,7 +85,7 @@ public class Digraph extends AbstractGraph {
      */
     @Override
     public Collection<DirectedTrip> routeTrips(List<Town> towns) {
-        if (CommonUtils.isEmpty(towns))
+        if (CollectionUtils.isEmpty(towns))
             return Collections.EMPTY_LIST;
         List<DirectedTrip> result = new LinkedList<>();
         Iterator<Town> it = towns.iterator();

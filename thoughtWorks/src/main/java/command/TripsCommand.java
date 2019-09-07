@@ -23,8 +23,11 @@ public class TripsCommand extends AbstractCommand implements Command{
 
     /**
      * 执行路线搜索运算
-     * @param obj      请求参数
-     * @return
+     * @param obj       请求参数SearchCondition {@link SearchCondition} 路线搜索条件
+     *                  主要四个参数 from - > to           起始到结束
+     *                  stopCondition                    停止搜索的条件
+     *                  returnCondition                  返回数据的条件
+     * @return          返回路线的总数
      */
     @Override
     public Object executeAlgorithmInteface(Object obj) {

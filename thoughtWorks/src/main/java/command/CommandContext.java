@@ -13,6 +13,7 @@ public final class CommandContext {
 
     /**
      * 执行运算的图
+     * @see AbstractGraph
      */
     private final AbstractGraph graph;
     /**
@@ -30,8 +31,9 @@ public final class CommandContext {
 
     /**
      * 根据名称创建命令执行器
-     * @param commandName
-     * @return
+     * @see Constant        常量标志
+     * @param commandName   命令名称
+     * @return              this
      */
     public CommandContext CommandContext(String commandName) {
         Assert.assertFalse("commandName Can not be empty !",StrUtils.isBlank(commandName));
@@ -53,9 +55,10 @@ public final class CommandContext {
     }
 
     /**
-     * 执行运算
+     * 根据当前策略执行运算
+     * @see Command#executeAlgorithmInteface(Object)
      * @param objs      请求参数
-     * @return
+     * @return          命令策略对应的响应
      */
     public Object execute(Object objs){
         Assert.assertNotNull("You should first instantiate the command! ",command);

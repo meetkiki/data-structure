@@ -2,6 +2,7 @@ package command;
 
 
 import core.AbstractGraph;
+import org.junit.Assert;
 
 /**
  * 抽象命令类
@@ -10,6 +11,7 @@ public abstract class AbstractCommand implements Command {
 
     /**
      * 执行运算的图
+     * @see AbstractGraph
      */
     protected final AbstractGraph graph;
 
@@ -18,6 +20,7 @@ public abstract class AbstractCommand implements Command {
      * @param graph 执行运算的图
      */
     public AbstractCommand(AbstractGraph graph) {
+        Assert.assertNotNull(graph);
         this.graph = graph;
     }
 

@@ -11,7 +11,7 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 /**
- * 最短路径的Dijkstra算法
+ * 最短路径的Dijkstra算法 #参考算法4 P423
  *  算法思路：
  *      1.首先将点from能到达的距离设置到distsTo，其他为正无穷（这里暂时不考虑负距离问题）
  *      2.维护一个优先队列，队列的值为每个小镇到from点的距离，按照默认比较器排序或者传入比较器（传入不同比较器解决最近/远路径）

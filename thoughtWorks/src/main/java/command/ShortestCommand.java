@@ -24,9 +24,12 @@ public class ShortestCommand extends AbstractCommand implements Command {
     }
 
     /**
-     * 执行最短距离运算
-     * @param obj      请求参数
-     * @return
+     * 采用Dijkstra搜索最短距离运算 (必须要保证传入的参数没有负权边)
+     * @see DijkstraSearch 最短路径Dijkstra搜索算法
+     * @param obj       请求参数SearchCondition {@link SearchCondition} 路线搜索条件
+     *                  主要两个参数 from - > to
+     * @return          如果不存在这样的路径，则输出“NO SUCH ROUTE” {@link Constant#No_Such_Route}
+     *                  否则输出路线的距离
      */
     @Override
     public Object executeAlgorithmInteface(Object obj) {

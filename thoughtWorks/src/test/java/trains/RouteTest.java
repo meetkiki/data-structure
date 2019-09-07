@@ -7,7 +7,7 @@ import entity.SearchCondition;
 import entity.Town;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import utils.CommonUtils;
+import utils.CollectionUtils;
 import utils.StrUtils;
 
 import java.io.IOException;
@@ -100,8 +100,8 @@ public class RouteTest {
         List<Town> towns = routeList.stream()
                 .map((sign) -> Town.builder().withSign(sign).build())
                 .collect(Collectors.toList());
-        Town start = CommonUtils.findFirst(towns);
-        Town end = CommonUtils.findLast(towns);
+        Town start = CollectionUtils.findFirst(towns);
+        Town end = CollectionUtils.findLast(towns);
         SearchCondition searchCondition = SearchCondition.builder()
                 .withFrom(start)
                 .withTo(end)
@@ -122,8 +122,8 @@ public class RouteTest {
         List<Town> towns = routeList.stream()
                 .map((sign) -> Town.builder().withSign(sign).build())
                 .collect(Collectors.toList());
-        Town start = CommonUtils.findFirst(towns);
-        Town end = CommonUtils.findLast(towns);
+        Town start = CollectionUtils.findFirst(towns);
+        Town end = CollectionUtils.findLast(towns);
         SearchCondition searchCondition = SearchCondition.builder()
                 .withFrom(start)
                 .withTo(end)
@@ -142,8 +142,8 @@ public class RouteTest {
         List<Town> towns = routeList.stream()
                 .map((sign) -> Town.builder().withSign(sign).build())
                 .collect(Collectors.toList());
-        Town start = CommonUtils.findFirst(towns);
-        Town end = CommonUtils.findLast(towns);
+        Town start = CollectionUtils.findFirst(towns);
+        Town end = CollectionUtils.findLast(towns);
         SearchCondition searchCondition = SearchCondition.builder()
                 .withFrom(start)
                 .withTo(end)
@@ -160,8 +160,8 @@ public class RouteTest {
         List<Town> towns = routeList.stream()
                 .map((sign) -> Town.builder().withSign(sign).build())
                 .collect(Collectors.toList());
-        Town start = CommonUtils.findFirst(towns);
-        Town end = CommonUtils.findLast(towns);
+        Town start = CollectionUtils.findFirst(towns);
+        Town end = CollectionUtils.findLast(towns);
         SearchCondition searchCondition = SearchCondition.builder()
                 .withFrom(start)
                 .withTo(end)
@@ -180,8 +180,8 @@ public class RouteTest {
         List<Town> towns = routeList.stream()
                 .map((sign) -> Town.builder().withSign(sign).build())
                 .collect(Collectors.toList());
-        Town start = CommonUtils.findFirst(towns);
-        Town end = CommonUtils.findLast(towns);
+        Town start = CollectionUtils.findFirst(towns);
+        Town end = CollectionUtils.findLast(towns);
         BigDecimal maxRoute = new BigDecimal(maxDistance);
         SearchCondition searchCondition = SearchCondition.builder()
                 .withFrom(start)

@@ -1,6 +1,6 @@
 package entity;
 
-import utils.CommonUtils;
+import utils.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -66,11 +66,11 @@ public class Trip {
      */
     public Trip(Collection<DirectedTrip> trips) {
         this();
-        if (!CommonUtils.isEmpty(trips)){
+        if (!CollectionUtils.isEmpty(trips)){
             this.trips.addAll(trips);
             // 设置起点和终点
-            this.from = CommonUtils.findFirst(trips).getFrom();
-            this.to = CommonUtils.findFirst(trips).getTo();
+            this.from = CollectionUtils.findFirst(trips).getFrom();
+            this.to = CollectionUtils.findFirst(trips).getTo();
             // 旅行的次数
             this.count += this.trips.size();
         }
@@ -90,7 +90,7 @@ public class Trip {
         // 更改目标指向
         this.to = directedTrip.getTo();
         this.trips.add(directedTrip);
-        this.from = CommonUtils.findFirst(trips).getFrom();
+        this.from = CollectionUtils.findFirst(trips).getFrom();
         // 旅行的次数
         this.incrementAndGetCount();
         return this;
@@ -105,7 +105,7 @@ public class Trip {
         // 更改目标指向
         this.from = directedTrip.getFrom();
         this.trips.addFirst(directedTrip);
-        this.to = CommonUtils.findLast(trips).getTo();
+        this.to = CollectionUtils.findLast(trips).getTo();
         // 旅行的次数
         this.incrementAndGetCount();
         return this;
