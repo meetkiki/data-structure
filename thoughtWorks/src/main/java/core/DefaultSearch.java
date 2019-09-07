@@ -25,7 +25,7 @@ public class DefaultSearch extends AbstractSearch {
      */
     public DefaultSearch(Digraph graph, Town from) {
         super(graph, from);
-        Map<Town, Map<DirectedTrip,BigDecimal>> townsMap = graph.adjs;
+        Map<Town, Map<DirectedTrip,BigDecimal>> townsMap = graph.adjacents;
         Set<Town> towns = townsMap.keySet();
         // 先将所有小镇的距离初始化为最大值
         for (Town town : towns) {

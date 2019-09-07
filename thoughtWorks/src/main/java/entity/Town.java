@@ -1,5 +1,7 @@
 package entity;
 
+import org.junit.Assert;
+
 import java.util.Objects;
 
 /**
@@ -14,6 +16,7 @@ public final class Town implements Comparable<Town>{
     private final String sign;
 
     public Town(String sign) {
+        Assert.assertNotNull(sign);
         this.sign = sign;
     }
 

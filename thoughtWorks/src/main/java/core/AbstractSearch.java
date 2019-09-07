@@ -4,6 +4,7 @@ import common.Constant;
 import entity.DirectedTrip;
 import entity.Town;
 import entity.Trip;
+import exception.SearchException;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -60,7 +61,7 @@ public abstract class AbstractSearch{
      *  如果from到to不可达 则为null 这里则没有任何意义
      * @param to 目标地
      * @return   距离
-     * @throws IllegalArgumentException 不存在则抛出IllegalArgumentException异常
+     * @throws SearchException 不存在则抛出SearchException异常
      */
     public BigDecimal distTo(Town to){
         checkTown(to);
@@ -71,7 +72,7 @@ public abstract class AbstractSearch{
      * 返回是否存在从from到to的路径
      * @param to 目标地
      * @return
-     * @throws IllegalArgumentException to不存在则抛出IllegalArgumentException异常
+     * @throws SearchException to不存在则抛出SearchException异常
      */
     public boolean hasPathTo(Town to){
         checkTown(to);
@@ -84,7 +85,7 @@ public abstract class AbstractSearch{
      */
     protected void checkTown(Town to) {
         if (!this.graph.hasTown(to)){
-            throw new IllegalArgumentException(String.format(" to -> %s does not exist !",to));
+            throw new SearchException(String.format(" to -> %s does not exist !",to));
         }
     }
     
@@ -92,12 +93,12 @@ public abstract class AbstractSearch{
      * 从顶点from到to的路径 如果不存在则为null
      * @param to 目标地
      * @return   返回路径集合
-     * @throws IllegalArgumentException to不存在则抛出IllegalArgumentException异常
+     * @throws SearchException to不存在则抛出SearchException异常
      */
     public Trip pathTo(Town to){
         if (!hasPathTo(to)) return null;
         Trip resultTrip = new Trip();
-        // 从目标地出发 反查询地址
+        // 从目标地出发 反查询路线
         for (DirectedTrip trip = tripsTo.get(to); trip != null && !resultTrip.getTrips().contains(trip); trip = tripsTo.get(trip.getFrom())) {
             resultTrip.addFirstTrip(trip);
         }

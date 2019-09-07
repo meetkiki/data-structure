@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 /**
- * 有向图的边 --> 旅行
  * @author tao
+ * 有向图的边 --> 旅行
  */
 public class DirectedTrip implements Comparable<DirectedTrip> {
     /**

@@ -1,5 +1,6 @@
 package utils;
 
+import exception.DataParseException;
 import entity.DirectedTrip;
 import entity.Town;
 import core.Digraph;
@@ -88,7 +89,7 @@ public class GraphUtils {
             // 将二进制字节转化为UTF-8编码的字符串
             return new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8).toUpperCase();
         } catch (IOException ioe) {
-            System.err.println(ioe);
+            throw new DataParseException("IOException parsing file from InputStream !",ioe);
         } finally {
             if (in != null){
                 try {
@@ -98,6 +99,5 @@ public class GraphUtils {
                 }
             }
         }
-        return null;
     }
 }

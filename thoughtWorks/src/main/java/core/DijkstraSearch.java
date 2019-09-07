@@ -31,7 +31,7 @@ public class DijkstraSearch extends AbstractSearch{
      */
     public DijkstraSearch(AbstractGraph graph, Town from){
         super(graph, from);
-        Map<Town, Map<DirectedTrip, BigDecimal>> townsMap = graph.adjs;
+        Map<Town, Map<DirectedTrip, BigDecimal>> townsMap = graph.adjacents;
         Set<Town> towns = townsMap.keySet();
         // 先将所有小镇的距离初始化为最大值
         for (Town town : towns) {
@@ -47,6 +47,7 @@ public class DijkstraSearch extends AbstractSearch{
             this.indexMinPQ.add(trip.getTo());
         }
         // Dijkstra算法核心是每次为最短路径树添加一条边
+        // 这里维护了一个最小堆队列，每次弹出最近的顶点
         while (!this.indexMinPQ.isEmpty()){
             super.relax(this.indexMinPQ.poll());
         }

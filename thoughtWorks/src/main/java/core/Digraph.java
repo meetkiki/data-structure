@@ -3,6 +3,7 @@ package core;
 
 import entity.DirectedTrip;
 import entity.Town;
+import utils.CommonUtils;
 import utils.GraphUtils;
 
 import java.io.InputStream;
@@ -63,7 +64,7 @@ public class Digraph extends AbstractGraph {
         // 边数
         this.edges++;
         // 顶点数
-        this.vertices = this.adjs.size();
+        this.vertices = this.adjacents.size();
     }
 
     /**
@@ -73,8 +74,8 @@ public class Digraph extends AbstractGraph {
      */
     @Override
     public Map<DirectedTrip, BigDecimal> adj(Town v) {
-        // 根据v town作为key获取链表,如果为空则初始化邻近表的链表
-        return this.adjs.computeIfAbsent(v, k -> new ConcurrentHashMap<>());
+        // 根据v town作为key获取邻接集合,如果为空则初始化邻接集合
+        return this.adjacents.computeIfAbsent(v, k -> new ConcurrentHashMap<>());
     }
 
     /**
@@ -84,18 +85,20 @@ public class Digraph extends AbstractGraph {
      */
     @Override
     public Collection<DirectedTrip> routeTrips(List<Town> towns) {
-        if (towns == null || towns.size() == 0)
+        if (CommonUtils.isEmpty(towns))
             return Collections.EMPTY_LIST;
         List<DirectedTrip> result = new LinkedList<>();
         Iterator<Town> it = towns.iterator();
         Town from = it.next();
         while (it.hasNext()){
             Town next = it.next();
+            // 得到邻接集合
             Map<DirectedTrip, BigDecimal> tripsMap = this.adj(from);
             if (tripsMap.isEmpty()){
                 return Collections.EMPTY_LIST;
             }
             DirectedTrip directedTrip = DirectedTrip.builder().withFrom(from).withTo(next).build();
+            // 获取当前选定路线的距离
             BigDecimal distance = tripsMap.get(directedTrip);
             if (distance == null){
                 return Collections.EMPTY_LIST;
@@ -117,8 +120,8 @@ public class Digraph extends AbstractGraph {
     @Override
     public Collection<DirectedTrip> allTrips() {
         LinkedList<DirectedTrip> list = new LinkedList<>();
-        // 为保证初始化临近表的链表 统一调用adj方法得到链表对象
-        Set<Town> towns = this.adjs.keySet();
+        // 为保证初始化邻接集的数据 统一调用adj方法得到邻接集合
+        Set<Town> towns = this.adjacents.keySet();
         for (Town town : towns) {
             list.addAll(this.adj(town).keySet());
         }

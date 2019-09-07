@@ -16,8 +16,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.fail;
+
 public class RouteTest {
-    
+
     public static Digraph digraph;
 
     @BeforeClass
@@ -25,20 +27,20 @@ public class RouteTest {
         try(InputStream inputStream = RouteTest.class.getResourceAsStream("/GraphTest.txt")){
             digraph = new Digraph(inputStream);
             // System.out.println(digraph);
-        }catch (IOException exp){
-            exp.printStackTrace();
-            throw new RuntimeException(String.format(" init failed %s !",exp.getMessage()));
+        }catch (IOException ex){
+            fail(String.format(" init failed %s !",ex.getMessage()));
         }
     }
 
     @Test
     public void testCase1(){
+        // 1.The distance of the route A-B-C
         String route = "A-B-C";
         List<String> routeList = StrUtils.splitStr(route, "-");
         List<Town> towns = routeList.stream()
                 .map((sign) -> Town.builder().withSign(sign).build())
                 .collect(Collectors.toList());
-        CommandContext context = new CommandContext(digraph).CommandContext(Constant.DISTANCE.toLowerCase());
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.DISTANCE);
         System.out.println(context.execute(towns));
     }
 

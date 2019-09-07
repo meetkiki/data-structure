@@ -26,16 +26,16 @@ public abstract class AbstractGraph {
      */
     protected int edges;
     /**
-     * 邻近表
-     * 这里本身应该是数组+链表结构，
-     * 这里将基础数据List<value>改造为Map<DirectedTrip,Distance>
+     * 邻接表 --> 邻接集
+     * 这里本身应该是数组+链表（或者Set）结构，
+     * 这里将基础数据Set<value>改造为Map<DirectedTrip,Distance>
      *  方便在出度中查找需要的路线 并得出距离  利用空间换时间思想 将计算指定路径距离复杂度降为O(1)
      */
-    protected Map<Town, Map<DirectedTrip, BigDecimal>> adjs;
+    protected Map<Town, Map<DirectedTrip, BigDecimal>> adjacents;
 
     public AbstractGraph(){
-        // 创建邻近表
-        adjs = new ConcurrentHashMap<>();
+        // 创建邻接集
+        adjacents = new ConcurrentHashMap<>();
     }
     /**
      * 创建一个含有N个顶点但不含有边的图
@@ -68,6 +68,7 @@ public abstract class AbstractGraph {
     public abstract void addEdge(DirectedTrip trip);
 
     /**
+     * adjacent set 邻接集
      * @param v 顶点V
      * @return 返回从v指出的边
      */
@@ -136,10 +137,10 @@ public abstract class AbstractGraph {
     /**
      * 是否存在顶点
      * @param v 目标顶点
-     * @return
+     * @return  返回布尔型true或false
      */
     public boolean hasTown(Town v){
-        return this.adjs.containsKey(v);
+        return this.adjacents.containsKey(v);
     }
     /**
      * 对象的字符串表示
@@ -149,7 +150,7 @@ public abstract class AbstractGraph {
     public String toString(){
         StringBuffer buffer = new StringBuffer();
         buffer.append(vertices() + " vertices, " + edges() + " edges " + System.lineSeparator());
-        for (Map.Entry<Town, Map<DirectedTrip,BigDecimal>> entry : adjs.entrySet()) {
+        for (Map.Entry<Town, Map<DirectedTrip,BigDecimal>> entry : adjacents.entrySet()) {
             Town town = entry.getKey();
             Set<DirectedTrip> directedTrips = entry.getValue().keySet();
             buffer.append(town + ": ");
