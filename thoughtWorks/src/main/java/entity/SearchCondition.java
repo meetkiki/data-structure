@@ -1,11 +1,13 @@
 package entity;
 
+import org.junit.Assert;
+
 import java.util.function.Predicate;
 
 /**
  * 搜索需要的条件
  */
-public class SearchCondition<T> {
+public class SearchCondition {
 
     /**
      * 旅行起始地址
@@ -20,12 +22,12 @@ public class SearchCondition<T> {
     /**
      * 停止搜索的条件
      */
-    private Predicate<T> stopCondition;
+    private Predicate<Trip> stopCondition;
 
     /**
      * 返回数据的条件
      */
-    private Predicate<T> returnCondition;
+    private Predicate<Trip> returnCondition;
 
     /**
      * 构造函数
@@ -33,8 +35,16 @@ public class SearchCondition<T> {
      * @param to    旅行终止地址
      */
     public SearchCondition(Town from, Town to) {
+        this(from,to,null,null);
+    }
+
+    public SearchCondition(Town from, Town to, Predicate<Trip> stopCondition, Predicate<Trip> returnCondition) {
+        Assert.assertNotNull(from);
+        Assert.assertNotNull(to);
         this.from = from;
         this.to = to;
+        this.stopCondition = stopCondition;
+        this.returnCondition = returnCondition;
     }
 
     public Town getFrom() {
@@ -45,19 +55,19 @@ public class SearchCondition<T> {
         return to;
     }
 
-    public Predicate<T> getStopCondition() {
+    public Predicate<Trip> getStopCondition() {
         return stopCondition;
     }
 
-    public void setStopCondition(Predicate<T> stopCondition) {
+    public void setStopCondition(Predicate<Trip> stopCondition) {
         this.stopCondition = stopCondition;
     }
 
-    public Predicate<T> getReturnCondition() {
+    public Predicate<Trip> getReturnCondition() {
         return returnCondition;
     }
 
-    public void setReturnCondition(Predicate<T> returnCondition) {
+    public void setReturnCondition(Predicate<Trip> returnCondition) {
         this.returnCondition = returnCondition;
     }
 
@@ -77,6 +87,16 @@ public class SearchCondition<T> {
          */
         private Town to;
 
+        /**
+         * 停止搜索的条件
+         */
+        private Predicate<Trip> stopCondition;
+
+        /**
+         * 返回数据的条件
+         */
+        private Predicate<Trip> returnCondition;
+
         public SearchConditionBuilder withFrom(Town from){
             this.from = from;
             return this;
@@ -87,6 +107,16 @@ public class SearchCondition<T> {
             return this;
         }
 
+        public SearchConditionBuilder withStopCondition(Predicate<Trip> stopCondition){
+            this.stopCondition = stopCondition;
+            return this;
+        }
+
+        public SearchConditionBuilder withReturnCondition(Predicate<Trip> returnCondition){
+            this.returnCondition = returnCondition;
+            return this;
+        }
+
         public SearchCondition build(){
             if (from == null){
                 throw new IllegalStateException(" from may not be null");
@@ -94,7 +124,7 @@ public class SearchCondition<T> {
             if (to == null){
                 throw new IllegalStateException(" to may not be null");
             }
-            return new SearchCondition(this.from,this.to);
+            return new SearchCondition(this.from,this.to,this.stopCondition,this.returnCondition);
         }
     }
 

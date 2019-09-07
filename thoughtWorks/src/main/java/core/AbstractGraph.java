@@ -1,6 +1,7 @@
 package core;
 
 import entity.DirectedTrip;
+import entity.SearchCondition;
 import entity.Town;
 import entity.Trip;
 import org.junit.Assert;
@@ -89,17 +90,14 @@ public abstract class AbstractGraph {
     /**
      * 根据指定条件搜索路线
      *
-     * @param start                 起点
-     * @param end                   终点
-     * @param stopCondition         停止搜索条件
-     * @param returnCondition       返回数据的条件
+     * @param searchCondition       搜索条件
      * @return                      旅行路线对象集
      */
-    public Collection<Trip> routeTrips(Town start, Town end, Predicate<Trip> stopCondition,Predicate<Trip> returnCondition){
-        Trip trip = new Trip(start);
+    public Collection<Trip> routeTrips(SearchCondition searchCondition){
+        Trip trip = new Trip(searchCondition.getFrom());
         // 找到由起始点指出的路线
-        Set<DirectedTrip> trips = this.adj(start).keySet();
-        return searchDFS(trip, end, trips, stopCondition, returnCondition);
+        Set<DirectedTrip> trips = this.adj(searchCondition.getFrom()).keySet();
+        return searchDFS(trip, searchCondition.getTo(), trips, searchCondition.getStopCondition(), searchCondition.getReturnCondition());
     }
 
     /**

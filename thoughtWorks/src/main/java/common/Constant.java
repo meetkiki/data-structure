@@ -14,8 +14,13 @@ public class Constant {
      * 距离常量标识
      */
     public static final String DISTANCE = "distance";
-    public static final String DURATION = "duration";
+    /**
+     * 最短路径常量标识
+     */
     public static final String SHORTEST = "shortest";
+    /**
+     * 路线标识
+     */
     public static final String TRIPS = "trips";
 
     /**

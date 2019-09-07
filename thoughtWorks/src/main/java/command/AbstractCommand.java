@@ -6,7 +6,7 @@ import core.AbstractGraph;
 /**
  * 抽象命令类
  */
-public class AbstractCommand implements Command {
+public abstract class AbstractCommand implements Command {
 
     /**
      * 执行运算的图
@@ -21,8 +21,4 @@ public class AbstractCommand implements Command {
         this.graph = graph;
     }
 
-    @Override
-    public Object executeAlgorithmInteface(Object obj) {
-        return null;
-    }
 }

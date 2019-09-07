@@ -1,19 +1,20 @@
 package trains;
 
+import command.CommandContext;
+import common.Constant;
 import core.Digraph;
-import core.DijkstraSearch;
-import entity.DirectedTrip;
+import entity.SearchCondition;
 import entity.Town;
-import entity.Trip;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import utils.CommonUtils;
+import utils.StrUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RouteTest {
     
@@ -32,108 +33,161 @@ public class RouteTest {
 
     @Test
     public void testCase1(){
-        List<Town> towns = Arrays.asList(
-                Town.builder().withSign("A").build(),
-                Town.builder().withSign("B").build(),
-                Town.builder().withSign("C").build());
-        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
-        System.out.println(trips);
+        String route = "A-B-C";
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.DISTANCE.toLowerCase());
+        System.out.println(context.execute(towns));
     }
 
     @Test
     public void testCase2(){
-        List<Town> towns = Arrays.asList(
-                Town.builder().withSign("A").build(),
-                Town.builder().withSign("D").build());
-        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
-        System.out.println(trips);
+        String route = "A-D";
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.DISTANCE);
+        System.out.println(context.execute(towns));
     }
 
     @Test
     public void testCase3(){
-        List<Town> towns = Arrays.asList(
-                Town.builder().withSign("A").build(),
-                Town.builder().withSign("D").build(),
-                Town.builder().withSign("C").build());
-        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
-        System.out.println(trips);
+        String route = "A-D-C";
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.DISTANCE);
+        System.out.println(context.execute(towns));
     }
 
 
     @Test
     public void testCase4(){
-        List<Town> towns = Arrays.asList(
-                Town.builder().withSign("A").build(),
-                Town.builder().withSign("E").build(),
-                Town.builder().withSign("B").build(),
-                Town.builder().withSign("C").build(),
-                Town.builder().withSign("D").build());
-        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
-        System.out.println(trips);
+        String route = "A-E-B-C-D";
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.DISTANCE);
+        System.out.println(context.execute(towns));
     }
 
 
     @Test
     public void testCase5(){
-        List<Town> towns = Arrays.asList(
-                Town.builder().withSign("A").build(),
-                Town.builder().withSign("E").build(),
-                Town.builder().withSign("D").build());
-        Collection<DirectedTrip> trips = digraph.routeTrips(towns);
-        System.out.println(trips);
+        String route = "A-E-D";
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.DISTANCE);
+        System.out.println(context.execute(towns));
     }
 
     @Test
     public void testCase6(){
-        Town start = Town.builder().withSign("C").build();
-        Town end = Town.builder().withSign("C").build();
-        Collection<Trip> trips = digraph.routeTrips(start, end, trip -> trip.getCount() > 3, trip -> trip.getCount() <= 3);
-        for (Trip trip : trips) {
-            System.out.println(trip);
-        }
+        // 测试路线起点和终点
+        String route = "C-C";
+        // 旅行次数最多3次
+        Integer minCount = 0,maxCount = 3;
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        Town start = CommonUtils.findFirst(towns);
+        Town end = CommonUtils.findLast(towns);
+        SearchCondition searchCondition = SearchCondition.builder()
+                .withFrom(start)
+                .withTo(end)
+                .withStopCondition(trip -> trip.getCount() > maxCount)
+                .withReturnCondition(trip -> trip.getCount() <= maxCount && trip.getCount() >= minCount)
+                .build();
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.TRIPS);
+        System.out.println(context.execute(searchCondition));
     }
 
     @Test
     public void testCase7() {
-        Town start = Town.builder().withSign("A").build();
-        Town end = Town.builder().withSign("C").build();
-        Collection<Trip> trips = digraph.routeTrips(start, end, trip -> trip.getCount() > 4, trip -> trip.getCount() == 4);
-        for (Trip trip : trips) {
-            System.out.println(trip);
-        }
+        // 测试路线起点和终点
+        String route = "A-C";
+        // 旅行次数恰好是4次 即最大和最小都是4次
+        Integer minCount = 4,maxCount = 4;
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        Town start = CommonUtils.findFirst(towns);
+        Town end = CommonUtils.findLast(towns);
+        SearchCondition searchCondition = SearchCondition.builder()
+                .withFrom(start)
+                .withTo(end)
+                .withStopCondition(trip -> trip.getCount() > maxCount)
+                .withReturnCondition(trip -> trip.getCount() <= maxCount && trip.getCount() >= minCount)
+                .build();
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.TRIPS);
+        System.out.println(context.execute(searchCondition));
     }
 
     @Test
     public void testCase8() {
-        Town from = new Town("A");
-        Town to = new Town("C");
-        DijkstraSearch search = new DijkstraSearch(digraph, from);
-    
-        Trip trip = search.pathTo(to);
-        System.out.println(String.format("A - > C distance %.2f Path -> %s ",search.distTo(to),trip));
+        // 测试路线起点和终点
+        String route = "A-C";
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        Town start = CommonUtils.findFirst(towns);
+        Town end = CommonUtils.findLast(towns);
+        SearchCondition searchCondition = SearchCondition.builder()
+                .withFrom(start)
+                .withTo(end)
+                .build();
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.SHORTEST);
+        System.out.println(context.execute(searchCondition));
     }
 
     @Test
     public void testCase9() {
-        Town from = new Town("B");
-        Town to = new Town("B");
-        DijkstraSearch search = new DijkstraSearch(digraph, from);
-
-        Trip trip = search.pathTo(to);
-        System.out.println(String.format("B - > B distance %.2f Path -> %s ",search.distTo(to), trip));
+        // 测试路线起点和终点
+        String route = "B-B";
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        Town start = CommonUtils.findFirst(towns);
+        Town end = CommonUtils.findLast(towns);
+        SearchCondition searchCondition = SearchCondition.builder()
+                .withFrom(start)
+                .withTo(end)
+                .build();
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.SHORTEST);
+        System.out.println(context.execute(searchCondition));
     }
 
     @Test
     public void testCase10() {
-        Town start = Town.builder().withSign("C").build();
-        Town end = Town.builder().withSign("C").build();
-        BigDecimal decimal = new BigDecimal("300");
-        Collection<Trip> trips = digraph.routeTrips(start, end,
-                trip -> trip.sumDist().compareTo(decimal) >= 0,
-                trip -> trip.sumDist().compareTo(decimal) < 0);
-        System.out.println(trips.size());
-//        for (Trip trip : trips) {
-//            System.out.println(trip);
-//        }
+        // 测试路线起点和终点
+        String route = "C-C";
+        // 旅行距离小于30
+        Integer maxDistance = 30;
+        List<String> routeList = StrUtils.splitStr(route, "-");
+        List<Town> towns = routeList.stream()
+                .map((sign) -> Town.builder().withSign(sign).build())
+                .collect(Collectors.toList());
+        Town start = CommonUtils.findFirst(towns);
+        Town end = CommonUtils.findLast(towns);
+        BigDecimal maxRoute = new BigDecimal(maxDistance);
+        SearchCondition searchCondition = SearchCondition.builder()
+                .withFrom(start)
+                .withTo(end)
+                .withStopCondition(trip -> trip.sumDist().compareTo(maxRoute) >= 0)
+                .withReturnCondition(trip -> trip.sumDist().compareTo(maxRoute) < 0)
+                .build();
+        CommandContext context = new CommandContext(digraph).CommandContext(Constant.TRIPS);
+        System.out.println(context.execute(searchCondition));
     }
 }

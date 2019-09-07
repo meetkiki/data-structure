@@ -6,6 +6,7 @@ import org.junit.Assert;
 import utils.StrUtils;
 
 /**
+ * @author ypt
  * Simple factory class to create an appropriate {@link Command} instance from a command line.
  */
 public final class CommandContext {
@@ -32,25 +33,23 @@ public final class CommandContext {
      * @param commandName
      * @return
      */
-    public void CommandContext(String commandName) {
+    public CommandContext CommandContext(String commandName) {
         Assert.assertFalse("commandName Can not be empty !",StrUtils.isBlank(commandName));
-        commandName = commandName.trim().toUpperCase();
+        commandName = commandName.trim().toLowerCase();
         switch (commandName){
             case Constant.DISTANCE:
-                command = new DistanceCommand(graph);
-                break;
-            case Constant.DURATION:
                 command = new DistanceCommand(graph);
                 break;
             case Constant.SHORTEST:
                 command = new ShortestCommand(graph);
                 break;
             case Constant.TRIPS:
-                command = new ShortestCommand(graph);
+                command = new TripsCommand(graph);
                 break;
             default:
                 throw new IllegalArgumentException(" commandName Cannot be parsed !");
         }
+        return this;
     }
 
     /**
@@ -58,7 +57,8 @@ public final class CommandContext {
      * @param objs      请求参数
      * @return
      */
-    public Object execute(Object...objs){
+    public Object execute(Object objs){
+        Assert.assertNotNull("You should first instantiate the command! ",command);
         return command.executeAlgorithmInteface(objs);
     }
 

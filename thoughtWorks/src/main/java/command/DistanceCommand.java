@@ -33,10 +33,11 @@ public class DistanceCommand extends AbstractCommand implements Command {
      */
     @Override
     public Object executeAlgorithmInteface(Object obj) {
+        Assert.assertNotNull(obj);
+        // 集合类型判断
+        Assert.assertTrue(obj instanceof List);
         // 不为空判断
         Assert.assertFalse(CommonUtils.isEmpty((Collection) obj));
-        // 集合类型判断
-        Assert.assertEquals(obj.getClass(), List.class);
         // 集合子类型判断
         Assert.assertEquals(CommonUtils.findFirst((Collection) obj).getClass(),Town.class);
         List<Town> towns = (List<Town>) obj;
