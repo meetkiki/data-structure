@@ -88,8 +88,24 @@ public class Trip {
      */
     public Trip addTrip(DirectedTrip directedTrip){
         // 更改目标指向
+        this.from = CommonUtils.findFirst(trips).getFrom();
         this.to = directedTrip.getTo();
         this.trips.add(directedTrip);
+        // 旅行的次数
+        this.incrementAndGetCount();
+        return this;
+    }
+
+    /**
+     * 添加前一段路线旅行
+     * @param directedTrip 旅行的一段路线
+     * @return
+     */
+    public Trip addFirstTrip(DirectedTrip directedTrip){
+        // 更改目标指向
+        this.from = directedTrip.getFrom();
+        this.trips.addFirst(directedTrip);
+        this.to = CommonUtils.findLast(trips).getTo();
         // 旅行的次数
         this.incrementAndGetCount();
         return this;
@@ -124,7 +140,6 @@ public class Trip {
 
     @Override
     public String toString() {
-        return String.format(" Trip from %s - > to %s trips %s , distance %.2f ",
-                from, to, trips,distance == null ? 0.0 : distance.doubleValue());
+        return String.format(" Trip from %s - > to %s trips %s , distance %.2f ", from, to, trips,sumDist());
     }
 }

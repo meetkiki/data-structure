@@ -3,6 +3,7 @@ package core;
 import common.Constant;
 import entity.DirectedTrip;
 import entity.Town;
+import entity.Trip;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -93,14 +94,14 @@ public abstract class AbstractSearch{
      * @return   返回路径集合
      * @throws IllegalArgumentException to不存在则抛出IllegalArgumentException异常
      */
-    public Collection<DirectedTrip> pathTo(Town to){
+    public Trip pathTo(Town to){
         if (!hasPathTo(to)) return null;
-        LinkedList<DirectedTrip> paths = new LinkedList<>();
+        Trip resultTrip = new Trip();
         // 从目标地出发 反查询地址
-        for (DirectedTrip trip = tripsTo.get(to); trip != null && !paths.contains(trip); trip = tripsTo.get(trip.getFrom())) {
-            paths.addFirst(trip);
+        for (DirectedTrip trip = tripsTo.get(to); trip != null && !resultTrip.getTrips().contains(trip); trip = tripsTo.get(trip.getFrom())) {
+            resultTrip.addFirstTrip(trip);
         }
-        return paths;
+        return resultTrip;
     }
     
     /**

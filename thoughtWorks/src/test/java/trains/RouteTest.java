@@ -109,8 +109,8 @@ public class RouteTest {
         Town to = new Town("C");
         DijkstraSearch search = new DijkstraSearch(digraph, from);
     
-        Collection<DirectedTrip> path = search.pathTo(to);
-        System.out.println(String.format("A - > C distance %.2f Path -> %s ",search.distTo(to),path));
+        Trip trip = search.pathTo(to);
+        System.out.println(String.format("A - > C distance %.2f Path -> %s ",search.distTo(to),trip));
     }
 
     @Test
@@ -119,8 +119,8 @@ public class RouteTest {
         Town to = new Town("B");
         DijkstraSearch search = new DijkstraSearch(digraph, from);
 
-        Collection<DirectedTrip> path = search.pathTo(to);
-        System.out.println(String.format("B - > B distance %.2f Path -> %s ",search.distTo(to),path));
+        Trip trip = search.pathTo(to);
+        System.out.println(String.format("B - > B distance %.2f Path -> %s ",search.distTo(to), trip));
     }
 
     @Test
@@ -131,6 +131,8 @@ public class RouteTest {
         Collection<Trip> trips = digraph.routeTrips(start, end,
                 trip -> trip.sumDist().compareTo(decimal) >= 0,
                 trip -> trip.sumDist().compareTo(decimal) < 0);
-        System.out.println(trips);
+        for (Trip trip : trips) {
+            System.out.println(trip);
+        }
     }
 }

@@ -117,12 +117,13 @@ public abstract class AbstractGraph {
             trip.addTrip(directedTrip);
             // 目标地
             Town tripTo = directedTrip.getTo();
+            // 是否达到目标地 且到达条件要求
+            if (tripTo.equals(end) && returnCondition.test(trip)) {
+                resultTrips.add(trip);
+            }
             // 是否终止
             if (stopCondition.test(trip)) {
                 continue;
-            }
-            if (tripTo.equals(end) && returnCondition.test(trip)) {
-                resultTrips.add(trip);
             }
             // 递归搜索
             resultTrips.addAll(searchDFS(trip, end, this.adj(tripTo).keySet(), stopCondition, returnCondition));
