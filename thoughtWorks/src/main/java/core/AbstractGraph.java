@@ -92,8 +92,7 @@ public abstract class AbstractGraph {
      * @param end                   终点
      * @param stopCondition         停止搜索条件
      * @param returnCondition       返回数据的条件
-     * @return
-     * @See   Predicate
+     * @return                      旅行路线对象集
      */
     public Collection<Trip> routeTrips(Town start, Town end, Predicate<Trip> stopCondition,Predicate<Trip> returnCondition){
         Trip trip = new Trip(start);
@@ -109,7 +108,7 @@ public abstract class AbstractGraph {
      * @param trips                 当前地点可以旅行的路线
      * @param stopCondition         停止搜索条件
      * @param returnCondition       返回数据的条件
-     * @return
+     * @return                      旅行路线对象集
      */
     protected Collection<Trip> searchDFS(Trip lastTrip, Town end, Set<DirectedTrip> trips, Predicate<Trip> stopCondition, Predicate<Trip> returnCondition){
         List<Trip> resultTrips = new ArrayList<>();

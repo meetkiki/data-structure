@@ -109,10 +109,13 @@ public class Trip {
      */
     public BigDecimal sumDist(){
         this.distance = BigDecimal.ZERO;
-        this.trips.stream()
-                .filter(Objects::nonNull)
-                .forEach((t) -> distance.add(t.getDistance()));
-        return distance;
+        for (DirectedTrip trip : this.trips) {
+            if (Objects.isNull(trip.getDistance())){
+                continue;
+            }
+            this.distance = this.distance.add(trip.getDistance());
+        }
+        return this.distance;
     }
 
     public int getCount() {

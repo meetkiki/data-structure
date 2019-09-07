@@ -1,4 +1,5 @@
-import core.DefaultSearch;
+package trains;
+
 import core.Digraph;
 import core.DijkstraSearch;
 import entity.DirectedTrip;
@@ -12,7 +13,6 @@ import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 
 public class RouteTest {
@@ -21,7 +21,7 @@ public class RouteTest {
 
     @BeforeClass
     public static void testBefore(){
-        try(InputStream inputStream = RouteTest.class.getResourceAsStream("GraphTest.txt")){
+        try(InputStream inputStream = RouteTest.class.getResourceAsStream("/GraphTest.txt")){
             digraph = new Digraph(inputStream);
             // System.out.println(digraph);
         }catch (IOException exp){
@@ -97,12 +97,10 @@ public class RouteTest {
 
     @Test
     public void testCase7() {
-        Town from = new Town("C");
-        Town to = new Town("C");
-        DijkstraSearch search = new DijkstraSearch(digraph, from);
-
-        Collection<DirectedTrip> path = search.pathTo(to);
-        System.out.println(String.format("C - > C distance %.2f Path -> %s ",search.distTo(to),path));
+        Town start = Town.builder().withSign("A").build();
+        Town end = Town.builder().withSign("C").build();
+        Collection<Trip> trips = digraph.routeTrips(start, end, trip -> trip.getCount() > 4, trip -> trip.getCount() == 4);
+        System.out.println(trips);
     }
 
     @Test
@@ -123,5 +121,16 @@ public class RouteTest {
 
         Collection<DirectedTrip> path = search.pathTo(to);
         System.out.println(String.format("B - > B distance %.2f Path -> %s ",search.distTo(to),path));
+    }
+
+    @Test
+    public void testCase10() {
+        Town start = Town.builder().withSign("C").build();
+        Town end = Town.builder().withSign("C").build();
+        BigDecimal decimal = new BigDecimal("30");
+        Collection<Trip> trips = digraph.routeTrips(start, end,
+                trip -> trip.sumDist().compareTo(decimal) >= 0,
+                trip -> trip.sumDist().compareTo(decimal) < 0);
+        System.out.println(trips);
     }
 }
