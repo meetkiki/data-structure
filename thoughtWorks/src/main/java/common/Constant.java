@@ -20,7 +20,7 @@ public class Constant {
      * 求取最大值时使用
      * 无法连通的路径 距离为MinInt 距离默认值
      */
-    public static final BigDecimal NoSuch_Min_Dist = new BigDecimal(Double.MIN_EXPONENT);
+    public static final BigDecimal NoSuch_Min_Dist = new BigDecimal(-Double.MIN_VALUE);
 
     /**
      * 无法连通的路径 提示字符

@@ -2,10 +2,12 @@ package core;
 
 import entity.DirectedTrip;
 import entity.Town;
+import entity.Trip;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Predicate;
 
 /**
  * 图
@@ -82,7 +84,54 @@ public abstract class AbstractGraph {
      * @return
      */
     public abstract Collection<DirectedTrip> allTrips();
-    
+
+    /**
+     * 根据指定条件搜索路线
+     *
+     * @param start                 起点
+     * @param end                   终点
+     * @param stopCondition         停止搜索条件
+     * @param returnCondition       返回数据的条件
+     * @return
+     * @See   Predicate
+     */
+    public Collection<Trip> routeTrips(Town start, Town end, Predicate<Trip> stopCondition,Predicate<Trip> returnCondition){
+        Trip trip = new Trip(start);
+        // 找到由起始点指出的路线
+        Set<DirectedTrip> trips = this.adj(start).keySet();
+        return searchDFS(trip, end, trips, stopCondition, returnCondition);
+    }
+
+    /**
+     * 深度优先搜索   根据指定条件搜索路线
+     * @param lastTrip               已经进行的旅行
+     * @param end                   目标地
+     * @param trips                 当前地点可以旅行的路线
+     * @param stopCondition         停止搜索条件
+     * @param returnCondition       返回数据的条件
+     * @return
+     */
+    protected Collection<Trip> searchDFS(Trip lastTrip, Town end, Set<DirectedTrip> trips, Predicate<Trip> stopCondition, Predicate<Trip> returnCondition){
+        List<Trip> resultTrips = new ArrayList<>();
+        for (DirectedTrip directedTrip : trips) {
+            Trip trip = new Trip(lastTrip);
+            trip.addTrip(directedTrip);
+            // 目标地
+            Town tripTo = directedTrip.getTo();
+            // 是否终止
+            if (stopCondition.test(trip)) {
+                continue;
+            }
+            if (tripTo.equals(end) && returnCondition.test(trip)) {
+                resultTrips.add(trip);
+            }
+            // 递归搜索
+            resultTrips.addAll(searchDFS(trip, end, this.adj(tripTo).keySet(), stopCondition, returnCondition));
+        }
+        return resultTrips;
+    }
+
+
     /**
      * 是否存在顶点
      * @param v 目标顶点

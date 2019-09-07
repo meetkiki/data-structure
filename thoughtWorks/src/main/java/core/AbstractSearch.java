@@ -5,9 +5,7 @@ import entity.DirectedTrip;
 import entity.Town;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -41,11 +39,11 @@ public abstract class AbstractSearch{
      *    如果是自身from  那么是0
      */
     protected final Map<Town, BigDecimal> distsTo;
-    
+
     /**
      * 构造函数
-     * @param graph  图
-     * @param from   小镇
+     * @param graph         图
+     * @param from          小镇
      */
     public AbstractSearch(Digraph graph, Town from){
         this.graph = graph;
@@ -54,6 +52,7 @@ public abstract class AbstractSearch{
         this.tripsTo = new ConcurrentHashMap<>();
         this.distsTo = new ConcurrentHashMap<>();
     }
+
     
     /**
      * 从顶点from到to的距离
@@ -98,7 +97,7 @@ public abstract class AbstractSearch{
         if (!hasPathTo(to)) return null;
         LinkedList<DirectedTrip> paths = new LinkedList<>();
         // 从目标地出发 反查询地址
-        for (DirectedTrip trip = tripsTo.get(to); trip != null; trip = tripsTo.get(trip.getFrom())) {
+        for (DirectedTrip trip = tripsTo.get(to); trip != null && !paths.contains(trip); trip = tripsTo.get(trip.getFrom())) {
             paths.addFirst(trip);
         }
         return paths;
@@ -137,7 +136,7 @@ public abstract class AbstractSearch{
             relax(trip);
         }
     }
-    
+
     
     public AbstractGraph getGraph() {
         return graph;

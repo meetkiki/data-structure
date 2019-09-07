@@ -6,7 +6,7 @@ import java.util.Objects;
  * 小镇实体
  * @author tao
  */
-public final class Town {
+public final class Town implements Comparable<Town>{
 
     /**
      * 小镇的标示
@@ -60,5 +60,15 @@ public final class Town {
             }
             return new Town(this.sign);
         }
+    }
+
+    /**
+     * 默认比较方法
+     * @param o 比较目标
+     * @return
+     */
+    @Override
+    public int compareTo(Town o) {
+        return Objects.compare(this.sign,o.sign,String::compareTo);
     }
 }
