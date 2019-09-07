@@ -26,7 +26,7 @@ public class CommonUtils {
      */
     public static<T> T findFirst(Collection<T> collection){
         if (isEmpty(collection)){
-            throw new IllegalArgumentException(" collection is empty ! Can't get the first one !");
+            throw new IllegalArgumentException(" collection is empty , Can't get the first one !");
         }
         if (collection instanceof Deque){
             return ((Deque<T>)collection).getFirst();
@@ -46,7 +46,7 @@ public class CommonUtils {
      */
     public static<T> T findLast(Collection<T> collection){
         if (isEmpty(collection)){
-            throw new IllegalArgumentException(" collection is empty ! Can't get the first one !");
+            throw new IllegalArgumentException(" collection is empty , Can't get the last one !");
         }
         if (collection instanceof Deque){
             return ((Deque<T>)collection).getLast();

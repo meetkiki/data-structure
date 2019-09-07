@@ -88,9 +88,9 @@ public class Trip {
      */
     public Trip addTrip(DirectedTrip directedTrip){
         // 更改目标指向
-        this.from = CommonUtils.findFirst(trips).getFrom();
         this.to = directedTrip.getTo();
         this.trips.add(directedTrip);
+        this.from = CommonUtils.findFirst(trips).getFrom();
         // 旅行的次数
         this.incrementAndGetCount();
         return this;

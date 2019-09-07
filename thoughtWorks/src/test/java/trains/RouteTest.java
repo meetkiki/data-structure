@@ -63,7 +63,6 @@ public class RouteTest {
 
     @Test
     public void testCase4(){
-        long start = System.currentTimeMillis();
         List<Town> towns = Arrays.asList(
                 Town.builder().withSign("A").build(),
                 Town.builder().withSign("E").build(),
@@ -72,8 +71,6 @@ public class RouteTest {
                 Town.builder().withSign("D").build());
         Collection<DirectedTrip> trips = digraph.routeTrips(towns);
         System.out.println(trips);
-        long end = System.currentTimeMillis();
-        System.out.println(end - start);
     }
 
 
@@ -92,7 +89,9 @@ public class RouteTest {
         Town start = Town.builder().withSign("C").build();
         Town end = Town.builder().withSign("C").build();
         Collection<Trip> trips = digraph.routeTrips(start, end, trip -> trip.getCount() > 3, trip -> trip.getCount() <= 3);
-        System.out.println(trips);
+        for (Trip trip : trips) {
+            System.out.println(trip);
+        }
     }
 
     @Test
@@ -100,7 +99,9 @@ public class RouteTest {
         Town start = Town.builder().withSign("A").build();
         Town end = Town.builder().withSign("C").build();
         Collection<Trip> trips = digraph.routeTrips(start, end, trip -> trip.getCount() > 4, trip -> trip.getCount() == 4);
-        System.out.println(trips);
+        for (Trip trip : trips) {
+            System.out.println(trip);
+        }
     }
 
     @Test

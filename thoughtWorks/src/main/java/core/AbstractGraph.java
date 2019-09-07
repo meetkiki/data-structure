@@ -27,7 +27,7 @@ public abstract class AbstractGraph {
      * 邻近表
      * 这里本身应该是数组+链表结构，
      * 这里将基础数据List<value>改造为Map<DirectedTrip,Distance>
-     *  方便在出度中查找需要的路线 并得出距离  利用空间换时间思想 将计算指定路径复杂度降为O(1)
+     *  方便在出度中查找需要的路线 并得出距离  利用空间换时间思想 将计算指定路径距离复杂度降为O(1)
      */
     protected Map<Town, Map<DirectedTrip, BigDecimal>> adjs;
 
