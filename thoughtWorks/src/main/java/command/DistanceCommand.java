@@ -35,7 +35,6 @@ public class DistanceCommand extends AbstractCommand implements Command {
      */
     @Override
     public Object executeAlgorithmInteface(Object obj) {
-        Assert.assertNotNull(obj);
         // 集合类型判断
         Assert.assertTrue(obj instanceof List);
         // 不为空判断

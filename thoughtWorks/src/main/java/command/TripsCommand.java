@@ -31,7 +31,6 @@ public class TripsCommand extends AbstractCommand implements Command{
      */
     @Override
     public Object executeAlgorithmInteface(Object obj) {
-        Assert.assertNotNull(obj);
         Assert.assertEquals(obj.getClass(), SearchCondition.class);
         SearchCondition searchCondition = (SearchCondition) obj;
         Collection<Trip> trips = graph.routeTrips(searchCondition);

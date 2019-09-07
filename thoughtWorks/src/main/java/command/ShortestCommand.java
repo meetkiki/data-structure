@@ -33,7 +33,6 @@ public class ShortestCommand extends AbstractCommand implements Command {
      */
     @Override
     public Object executeAlgorithmInteface(Object obj) {
-        Assert.assertNotNull(obj);
         Assert.assertEquals(obj.getClass(), SearchCondition.class);
         SearchCondition searchCondition = (SearchCondition) obj;
         Town from = searchCondition.getFrom();

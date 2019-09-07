@@ -61,6 +61,7 @@ public final class CommandContext {
      * @return          命令策略对应的响应
      */
     public Object execute(Object objs){
+        Assert.assertNotNull(objs);
         Assert.assertNotNull("You should first instantiate the command! ",command);
         return command.executeAlgorithmInteface(objs);
     }
