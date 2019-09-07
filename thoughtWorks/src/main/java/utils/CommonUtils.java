@@ -15,7 +15,7 @@ public class CommonUtils {
      * @return
      */
     public static boolean isEmpty(Collection collection){
-        return collection == null || collection.isEmpty();
+        return collection == null || collection == Collections.EMPTY_LIST || collection.isEmpty();
     }
 
     /**

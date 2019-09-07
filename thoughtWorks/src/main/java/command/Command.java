@@ -1,14 +1,15 @@
 package command;
 
 /**
- * 命令模式接口
- *  具体详见
- * @see DistanceCommand
- * @see TripsCommand
+ * @author ypt
+ * 命令模式接口 抽象命令
  */
 public interface Command {
 
-
-//    void execute(CommandExecutor executor);
+    /**
+     * 执行方法
+     * @return  返回执行的结果
+     */
+    Object executeAlgorithmInteface(Object obj);
 
 }

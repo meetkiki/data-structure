@@ -46,7 +46,7 @@ public abstract class AbstractSearch{
      * @param graph         图
      * @param from          小镇
      */
-    public AbstractSearch(Digraph graph, Town from){
+    public AbstractSearch(AbstractGraph graph, Town from){
         this.graph = graph;
         this.from = from;
         // 初始化最小路径的数据结构
@@ -120,12 +120,22 @@ public abstract class AbstractSearch{
         // 那么替换最短路径数据
         BigDecimal dist = distsTo.get(from).add(trip.getDistance());
         if (distsTo.get(to).compareTo(dist) >= 0){
-            // 更新距离
-            distsTo.put(to,dist);
-            tripsTo.put(to,trip);
+            // 更新距离数据
+            this.updateTrip(trip, to, dist);
         }
     }
-    
+
+    /**
+     * 更新距离数据
+     * @param trip      trip是当前最优路径的最后一条边
+     * @param to        目标地
+     * @param dist      最优距离
+     */
+    protected void updateTrip(DirectedTrip trip, Town to, BigDecimal dist) {
+        distsTo.put(to,dist);
+        tripsTo.put(to,trip);
+    }
+
     /**
      * 顶点的松弛 这里指的是上述操作往往会持续一个点的所有边,即由这个顶点指出的所有边
      * @param from 探测地点
@@ -134,7 +144,7 @@ public abstract class AbstractSearch{
         // 拿到由to指出
         for (DirectedTrip trip : graph.adj(from).keySet()) {
             // 松弛所有指出边
-            relax(trip);
+            this.relax(trip);
         }
     }
 

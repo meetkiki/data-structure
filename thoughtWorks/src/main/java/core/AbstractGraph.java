@@ -3,6 +3,7 @@ package core;
 import entity.DirectedTrip;
 import entity.Town;
 import entity.Trip;
+import org.junit.Assert;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -11,7 +12,7 @@ import java.util.function.Predicate;
 
 /**
  * 图
- * @author Tao
+ * @author ypt
  */
 public abstract class AbstractGraph {
 
@@ -111,6 +112,8 @@ public abstract class AbstractGraph {
      * @return                      旅行路线对象集
      */
     protected Collection<Trip> searchDFS(Trip lastTrip, Town end, Set<DirectedTrip> trips, Predicate<Trip> stopCondition, Predicate<Trip> returnCondition){
+        Assert.assertNotNull("stopCondition may not be null",stopCondition);
+        Assert.assertNotNull("returnCondition may not be null",returnCondition);
         List<Trip> resultTrips = new ArrayList<>();
         for (DirectedTrip directedTrip : trips) {
             Trip trip = new Trip(lastTrip);

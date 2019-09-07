@@ -30,7 +30,6 @@ public class RouteTest {
         }
     }
 
-
     @Test
     public void testCase1(){
         List<Town> towns = Arrays.asList(
@@ -128,12 +127,13 @@ public class RouteTest {
     public void testCase10() {
         Town start = Town.builder().withSign("C").build();
         Town end = Town.builder().withSign("C").build();
-        BigDecimal decimal = new BigDecimal("30");
+        BigDecimal decimal = new BigDecimal("300");
         Collection<Trip> trips = digraph.routeTrips(start, end,
                 trip -> trip.sumDist().compareTo(decimal) >= 0,
                 trip -> trip.sumDist().compareTo(decimal) < 0);
-        for (Trip trip : trips) {
-            System.out.println(trip);
-        }
+        System.out.println(trips.size());
+//        for (Trip trip : trips) {
+//            System.out.println(trip);
+//        }
     }
 }

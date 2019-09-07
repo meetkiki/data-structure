@@ -12,12 +12,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 有向图
- * @author tao
+ * @author ypt
  */
 public class Digraph extends AbstractGraph {
 
     /**
      * 通过输入流构建有向图
+     * {@link GraphUtils} 具体的读取方法
      * @param in 输入流
      */
     public Digraph(InputStream in) {

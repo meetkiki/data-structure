@@ -86,7 +86,7 @@ public class GraphUtils {
                 byteArrayOutputStream.write(buffer, 0, len);
             }
             // 将二进制字节转化为UTF-8编码的字符串
-            return new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8);
+            return new String(byteArrayOutputStream.toByteArray(), StandardCharsets.UTF_8).toUpperCase();
         } catch (IOException ioe) {
             System.err.println(ioe);
         } finally {
