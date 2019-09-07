@@ -46,6 +46,7 @@ public class RouteTest {
 
     @Test
     public void testCase2(){
+        // 2.The distance of the route A-D
         String route = "A-D";
         List<String> routeList = StrUtils.splitStr(route, "-");
         List<Town> towns = routeList.stream()
@@ -57,6 +58,7 @@ public class RouteTest {
 
     @Test
     public void testCase3(){
+        // 3.The distance of the route A-D-C
         String route = "A-D-C";
         List<String> routeList = StrUtils.splitStr(route, "-");
         List<Town> towns = routeList.stream()
@@ -69,6 +71,7 @@ public class RouteTest {
 
     @Test
     public void testCase4(){
+        // 4.The distance of the route A-E-B-C-D
         String route = "A-E-B-C-D";
         List<String> routeList = StrUtils.splitStr(route, "-");
         List<Town> towns = routeList.stream()
@@ -81,6 +84,7 @@ public class RouteTest {
 
     @Test
     public void testCase5(){
+        // 5.The distance of the route A-E-D
         String route = "A-E-D";
         List<String> routeList = StrUtils.splitStr(route, "-");
         List<Town> towns = routeList.stream()
@@ -92,6 +96,9 @@ public class RouteTest {
 
     @Test
     public void testCase6(){
+        // 6.The number of trips starting at C and ending at C with a maximum of 3 stops.
+        // In the sample data below, there are two such trips: C-D-C (2 stops). and C-E-B-C (3 stops)
+
         // 测试路线起点和终点
         String route = "C-C";
         // 旅行次数最多3次
@@ -114,6 +121,9 @@ public class RouteTest {
 
     @Test
     public void testCase7() {
+        // 7.The number of trips starting at A and ending at C with exactly 4 stops.
+        // In the sample data below, there are three such trips: A to C (via B,C,D); A to C (via D,C,D); and A to C (via D,E,B)
+
         // 测试路线起点和终点
         String route = "A-C";
         // 旅行次数恰好是4次 即最大和最小都是4次
@@ -136,6 +146,8 @@ public class RouteTest {
 
     @Test
     public void testCase8() {
+        // 8.The length of the shortest route (in terms of distance to travel) from A to C.
+
         // 测试路线起点和终点
         String route = "A-C";
         List<String> routeList = StrUtils.splitStr(route, "-");
@@ -154,6 +166,7 @@ public class RouteTest {
 
     @Test
     public void testCase9() {
+        // 9.The length of the shortest route (in terms of distance to travel) from B to B
         // 测试路线起点和终点
         String route = "B-B";
         List<String> routeList = StrUtils.splitStr(route, "-");
@@ -172,6 +185,9 @@ public class RouteTest {
 
     @Test
     public void testCase10() {
+        // 10.The number of different routes from C to C with a distance of less than 30.
+        // In the sample data, the trips are: CDC, CEBC, CEBCDC, CDCEBC, CDEBC, CEBCEBC, CEBCEBCEBC
+
         // 测试路线起点和终点
         String route = "C-C";
         // 旅行距离小于30

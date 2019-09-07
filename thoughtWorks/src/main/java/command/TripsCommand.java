@@ -2,10 +2,13 @@ package command;
 
 import core.AbstractGraph;
 import entity.SearchCondition;
+import entity.Town;
 import entity.Trip;
 import org.junit.Assert;
 
 import java.util.Collection;
+import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * @author ypt
@@ -22,7 +25,8 @@ public class TripsCommand extends AbstractCommand implements Command{
     }
 
     /**
-     * 执行路线搜索运算
+     * 使用深度优先搜索算法执行路线搜索运算
+     * @see AbstractGraph#searchDFS(Trip, Town, Set, Predicate, Predicate)
      * @param obj       请求参数SearchCondition {@link SearchCondition} 路线搜索条件
      *                  主要四个参数 from - > to           起始到结束
      *                  stopCondition                    停止搜索的条件

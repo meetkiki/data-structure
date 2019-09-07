@@ -104,7 +104,7 @@ public abstract class AbstractGraph {
 
     /**
      * 深度优先搜索   根据指定条件搜索路线
-     * @param lastTrip               已经进行的旅行
+     * @param lastTrip              已经进行的旅行
      * @param end                   目标地
      * @param trips                 当前地点可以旅行的路线
      * @param stopCondition         停止搜索条件
