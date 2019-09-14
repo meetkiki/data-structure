@@ -34,7 +34,7 @@ public enum GameStatus {
         switch (status){
             case 0:return OPENING;
             case 1:return MIDDLE;
-            case 2:return OPENING;
+            case 2:return OUTCOME;
             case 3:return END;
             default:break;
         }

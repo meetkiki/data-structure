@@ -79,11 +79,11 @@ public class Constant {
 	/**
 	 * 默认搜索深度
 	 */
-    public static final int DEFAULTDEPTH = 10;
+    public static final int DEFAULTDEPTH = 8;
 	/**
 	 * 终局搜索深度
 	 */
-	public static final int OUTDEPTH = 16;
+	public static final int OUTDEPTH = 14;
 	/**
 	 * 开局 空闲位置40以上
 	 */

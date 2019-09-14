@@ -85,33 +85,29 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
 
         @Override
         public void run() {
-            try {
-                // 显示棋盘
-                makeMove = GameRule.getMakeMove(board, move);
-                Integer next = makeMove.fork().join();
-                if (next > 0){
+            // 显示棋盘
+            makeMove = GameRule.getMakeMove(board, move);
+            Integer next = makeMove.fork().join();
+            if (next > 0){
+                BoardData boardData = board.getBoardData();
+                BoardChess boardChess = boardData.getBoardChess();
+                do {
                     board.setRunning(true);
-                    BoardData boardData = board.getBoardData();
-                    BoardChess boardChess = boardData.getBoardChess();
-                    do {
-                        // 交给计算机处理
-                        computerMove();
-                        if (checkShutDown(boardChess)){
-                            break;
-                        }
-                        if (checkContinue(boardChess)) {
-                            GameRule.passMove(boardData);
-                            board.upshow();
-                        }
-                    }while (board.getCurrMove() != curMove);
-                }else if (checkShutDown(board.getBoardChess())){
-                    return;
-                }else if(checkContinue(board.getBoardChess())){
-                    GameRule.passMove(board.getBoardData());
-                    board.upshow();
-                }
-            } catch (HeadlessException e) {
-                e.printStackTrace();
+                    // 交给计算机处理
+                    computerMove();
+                    if (checkShutDown(boardChess)){
+                        break;
+                    }
+                    if (checkContinue(boardChess)) {
+                        GameRule.passMove(boardData);
+                        board.upshow();
+                    }
+                }while (board.getCurrMove() != curMove);
+            }else if (checkShutDown(board.getBoardChess())){
+                return;
+            }else if(checkContinue(board.getBoardChess())){
+                GameRule.passMove(board.getBoardData());
+                board.upshow();
             }
         }
 
