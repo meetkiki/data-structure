@@ -1,5 +1,4 @@
 import game.MainView;
-import org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -37,7 +36,7 @@ public class App {
 
     public static void main(String[] args) {
         try {
-            BeautyEyeLNFHelper.launchBeautyEyeLNF();
+//            BeautyEyeLNFHelper.launchBeautyEyeLNF();
             UIManager.put("RootPane.setupButtonVisible", false);
             SwingUtilities.invokeLater(() -> new App().start());
         } catch(Exception e) {

@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 import javax.swing.SwingWorker;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
@@ -45,7 +46,7 @@ public class GameContext {
     static{
         ImageConstant[] values = ImageConstant.values();
         for (ImageConstant constant : values) {
-            resources.put(constant,new ImageIcon(GameContext.class.getClassLoader().getResource(constant.getResources())));
+            resources.put(constant,new ImageIcon(Objects.requireNonNull(GameContext.class.getClassLoader().getResource(constant.getResources()))));
         }
     }
 
@@ -117,7 +118,7 @@ public class GameContext {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
-            Thread.interrupted();
+            Thread.currentThread().interrupt();
             e.printStackTrace();
         }
     }
@@ -130,6 +131,7 @@ public class GameContext {
         try {
             latch.await();
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             e.printStackTrace();
         }
     }
