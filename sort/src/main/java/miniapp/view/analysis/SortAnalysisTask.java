@@ -18,8 +18,7 @@ public class SortAnalysisTask extends RecursiveTask {
 
     @Override
     protected Object compute() {
-        command.Execute();
-        return null;
+        return command.Execute();
     }
 
 }
