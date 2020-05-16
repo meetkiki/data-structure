@@ -22,11 +22,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.25</version>
         </dependency>
-        <dependency>
-            <groupId>org.jb2011</groupId>
-            <artifactId>beautyeye</artifactId>
-            <version>1.0.0</version>
-        </dependency>
+
     </dependencies>
 
     <build>
