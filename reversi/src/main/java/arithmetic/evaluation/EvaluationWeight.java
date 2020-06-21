@@ -38,45 +38,6 @@ public class EvaluationWeight {
         }
     }
 
-//    static {
-//        for (int status = 0; status < cacheWeight.length; status++) {
-//            cacheWeight[status] = new float[WeightEnum.values().length];
-//            GameStatus gameStatus = GameStatus.findStatus(status);
-//            // 如果没有 默认为0
-//            switch (gameStatus){
-//                case OPENING:
-//                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 11;
-//                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 1;
-//                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 1;
-//                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 5;
-//                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = -2;
-//                    cacheWeight[status][WeightEnum.INNER.getIndex()] = -1;
-//                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 2;
-//                    break;
-//                case MIDDLE:
-//                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 8;
-//                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 1;
-//                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 1;
-//                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 11;
-//                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = -2;
-//                    cacheWeight[status][WeightEnum.INNER.getIndex()] = -1;
-//                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 5;
-//                    break;
-//                case OUTCOME:
-//                case END:
-//                    cacheWeight[status][WeightEnum.MOBILITY.getIndex()] = 8;
-//                    cacheWeight[status][WeightEnum.POSVALUE.getIndex()] = 2;
-//                    cacheWeight[status][WeightEnum.COUNT.getIndex()] = 2;
-//                    cacheWeight[status][WeightEnum.STABISTOR.getIndex()] = 15;
-//                    cacheWeight[status][WeightEnum.FRONTIERS.getIndex()] = 0;
-//                    cacheWeight[status][WeightEnum.INNER.getIndex()] = 2;
-//                    cacheWeight[status][WeightEnum.PARITY.getIndex()] = 5;
-//                    break;
-//                default:break;
-//            }
-//        }
-//    }
-
     /**
      * 获取权重信息
      * @param status

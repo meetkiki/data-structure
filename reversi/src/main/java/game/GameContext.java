@@ -34,7 +34,7 @@ public class GameContext {
     /**
      * 全局线程池
      */
-    private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors());
+    private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() + 1);
     /**
      * 串行线程
      */

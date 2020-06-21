@@ -19,19 +19,25 @@ public class Calculator {
 
     private byte player;
 
-    private SearchAlgorithm alphaBeta;
-    private SearchAlgorithm mtdSearch;
+    private final SearchAlgorithm alphaBeta;
+    private final SearchAlgorithm mtdSearch;
 
     /**
      * 搜索深度
      */
-    private int depth = Constant.DEFAULTDEPTH;
-    private int outDepth = Constant.OUTDEPTH;
+    private final int depth;
+    private final int outDepth;
 
     public Calculator(ReversiEvaluation evaluation){
+        this(evaluation,Constant.DEFAULTDEPTH,Constant.OUTDEPTH);
+    }
+
+    public Calculator(ReversiEvaluation evaluation, int depth, int outDepth) {
         AlphaBeta alphaBeta = new AlphaBeta(evaluation);
         this.mtdSearch = new MTDSearch(alphaBeta);
         this.alphaBeta = alphaBeta;
+        this.depth = depth;
+        this.outDepth = outDepth;
     }
 
     /**
@@ -47,8 +53,7 @@ public class Calculator {
         // 如果是终局
         if (empty.size() <= outDepth){
             // 终局深度为空格的长度
-            MinimaxResult result = alphaBeta.search(boardChess, outDepth);
-            return result;
+            return alphaBeta.search(boardChess, outDepth);
         }
         MinimaxResult result = null;
         try {
