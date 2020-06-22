@@ -24,7 +24,7 @@ public class GameContext {
     /**
      * 图片常量
      */
-    private static Map<ImageConstant, ImageIcon> resources = new HashMap<>(32);
+    private static Map<ImageConstant, ImageIcon> resources = new HashMap<>();
 
     /**
      * 全局bean资源
@@ -34,7 +34,7 @@ public class GameContext {
     /**
      * 全局线程池
      */
-    private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() + 1);
+    private static ForkJoinPool forkJoinPool = new ForkJoinPool(Runtime.getRuntime().availableProcessors() / 2 + 1);
     /**
      * 串行线程
      */
