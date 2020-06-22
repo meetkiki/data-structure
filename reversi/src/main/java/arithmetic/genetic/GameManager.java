@@ -15,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -102,15 +103,13 @@ public class GameManager {
         @Override
         public Gameplayer call() {
             try {
-//                long st = System.currentTimeMillis();
+                long st = System.currentTimeMillis();
                 // 冲突检测
                 collision();
                 ati.incrementAndGet();
                 Calculator calculatorA = new Calculator(new ReversiEvaluation(weightA), DEPTH, OUT_DEPTH).setPlayer(Constant.BLACK);
                 Calculator calculatorB = new Calculator(new ReversiEvaluation(weightB), DEPTH, OUT_DEPTH).setPlayer(Constant.WHITE);
                 ongoing.put(weightA, weightB);
-//            System.out.println(weightA.getName() + " 和 " + weightB.getName() + " 对局开始 " +
-//                    (calculatorA.getPlayer() == Constant.BLACK ? weightA.getName() : weightB.getName()) + " 先手");
 
                 int score;
                 BoardChess chess = new BoardChess();
@@ -127,13 +126,13 @@ public class GameManager {
                 if (score != Constant.EMPTY) {
                     winner = score > 0 ? weightA : weightB;
                 }
-//                long ed = System.currentTimeMillis();
-//                if (winner == NULL) {
-//                    log.info("对局结束! 平局 ");
-//                } else {
-//                    log.info("对局结束! " + winner.getName() + " 获得胜利 ! 耗时 :" + (ed - st) + "ms" + "\n"
-//                            + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
-//                }
+                long ed = System.currentTimeMillis();
+                if (winner == NULL) {
+                    log.info("对局结束! 平局 ");
+                } else {
+                    log.info("对局结束! " + winner.getName() + " 获得胜利 ! 耗时 :" + (ed - st) + "ms" + "\n"
+                            + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
+                }
                 score = Math.abs(score);
                 ongoing.remove(weightA, weightB);
                 return Gameplayer.builder()

@@ -88,9 +88,11 @@ public final class TranspositionTable {
     public static void resetZobrist(){
         // 清楚置换表主要是为了增加垃圾回收 上一次的搜索结果对下次搜索作用较小
         MinimaxResult[] results = entryList.get();
+        long st = System.currentTimeMillis();
         for (int i = 0; i < results.length; i++) {
             results[i] = null;
         }
+        System.out.println("resetZobrist " + (System.currentTimeMillis() - st));
     }
 
     /**
