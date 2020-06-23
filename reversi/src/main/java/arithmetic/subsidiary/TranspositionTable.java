@@ -87,8 +87,8 @@ public final class TranspositionTable {
      */
     public static void resetZobrist(){
         // 清楚置换表主要是为了增加垃圾回收 上一次的搜索结果对下次搜索作用较小
-        MinimaxResult[] results = entryList.get();
         long st = System.currentTimeMillis();
+        MinimaxResult[] results = entryList.get();
         for (int i = 0; i < results.length; i++) {
             results[i] = null;
         }
@@ -112,15 +112,16 @@ public final class TranspositionTable {
      */
     public static void insertZobrist(long zobrist, MinimaxResult result){
         int bucket = (int) (zobrist & hashMask);
-        MinimaxResult oldresult = entryList.get()[bucket];
+        MinimaxResult[] minimaxResults = entryList.get();
+        MinimaxResult oldresult = minimaxResults[bucket];
         if (oldresult != null){
             // 因为result得到的depth越大 说明越准确
             int oldDepth = oldresult.getDepth();
             if (result.getDepth() >= oldDepth){
-                entryList.get()[bucket] = result;
+                minimaxResults[bucket] = result;
             }
         }else{
-            entryList.get()[bucket] = result;
+            minimaxResults[bucket] = result;
         }
     }
 

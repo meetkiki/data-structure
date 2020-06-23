@@ -14,9 +14,10 @@ import game.GameRule;
  */
 public class ReversiEvaluation {
 
-    private static Evaltion evaltion = new CalculationEvaltion();
+    private static final Evaltion evaltion = new CalculationEvaltion();
 
-    private EvaluationWeight evaluationWeight;
+    private final EvaluationWeight evaluationWeight;
+    private final WeightEnum[]  weightEnums = WeightEnum.values();
 
     /**
      * 传入基因编码
@@ -26,6 +27,8 @@ public class ReversiEvaluation {
         this.evaluationWeight = new EvaluationWeight(individual);
     }
 
+
+
     /**
      * 估值函数
      *
@@ -34,12 +37,12 @@ public class ReversiEvaluation {
      */
     public float currentValue(BoardChess data) {
         // 更新棋局状态
-        GameRule.valid_moves(data);
+        GameRule.validMoves(data);
         // 计算内部子
-        GameRule.sum_inners_frontiers(data);
+        GameRule.sumInnersFrontiers(data);
         float score = 0;
         GameStatus status = data.getStatus();
-        for (WeightEnum weightEnum : WeightEnum.values()) {
+        for (WeightEnum weightEnum : weightEnums) {
             float weight = this.evaluationWeight.getWeight(status, weightEnum);
             if (weight == 0){
                 continue;

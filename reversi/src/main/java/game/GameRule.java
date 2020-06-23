@@ -31,11 +31,10 @@ public class GameRule {
     /**
      * 获得行动力
      */
-    public static int valid_moves(BoardData data, boolean[][] moves) {
-        Chess[][] chess = data.getChess();
+    public static int validMoves(BoardData data, boolean[][] moves) {
         BoardChess boardChess = data.getBoardChess();
         // 获取一维行动力
-        return valid_moves(boardChess, moves);
+        return validMoves(boardChess, moves);
     }
 
 
@@ -83,7 +82,7 @@ public class GameRule {
      * 获得行动力
      * 和对手行动力
      */
-    public static int valid_moves_mobility(BoardChess chess, LinkedList<Integer> moves) {
+    public static int validMovesMobility(BoardChess chess, LinkedList<Integer> moves) {
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         LinkedList<Byte> empty = chess.getEmpty();
@@ -91,8 +90,7 @@ public class GameRule {
         // 空位链表
         int canOut = 0, otherMove = 0;
         // 这里需要再循环中删除和增加 用fori
-        for (int i = 0; i < empty.size(); i++) {
-            Byte cell = empty.get(i);
+        for (Byte cell : empty) {
             if (canFlips(bytes, cell, player)) {
                 // 左八位存cell 右八位为存走这步棋之后对手的行动力
                 Integer shift = BoardUtil.leftShift(cell, Constant.BITVALUE);
@@ -115,7 +113,7 @@ public class GameRule {
     /**
      * 获得行动力
      */
-    public static int valid_moves(BoardChess chess, LinkedList<Byte> moves) {
+    public static int validMoves(BoardChess chess, LinkedList<Byte> moves) {
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         LinkedList<Byte> empty = chess.getEmpty();
@@ -123,8 +121,7 @@ public class GameRule {
         // 空位链表
         int canOut = 0, otherMove = 0;
         // 这里需要再循环中删除和增加 用fori
-        for (int i = 0; i < empty.size(); i++) {
-            Byte cell = empty.get(i);
+        for (Byte cell : empty) {
             if (canFlips(bytes, cell, player)) {
                 // 移动链表
                 moves.addFirst(cell);
@@ -147,7 +144,7 @@ public class GameRule {
      * @return
      */
     private static byte moveCanMobility(BoardChess boardChess, byte next) {
-        make_move(boardChess, next);
+        makeMove(boardChess, next);
         LinkedList<Byte> empty = boardChess.getEmpty();
         byte mobility = 0;
         Iterator<Byte> em = empty.iterator();
@@ -157,22 +154,20 @@ public class GameRule {
                 mobility++;
             }
         }
-        un_move(boardChess);
+        unMove(boardChess);
         return mobility;
     }
 
     /**
      * 获得行动力
      */
-    public static int valid_moves(BoardChess chess) {
+    public static int validMoves(BoardChess chess) {
         int canMove = 0, otherMove = 0;
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         byte other = BoardUtil.change(player);
         LinkedList<Byte> empty = chess.getEmpty();
-        Iterator<Byte> byteIterator = empty.iterator();
-        while (byteIterator.hasNext()) {
-            Byte aByte = byteIterator.next();
+        for (Byte aByte : empty) {
             if (canFlips(bytes, aByte, player)) {
                 canMove++;
             }
@@ -197,16 +192,14 @@ public class GameRule {
     /**
      * 获得行动力
      */
-    public static int valid_moves(BoardChess chess, boolean[][] moves) {
+    public static int validMoves(BoardChess chess, boolean[][] moves) {
         initMoves(moves);
         int playerMobility = 0, otherMobility = 0;
         byte[] bytes = chess.getChess();
         byte player = chess.getCurrMove();
         byte other = BoardUtil.change(player);
         LinkedList<Byte> empty = chess.getEmpty();
-        Iterator<Byte> emptyIt = empty.iterator();
-        while (emptyIt.hasNext()) {
-            Byte aByte = emptyIt.next();
+        for (Byte aByte : empty) {
             if (canFlips(bytes, aByte, player)) {
                 Move move = BoardUtil.convertMove(aByte);
                 moves[move.getRow()][move.getCol()] = true;
@@ -260,12 +253,12 @@ public class GameRule {
      * changes 吃子数组
      * only    简洁操作
      */
-    public static int make_move(BoardChess data, int cell) {
+    public static int makeMove(BoardChess data, int cell) {
         byte player = data.getCurrMove();
         byte other = BoardUtil.change(player);
         LinkedList<ChessStep> steps = data.getSteps();
         LinkedList<Byte> empty = data.getEmpty();
-        int count = make_move(data, steps, empty, cell, player);
+        int count = makeMove(data, steps, empty, cell, player);
         // 更新棋子数
         data.incrementCount(player, count + 1).incrementCount(other, -count);
         // 更新棋手
@@ -279,7 +272,7 @@ public class GameRule {
      * changes 吃子数组
      * only    简洁操作
      */
-    public static int make_move(BoardChess data, LinkedList<ChessStep> steps, LinkedList<Byte> empty, int cell, byte player) {
+    public static int makeMove(BoardChess data, LinkedList<ChessStep> steps, LinkedList<Byte> empty, int cell, byte player) {
         byte[] chess = data.getChess();
         LinkedList<Byte> fields = data.getFields();
         // 返回转变子
@@ -305,7 +298,7 @@ public class GameRule {
         // 更新棋手哈希值
         data.setZobrist(TranspositionTable.passPlayer(data, data.getCurrMove()));
         // 计算稳定子
-        LinkedList<Byte> stators = sum_stators(data, (byte) cell);
+        LinkedList<Byte> stators = sumStators(data, (byte) cell);
         // 记录移动
         steps.addFirst(ChessStep.builder().cell((byte) cell).player(player).stators(stators).convert(convert).build());
         return convert.size();
@@ -314,7 +307,7 @@ public class GameRule {
     /**
      * 计算稳定子
      */
-    public static LinkedList<Byte> sum_stators(BoardChess data, byte cell) {
+    public static LinkedList<Byte> sumStators(BoardChess data, byte cell) {
         byte[] chess = data.getChess();
         LinkedList<Byte> stators = new LinkedList<>();
         // 绝对稳定子
@@ -355,7 +348,7 @@ public class GameRule {
         byte[] chess = data.getChess();
         // 与敌我双方任何一个稳定子接触
         // 在八个方向试探 任意一个方向可以翻转就返回false
-        return nearstators(cell, chess, wstators, bstators);
+        return nearStators(cell, chess, wstators, bstators);
     }
 
     /**
@@ -365,7 +358,7 @@ public class GameRule {
      * @param wstators
      * @return
      */
-    private static boolean nearstators(Byte cell, byte[] chess, Set<Byte> wstators, Set<Byte> bstators) {
+    private static boolean nearStators(Byte cell, byte[] chess, Set<Byte> wstators, Set<Byte> bstators) {
         boolean flag = false;
         int i = 0;
         for (; i < DIRALL; i++) {
@@ -424,7 +417,7 @@ public class GameRule {
      * 每次计算时统计
      * 内部子 前沿子
      */
-    public static final void sum_inners_frontiers(BoardChess data) {
+    public static final void sumInnersFrontiers(BoardChess data) {
         // 清空计算
         data.clearInnersFrontiers();
         LinkedList<Byte> fields = data.getFields();
@@ -433,7 +426,7 @@ public class GameRule {
         while (it.hasNext()) {
             Byte cell = it.next();
             // 判断是否是前沿子
-            if (sum_inners_frontiers(data, cell)) {
+            if (sumInnersFrontiers(data, cell)) {
                 data.addFrontiers(cell, chess[cell]);
             }
         }
@@ -446,9 +439,8 @@ public class GameRule {
      * @param cell
      * @return
      */
-    private static boolean sum_inners_frontiers(BoardChess data, Byte cell) {
+    private static boolean sumInnersFrontiers(BoardChess data, Byte cell) {
         byte[] chess = data.getChess();
-        boolean flag = true;
         for (int i = 0; i < DIRALL; i++) {
             // 八位 每一位的位运算 00000001 、00000010 、00000100 、00001000...
             // 分别对应方向数组 从右往左的值dirInc[i]
@@ -457,15 +449,12 @@ public class GameRule {
                 byte pt = (byte) (cell + dirInc[i]);
                 // 如果有一个方向为空则为前沿子
                 if (chess[pt] == Constant.EMPTY) {
-                    flag = false;
                     return true;
                 }
             }
         }
         // 如果都不为空 则为内部子
-        if (flag) {
-            data.addInners(cell, chess[cell]);
-        }
+        data.addInners(cell, chess[cell]);
         return false;
     }
 
@@ -473,12 +462,12 @@ public class GameRule {
      * 悔棋方法
      * 仅搜索和模拟
      */
-    public static void un_move(BoardChess data) {
+    public static void unMove(BoardChess data) {
         LinkedList<ChessStep> steps = data.getSteps();
         ChessStep step = steps.removeFirst();
         LinkedList<Byte> convert = step.getConvert();
         LinkedList<Byte> empty = data.getEmpty();
-        un_move(data, step, empty);
+        unMove(data, step, empty);
         // 更新棋手
         data.setCurrMove(step.getPlayer());
         // 更新棋子数
@@ -494,7 +483,7 @@ public class GameRule {
      * 悔棋方法
      * 仅搜索和模拟
      */
-    public static void un_move(BoardChess data, ChessStep step, LinkedList<Byte> empty) {
+    public static void unMove(BoardChess data, ChessStep step, LinkedList<Byte> empty) {
         byte[] chess = data.getChess();
         byte player = step.getPlayer();
         byte other = BoardUtil.change(player);
@@ -521,9 +510,7 @@ public class GameRule {
         // 更新空位链表
         empty.addFirst(cell);
         // 还原棋子
-        Iterator<Byte> conit = convert.iterator();
-        while (conit.hasNext()) {
-            Byte next = conit.next();
+        for (Byte next : convert) {
             chess[next] = other;
         }
         // 移除空位哈希值
@@ -562,7 +549,7 @@ public class GameRule {
      */
     public static MakeMoveRun getMakeMove(Board board, Move move) {
         boolean[][] moves = board.getMoves();
-        GameRule.valid_moves(board.getBoardData(), moves);
+        GameRule.validMoves(board.getBoardData(), moves);
         if (!moves[move.getRow()][move.getCol()]) {
             throw new IllegalArgumentException("当前位置不可下棋!");
         }
@@ -592,7 +579,7 @@ public class GameRule {
                 boolean[][] moves = board.getMoves();
                 Chess[][] chess = board.getChess();
                 BoardChess boardChess = boardData.getBoardChess();
-                GameRule.valid_moves(boardData, moves);
+                GameRule.validMoves(boardData, moves);
                 byte row = move.getRow();
                 byte col = move.getCol();
                 // 移除当前子的提示
@@ -601,7 +588,7 @@ public class GameRule {
                 removeNew(chess);
                 // 设置新子
                 chess[row][col].setNewPlayer(nextmove);
-                make_move(boardChess, BoardUtil.squareChess(move));
+                makeMove(boardChess, BoardUtil.squareChess(move));
                 LinkedList<ChessStep> steps = boardChess.getSteps();
                 ChessStep first = steps.getFirst();
                 LinkedList<Byte> convert = first.getConvert();
@@ -609,7 +596,7 @@ public class GameRule {
                 CountDownLatch latch = BoardUtil.converSion(first, chess, DELAY);
                 // 更新规则
                 board.setCurrMove(BoardUtil.change(board.getCurrMove()));
-                can = GameRule.valid_moves(boardData, moves);
+                can = GameRule.validMoves(boardData, moves);
                 // 异步更新页面
                 GameContext.submit(() -> {
                     GameContext.await(latch);
@@ -671,7 +658,7 @@ public class GameRule {
                     removeNew(chess);
 
                     // 执行悔棋操作
-                    un_move(boardChess);
+                    unMove(boardChess);
 
                     byte player = chessStep.getPlayer();
                     byte other = BoardUtil.change(player);
@@ -702,7 +689,7 @@ public class GameRule {
                     // 更新规则
                     board.setCurrMove(boardChess.getCurrMove());
                 } while (board.getCurrMove() != next && board.getBoardChess().getOurMobility() > 0);
-                GameRule.valid_moves(boardData, moves);
+                GameRule.validMoves(boardData, moves);
                 // 异步更新页面
                 GameContext.serialExecute(() -> {
                     GameContext.await(latch[0]);
@@ -759,7 +746,7 @@ public class GameRule {
     public static boolean checkMove(Board data, Move move) {
         BoardData boardData = data.getBoardData();
         boolean[][] dataMoves = data.getMoves();
-        int moves = valid_moves(boardData, dataMoves);
+        int moves = validMoves(boardData, dataMoves);
         if (moves == 0) {
             return false;
         } else {
@@ -778,7 +765,7 @@ public class GameRule {
         if (empty.size() == 0) {
             return true;
         }
-        GameRule.valid_moves(boardChess);
+        GameRule.validMoves(boardChess);
         // 如果双方无棋可走
         if (boardChess.getOurMobility() == Constant.EMPTY
                 && boardChess.getOppMobility() == Constant.EMPTY) {

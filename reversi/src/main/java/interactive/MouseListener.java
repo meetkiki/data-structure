@@ -1,7 +1,6 @@
 package interactive;
 
 
-import arithmetic.evaluation.ReversiEvaluation;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.Move;
@@ -19,7 +18,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 
-import static common.Constant.SIZE;
 import static game.Board.BOARD_HEIGHT;
 import static game.Board.BOARD_WIDTH;
 
@@ -182,7 +180,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      */
     public boolean checkContinue(BoardChess data){
         MainView mainView = GameContext.getBean(MainView.class);
-        GameRule.valid_moves(data);
+        GameRule.validMoves(data);
         if (data.getStatus() != GameStatus.END){
             if (data.getOurMobility() == 0 && data.getOppMobility() > 0){
                 JOptionPane.showMessageDialog(mainView, BoardUtil.getChessStr(data.getCurrMove()) +
@@ -201,7 +199,7 @@ public class MouseListener extends Observable implements java.awt.event.MouseLis
      */
     public boolean checkShutDown(BoardChess data){
         MainView mainView = GameContext.getBean(MainView.class);
-        GameRule.valid_moves(data);
+        GameRule.validMoves(data);
         if (data.getStatus() == GameStatus.END){
             int white = GameRule.player_counters(board.getBoardChess().getChess(), Constant.WHITE);
             int black = GameRule.player_counters(board.getBoardChess().getChess(), Constant.BLACK);

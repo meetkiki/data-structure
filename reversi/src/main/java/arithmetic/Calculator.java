@@ -13,6 +13,7 @@ import java.util.LinkedList;
 
 /**
  * AI调度类
+ *
  * @author Tao
  */
 public class Calculator {
@@ -28,13 +29,14 @@ public class Calculator {
     private final int depth;
     private final int outDepth;
 
-    public Calculator(ReversiEvaluation evaluation){
-        this(evaluation,Constant.DEFAULTDEPTH,Constant.OUTDEPTH);
+    public Calculator(ReversiEvaluation evaluation) {
+        this(evaluation, Constant.DEFAULTDEPTH, Constant.OUTDEPTH, false);
     }
 
-    public Calculator(ReversiEvaluation evaluation, int depth, int outDepth) {
-        AlphaBeta alphaBeta = new AlphaBeta(evaluation);
-        this.mtdSearch = new MTDSearch(alphaBeta);
+
+    public Calculator(ReversiEvaluation evaluation, int depth, int outDepth, boolean enableTranspositionTable) {
+        AlphaBeta alphaBeta = new AlphaBeta(evaluation, enableTranspositionTable);
+        this.mtdSearch = new MTDSearch(alphaBeta, enableTranspositionTable);
         this.alphaBeta = alphaBeta;
         this.depth = depth;
         this.outDepth = outDepth;
@@ -42,16 +44,17 @@ public class Calculator {
 
     /**
      * 搜索最佳走法
+     *
      * @return
      */
-    public MinimaxResult searchMove(BoardChess boardChess){
-        int moves = GameRule.valid_moves(boardChess);
-        if (moves == 0){
+    public MinimaxResult searchMove(BoardChess boardChess) {
+        int moves = GameRule.validMoves(boardChess);
+        if (moves == 0) {
             throw new RuntimeException("不该选手下棋!");
         }
         LinkedList<Byte> empty = boardChess.getEmpty();
         // 如果是终局
-        if (empty.size() <= outDepth){
+        if (empty.size() <= outDepth) {
             // 终局深度为空格的长度
             return alphaBeta.search(boardChess, outDepth);
         }

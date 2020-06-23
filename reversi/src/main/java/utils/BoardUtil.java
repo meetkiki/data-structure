@@ -136,7 +136,7 @@ public class BoardUtil {
 	public static void display(BoardChess data){
 		System.out.println("===================chess==================");
 		boolean[][] moves = new boolean[SIZE][SIZE];
-		GameRule.valid_moves(data,moves);
+		GameRule.validMoves(data,moves);
 		byte[] chess = data.getChess();
 		byte player = data.getCurrMove();
 		char col_label = 'a';

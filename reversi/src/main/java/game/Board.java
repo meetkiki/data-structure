@@ -3,11 +3,9 @@ package game;
 import bean.BoardChess;
 import bean.BoardData;
 import bean.ChessStep;
-import common.Bag;
 import common.Constant;
 import common.ImageConstant;
 import interactive.MouseListener;
-import utils.BoardUtil;
 
 import javax.swing.*;
 import java.awt.Dimension;
@@ -78,7 +76,7 @@ public class Board extends JPanel {
         // 初始化棋子
         initChess(player);
         // 行动力
-        GameRule.valid_moves(boardData,moves);
+        GameRule.validMoves(boardData,moves);
         // 显示棋盘
         upshow();
     }

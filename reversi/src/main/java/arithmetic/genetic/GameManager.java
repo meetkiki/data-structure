@@ -2,7 +2,6 @@ package arithmetic.genetic;
 
 import arithmetic.Calculator;
 import arithmetic.evaluation.ReversiEvaluation;
-import arithmetic.search.AlphaBeta;
 import bean.BoardChess;
 import bean.Gameplayer;
 import bean.Move;
@@ -15,7 +14,6 @@ import lombok.extern.log4j.Log4j2;
 import utils.BoardUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -49,7 +47,7 @@ public class GameManager {
      * <p>
      * 返回每个基因组对局信息
      */
-    public static final Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(List<WeightIndividual> weightIndividuals) {
+    public static Map<WeightIndividual, List<Gameplayer>> chief_dispatcher(List<WeightIndividual> weightIndividuals) {
         log.info("父代开始对战 ! ");
         ati.set(0);
         int size = weightIndividuals.size();
@@ -92,8 +90,8 @@ public class GameManager {
      * @return
      */
     static class SimulationGameThread implements Callable<Gameplayer> {
-        private WeightIndividual weightA;
-        private WeightIndividual weightB;
+        private final WeightIndividual weightA;
+        private final WeightIndividual weightB;
 
         public SimulationGameThread(WeightIndividual weightA, WeightIndividual weightB) {
             this.weightA = weightA;
@@ -103,12 +101,12 @@ public class GameManager {
         @Override
         public Gameplayer call() {
             try {
-                long st = System.currentTimeMillis();
+//                long st = System.currentTimeMillis();
                 // 冲突检测
                 collision();
                 ati.incrementAndGet();
-                Calculator calculatorA = new Calculator(new ReversiEvaluation(weightA), DEPTH, OUT_DEPTH).setPlayer(Constant.BLACK);
-                Calculator calculatorB = new Calculator(new ReversiEvaluation(weightB), DEPTH, OUT_DEPTH).setPlayer(Constant.WHITE);
+                Calculator calculatorA = new Calculator(new ReversiEvaluation(weightA), DEPTH, OUT_DEPTH, false).setPlayer(Constant.BLACK);
+                Calculator calculatorB = new Calculator(new ReversiEvaluation(weightB), DEPTH, OUT_DEPTH, false).setPlayer(Constant.WHITE);
                 ongoing.put(weightA, weightB);
 
                 int score;
@@ -117,8 +115,8 @@ public class GameManager {
                     // 循环交替下棋 直到棋局结束
                     Calculator calculator = choseMove(chess, calculatorA, calculatorB);
                     Move move = calculator.searchMove(chess).getMove();
-                    GameRule.make_move(chess, BoardUtil.squareChess(move));
-                    if (GameRule.valid_moves(chess) == 0) GameRule.passMove(chess);
+                    GameRule.makeMove(chess, BoardUtil.squareChess(move));
+                    if (GameRule.validMoves(chess) == 0) GameRule.passMove(chess);
                 } while (chess.getStatus() != GameStatus.END);
                 WeightIndividual winner = NULL;
                 // 设置胜利者
@@ -126,13 +124,13 @@ public class GameManager {
                 if (score != Constant.EMPTY) {
                     winner = score > 0 ? weightA : weightB;
                 }
-                long ed = System.currentTimeMillis();
-                if (winner == NULL) {
-                    log.info("对局结束! 平局 ");
-                } else {
-                    log.info("对局结束! " + winner.getName() + " 获得胜利 ! 耗时 :" + (ed - st) + "ms" + "\n"
-                            + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
-                }
+//                long ed = System.currentTimeMillis();
+//                if (winner == NULL) {
+//                    log.info("对局结束! 平局 ");
+//                } else {
+//                    log.info("对局结束! " + winner.getName() + " 获得胜利 ! 耗时 :" + (ed - st) + "ms" + "\n"
+//                            + "对应源基因为 " + Arrays.toString(winner.getSrcs()));
+//                }
                 score = Math.abs(score);
                 ongoing.remove(weightA, weightB);
                 return Gameplayer.builder()
